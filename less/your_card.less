@@ -60,10 +60,10 @@
 }
 
 .envelope_body {
+    // position: absolute;
     display: grid;
-    // height: 100%;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
+    grid-template-rows: 1fr 1fr;
     grid-template-areas: 
     "addres_hi addres_stamp"
     "addres_null addres_sender";
@@ -82,6 +82,13 @@
 
 .envelope_addres {
     grid-area: addres_sender;
+}
+
+.envelope_addres input, textarea {
+    width: 80%;
+    border: solid @color_tx 1px;
+    padding: 3px;
+    margin: 5px 0;
 }
 
 .card_body {
