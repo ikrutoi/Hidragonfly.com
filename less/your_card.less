@@ -61,11 +61,12 @@
 
 .envelope_body {
     display: grid;
+    // height: 100%;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 55px auto;
+    grid-template-rows: auto auto;
     grid-template-areas: 
-    addres_hi addres_stamp
-    addres_null addres_sender;
+    "addres_hi addres_stamp"
+    "addres_null addres_sender";
     margin: auto;
     .mixin_envelope_size();
     background-color: white;
