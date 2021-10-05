@@ -1,0 +1,103 @@
+
+@media only screen and (max-width:767px) {
+
+    .logo_body {
+        width: 108px;
+    }
+
+    .logo_hidragonfly {
+        display: none;
+    }
+
+    .menu_item {
+        margin: 10px 10px;
+    }
+
+    .menu_login {
+        width: 108px;
+    }
+
+    .login_item {
+        margin: 0 10px;
+    }
+
+    .menu_icon {
+        display: block;
+        position: relative;
+        width: 30px;
+        height: 20px;
+        cursor: pointer;
+        z-index: 3;
+    }
+
+    .menu_icon span,
+    .menu_icon::before,
+    .menu_icon::after {
+        position: absolute;
+        left: 0;
+        height: 10%;
+        width: 100%;
+        transition: all 0.3s ease 0s;
+        background-color: @color_tx;
+    }
+
+    .menu_icon::before,
+    .menu_icon::after {
+        content: '';
+    }
+
+    .menu_icon::before {
+        top: 0;
+    }
+
+    .menu_icon::after {
+        bottom: 0;
+    }
+
+    .menu_icon span {
+        top: 50%;
+        transform: scale(1) translate(0px, -50%);
+    }
+
+    .menu_icon._active span {
+        transform: scale(0) translate(0px, -50%);
+    }
+
+    .menu_icon._active::before {
+        top: 50%;
+        transform: rotate(-45deg) translate(0px, -50%);
+    }
+
+    .menu_icon._active::after {
+        top: 50%;
+        transform: rotate(45deg) translate(0px, -50%);
+    }
+
+    .cards_body_nav {
+        position: fixed;
+        top: 56px;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background-color: @color_bg;
+        transition: all 0.3s ease-in-out 0s;
+        overflow: auto;
+    }
+
+    .cards_body_nav._active {
+        left: 0;
+    }
+
+    .cards_body_list {
+        flex-direction: column;
+        margin: 20px 0 0 20px;
+    }
+
+    .card_body_item {
+        margin: 0 0 20px 0;
+    }
+
+    .card_body_item:last-child {
+        margin: 0;
+    }
+}
