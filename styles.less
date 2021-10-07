@@ -8,9 +8,9 @@
 
 
 html {
-    font-size: 18px;
-    font-family: 'BarlowSemiCondensed';
-    font-weight: 400;
+    font-size: 20px;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
     color: @color_border;
 }
 
@@ -19,8 +19,9 @@ body {
 }
 
 .wrapper {
-    min-height: 100vh;
+    max-height: 100vh;
     flex-direction: column;
+    background-color: @color_bg;
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: 55px auto 55px;
@@ -40,7 +41,8 @@ body {
     grid-area: header;
     z-index: 3;
     background-color: @color_background_header;
-    box-shadow: @box_shadow_header;
+    border-bottom: solid @color_border 1px;
+    // box-shadow: @box_shadow_header;
 }
 
 .header_body {
@@ -51,6 +53,7 @@ body {
     height: 55px;
     align-items: center;
     z-index: 3;
+    font-weight: 400;
 }
 
 .footer {
@@ -81,11 +84,6 @@ a {
     flex-direction: column;
 }
 
-.photo input {
-    border: none;
-    background-color: @color_bg;
-}
-
 // .logo_hidragonfly p:first-child {
 //     margin: 0;
 //     padding-left: 20px;
@@ -105,7 +103,7 @@ a {
 // }
 
 a:hover {
-    color: @color_cfb;
+    color: @color_hover;
 }
 
 .logo_hidragonfly:hover p:last-child {
@@ -166,178 +164,8 @@ li {
     margin: 10px 20px;
 }
 
-// ----- COLLAGE html -----
-
-.colage_body {
-    grid-area: main;
-    height: calc(100vh - 110px);
-    background-color: @color_bg;
-    overflow: hidden;
+.main1 {
+    background-image: url(/img/your_photo_11.jpg);
+    width: 100vw;
+    height: 100vh;
 }
-
-.square {
-    height: calc(100vh - 110px);
-    width: calc(100vw - 110px);
-    margin: auto;
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto;
-    grid-template-areas: 
-    "circle";
-}
-
-.collage_img {
-    margin: auto;
-    grid-area: circle;
-}
-
-.img {
-width: 103%;
-box-shadow: rgba(60, 64, 67, 0.5) 0px 0px 4px 2px, rgba(60, 64, 67, 0.25) 0px 0px 6px 2px;
-}
-
-.img_1 {
-    transform: rotate(0deg) translate(@img_position);
-}
-
-.img_2 {
-    transform: rotate(350deg) translate(@img_position);
-}
-
-.img_3 {
-    transform: rotate(340deg) translate(@img_position);
-}
-
-.img_4 {
-    transform: rotate(330deg) translate(@img_position);
-}
-
-.img_5 {
-    transform: rotate(320deg) translate(@img_position);
-}
-
-.img_6 {
-    transform: rotate(310deg) translate(@img_position);
-}
-
-.img_7 {
-    transform: rotate(300deg) translate(@img_position);
-}
-
-.img_8 {
-    transform: rotate(290deg) translate(@img_position);
-}
-
-.img_9 {
-    transform: rotate(280deg) translate(@img_position);
-}
-
-.img_10 {
-    transform: rotate(270deg) translate(@img_position);
-}
-
-.img_11 {
-    transform: rotate(260deg) translate(@img_position);
-}
-
-.img_12 {
-    transform: rotate(250deg) translate(@img_position);
-}
-
-.img_13 {
-    transform: rotate(240deg) translate(@img_position);
-}
-
-.img_14 {
-    transform: rotate(230deg) translate(@img_position);
-}
-
-.img_15 {
-    transform: rotate(220deg) translate(@img_position);
-}
-
-.img_16 {
-    transform: rotate(210deg) translate(@img_position);
-}
-
-.img_17 {
-    transform: rotate(200deg) translate(@img_position);
-}
-
-.img_18 {
-    transform: rotate(190deg) translate(@img_position);
-}
-
-.img_19 {
-    transform: rotate(180deg) translate(@img_position);
-}
-
-.img_20 {
-    transform: rotate(170deg) translate(@img_position);
-}
-
-.img_21 {
-    transform: rotate(160deg) translate(@img_position);
-}
-
-.img_22 {
-    transform: rotate(150deg) translate(@img_position);
-}
-
-.img_23 {
-    transform: rotate(140deg) translate(@img_position);
-}
-
-.img_24 {
-    transform: rotate(130deg) translate(@img_position);
-}
-
-.img_25 {
-    transform: rotate(120deg) translate(@img_position);
-}
-
-.img_26 {
-    transform: rotate(110deg) translate(@img_position);
-}
-
-.img_27 {
-    transform: rotate(100deg) translate(@img_position);
-}
-
-.img_28 {
-    transform: rotate(90deg) translate(@img_position);
-}
-
-.img_29 {
-    transform: rotate(80deg) translate(@img_position);
-}
-
-.img_30 {
-    transform: rotate(70deg) translate(@img_position);
-}
-
-.img_31 {
-    transform: rotate(60deg) translate(@img_position);
-}
-
-.img_32 {
-    transform: rotate(50deg) translate(@img_position);
-}
-
-.img_33 {
-    transform: rotate(40deg) translate(@img_position);
-}
-
-.img_34 {
-    transform: rotate(30deg) translate(@img_position);
-}
-
-.img_35 {
-    transform: rotate(20deg) translate(@img_position);
-}
-
-.img_36 {
-    transform: rotate(10deg) translate(56%, 0px);
-}
-
-// ----- / COLLAGE html -----
