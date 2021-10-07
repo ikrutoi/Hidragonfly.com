@@ -13,6 +13,30 @@
 // .yourcard_body._addres {
 //     opacity: 0;
 // }
+.yourcard_header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 6fr 2fr;
+    grid-template-rows: 55px;
+    grid-template-areas: 
+    "header_menu_left header_menu_right header_logo header_login_cart";
+}
+
+.yourcard_header_left {
+    grid-area: header_menu_left;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.yourcard_header_right {
+    grid-area: header_menu_right;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-left: 10px;
+}
+
 .yourcard_body {
     // background-color: cadetblue;
     background-image: url(img/your_photo_61.jpg);
@@ -22,6 +46,7 @@
 }
 
 .yourcard_container {
+    font-weight: 200;
     display: grid;
     justify-content: center;
     align-items: center;
@@ -98,7 +123,7 @@
 }
 
 .yourcard_menu a {
-    margin: 26px 20px 0 0;
+    margin: 26px 10px 0 0;
     color: @color_bg;
     // font-weight: 300;
     text-shadow: @color_border 1px 1px 2px,
