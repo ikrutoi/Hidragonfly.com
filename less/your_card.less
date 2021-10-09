@@ -13,40 +13,67 @@
 // .yourcard_body._addres {
 //     opacity: 0;
 // }
+
 .yourcard_header {
     display: grid;
-    grid-template-columns: 1fr 1fr 6fr 2fr;
+    grid-template-columns: 1fr 1fr 6fr 1fr 1fr;
     grid-template-rows: 55px;
     grid-template-areas: 
-    "header_menu_left header_menu_right header_logo header_login_cart";
+    "header_yourcard header_cards header_logo header_login header_cart";
 }
 
-.yourcard_header_left {
-    grid-area: header_menu_left;
+.header_burger {
+    grid-area: header_yourcard;
+}
+
+.yourcard_header_yourcard {
+    grid-area: header_yourcard;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    margin-right: 10px;
+    margin-right: 15px;
 }
 
-.yourcard_header_right {
-    grid-area: header_menu_right;
+.yourcard_header_cards {
+    grid-area: header_cards;
     display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.yourcard_header_logo {
+    grid-area: header_logo;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.yourcard_header_login {
+    grid-area: header_login;
+    display: flex;
+    margin-right: 20px;
     justify-content: flex-end;
     align-items: center;
-    margin-left: 10px;
+}
+.yourcard_header_cart {
+    grid-area: header_cart;
+    display: flex;
+    margin-left: 15px;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .yourcard_body {
     // background-color: cadetblue;
-    background-image: url(img/your_photo_61.jpg);
+    background-image: url(img/your_photo_911.jpg);
     background-size: cover;
     background-repeat: no-repeat;
-    // height: 100vh;
+    // max-height: 100vh;
+    // height: calc();
 }
 
 .yourcard_container {
-    font-weight: 200;
     display: grid;
     justify-content: center;
     align-items: center;
@@ -90,8 +117,33 @@
     // font-size: 0.9em;
 }
 
-.yourcard_envelope_background, .yourcard_envelope_addres, .yourcard_photo, .yourcard_text {
+.yourcard_envelope, .yourcard_envelope_addres, .yourcard_photo, .yourcard_text {
     grid-area: yourcard_envelope_photo;
+}
+
+// .yourcard_envelope {
+//     border: @color_bg solid 1px;
+//     box-shadow: @color_border 0 0 1px,
+//     @color_border 0 0 1px,
+//     @color_border 0 0 1px,
+//     @color_border 0 0 1px;
+//     .mixin_envelope_size;
+//     // width: 500px;
+//     // height: 400px;
+//     margin: auto;
+//     // z-index: 1;
+// }
+
+.yourcard_photo {
+    border: @color_bg solid 1px;
+    box-shadow: @color_border 0 0 1px,
+    @color_border 0 0 1px,
+    @color_border 0 0 1px,
+    @color_border 0 0 1px;
+    .mixin_card_size;
+    // width: 500px;
+    // height: 400px;
+    margin: auto;
 }
 
 // .yourcard_envelope {
@@ -123,7 +175,7 @@
 }
 
 .yourcard_menu a {
-    margin: 26px 10px 0 0;
+    margin: 26px 15px 0 0;
     color: @color_bg;
     // font-weight: 300;
     text-shadow: @color_border 1px 1px 2px,

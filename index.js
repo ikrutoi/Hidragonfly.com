@@ -41,4 +41,4 @@ let tab = function() {
 
 tab();
 
-screen.lockOrientation('landscape');
+// screen.lockOrientation('landscape');
