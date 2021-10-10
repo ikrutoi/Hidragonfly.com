@@ -89,10 +89,46 @@
     z-index: 1;
 }
 
+.yourcard_menu a, .yourcard_blocks a {
+    margin: 26px 15px 0 0;
+    color: @color_bg;
+    text-shadow: @color_border 1px 1px 2px,
+    @color_border -1px 1px 2px,
+    @color_border -1px -1px 2px,
+    @color_border 1px -1px 2px;
+}
+
+.yourcard_menu a:hover {
+    color: @color_hover;
+}
+
 .yourcard_menu nav {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+}
+
+.yourcard_blocks {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 100%;
+}
+
+.yourcard_menu_block.is-act {
+    color: @color_hover;
+    // font-size: 30px;
+}
+
+.yourcard_block {
+    display: none;
+}
+
+.yourcard_block.is-act {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
 }
 
 // .yourcard_blocks {
@@ -146,21 +182,6 @@
 //     grid-area: yourcard_footer;
 // }
 
-.yourcard_menu a, .yourcard_blocks a {
-    margin: 26px 15px 0 0;
-    color: @color_bg;
-    // font-weight: 300;
-    text-shadow: @color_border 1px 1px 2px,
-    @color_border -1px 1px 2px,
-    @color_border -1px -1px 2px,
-    @color_border 1px -1px 2px;
-}
-
-.yourcard_menu a:hover {
-    color: red;
-    // text-shadow: black 6px 8px 12px;
-}
-
 
 // .yourcard_menu nav {
 //     margin-bottom: 10px;
@@ -170,22 +191,22 @@
 //     margin: 0 20px;    
 // }
 
-.yourcard_menu_blocks nav, .yourcard_menu_block_data form {
-    margin-top: 10px;
-}
+// .yourcard_menu_blocks nav, .yourcard_menu_block_data form {
+//     margin-top: 10px;
+// }
 
-.yourcard_menu_block_photo form {
-    display: inline-block;    
-}
+// .yourcard_menu_block_photo form {
+//     display: inline-block;    
+// }
 
-.photo input {
-    border: none;
-    background-color: @color_bg;
-    padding: 0;
-    color: inherit;
-    font-size: inherit;
-    font-family: inherit;
-}
+// .photo input {
+//     border: none;
+//     background-color: @color_bg;
+//     padding: 0;
+//     color: inherit;
+//     font-size: inherit;
+//     font-family: inherit;
+// }
 
 // .photo input {
 //     font-size: inherit;
@@ -260,14 +281,3 @@
 // .is-act {
 //     color: @color_cfb;
 // } 
-
-.tab_blocks {
-    display: none;
-}
-
-.tab_blocks.is-act {
-    display: block;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}

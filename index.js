@@ -7,17 +7,26 @@ if (menuIcon) {
     });
 }
 
-const cardYN = document.querySelector('.addres_click');
-const cardBody = document.querySelector('.card_body');
-if (cardYN) {
-    cardYN.addEventListener("click", function(e) {
-        cardBody.classList.toggle('_addres');
-    });
-}
+// const cardYN = document.querySelector('.addres_click');
+// const cardBody = document.querySelector('.card_body');
+// if (cardYN) {
+//     cardYN.addEventListener("click", function(e) {
+//         cardBody.classList.toggle('_addres');
+//     });
+// }
+
+// const yourCardMenuBlock = document.querySelector('.yourcard_menu_block');
+// // const cardsBodyNav = document.querySelector('.cards_body_nav');
+// if (yourCardMenuBlock) {
+//     yourCardMenuBlock.addEventListener("click", function() {
+//         yourCardMenuBlock.classList.toggle('_active_hover');
+//         // cardsBodyNav.classList.toggle('_active');
+//     });
+// }
 
 let tab = function() {
     let tabItem = document.querySelectorAll('.tab_item'),
-    tabContent = document.querySelectorAll('.tab_blocks'),
+    tabContent = document.querySelectorAll('.yourcard_block'),
     tabName;
     tabItem.forEach(item=> {
         item.addEventListener('click', selectTabItem)
@@ -41,4 +50,6 @@ let tab = function() {
 
 tab();
 
-// screen.lockOrientation('landscape');
+// screen.lockOrientation('landscape');  
+
+
