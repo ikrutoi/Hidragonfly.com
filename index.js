@@ -15,14 +15,14 @@ if (menuIcon) {
 //     });
 // }
 
-// const yourCardMenuBlock = document.querySelector('.yourcard_menu_block');
-// // const cardsBodyNav = document.querySelector('.cards_body_nav');
-// if (yourCardMenuBlock) {
-//     yourCardMenuBlock.addEventListener("click", function() {
-//         yourCardMenuBlock.classList.toggle('_active_hover');
-//         // cardsBodyNav.classList.toggle('_active');
-//     });
-// }
+const yourCardHeaderTabYourcard = document.querySelector('.yourcard_header_tab_yourcard');
+// const cardsBodyNav = document.querySelector('.cards_body_nav');
+if (yourCardHeaderTabYourcard) {
+    yourCardHeaderTabYourcard.addEventListener("click", function() {
+        yourCardHeaderTabYourcard.classList.add('_active_hover');
+        // cardsBodyNav.classList.toggle('_active');
+    });
+}
 
 let tab = function() {
     let tabItem = document.querySelectorAll('.tab_item'),
