@@ -65,7 +65,7 @@
 }
 
 .yourcard_body {
-     background-image: url(img/your_photo_911.jpg);
+     background-image: url(img/your_photo_101.jpg);
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -98,7 +98,7 @@
     @color_border 1px -1px 2px;
 }
 
-.yourcard_menu a:hover {
+.yourcard_menu a:hover, .yourcard_blocks a:hover {
     color: @color_hover;
 }
 
@@ -136,11 +136,22 @@
     margin-left: 20px;
 }
 
+.photo input {
+    font-size: inherit;
+    color: inherit;
+    cursor: pointer;
+    font-family: inherit;
+    background: none;
+    border: none;
+    font-weight: 300;
+}
+
+
 // .yourcard_blocks {
-//     grid-area: yourcard_blocks;
-//     display: flex;
-//     min-height: 100%;
-//     justify-content: flex-start;
+    //     grid-area: yourcard_blocks;
+    //     display: flex;
+    //     min-height: 100%;
+    //     justify-content: flex-start;
 //     align-items: center;
 //     // font-size: 0.9em;
 // }
@@ -200,23 +211,12 @@
 //     margin-top: 10px;
 // }
 
-// .yourcard_menu_block_photo form {
-//     display: inline-block;    
-// }
-
 // .photo input {
 //     border: none;
 //     background-color: @color_bg;
 //     padding: 0;
 //     color: inherit;
 //     font-size: inherit;
-//     font-family: inherit;
-// }
-
-// .photo input {
-//     font-size: inherit;
-//     color: inherit;
-//     cursor: pointer;
 //     font-family: inherit;
 // }
 
