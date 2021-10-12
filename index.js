@@ -16,11 +16,11 @@ if (menuIcon) {
 // }
 
 const yourcardHeaderTabYourcard = document.querySelector('.yourcard_header_tab_yourcard');
-// const cardsBodyNav = document.querySelector('.cards_body_nav');
+const yourcardMenu = document.querySelector('.yourcard_menu');
 if (yourcardHeaderTabYourcard) {
     yourcardHeaderTabYourcard.addEventListener("click", function() {
-        yourcardHeaderTabYourcard.classList.toggle('_active_hover');
-        // cardsBodyNav.classList.toggle('_active');
+        yourcardHeaderTabYourcard.classList.toggle('_active_header');
+        yourcardMenu.classList.toggle('_active_header');
     });
 }
 
@@ -28,7 +28,7 @@ const yourcardHeaderTabCards = document.querySelector('.yourcard_header_tab_card
 // const cardsBodyNav = document.querySelector('.cards_body_nav');
 if (yourcardHeaderTabCards) {
     yourcardHeaderTabCards.addEventListener("click", function() {
-        yourcardHeaderTabCards.classList.toggle('_active_hover');
+        yourcardHeaderTabCards.classList.toggle('_active_header');
         // cardsBodyNav.classList.toggle('_active');
     });
 }
@@ -59,8 +59,6 @@ let tab = function() {
 }
 
 tab();
-
-// screen.lockOrientation('landscape');  
 
 // let yourcardMenuBlock = document.querySelectorAll('.yourcard_menu_block');
 // yourcardMenuBlock.forEach(item=> {
