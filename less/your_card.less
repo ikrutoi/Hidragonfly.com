@@ -59,13 +59,13 @@
 .yourcard_header_cart {
     grid-area: header_cart;
     display: flex;
-    margin-left: 15px;
+    margin-left: 20px;
     justify-content: flex-start;
     align-items: center;
 }
 
 .yourcard_body {
-     background-image: url(img/your_photo_101.jpg);
+    background-image: url(img/your_photo_101.jpg);
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -90,7 +90,7 @@
 }
 
 .yourcard_menu a, .yourcard_blocks a {
-    margin: 26px 15px 0 0;
+    margin: 26px 20px 0 0;
     color: @color_bg;
     text-shadow: @color_border 1px 1px 2px,
     @color_border -1px 1px 2px,
@@ -99,7 +99,7 @@
 }
 
 .yourcard_menu a:hover, .yourcard_blocks a:hover {
-    color: @color_hover;
+    color: @color_hover_menu;
 }
 
 
@@ -117,14 +117,17 @@
     height: 100%;
 }
 
-.yourcard_header_tab_yourcard._active_hover {
+.yourcard_header_tab_yourcard._active_hover, .yourcard_header_tab_cards._active_hover {
     color: @color_cfb;
-    text-shadow: 0 0 1px;
+    // text-shadow: 0 0 1px;
 }
 
-.yourcard_menu_block.is-act {
-    color: @color_hover;
-}
+// .tab_item._menu_active {
+//     color: @color_active_menu;
+// }
+// .tab_item.is-act {
+//     color: @color_hover;
+// }
 
 .yourcard_block {
     display: none;
@@ -144,6 +147,7 @@
     background: none;
     border: none;
     font-weight: 300;
+    padding: inherit;
 }
 
 

@@ -15,32 +15,42 @@ if (menuIcon) {
 //     });
 // }
 
-const yourCardHeaderTabYourcard = document.querySelector('.yourcard_header_tab_yourcard');
+const yourcardHeaderTabYourcard = document.querySelector('.yourcard_header_tab_yourcard');
 // const cardsBodyNav = document.querySelector('.cards_body_nav');
-if (yourCardHeaderTabYourcard) {
-    yourCardHeaderTabYourcard.addEventListener("click", function() {
-        yourCardHeaderTabYourcard.classList.add('_active_hover');
+if (yourcardHeaderTabYourcard) {
+    yourcardHeaderTabYourcard.addEventListener("click", function() {
+        yourcardHeaderTabYourcard.classList.toggle('_active_hover');
         // cardsBodyNav.classList.toggle('_active');
     });
 }
 
+const yourcardHeaderTabCards = document.querySelector('.yourcard_header_tab_cards');
+// const cardsBodyNav = document.querySelector('.cards_body_nav');
+if (yourcardHeaderTabCards) {
+    yourcardHeaderTabCards.addEventListener("click", function() {
+        yourcardHeaderTabCards.classList.toggle('_active_hover');
+        // cardsBodyNav.classList.toggle('_active');
+    });
+}
+
+
 let tab = function() {
-    let tabItem = document.querySelectorAll('.tab_item'),
-    tabContent = document.querySelectorAll('.yourcard_block'),
+    let yourcardMenuBlock = document.querySelectorAll('.yourcard_menu_block'),
+    yourcardBlock = document.querySelectorAll('.yourcard_block'),
     tabName;
-    tabItem.forEach(item=> {
-        item.addEventListener('click', selectTabItem)
+    yourcardMenuBlock.forEach(item=> {
+        item.addEventListener('click', selectYourcardMenuBlock)
     })
-    function selectTabItem() {
-        tabItem.forEach(item=>{
+    function selectYourcardMenuBlock() {
+        yourcardMenuBlock.forEach(item=>{
             item.classList.remove('is-act');
         })
         this.classList.toggle('is-act');
         tabName = this.getAttribute('data-tab-name');
-        selectTabContent(tabName);
+        selectYourcardBlock(tabName);
     }
-    function selectTabContent(tabName) {
-        tabContent.forEach(item=> {
+    function selectYourcardBlock(tabName) {
+        yourcardBlock.forEach(item=> {
             item.classList.contains(tabName)? 
             item.classList.toggle('is-act') :
             item.classList.remove('is-act');
@@ -52,4 +62,12 @@ tab();
 
 // screen.lockOrientation('landscape');  
 
-
+// let yourcardMenuBlock = document.querySelectorAll('.yourcard_menu_block');
+// yourcardMenuBlock.forEach(item=> {
+//     item.classList.addEventListener('click')
+// })
+// if (yourcardMenuBlock) {
+//     yourcardMenuBlock.addEventListener("click", function() {
+//         yourcardMenuBlock.classList.toggle('_menu_active');
+//     });
+// }
