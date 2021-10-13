@@ -17,10 +17,12 @@ if (menuIcon) {
 
 const yourcardHeaderTabYourcard = document.querySelector('.yourcard_header_tab_yourcard');
 const yourcardMenu = document.querySelector('.yourcard_menu');
+// const yourcardMenuScreen = document.querySelector('.yourcard_menu_screen');
 if (yourcardHeaderTabYourcard) {
     yourcardHeaderTabYourcard.addEventListener("click", function() {
         yourcardHeaderTabYourcard.classList.toggle('_active_header');
         yourcardMenu.classList.toggle('_active_header');
+        // yourcardMenuScreen.classList.toggle('_active_header');
     });
 }
 
@@ -33,16 +35,26 @@ if (yourcardHeaderTabCards) {
     });
 }
 
+const yourcardMenuBlock = document.querySelector('.yourcard_menu_block');
+// const yourcardBlocksScreen = document.querySelector('.yourcard_blocks_screen');
+const yourcardBlocks = document.querySelector('.yourcard_blocks');
+if (yourcardMenuBlock) {
+    yourcardMenuBlock.addEventListener('click', function() {
+        // yourcardBlocksScreen.classList.toggle('_active_menu');
+        yourcardBlocks.classList.toggle('_active_menu');
+    });
+}
+
 
 let tab = function() {
-    let yourcardMenuBlock = document.querySelectorAll('.yourcard_menu_block'),
-    yourcardBlock = document.querySelectorAll('.yourcard_block'),
-    tabName;
-    yourcardMenuBlock.forEach(item=> {
-        item.addEventListener('click', selectYourcardMenuBlock)
+    let yourcardMenuBlock1 = document.querySelectorAll('.yourcard_menu_block1');
+    const yourcardBlock = document.querySelectorAll('.yourcard_block');
+     let tabName;
+    yourcardMenuBlock1.forEach(item=> {
+        item.addEventListener('click', selectYourcardMenuBlock1)
     })
-    function selectYourcardMenuBlock() {
-        yourcardMenuBlock.forEach(item=>{
+    function selectYourcardMenuBlock1() {
+        yourcardMenuBlock1.forEach(item=>{
             item.classList.remove('is-act');
         })
         this.classList.toggle('is-act');
