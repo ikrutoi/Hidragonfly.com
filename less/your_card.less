@@ -99,7 +99,7 @@
     width: 100%;
     height: 100%;
     z-index: 1;
-    opacity: 0.5;
+    // opacity: 0.5;
     transition: all 1s ease 0s;
 }
 
@@ -127,7 +127,7 @@
     background-repeat: no-repeat;
     width: 100%;
     height: 100%;
-    opacity: 0.5;  
+    // opacity: 0.5;
     z-index: 1;
     // transition: all 1s ease 0s;
 }
@@ -146,8 +146,15 @@
     // border: springgreen solid 1px;
 }
 
-.yourcard_blocks_list._active_menu {
+.yourcard_blocks.is-act {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
     right: 0;
+}
+
+.yourcard_blocks_list._active_menu {
+    // right: 0;
     z-index: 2;
     // transition-delay: 1s;
 }
@@ -161,7 +168,7 @@
     height: 100%;
     z-index: 0;
 }
-
+  
 .yourcard_menu_link, .yourcard_blocks_link {
     margin: 26px 20px 0 0;
     color: @color_bg;
@@ -198,11 +205,6 @@
 //     display: none;
 // }
 
-.yourcard_block.is-act {
-    display: flex;
-    flex-direction: column;
-    margin-left: 20px;
-}
 
 .photo input {
     font-size: inherit;

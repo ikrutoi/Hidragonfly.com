@@ -35,42 +35,50 @@ if (yourcardHeaderTabCards) {
     });
 }
 
-const yourcardMenuBlock = document.querySelector('.yourcard_menu_block');
-// const yourcardBlocksScreen = document.querySelector('.yourcard_blocks_screen');
-const yourcardBlocksList = document.querySelector('.yourcard_blocks_list');
-if (yourcardMenuBlock) {
-    yourcardMenuBlock.addEventListener('click', function() {
-        // yourcardBlocksScreen.classList.toggle('_active_menu');
-        yourcardBlocksList.classList.toggle('_active_menu');
-    });
-}
-
-
-// let tab = function() {
-//     let yourcardMenuBlock1 = document.querySelectorAll('.yourcard_menu_block1');
-//     const yourcardBlock = document.querySelectorAll('.yourcard_block');
-//      let tabName;
-//     yourcardMenuBlock1.forEach(item=> {
-//         item.addEventListener('click', selectYourcardMenuBlock1)
-//     })
-//     function selectYourcardMenuBlock1() {
-//         yourcardMenuBlock1.forEach(item=>{
-//             item.classList.remove('is-act');
-//         })
-//         this.classList.toggle('is-act');
-//         tabName = this.getAttribute('data-tab-name');
-//         selectYourcardBlock(tabName);
-//     }
-//     function selectYourcardBlock(tabName) {
-//         yourcardBlock.forEach(item=> {
-//             item.classList.contains(tabName)? 
-//             item.classList.toggle('is-act') :
-//             item.classList.remove('is-act');
-//         })
-//     }
+// const yourcardMenuBlock = document.querySelector('.yourcard_menu_block');
+// // const yourcardBlocksScreen = document.querySelector('.yourcard_blocks_screen');
+// const yourcardBlocksList = document.querySelector('.yourcard_blocks_list');
+// if (yourcardMenuBlock) {
+//     yourcardMenuBlock.addEventListener('click', function() {
+//         // yourcardBlocksScreen.classList.toggle('_active_menu');
+//         yourcardBlocksList.classList.toggle('_active_menu');
+//     });
 // }
 
-// tab();
+// let yourcardMenuLink = document.querySelectorAll('yourcard_menu_link');
+// let yourcardBlocks = document.querySelectorAll('yourcard_blocks');
+// for (let index = 0; index < array.length; index++) {
+//     const element = array[index];
+//     yourcardMenuLink[index].addEventListener('click', function() {
+//         yourcardBlocks.classList.toggle('active')
+//     }); 
+// }
+
+let tab = function() {
+    let yourcardMenuLink = document.querySelectorAll('.yourcard_menu_link');
+    const yourcardBlocks = document.querySelectorAll('.yourcard_blocks');
+     let tabName;
+    yourcardMenuLink.forEach(item=> {
+        item.addEventListener('click', selectYourcardMenuLink);
+    })
+    function selectYourcardMenuLink() {
+        yourcardMenuLink.forEach(item=>{
+            item.classList.remove('is-act');
+        })
+        this.classList.toggle('is-act');
+        tabName = this.getAttribute('data-tab-name');
+        selectYourcardBlocks(tabName);
+    }
+    function selectYourcardBlocks(tabName) {
+        yourcardBlocks.forEach(item=> {
+            item.classList.contains(tabName)? 
+            item.classList.toggle('is-act') :
+            item.classList.remove('is-act');
+        })
+    }
+}
+
+tab();
 
 // let yourcardMenuBlock = document.querySelectorAll('.yourcard_menu_block');
 // yourcardMenuBlock.forEach(item=> {
