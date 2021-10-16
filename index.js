@@ -17,11 +17,13 @@ if (menuIcon) {
 
 const yourcardHeaderTabYourcard = document.querySelector('.yourcard_header_tab_yourcard');
 const yourcardMenu = document.querySelector('.yourcard_menu');
+const yourcardCenterScreen = document.querySelector('.yourcard_center_screen');
 // const yourcardMenuScreen = document.querySelector('.yourcard_menu_screen');
 if (yourcardHeaderTabYourcard) {
     yourcardHeaderTabYourcard.addEventListener("click", function() {
         yourcardHeaderTabYourcard.classList.toggle('_active_header');
         yourcardMenu.classList.toggle('_active_header');
+        yourcardCenterScreen.classList.toggle('_active_header');
         // yourcardMenuScreen.classList.toggle('_active_header');
     });
 }
@@ -34,6 +36,8 @@ if (yourcardHeaderTabCards) {
         // cardsBodyNav.classList.toggle('_active');
     });
 }
+
+
 
 // const yourcardMenuBlock = document.querySelector('.yourcard_menu_block');
 // // const yourcardBlocksScreen = document.querySelector('.yourcard_blocks_screen');
@@ -62,6 +66,7 @@ let tab = function() {
         item.addEventListener('click', selectYourcardMenuLink);
     })
     function selectYourcardMenuLink() {
+        yourcardCenterScreen.classList.toggle('_active_menu');
         yourcardMenuLink.forEach(item=>{
             item.classList.remove('is-act');
         })
@@ -80,6 +85,18 @@ let tab = function() {
 
 tab();
 
+// const yourcardHeaderTabYourcard = document.querySelector('.yourcard_header_tab_yourcard');
+// const yourcardMenu = document.querySelector('.yourcard_menu');
+// const yourcardCenterScreen = document.querySelector('.yourcard_center_screen');
+// const yourcardMenuScreen = document.querySelector('.yourcard_menu_screen');
+// if (yourcardMenuLink) {
+//     yourcardMenuLink.addEventListener("click", function() {
+//         yourcardCenterScreen.classList.toggle('_active_menu');
+//         // yourcardMenu.classList.toggle('_active_header');
+//         // yourcardCenterScreen.classList.toggle('_active_header');
+//         // yourcardMenuScreen.classList.toggle('_active_header');
+//     });
+// }
 // let yourcardMenuBlock = document.querySelectorAll('.yourcard_menu_block');
 // yourcardMenuBlock.forEach(item=> {
 //     item.classList.addEventListener('click')
