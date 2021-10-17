@@ -7,33 +7,20 @@ if (menuIcon) {
     });
 }
 
-// const cardYN = document.querySelector('.addres_click');
-// const cardBody = document.querySelector('.card_body');
-// if (cardYN) {
-//     cardYN.addEventListener("click", function(e) {
-//         cardBody.classList.toggle('_addres');
-//     });
-// }
-
 const yourcardHeaderTabYourcard = document.querySelector('.yourcard_header_tab_yourcard');
 const yourcardMenu = document.querySelector('.yourcard_menu');
-const yourcardCenterScreen = document.querySelector('.yourcard_center_screen');
-// const yourcardMenuScreen = document.querySelector('.yourcard_menu_screen');
 if (yourcardHeaderTabYourcard) {
     yourcardHeaderTabYourcard.addEventListener("click", function() {
         yourcardHeaderTabYourcard.classList.toggle('_active_header');
         yourcardMenu.classList.toggle('_active_header');
-        yourcardCenterScreen.classList.toggle('_active_header');
-        // yourcardMenuScreen.classList.toggle('_active_header');
+        // yourcardCenterScreen.classList.toggle('_active_header');
     });
 }
 
 const yourcardHeaderTabCards = document.querySelector('.yourcard_header_tab_cards');
-// const cardsBodyNav = document.querySelector('.cards_body_nav');
 if (yourcardHeaderTabCards) {
     yourcardHeaderTabCards.addEventListener("click", function() {
         yourcardHeaderTabCards.classList.toggle('_active_header');
-        // cardsBodyNav.classList.toggle('_active');
     });
 }
 
@@ -50,16 +37,17 @@ if (yourcardHeaderTabCards) {
         
         // let yourcardMenuLink = document.querySelectorAll('yourcard_menu_link');
         // let yourcardBlocks = document.querySelectorAll('yourcard_blocks');
-// for (let index = 0; index < array.length; index++) {
-    //     const element = array[index];
-    //     yourcardMenuLink[index].addEventListener('click', function() {
-//         yourcardBlocks.classList.toggle('active')
-//     }); 
-// }
-
-let tab = function() {
+        // for (let index = 0; index < array.length; index++) {
+            //     const element = array[index];
+            //     yourcardMenuLink[index].addEventListener('click', function() {
+                //         yourcardBlocks.classList.toggle('active')
+                //     }); 
+                // }
+                            
+    let tab = function() {
     let yourcardMenuLink = document.querySelectorAll('.yourcard_menu_link');
     const yourcardBlocks = document.querySelectorAll('.yourcard_blocks');
+    const yourcardCenterScreen = document.querySelector('.yourcard_center_screen');
     let tabName;
     yourcardMenuLink.forEach(item=> {
         item.addEventListener('click', selectYourcardMenuLink);
@@ -84,14 +72,18 @@ let tab = function() {
 
 tab();
 
+// const yourcardMenuShift = document.querySelector('.yourcard_menu_shift');
+// document.getElementsByClassName('_active_header')[0].onclick =  setTimeout(() => removeEventListener, 1000);
+
+
 // document.getElementById('yourcard_screen_pause').onclick = setTimeout(1000);
 
 // const yourcard_ActiveMenu = document.querySelector('._active_menu');
 // if (yourcard_ActiveMenu) {
-//     yourcard_ActiveMenu.addEventListener('click', setTimeout(yourcard_ActiveMenu, 1000);
-// }
-
-// const yourcardHeaderTabYourcard = document.querySelector('.yourcard_header_tab_yourcard');
+    //     yourcard_ActiveMenu.addEventListener('click', setTimeout(yourcard_ActiveMenu, 1000);
+    // }
+    
+    // const yourcardHeaderTabYourcard = document.querySelector('.yourcard_header_tab_yourcard');
 // const yourcardMenu = document.querySelector('.yourcard_menu');
 // const yourcardCenterScreen = document.querySelector('.yourcard_center_screen');
 // const yourcardMenuScreen = document.querySelector('.yourcard_menu_screen');
