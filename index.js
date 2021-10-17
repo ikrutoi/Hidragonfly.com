@@ -38,22 +38,21 @@ if (yourcardHeaderTabCards) {
 }
 
 
-
 // const yourcardMenuBlock = document.querySelector('.yourcard_menu_block');
 // // const yourcardBlocksScreen = document.querySelector('.yourcard_blocks_screen');
 // const yourcardBlocksList = document.querySelector('.yourcard_blocks_list');
 // if (yourcardMenuBlock) {
-//     yourcardMenuBlock.addEventListener('click', function() {
-//         // yourcardBlocksScreen.classList.toggle('_active_menu');
-//         yourcardBlocksList.classList.toggle('_active_menu');
-//     });
-// }
-
-// let yourcardMenuLink = document.querySelectorAll('yourcard_menu_link');
-// let yourcardBlocks = document.querySelectorAll('yourcard_blocks');
+    //     yourcardMenuBlock.addEventListener('click', function() {
+        //         // yourcardBlocksScreen.classList.toggle('_active_menu');
+        //         yourcardBlocksList.classList.toggle('_active_menu');
+        //     });
+        // }
+        
+        // let yourcardMenuLink = document.querySelectorAll('yourcard_menu_link');
+        // let yourcardBlocks = document.querySelectorAll('yourcard_blocks');
 // for (let index = 0; index < array.length; index++) {
-//     const element = array[index];
-//     yourcardMenuLink[index].addEventListener('click', function() {
+    //     const element = array[index];
+    //     yourcardMenuLink[index].addEventListener('click', function() {
 //         yourcardBlocks.classList.toggle('active')
 //     }); 
 // }
@@ -61,7 +60,7 @@ if (yourcardHeaderTabCards) {
 let tab = function() {
     let yourcardMenuLink = document.querySelectorAll('.yourcard_menu_link');
     const yourcardBlocks = document.querySelectorAll('.yourcard_blocks');
-     let tabName;
+    let tabName;
     yourcardMenuLink.forEach(item=> {
         item.addEventListener('click', selectYourcardMenuLink);
     })
@@ -84,6 +83,13 @@ let tab = function() {
 }
 
 tab();
+
+// document.getElementById('yourcard_screen_pause').onclick = setTimeout(1000);
+
+// const yourcard_ActiveMenu = document.querySelector('._active_menu');
+// if (yourcard_ActiveMenu) {
+//     yourcard_ActiveMenu.addEventListener('click', setTimeout(yourcard_ActiveMenu, 1000);
+// }
 
 // const yourcardHeaderTabYourcard = document.querySelector('.yourcard_header_tab_yourcard');
 // const yourcardMenu = document.querySelector('.yourcard_menu');
