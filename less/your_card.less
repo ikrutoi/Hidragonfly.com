@@ -83,8 +83,10 @@
     position: relative;
     display: flex;
     grid-area: yourcard_left;
-    justify-content: flex-end;
-    align-items: flex-start;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    margin-right: 20px;
     height: 100%;
     left: 100%;
     z-index: 3;
@@ -99,13 +101,22 @@
 .yourcard_submenu {
     position: relative;
     grid-area: yourcard_right;
+    display: grid;
+    grid-template-areas: "submenu";
+    height: 100%;
+    z-index: 1;
+}
+
+.yourcard_blocks {
+    grid-area: submenu;
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+    margin-left: 20px;
     height: 100%;
     right: 100%;
-    z-index: 1;
     transition: right 1s ease 0s;
 }
 
@@ -113,8 +124,8 @@
     margin-top: 30px;
 }
 
-.yourcard_blocks_list {
-    padding-inline-start: 20px;
+.yourcard_blocks_list li:first-child {
+    height: 22px;
 }
 
 .yourcard_blocks.is-act {
@@ -144,13 +155,17 @@
     margin: 0;
 }
 
+.yourcard_menu_list, .yourcard_blocks_list {
+    padding-inline-start: 0;
+}
+
 .yourcard_menu_list li {
     margin-top: 30px;
     text-align: end;
 }
 
 .yourcard_menu_link, .yourcard_blocks_link {
-    margin-right: 20px;
+    // margin-right: 20px;
     color: @color_bg;
     text-shadow: @color_border 1px 1px 1px,
     @color_border -1px 1px 1px,

@@ -19,19 +19,19 @@ if (yourcardHeaderTabYourcard) {
     });
 }
 
-const yourcardMenuLink = document.querySelectorAll('.yourcard_menu_link');
-const yourcardBlocks = document.querySelectorAll('yourcard_blocks');
+// const yourcardMenuLink = document.querySelector('.yourcard_menu_link');
+// const yourcardBlocks = document.querySelector('yourcard_blocks');
 
-if (yourcardMenuLink) {
-    yourcardMenuLink.addEventListener('click', function() {
-    yourcardMenuLink.classList.toggle('_yourcard_menu_active');
-    yourcardBlocks.classList.toggle('._yourcard_menu_active');  
-    });
-}
+// if (yourcardMenuLink) {
+//     yourcardMenuLink.addEventListener('click', function() {
+//     yourcardMenuLink.classList.toggle('_yourcard_menu_active');
+//     yourcardBlocks.classList.toggle('._yourcard_menu_active');  
+//     });
+// }
 
-function selectYourcardMenuLink() {
+// function selectYourcardMenuLink() {
 
-}
+// }
 
 
 const yourcardHeaderTabCards = document.querySelector('.yourcard_header_tab_cards');
@@ -61,34 +61,34 @@ if (yourcardHeaderTabCards) {
                 //     }); 
                 // }
                             
-//     let tab = function() {
-//     let yourcardMenuLink = document.querySelectorAll('.yourcard_menu_link');
-//     const yourcardBlocks = document.querySelectorAll('.yourcard_blocks');
-//     const yourcardCenterScreen = document.querySelector('.yourcard_center_screen');
-//     let tabName;
-//     yourcardMenuLink.forEach(item=> {
-//         item.addEventListener('click', selectYourcardMenuLink);
-//     })
-//     function selectYourcardMenuLink() {
-//         yourcardCenterScreen.classList.toggle('_active_menu');
+    let tab = function() {
+    let yourcardMenuLink = document.querySelectorAll('.yourcard_menu_link');
+    const yourcardBlocks = document.querySelectorAll('.yourcard_blocks');
+    const yourcardCenterScreen = document.querySelector('.yourcard_center_screen');
+    let tabName;
+    yourcardMenuLink.forEach(item=> {
+        item.addEventListener('click', selectYourcardMenuLink);
+    })
+    function selectYourcardMenuLink() {
+        yourcardCenterScreen.classList.toggle('_active_menu');
 
-//         yourcardMenuLink.forEach(item=>{
-//             item.classList.remove('is-act');
-//         })
-//         this.classList.toggle('is-act');
-//         tabName = this.getAttribute('data-tab-name');
-//         selectYourcardBlocks(tabName);
-//     }
-//     function selectYourcardBlocks(tabName) {
-//         yourcardBlocks.forEach(item=> {
-//             item.classList.contains(tabName)? 
-//             item.classList.toggle('is-act') :
-//             item.classList.remove('is-act');
-//         })
-//     }
-// }
+        yourcardMenuLink.forEach(item=>{
+            item.classList.remove('is-act');
+        })
+        this.classList.toggle('is-act');
+        tabName = this.getAttribute('data-tab-name');
+        selectYourcardBlocks(tabName);
+    }
+    function selectYourcardBlocks(tabName) {
+        yourcardBlocks.forEach(item=> {
+            item.classList.contains(tabName)? 
+            item.classList.toggle('is-act') :
+            item.classList.remove('is-act');
+        })
+    }
+}
 
-// tab();
+tab();
 
 // const yourcardMenuShift = document.querySelector('.yourcard_menu_shift');
 // document.getElementsByClassName('_active_header')[0].onclick =  setTimeout(() => removeEventListener, 1000);
