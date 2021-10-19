@@ -91,12 +91,12 @@
     transition: left 1s ease 0s;
 }
 
-.yourcard_menu._active_header {
+.yourcard_menu._yourcard_active {
     left: 0;
     transition: left 1s ease 0s;
 } 
 
-.yourcard_blocks {
+.yourcard_submenu {
     position: relative;
     grid-area: yourcard_right;
     display: flex;
@@ -163,13 +163,17 @@
     color: @color_hover_menu;
 }
 
+.yourcard_menu_link.is-act, .yourcard_blocks_link.is-act {
+    color: @color_hover_menu;
+}
+
 .yourcard_menu nav {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
 }
 
-.yourcard_header_tab_yourcard._active_header, .yourcard_header_tab_cards._active_header {
+.yourcard_header_tab_yourcard._yourcard_active, .yourcard_header_tab_cards._yourcard_active {
     color: @color_cfb;
 }
 
