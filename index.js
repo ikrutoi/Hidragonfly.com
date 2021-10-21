@@ -17,17 +17,20 @@ if (yourcardHeaderTabYourcard) {
         yourcardSubMenu.classList.toggle('_yourcard_active');
 
         const yourcardMenuLink = document.querySelectorAll('.yourcard_menu_link');
-        const yourcardBlocks = document.querySelectorAll('.yourcard_blocks');
+        const yourcardSubmenuBlock = document.querySelectorAll('.yourcard_submenu_block');
         const yourcardCenterScreen = document.querySelector('.yourcard_center_screen');
         const yourcardMenuActive = document.querySelector('.yourcard_menu._yourcard_active');
+        const yourcardBlocksActive = document.querySelectorAll('.yourcard_blocks.active');
         let tabMenu
         if (yourcardMenuActive) {
             yourcardMenuLink.forEach(item=> {
                 item.addEventListener('click', selectYourcardMenuLink);
             })
             function selectYourcardMenuLink () {
-                yourcardCenterScreen.classList.toggle('active');   
+                yourcardCenterScreen.classList.toggle('active');
                 yourcardMenuLink.forEach(item=> {
+                    item.classList.contains(tabMenu)?
+                    item.classList.toggle('active'):
                     item.classList.remove('active');
                 })             
                 this.classList.toggle('active');
@@ -35,7 +38,7 @@ if (yourcardHeaderTabYourcard) {
                 selectYourcardBlocks(tabMenu);                
             }
             function selectYourcardBlocks(tabMenu) {
-                yourcardBlocks.forEach(item=> {
+                yourcardSubmenuBlock.forEach(item=> {
                     item.classList.contains(tabMenu)?
                     item.classList.toggle('active'):
                     item.classList.remove('active');
