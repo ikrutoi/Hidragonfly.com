@@ -18,6 +18,7 @@ if (yourcardHeaderTabYourcard) {
 
         const yourcardMenuLink = document.querySelectorAll('.yourcard_menu_link');
         const yourcardBlocks = document.querySelectorAll('.yourcard_blocks');
+        const yourcardCenterScreen = document.querySelector('.yourcard_center_screen');
         const yourcardMenuActive = document.querySelector('.yourcard_menu._yourcard_active');
         let tabMenu
         if (yourcardMenuActive) {
@@ -25,7 +26,7 @@ if (yourcardHeaderTabYourcard) {
                 item.addEventListener('click', selectYourcardMenuLink);
             })
             function selectYourcardMenuLink () {
-                // yourcardMenuLink.classList.toggle('active');   
+                yourcardCenterScreen.classList.toggle('active');   
                 yourcardMenuLink.forEach(item=> {
                     item.classList.remove('active');
                 })             
@@ -40,7 +41,6 @@ if (yourcardHeaderTabYourcard) {
                     item.classList.remove('active');
                 })
             }
-
         }
         // let tab = function() {
         //     let yourcardMenuLink = document.querySelectorAll('.yourcard_menu_link');
