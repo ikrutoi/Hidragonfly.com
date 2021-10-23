@@ -224,8 +224,12 @@
 }
 
 .yourcard_addres {
-    // display: none;
+    // position: relative;
+    display: grid;
+    grid-template-columns: 1fr 4fr 3fr 7fr 1fr;
+    grid-template-rows: 1fr 2fr 2fr 5fr 1fr;
     opacity: 0;
+    // width: 100%;
     border: @color_cards solid 1px;
     box-shadow: @color_border 0 0 1px,
     @color_border 0 0 1px,
@@ -239,7 +243,15 @@
 }
 
 .yourcard_addres.active {
-    display: flex;
+    // display: flex;
     opacity: 1;
     transition: @transition;
+}
+
+.addres_logo {
+    // position: relative;
+    grid-column: 2/3;
+    grid-row: 2/3;
+    // top: 20px;
+    // left: 20px;
 }
