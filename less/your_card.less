@@ -203,12 +203,12 @@
     padding: inherit;
 }
 
-.yourcard_envelope, .yourcard_envelope_addres, .yourcard_photo, .yourcard_text {
+.yourcard_envelope, .yourcard_envelope_addres, .yourcard_photo, .yourcard_text, .yourcard_addres {
     grid-area: yourcard_center;
 }
 
 .yourcard_photo {
-    border: @color_bg solid 1px;
+    border: @color_cards solid 1px;
     box-shadow: @color_border 0 0 1px,
     @color_border 0 0 1px,
     @color_border 0 0 1px,
@@ -221,4 +221,25 @@
 .envelope_addres {
     display: flex;
     flex-direction: column;
+}
+
+.yourcard_addres {
+    // display: none;
+    opacity: 0;
+    border: @color_cards solid 1px;
+    box-shadow: @color_border 0 0 1px,
+    @color_border 0 0 1px,
+    @color_border 0 0 1px,
+    @color_border 0 0 1px;
+    background-color: @color_bg;
+    .mixin_card_size;
+    margin: auto;
+    z-index: 5;
+    transition: @transition;
+}
+
+.yourcard_addres.active {
+    display: flex;
+    opacity: 1;
+    transition: @transition;
 }

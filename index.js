@@ -84,3 +84,11 @@ if (yourcardHeaderTabCards) {
         yourcardHeaderTabCards.classList.toggle('_active_header');
     })
 }
+
+let addres = document.querySelector('.addres');
+let yourcardAddres = document.querySelector('.yourcard_addres');
+if (addres) {
+    addres.addEventListener('click', function() {
+        yourcardAddres.classList.toggle('active');        
+    });
+}
