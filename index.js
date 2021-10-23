@@ -1,5 +1,5 @@
-const menuIcon = document.querySelector('.menu_icon');
-const cardsBodyNav = document.querySelector('.cards_body_nav');
+let menuIcon = document.querySelector('.menu_icon');
+let cardsBodyNav = document.querySelector('.cards_body_nav');
 if (menuIcon) {
     menuIcon.addEventListener('click', function(e) {
         menuIcon.classList.toggle('_active');
@@ -7,20 +7,20 @@ if (menuIcon) {
     });
 }
 
-const yourcardHeaderTabYourcard = document.querySelector('.yourcard_header_tab_yourcard');
-const yourcardMenu = document.querySelector('.yourcard_menu');
-const yourcardSubMenu = document.querySelector('.yourcard_submenu');
+let yourcardHeaderTabYourcard = document.querySelector('.yourcard_header_tab_yourcard');
+let yourcardMenu = document.querySelector('.yourcard_menu');
+let yourcardSubMenu = document.querySelector('.yourcard_submenu');
 if (yourcardHeaderTabYourcard) {
     yourcardHeaderTabYourcard.addEventListener('click', function() {
         yourcardHeaderTabYourcard.classList.toggle('_yourcard_active');
         yourcardMenu.classList.toggle('_yourcard_active');
         yourcardSubMenu.classList.toggle('_yourcard_active');
 
-        const yourcardMenuLink = document.querySelectorAll('.yourcard_menu_link');
-        const yourcardSubmenuBlock = document.querySelectorAll('.yourcard_submenu_block');
-        const yourcardCenterScreen = document.querySelector('.yourcard_center_screen');
-        const yourcardMenuActive = document.querySelector('.yourcard_menu._yourcard_active');
-        const yourcardBlocksActive = document.querySelectorAll('.yourcard_blocks.active');
+        let yourcardMenuLink = document.querySelectorAll('.yourcard_menu_link');
+        let yourcardSubmenuBlock = document.querySelectorAll('.yourcard_submenu_block');
+        let yourcardCenterScreen = document.querySelector('.yourcard_center_screen');
+        let yourcardMenuActive = document.querySelector('.yourcard_menu._yourcard_active');
+        let yourcardBlocksActive = document.querySelectorAll('.yourcard_blocks.active');
         let tabMenu
         if (yourcardMenuActive) {
             yourcardMenuLink.forEach(item=> {
@@ -78,7 +78,7 @@ if (yourcardHeaderTabYourcard) {
     });
 }
 
-const yourcardHeaderTabCards = document.querySelector('.yourcard_header_tab_cards');
+let yourcardHeaderTabCards = document.querySelector('.yourcard_header_tab_cards');
 if (yourcardHeaderTabCards) {
     yourcardHeaderTabCards.addEventListener("click", function() {
         yourcardHeaderTabCards.classList.toggle('_active_header');
