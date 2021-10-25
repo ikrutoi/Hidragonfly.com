@@ -227,7 +227,7 @@
     width: 100%;
 }
 
-.addres_area input {
+.addres_area input, .addres_area textarea {
     margin-top: 20px;
     border: solid @color_cfb 1px;
     font-size: 18px;
@@ -235,12 +235,7 @@
     color: @color_tx;
     font-family: 'Barlow', sans-serif;
     font-weight: 300;
-}
-
-.addres_addres {
-    display: grid;
-    // grid-template-rows: 1fr;
-    height: max-height(50px);    
+    resize: none;
 }
 
 .addres_index_city input:first-child {
