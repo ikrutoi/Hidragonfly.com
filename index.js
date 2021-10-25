@@ -87,8 +87,10 @@ if (yourcardHeaderTabCards) {
 
 let addres = document.querySelector('.addres');
 let yourcardAddres = document.querySelector('.yourcard_addres');
+let yourcardPhoto = document.querySelector('.yourcard_photo');
 if (addres) {
     addres.addEventListener('click', function() {
-        yourcardAddres.classList.toggle('active');        
+        yourcardAddres.classList.toggle('active');     
+        yourcardPhoto.classList.toggle('active');
     });
 }
