@@ -40,12 +40,12 @@
     height: 100%;
     left: 100%;
     z-index: 3;
-    transition: left 1s ease 0s;
+    transition: left 0.7s ease 0s;
 }
 
 .yourcard_menu._yourcard_active {
     left: 0;
-    transition: left 1s ease 0.2s;
+    transition: left 0.7s ease 0.2s;
 } 
 
 .yourcard_submenu {
@@ -67,7 +67,7 @@
     margin-left: 20px;
     height: 100%;
     right: 100%;
-    transition: right 1s ease 0s;
+    transition: right 0.7s ease 0s;
 }
 
 .yourcard_submenu_block li {
@@ -80,7 +80,7 @@
 
 .yourcard_submenu_block.active {
     right: 0;
-    transition: right 1s ease 0.2s;
+    transition: right 0.7s ease 0.2s;
 }
 
 .yourcard_center_screen {
@@ -92,7 +92,7 @@
     width: 100%;
     height: 100%;
     z-index: 4;
-    transition: all 1s ease 1s;
+    transition: all 0.7s ease 0.7s;
     // opacity: 0.5;
 }
 
@@ -115,12 +115,8 @@
 }
 
 .yourcard_menu_link, .yourcard_blocks_link {
-    // margin-right: 20px;
     color: @color_bg;
-    text-shadow: @color_border 1px 1px 1px,
-    @color_border -1px 1px 1px,
-    @color_border -1px -1px 1px,
-    @color_border 1px -1px 1px;
+    text-shadow: @color_border 0px 0px 1px;
 }
 
 
@@ -176,11 +172,12 @@
 .envelope_addres {
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
 .yourcard_addres {
     display: grid;
-    grid-template-columns: 1fr 5fr 2fr 7fr 1fr;
+    grid-template-columns: 1fr 6fr 1fr 5fr 2fr 1fr;
     grid-template-rows: 1fr 2fr 1fr 5fr 1fr;
     opacity: 0;
     border: @color_cards solid 1px;
@@ -207,24 +204,22 @@
     margin: auto;
 }
 
-.addres_logo_img {
+.addres_logo_img, .addres_mark_img {
     width: 100%;
     height: 100%;
 }
 
 .addres_mark {
-    grid-column: 4/5;
+    grid-column: 5/6;
     grid-row: 2/3;
-    display: flex;
-    justify-content: end;
-    align-items: flex-start;
-    width: 100%;
-    // margin: auto;
-    
+    // display: flex;
+    // justify-content: end;
+    // align-items: flex-start;
+    // width: 100%;
 }
 
 .addres_area {
-    grid-column: 4/5;
+    grid-column: 4/6;
     grid-row: 4/5;
     bottom: 0;
     display: flex;
