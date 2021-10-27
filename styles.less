@@ -11,7 +11,7 @@ html {
     font-size: 18px;
     font-family: 'Barlow', sans-serif;
     font-weight: 300;
-    color: red;
+    // color: red;
 }
 
 body {
@@ -21,7 +21,12 @@ body {
 .wrapper {
     max-height: 100vh;
     flex-direction: column;
-    background-color: @color_bg;
+    // background-color: @color_light;
+    background-image: url(/img/your_photo_911.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: 55px auto 55px;
@@ -36,8 +41,9 @@ body {
     font-weight: 300;
     grid-area: header;
     z-index: 3;
-    background-color: @color_background_header;
-    border-bottom: solid @color_border 1px;
+    opacity: 0.8;
+    background-color: @color_light;
+    // border-bottom: solid @color_light 1px;
     // box-shadow: @box_shadow_header;
 }
 
@@ -55,7 +61,7 @@ body {
 .footer {
     grid-area: footer;
     height: 55px;
-    background-color: @color_bg;
+    background-color: @color_light;
     z-index: 3;
     box-shadow: @box_shadow_footer;
 }
@@ -103,7 +109,7 @@ header a:hover {
 }
 
 .logo_hidragonfly:hover p:last-child {
-    color: @color_border;
+    color: @color_light;
 }
 
 .footer_block p {
