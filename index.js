@@ -94,3 +94,4 @@ if (addres) {
         yourcardPhoto.classList.toggle('active');
     });
 }
+

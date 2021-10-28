@@ -1,9 +1,12 @@
 .yourcard_header {
     display: grid;
-    grid-template-columns: 1fr 1fr 6fr 1fr 1fr;
+    grid-template-columns: 0.5fr 1fr 1fr 6fr 1fr 1fr 0.5fr;
     grid-template-rows: 55px;
-    grid-template-areas: 
-    "header_yourcard header_cards header_logo header_login header_cart";
+    grid-column: 1/8;
+    grid-row: 1/2;
+    // z-index: 2;
+    // opacity: 0.6;
+    // background-color: @color_light;
 }
 
 .header_burger {
@@ -11,15 +14,16 @@
 }
 
 .yourcard_header_yourcard {
-    grid-area: header_yourcard;
+    grid-column: 2/3;
     display: flex;
     justify-content: flex-end;
     align-items: center;
     margin-right: 20px;
+    z-index: 7;
 }
 
 .yourcard_header_hicoin {
-    grid-area: header_cards;
+    grid-column: 3/4;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -27,21 +31,22 @@
 }
 
 .yourcard_header_logo {
-    grid-area: header_logo;
+    grid-column: 4/5;
     display: flex;
     justify-content: center;
     align-items: center;
+    // z-index: 7;
 }
 
 .yourcard_header_login {
-    grid-area: header_login;
+    grid-column: 5/6;
     display: flex;
     margin-right: 20px;
     justify-content: flex-end;
     align-items: center;
 }
 .yourcard_header_cart {
-    grid-area: header_cart;
+    grid-column: 6/7;
     display: flex;
     margin-left: 20px;
     justify-content: flex-start;
