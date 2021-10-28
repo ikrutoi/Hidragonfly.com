@@ -1,23 +1,47 @@
-header a:hover {
-    color: @color_hover;
+.header a {
+    text-decoration: none;
+    color: @color_border;
+    font-weight: 300;
 }
-.yourcard_header {
+
+header a:hover {
+    color: @color_cornflower;
+}
+
+.header {
+    grid-column: 1/9;
+    grid-row: 1/2;
     display: grid;
     grid-template-columns: 0.5fr 1fr 0.5fr 1fr 6fr 1fr 1fr 0.5fr;
-    grid-template-rows: 55px;
+    grid-template-rows: 50px;
     grid-column: 1/9;
     grid-row: 1/2;
     // z-index: 2;
-    // opacity: 0.6;
-    // background-color: @color_light;
+    opacity: 1;
+    background-color: @color_light;
 }
 
-.header_burger {
-    grid-area: header_yourcard;
-}
+// .header_background {
+//     grid-column: 1/9; 
+//     grid-row: 1/2;   
+//     background-color: @color_light;
+//     opacity: 0;
+//     transition: @transition_header;
+// }
+
+// .header_background:hover {
+//     background-color: @color_light;
+//     opacity: 0.75;
+//     transition: @transition_header;
+// }
+
+// .header_burger {
+//     grid-area: header_yourcard;
+// }
 
 .yourcard_header_yourcard {
     grid-column: 2/3;
+    grid-row: 1/2;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -27,6 +51,7 @@ header a:hover {
 
 .yourcard_header_hicoin {
     grid-column: 4/5;
+    grid-row: 1/2;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -35,6 +60,7 @@ header a:hover {
 
 .yourcard_header_logo {
     grid-column: 5/6;
+    grid-row: 1/2;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -43,6 +69,7 @@ header a:hover {
 
 .yourcard_header_login {
     grid-column: 6/7;
+    grid-row: 1/2;
     display: flex;
     margin-right: 20px;
     justify-content: flex-end;
@@ -50,6 +77,7 @@ header a:hover {
 }
 .yourcard_header_cart {
     grid-column: 7/8;
+    grid-row: 1/2;
     display: flex;
     margin-left: 20px;
     justify-content: flex-start;

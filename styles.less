@@ -15,7 +15,7 @@ html {
     // color: red;
 }
 
-.wrapper a {
+.main a {
     text-decoration: none;
     color: @color_light;
 }
@@ -32,7 +32,7 @@ body {
     max-height: 100vh;
     display: grid;
     grid-template-columns: 0.5fr 1fr 0.5fr 1fr 6fr 1fr 1fr 0.5fr;
-    grid-template-rows: 55px auto 55px;
+    grid-template-rows: 50px auto 50px;
 }
 
 .background_img {
@@ -41,14 +41,8 @@ body {
     background-image: url(/img/your_photo_911.jpg);
     background-size: cover;
     background-repeat: no-repeat;
+    // width: 100%;
     // opacity: 0.2;
-}
-
-.header {
-    width: 100%;
-    grid-column: 1/9;
-    grid-row: 1/2;
-    // z-index: 1;
 }
 
 .main {
@@ -188,7 +182,7 @@ body {
     display: grid;
     justify-content: center;
     align-items: center;
-    height: calc(100vh - 55px);
+    height: calc(100vh - 50px);
     grid-template-columns: 0.5fr 1fr 0.5fr 1fr 8fr 0.5fr;
     grid-template-rows: auto;
     grid-template-areas: 
@@ -343,7 +337,7 @@ body {
 
 .yourcard_photo.active {
     opacity: 0;
-    transition: all 1s ease 0s;
+    transition: all 0.7s ease 0s;
 }
 
 .envelope_addres {
