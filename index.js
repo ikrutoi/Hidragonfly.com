@@ -9,25 +9,25 @@ if (menuIcon) {
 
 let yourcardHeaderTabYourcard = document.querySelector('.yourcard_header_tab_yourcard');
 let yourcardMenu = document.querySelector('.yourcard_menu');
-let yourcardSubMenu = document.querySelector('.yourcard_submenu');
+// let yourcardSubmenuBlock = document.querySelector('.yourcard_submenu_block');
 if (yourcardHeaderTabYourcard) {
     yourcardHeaderTabYourcard.addEventListener('click', function() {
         yourcardHeaderTabYourcard.classList.toggle('_yourcard_active');
         yourcardMenu.classList.toggle('_yourcard_active');
-        yourcardSubMenu.classList.toggle('_yourcard_active');
+        // yourcardSubmenuBlock.classList.toggle('_yourcard_active');
 
         let yourcardMenuLink = document.querySelectorAll('.yourcard_menu_link');
         let yourcardSubmenuBlock = document.querySelectorAll('.yourcard_submenu_block');
-        let yourcardCenterScreen = document.querySelector('.yourcard_center_screen');
+        // let yourcardCenterScreen = document.querySelector('.yourcard_center_screen');
         let yourcardMenuActive = document.querySelector('.yourcard_menu._yourcard_active');
-        let yourcardBlocksActive = document.querySelectorAll('.yourcard_blocks.active');
+        // let yourcardBlocksActive = document.querySelectorAll('.yourcard_blocks.active');
         let tabMenu
         if (yourcardMenuActive) {
             yourcardMenuLink.forEach(item=> {
                 item.addEventListener('click', selectYourcardMenuLink);
             })
             function selectYourcardMenuLink () {
-                yourcardCenterScreen.classList.toggle('active');
+                // yourcardCenterScreen.classList.toggle('active');
                 yourcardMenuLink.forEach(item=> {
                     item.classList.contains(tabMenu)?
                     item.classList.toggle('active'):
