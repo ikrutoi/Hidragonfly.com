@@ -2,7 +2,6 @@
 // @import url(less/fonts.less);
 @import url(less/mixin.less);
 @import url(less/burger.less);
-// @import url(less/your_card.less);
 @import url(less/cards.less);
 @import url(less/logo_hi.less);
 @import url(less/header.less);
@@ -11,8 +10,6 @@ html {
     font-size: 18px;
     font-family: 'Barlow', sans-serif;
     font-weight: 200;
-    // color: @color_light;
-    // color: red;
 }
 
 .main a {
@@ -32,18 +29,8 @@ body {
     max-height: 100vh;
     display: grid;
     grid-template-columns: 0.5fr 1fr 0.5fr 1fr 8fr 0.5fr;
-    grid-template-rows: 48px auto;
+    grid-template-rows: 44px auto;
 }
-
-// .background_img {
-//     grid-column: 1/7;
-//     grid-row: 2/4;
-//     background-image: url(/img/your_photo_911.jpg);
-//     background-size: cover;
-//     background-repeat: no-repeat;
-//     // width: 100%;
-//     // opacity: 0.2;
-// }
 
 .main {
     grid-column: 1/7;
@@ -54,17 +41,6 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
 }
-
-// .header_body {
-//     display: flex;
-//     position: relative;
-//     justify-content: space-between;
-//     align-items: center;
-//     height: 55px;
-//     align-items: center;
-//     // z-index: 3;
-//     // font-weight: 300;
-// }
 
 .footer {
     grid-column: 2/6;
@@ -187,7 +163,7 @@ body {
     display: grid;
     justify-content: center;
     align-items: center;
-    height: calc(100vh - 48px);
+    height: calc(100vh - 44px);
     grid-template-columns: 0.5fr 1fr 0.5fr 1fr 8fr 0.5fr;
     grid-template-rows: auto;
     grid-template-areas: 
@@ -342,10 +318,6 @@ body {
 .addres_mark {
     grid-column: 5/6;
     grid-row: 2/3;
-    // display: flex;
-    // justify-content: end;
-    // align-items: flex-start;
-    // width: 100%;
 }
 
 .addres_area {
@@ -367,7 +339,7 @@ body {
     border: solid @color_cornflower_alfa 1px;
     font-size: 18px;
     text-align: end;
-    color: @color_light;
+    color: @color_text_header;
     font-family: 'Barlow', sans-serif;
     font-weight: 300;
     resize: none;
