@@ -8,7 +8,7 @@
 @import url(less/header.less);
 
 html {
-    font-size: 20px;
+    font-size: 18px;
     font-family: 'Barlow', sans-serif;
     font-weight: 200;
     // color: @color_light;
@@ -31,23 +31,28 @@ body {
 .wrapper {
     max-height: 100vh;
     display: grid;
-    grid-template-columns: 0.5fr 1fr 0.5fr 1fr 6fr 1fr 1fr 0.5fr;
+    grid-template-columns: 0.5fr 1fr 0.5fr 1fr 8fr 0.5fr;
     grid-template-rows: 50px auto 50px;
 }
 
-.background_img {
-    grid-column: 1/9;
-    grid-row: 1/4;
+// .background_img {
+//     grid-column: 1/7;
+//     grid-row: 2/4;
+//     background-image: url(/img/your_photo_911.jpg);
+//     background-size: cover;
+//     background-repeat: no-repeat;
+//     // width: 100%;
+//     // opacity: 0.2;
+// }
+
+.main {
+    grid-column: 1/7;
+    grid-row: 2/4;
+    grid-column: 1/7;
+    grid-row: 2/4;
     background-image: url(/img/your_photo_911.jpg);
     background-size: cover;
     background-repeat: no-repeat;
-    // width: 100%;
-    // opacity: 0.2;
-}
-
-.main {
-    grid-column: 1/9;
-    grid-row: 2/4;
 }
 
 // .header_body {
@@ -62,7 +67,7 @@ body {
 // }
 
 .footer {
-    grid-column: 2/8;
+    grid-column: 2/6;
     grid-row: 3/4;
     font-size: 13px;
     display: flex;
