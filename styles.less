@@ -28,7 +28,7 @@ body {
 .wrapper {
     max-height: 100vh;
     display: grid;
-    grid-template-columns: 0.5fr 0.75fr 0.75fr 0.75fr 8fr 0.5fr;
+    grid-template-columns: 0.5fr 0.75fr 0.75fr 0.75fr 8.25fr 0.5fr;
     grid-template-rows: 44px auto;
 }
 
@@ -37,7 +37,7 @@ body {
     grid-row: 2/4;
     grid-column: 1/7;
     grid-row: 2/4;
-    background-image: url(/img/your_photo_911.jpg);
+    background-image: url(/img/your_photo_1.jpg);
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -53,6 +53,15 @@ body {
     font-weight: 200;
 }
 
+.yourcard_screen {
+    background-image: url(/img/your_photo_1_screen_240x384.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: calc(100vh - 44px);
+    grid-column: 3/4;
+    grid-row: 2/4;
+    z-index: 1;
+}
 
 
 // .footer_body {
@@ -158,13 +167,13 @@ body {
 //     height: 100vh;
 // }
 
-.container {
+.main {
     position: relative;
     display: grid;
     justify-content: center;
     align-items: center;
     height: calc(100vh - 44px);
-    grid-template-columns: 0.5fr 0.75fr 0.75fr 0.75fr 8fr 0.5fr;
+    grid-template-columns: 0.5fr 0.75fr 0.75fr 0.75fr 8.25fr 0.5fr;
     grid-template-rows: auto;
     grid-template-areas: 
     "indent_left yourcard_left indent_center yourcard_right yourcard_center indent_right"
