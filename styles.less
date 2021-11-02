@@ -164,22 +164,91 @@ z-index: 2;
     // position: relative;
 }
 
-.yourcard_envelope span {
+.yourcard_envelope {
+    // border: royalblue solid 1px;
+    // position: relative;
+    display: none;
+}
+
+// .yourcard_envelope.active {
+// }
+
+.yourcard_envelope.active {
+    position: relative;
+}
+
+.yourcard_envelope div span {
     display: inline-block;
+    position: absolute;
+    background-color: @color_cards;
+    width: 1px;
+    height: 1px;
 }
 
-.yourcard_envelope span:first-child {
-    background-color: purple;
-    width: 10px;
-    height: 10px;
-    // margin: auto;
+.yourcard_envelope div:nth-child(1) span:first-child {
+    left: 50%;
+    transition: all 0.25s linear 0.5s;
 }
 
-.yourcard_envelope span:last-child {
-    background-color: salmon;
-    width: 10px;
-    height: 10px;
-    // margin: auto;
+.yourcard_envelope div:nth-child(1) span:last-child {
+    left: 50%;
+    transition: all 0.25s linear 0.5s;
+}
+
+.yourcard_envelope div:nth-child(2) span:first-child {
+    left: 0;
+    transition: all 0.25s linear 0.25s;
+}
+
+.yourcard_envelope div:nth-child(2) span:last-child {
+    right: 0;
+    transition: all 0.25s linear 0.25s;
+}
+
+.yourcard_envelope div:nth-child(3) span:first-child {
+    left: 0;
+    bottom: 0;
+    transition: all 0.25s linear 0s;
+}
+
+.yourcard_envelope div:nth-child(3) span:last-child {
+    right: 0;
+    bottom: 0;
+    transition: all 0.25s linear 0s;
+}
+
+.yourcard_envelope.active div:nth-child(1) span:first-child {
+    left: 0;
+    width: 50%;
+    transition: all 0.25s linear 0s;
+}
+
+.yourcard_envelope.active div:nth-child(1) span:last-child {
+    right: 0;
+    width: 50%;
+    transition: all 0.25s linear 0s;
+}
+
+.yourcard_envelope.active div:nth-child(2) span:first-child {
+    left: 0;
+    height: 100%;
+    transition: all 0.25s linear 0.25s;
+}
+
+.yourcard_envelope.active div:nth-child(2) span:last-child {
+    right: 0;
+    height: 100%;
+    transition: all 0.25s linear 0.25s;
+}
+
+.yourcard_envelope.active div:nth-child(3) span:first-child {
+    width: 50%;
+    transition: all 0.25s linear 0.5s;
+}
+
+.yourcard_envelope.active div:nth-child(3) span:last-child {
+    width: 50%;
+    transition: all 0.25s linear 0.5s;
 }
 
 .yourcard_photo {
