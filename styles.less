@@ -161,19 +161,9 @@ z-index: 2;
 .yourcard_envelope, .yourcard_envelope_addres, .yourcard_photo, .yourcard_text, .yourcard_addres {
     grid-column: 5/6;
     grid-row: 2/3;
-    // position: relative;
 }
 
 .yourcard_envelope {
-    // border: royalblue solid 1px;
-    // position: relative;
-    display: none;
-}
-
-// .yourcard_envelope.active {
-// }
-
-.yourcard_envelope.active {
     position: relative;
 }
 
@@ -181,8 +171,8 @@ z-index: 2;
     display: inline-block;
     position: absolute;
     background-color: @color_cards;
-    width: 1px;
-    height: 1px;
+    width: 0px;
+    height: 0px;
 }
 
 .yourcard_envelope div:nth-child(1) span:first-child {
@@ -219,35 +209,41 @@ z-index: 2;
 
 .yourcard_envelope.active div:nth-child(1) span:first-child {
     left: 0;
+    height: 1px;
     width: 50%;
     transition: all 0.25s linear 0s;
 }
 
 .yourcard_envelope.active div:nth-child(1) span:last-child {
     right: 0;
+    height: 1px;
     width: 50%;
     transition: all 0.25s linear 0s;
 }
 
 .yourcard_envelope.active div:nth-child(2) span:first-child {
     left: 0;
+    width: 1px;
     height: 100%;
     transition: all 0.25s linear 0.25s;
 }
 
 .yourcard_envelope.active div:nth-child(2) span:last-child {
     right: 0;
+    width: 1px;
     height: 100%;
     transition: all 0.25s linear 0.25s;
 }
 
 .yourcard_envelope.active div:nth-child(3) span:first-child {
     width: 50%;
+    height: 1px;
     transition: all 0.25s linear 0.5s;
 }
 
 .yourcard_envelope.active div:nth-child(3) span:last-child {
     width: 50%;
+    height: 1px;
     transition: all 0.25s linear 0.5s;
 }
 
