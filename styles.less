@@ -41,6 +41,7 @@ justify-content: flex-end;
 align-items: flex-end;
 color: @color_cards;
 font-weight: 200;
+z-index: 2;
 }
 
 .main {
@@ -54,14 +55,15 @@ font-weight: 200;
     background-repeat: no-repeat;
 }
 
-.yourcard_screen {
-    background-image: url(/img/your_photo_1_screen_480x1920.jpg);
+.yourcard_screen_menu {
+    background-image: url(/img/your_photo_1_screen_0x96.jpg);
     background-size: cover;
-    background-repeat: no-repeat;
+    // background-repeat: no-repeat;
     // opacity: 0.5;
-    grid-column: 4/8;
+    grid-column: 1/2;
     grid-row: 1/4;
-    z-index: 2;
+    z-index: 4;
+    // border: purple solid 1px;
 }
 
 .yourcard_menu {
@@ -69,8 +71,9 @@ font-weight: 200;
     display: flex;
     grid-column: 2/3;
     grid-row: 2/3;
-    left: 200%;
-    transition: all 0.7s ease 0s;
+    right: 100%;
+    transition: right 0.7s ease 0s;
+    z-index: 3;
 }
 
 .yourcard_menu ul, .yourcard_submenu ul {
@@ -80,17 +83,31 @@ font-weight: 200;
 }
 
 .yourcard_menu._yourcard_active {
-    left: 0;
-    transition: all 0.7s ease 0s;
+    right: 0;
+    transition: right 0.7s ease 0s;
 } 
+
+.yourcard_screen_submenu {
+    background-image: url(/img/your_photo_1_screen_96x288.jpg);
+    background-size: cover;
+    // background-repeat: no-repeat;
+    // width: 100%;
+    // opacity: 0.5;
+    grid-column: 2/3;
+    grid-row: 1/4;
+    z-index: 2;
+    // border: solid purple 1px;
+    // box-sizing: border-box;
+}
 
 .yourcard_submenu {
     position: relative;
     display: flex;
     grid-column: 3/4;
     grid-row: 2/3;
-    left: 100%;
-    transition: all 0.7s ease 0s;
+    right: 100%;
+    transition: right 0.7s ease 0s;
+    z-index: 1;
 }
 
 .main span {
@@ -103,8 +120,8 @@ font-weight: 200;
 }
 
 .yourcard_submenu.active {
-    left: 0;
-    transition: all 0.7s ease 0.2s;
+    right: 0;
+    transition: right 0.7s ease 0.2s;
 }
 
 .yourcard_menu ul, .yourcard_submenu ul {
@@ -144,6 +161,25 @@ font-weight: 200;
 .yourcard_envelope, .yourcard_envelope_addres, .yourcard_photo, .yourcard_text, .yourcard_addres {
     grid-column: 5/6;
     grid-row: 2/3;
+    // position: relative;
+}
+
+.yourcard_envelope span {
+    display: inline-block;
+}
+
+.yourcard_envelope span:first-child {
+    background-color: purple;
+    width: 10px;
+    height: 10px;
+    // margin: auto;
+}
+
+.yourcard_envelope span:last-child {
+    background-color: salmon;
+    width: 10px;
+    height: 10px;
+    // margin: auto;
 }
 
 .yourcard_photo {
