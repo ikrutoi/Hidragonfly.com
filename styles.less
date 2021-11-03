@@ -5,9 +5,11 @@
 @import url(less/cards.less);
 @import url(less/logo_hi.less);
 @import url(less/header.less);
+@import url(less/border_card.less);
+@import url(less/rain.less);
 
 html {
-    font-size: 18px;
+    font-size: 16px;
     font-family: 'Barlow', sans-serif;
     font-weight: 200;
 }
@@ -39,7 +41,7 @@ grid-row: 2/4;
 
 .sp01 {
     color: @color_cards;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 200;
     position: absolute;
     width: 200px;
@@ -171,84 +173,39 @@ grid-row: 2/4;
     position: relative;
 }
 
-.yourcard_envelope div span {
-    display: inline-block;
+.rain span:nth-child(1) {
     position: absolute;
-    background-color: @color_cards;
-    width: 0px;
-    height: 0px;
+    width: 10px;
+    height: 10px;
+    background-color: salmon;
+    border-radius: 5px;
 }
 
-.yourcard_envelope div:nth-child(1) span:first-child {
-    left: 50%;
-    transition: all 0.25s linear 0.5s;
+.rain span:nth-child(2) {
+    position: absolute;
+    left: 10px;
+    width: 10px;
+    height: 10px;
+    background-color: salmon;
+    border-radius: 5px;
 }
 
-.yourcard_envelope div:nth-child(1) span:last-child {
-    left: 50%;
-    transition: all 0.25s linear 0.5s;
+.rain span:nth-child(3) {
+    position: absolute;
+    left: 20px;
+    width: 10px;
+    height: 10px;
+    background-color: salmon;
+    border-radius: 5px;
 }
 
-.yourcard_envelope div:nth-child(2) span:first-child {
-    left: 0;
-    transition: all 0.25s linear 0.25s;
-}
-
-.yourcard_envelope div:nth-child(2) span:last-child {
-    right: 0;
-    transition: all 0.25s linear 0.25s;
-}
-
-.yourcard_envelope div:nth-child(3) span:first-child {
-    left: 0;
-    bottom: 0;
-    transition: all 0.25s linear 0s;
-}
-
-.yourcard_envelope div:nth-child(3) span:last-child {
-    right: 0;
-    bottom: 0;
-    transition: all 0.25s linear 0s;
-}
-
-.yourcard_envelope.active div:nth-child(1) span:first-child {
-    left: 0;
-    height: 1px;
-    width: 50%;
-    transition: all 0.25s linear 0s;
-}
-
-.yourcard_envelope.active div:nth-child(1) span:last-child {
-    right: 0;
-    height: 1px;
-    width: 50%;
-    transition: all 0.25s linear 0s;
-}
-
-.yourcard_envelope.active div:nth-child(2) span:first-child {
-    left: 0;
-    width: 1px;
-    height: 100%;
-    transition: all 0.25s linear 0.25s;
-}
-
-.yourcard_envelope.active div:nth-child(2) span:last-child {
-    right: 0;
-    width: 1px;
-    height: 100%;
-    transition: all 0.25s linear 0.25s;
-}
-
-.yourcard_envelope.active div:nth-child(3) span:first-child {
-    width: 50%;
-    height: 1px;
-    transition: all 0.25s linear 0.5s;
-}
-
-.yourcard_envelope.active div:nth-child(3) span:last-child {
-    width: 50%;
-    height: 1px;
-    transition: all 0.25s linear 0.5s;
+.rain span:nth-child(4) {
+    position: absolute;
+    left: 30px;
+    width: 10px;
+    height: 10px;
+    background-color: salmon;
+    border-radius: 5px;
 }
 
 .yourcard_photo {
