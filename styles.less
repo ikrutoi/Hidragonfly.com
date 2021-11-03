@@ -33,15 +33,19 @@ body {
 }
 
 .footer {
-grid-column: 2/3;
-grid-row: 3/4;
-font-size: 12px;
-display: flex;
-justify-content: flex-end;
-align-items: flex-end;
-color: @color_cards;
-font-weight: 200;
-z-index: 2;
+grid-column: 2/4;
+grid-row: 2/4;
+}
+
+.sp01 {
+    color: @color_cards;
+    font-size: 12px;
+    font-weight: 200;
+    position: absolute;
+    width: 200px;
+    bottom: 105px;
+    right: -85px;
+    transform: rotate(-90deg);
 }
 
 .main {
@@ -340,6 +344,12 @@ z-index: 2;
 .addres_index_city input:last-child {
     width: 67%;
 }
+
+
+// .footer p {
+//     // transform: rotate(0.75turn);
+//     // width: 200px;
+// }
 
 // .main {
 //     position: relative;
