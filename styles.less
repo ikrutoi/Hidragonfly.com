@@ -35,9 +35,18 @@ body {
 }
 
 .footer {
-grid-column: 2/4;
-grid-row: 2/4;
+    grid-column: 2/4;
+    grid-row: 2/4;
+    opacity: 1;
+    transition: all 0.75s linear 0s;
 }
+
+.footer.active {
+    opacity: 0;
+    transition: all 0.75s linear 0s;
+}
+
+
 
 .sp01 {
     color: @color_cards;
@@ -64,17 +73,34 @@ grid-row: 2/4;
 .background_rain {
     grid-column: 1/8;
     grid-row: 1/4;
-    background-image: url(/img/your_photo_1_2.jpg);
+    background-image: url(/img/your_photo_1_rain.jpg);
     background-size: cover;
     // background-repeat: no-repeat;
 }
 
-// .background {
-//     grid-column: 1/8;
+// .background_rain_0-96 {
+//     grid-column: 1/2;
 //     grid-row: 1/4;
-//     background-image: url(/img/your_photo_1.jpg);
+//     background-image: url(/img/your_photo_1_rain_0x96.jpg);
 //     background-size: cover;
+//     border: royalblue solid 1px;
+//     z-index: 2;
 // }
+
+.background {
+    grid-column: 1/8;
+    grid-row: 1/4;
+    background-image: url(/img/your_photo_1.jpg);
+    background-size: cover;
+    opacity: 1;
+    transition: all 0.75s linear 0s;
+    // z-index: 3;
+}
+
+.background.active {
+    opacity: 0;
+    transition: all 0.75s linear 0s;
+}
 
 .yourcard_screen_menu {
     background-image: url(/img/your_photo_1_screen_0x96.jpg);
@@ -92,9 +118,10 @@ grid-row: 2/4;
     display: flex;
     grid-column: 2/3;
     grid-row: 2/3;
-    right: 100%;
-    transition: right 0.7s ease 0s;
-    z-index: 3;
+    bottom: 140%;
+    // opacity: 0;
+    transition: all 0.25s ease 0s;
+    z-index: 1;
 }
 
 .yourcard_menu ul, .yourcard_submenu ul {
@@ -104,8 +131,9 @@ grid-row: 2/4;
 }
 
 .yourcard_menu._yourcard_active {
-    right: 0;
-    transition: right 0.7s ease 0s;
+    bottom: 0;
+    // opacity: 1;
+    transition: all 0.25s ease 0.75s;
 } 
 
 .yourcard_screen_submenu {
@@ -126,8 +154,8 @@ grid-row: 2/4;
     display: flex;
     grid-column: 3/4;
     grid-row: 2/3;
-    right: 100%;
-    transition: right 0.7s ease 0s;
+    bottom: 140%;
+    transition: all 0.25s ease 0s;
     z-index: 1;
 }
 
@@ -141,8 +169,8 @@ grid-row: 2/4;
 }
 
 .yourcard_submenu.active {
-    right: 0;
-    transition: right 0.7s ease 0.2s;
+    bottom: 0;
+    transition: all 0.25s ease 0s;
 }
 
 .yourcard_menu ul, .yourcard_submenu ul {

@@ -10,14 +10,16 @@ if (menuIcon) {
 let yourcardHeaderTabYourcard = document.querySelector('.yourcard_header_tab_yourcard');
 let yourcardMenu = document.querySelector('.yourcard_menu');
 let yourcardEnvelope = document.querySelector('.yourcard_envelope');
-let rain = document.querySelector('.rain');
+let background = document.querySelector('.background');
+let footer = document.querySelector('.footer')
 // let yourcardSubmenuBlock = document.querySelector('.yourcard_submenu_block');
 if (yourcardHeaderTabYourcard) {
     yourcardHeaderTabYourcard.addEventListener('click', function() {
         yourcardHeaderTabYourcard.classList.toggle('_yourcard_active');
         yourcardMenu.classList.toggle('_yourcard_active');
         yourcardEnvelope.classList.toggle('active');
-        rain.classList.toggle('active');
+        background.classList.toggle('active');
+        footer.classList.toggle('active');
         // yourcardSubmenuBlock.classList.toggle('_yourcard_active');
 
         let yourcardMenuLink = document.querySelectorAll('.yourcard_menu_link');
