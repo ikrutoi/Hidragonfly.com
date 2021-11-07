@@ -35,7 +35,6 @@ body {
 }
 
 .main {
-    // position: relative;
     display: grid;
     grid-column: 1/4;
     grid-row: 2/4;
@@ -59,12 +58,12 @@ body {
     background-repeat: no-repeat;
     
     opacity: 1;
-    transition: all 0.75s linear 0s;
+    transition: all 0.6s linear 0s;
 }
 
 .background.active {
     opacity: 0;
-    transition: all 0.75s linear 0s;
+    transition: all 0.6s linear 0s;
 }
 
 .yourcard_menu {
@@ -73,19 +72,23 @@ body {
     grid-column: 2/3;
     grid-row: 2/3;
     bottom: 140%;
-    transition: all 0.25s ease 0s;
+    transition: all 0.4s ease 0s;
     z-index: 1;
 }
 
 .yourcard_menu ul, .yourcard_submenu ul {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
+}
+
+.yourcard_menu li {
+    height: 44px;
 }
 
 .yourcard_menu._yourcard_active {
     bottom: 0;
-    transition: all 0.25s ease 0.75s;
+    transition: all 0.4s ease 0.6s;
 } 
 
 .yourcard_submenu {
@@ -94,7 +97,7 @@ body {
     grid-column: 3/4;
     grid-row: 2/3;
     bottom: 140%;
-    transition: all 0.25s ease 0s;
+    transition: all 0.4s ease 0s;
     z-index: 1;
 }
 
@@ -104,12 +107,12 @@ body {
 }
 
 .yourcard_submenu li {
-    height: 22px;
+    height: 44px;
 }
 
 .yourcard_submenu.active {
     bottom: 0;
-    transition: all 0.25s ease 0s;
+    transition: all 0.4s ease 0s;
 }
 
 .footer {
@@ -120,22 +123,21 @@ body {
     align-items:flex-end;
     grid-column: 7/8;
     grid-row: 1/4;
-    // bottom: 0;
-    transition: all 0.75s linear 0s;
-    // z-index: 5;
+    opacity: 1;
+    transition: all 0.6s linear 0.4s;
 }
 
 .footer.active {
-    display: none;
-    // bottom: 100%;
-    transition: all 0.75s linear 0s;
+    // display: none;
+    opacity: 0;
+    transition: all 0.6s l 0s;
 }
 
 .footer span {
     margin-right: 8px;
     color: @color_light;
     height: 14px;
-    font-size: 11px;
+    font-size: 10px;
     transform: rotate(-90deg);
 }
 
@@ -195,7 +197,7 @@ body {
 
 .yourcard_photo.active {
     opacity: 0;
-    transition: all 0.7s ease 0s;
+    transition: all 0.25s ease 0s;
 }
 
 .envelope_addres {
