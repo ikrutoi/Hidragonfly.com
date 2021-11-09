@@ -111,5 +111,3 @@ if (addres) {
 //     });
 // }
 
-
-console.log(getComputedStyle(yourcardPhoto).width);
