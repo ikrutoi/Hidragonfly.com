@@ -34,6 +34,14 @@ body {
     grid-template-rows: 40px auto 40px;
 }
 
+.screen {
+    grid-column: 1/4;
+    grid-row: 1/4;
+    background-image: url(/img/your_photo_2.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;     
+}
+
 .main {
     display: grid;
     grid-column: 1/4;
@@ -53,9 +61,9 @@ body {
 .background {
     grid-column: 1/8;
     grid-row: 1/4;
-    background-image: url(/img/your_photo_1.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;   
+    // background-image: url(/img/your_photo_1.jpg);
+    // background-size: cover;
+    // background-repeat: no-repeat;   
     opacity: 1;
     transition: all 0.6s linear 0s;
 }
@@ -145,11 +153,11 @@ body {
 }
 
 .yourcard_menu_link:hover, .yourcard_submenu_block a:hover {
-    color: @color_itten_yellow;
+    color: @color_itten_orange;
 }
 
 .yourcard_menu_link.active, .yourcard_blocks_link.active {
-    color: @color_itten_yellow;
+    color: @color_itten_orange;
 }
 
 .yourcard_menu nav {

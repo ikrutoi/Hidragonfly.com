@@ -4,8 +4,15 @@
     display: grid;
     grid-template-columns: 0.5fr 2fr 5fr 2fr 0.5fr;
     grid-template-rows: 40px;
-    background-color: @color_itten_cornflower;
+    // background-color: @color_itten_cornflower;
     z-index: 2;
+}
+
+.screen_header {
+    grid-column: 1/6;
+    grid-row: 1/2;
+    background-color: @color_itten_cornflower;
+    opacity: 0.5;
 }
 
 .yourcard_header_logo {
@@ -14,6 +21,7 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    z-index: 1;
 }
 
 .header_menu {
@@ -21,6 +29,7 @@
     grid-row: 1/2;
     display: flex;
     align-items: center;
+    z-index: 1;
 }
 
 .header_login {
@@ -28,6 +37,7 @@
     grid-row: 1/2;
     display: flex;
     align-items: center;
+    z-index: 1;
 }
 
 .header a {
