@@ -7,11 +7,25 @@ if (menuIcon) {
     });
 }
 
+const headerTabYourcard = document.querySelector('.header_tab_yourcard');
+const yourcardMenuMain = document.querySelector('.yourcard_menu_main');
+
+let canvas = document.getElementById('canvas');
+let ctx = canvas.getContext('2d');
+let image = document.getElementById('source');
+
+ctx.drawImage(image, 200, 200, 300, 300, 200, 200, 300, 300);
+
+
+
+
+
+
 let yourcardHeaderTabYourcard = document.querySelector('.yourcard_header_tab_yourcard');
 let yourcardMenu = document.querySelector('.yourcard_menu');
 let yourcardEnvelope = document.querySelector('.yourcard_envelope');
 let background = document.querySelector('.background');
-let footer = document.querySelector('.footer')
+let footer = document.querySelector('.footer');
 // let yourcardSubmenuBlock = document.querySelector('.yourcard_submenu_block');
 if (yourcardHeaderTabYourcard) {
     yourcardHeaderTabYourcard.addEventListener('click', function() {
