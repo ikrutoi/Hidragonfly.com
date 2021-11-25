@@ -7,6 +7,7 @@
 @import url(less/header.less);
 @import url(less/border_card.less);
 @import url(less/rain.less);
+@import url(less/hicoin.less);
 
 html {
     font-size: 17px;
@@ -34,12 +35,26 @@ body {
     grid-template-rows: 40px auto 40px;
 }
 
+.background_rain {
+    grid-column: 1/4;
+    grid-row: 1/4;
+    background-image: url(/img/your_photo_1_rain.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
 .screen {
     grid-column: 1/4;
     grid-row: 1/4;
     background-image: url(/img/your_photo_2.jpg);
     background-size: cover;
     background-repeat: no-repeat;     
+}
+
+.background_bottom {
+    grid-column: 1/4;
+    grid-row: 3/4;
+    
 }
 
 .main {
@@ -50,28 +65,25 @@ body {
     grid-template-rows: 1fr auto 1fr;
 }
 
-.background_rain {
+.screen_top {
     grid-column: 1/8;
-    grid-row: 1/4;
-    background-image: url(/img/your_photo_1_rain.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
+    grid-row: 1/2;
 }
 
-.background {
-    grid-column: 1/8;
-    grid-row: 1/4;
+// .background {
+//     grid-column: 1/8;
+//     grid-row: 1/4;
     // background-image: url(/img/your_photo_1.jpg);
     // background-size: cover;
     // background-repeat: no-repeat;   
-    opacity: 1;
-    transition: all 0.6s linear 0s;
-}
+//     opacity: 1;
+//     transition: all 0.6s linear 0s;
+// }
 
-.background.active {
-    opacity: 0;
-    transition: all 0.6s linear 0s;
-}
+// .background.active {
+//     opacity: 0;
+//     transition: all 0.6s linear 0s;
+// }
 
 .yourcard_menu {
     position: relative;
