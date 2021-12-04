@@ -7,20 +7,6 @@ if (menuIcon) {
     });
 }
 
-const headerTabYourcard = document.querySelector('.header_tab_yourcard');
-const yourcardMenuMain = document.querySelector('.yourcard_menu_main');
-
-let canvas = document.getElementById('canvas');
-let ctx = canvas.getContext('2d');
-let image = document.getElementById('source');
-
-ctx.drawImage(image, 200, 200, 300, 300, 200, 200, 300, 300);
-
-
-
-
-
-
 let yourcardHeaderTabYourcard = document.querySelector('.yourcard_header_tab_yourcard');
 let yourcardMenu = document.querySelector('.yourcard_menu');
 let yourcardEnvelope = document.querySelector('.yourcard_envelope');
@@ -32,7 +18,7 @@ if (yourcardHeaderTabYourcard) {
         yourcardHeaderTabYourcard.classList.toggle('_yourcard_active');
         yourcardMenu.classList.toggle('_yourcard_active');
         yourcardEnvelope.classList.toggle('active');
-        background.classList.toggle('active');
+        // background.classList.toggle('active');
         footer.classList.toggle('active');
         // yourcardSubmenuBlock.classList.toggle('_yourcard_active');
 
