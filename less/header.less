@@ -38,12 +38,19 @@
     z-index: 1;
 }
 
-.header a {
+.header_tab {
     text-decoration: none;
     color: @color_light;
     font-weight: 300;
 }
 
+.header_tab:hover {
+    color: @color_itten_orange;
+}
+
+.header_tab.active {
+    color: @color_itten_orange;
+}
 
 .header_menu ul {
     display: flex;

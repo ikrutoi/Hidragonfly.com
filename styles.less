@@ -74,9 +74,34 @@ body {
     grid-template-rows: 1fr auto 1fr;
 }
 
-.screen_top {
-    grid-column: 1/8;
+.rain {
+    opacity: 0;
+}
+
+.rain.active {
+    opacity: 1;
+    background-color: @color_rain_rgba;
+    transition: all 0.4s ease 0.6s;
+}
+
+.rain_top.active {
+    grid-column: 5/6;
     grid-row: 1/2;
+}
+
+.rain_left.active {
+    grid-column: 1/5;
+    grid-row: 1/4;
+}
+
+.rain_right.active {
+    grid-column: 6/8;
+    grid-row: 1/4;
+}
+
+.rain_bottom.active {
+    grid-column: 5/6;
+    grid-row: 3/4;
 }
 
 .yourcard_menu {
