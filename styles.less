@@ -75,13 +75,16 @@ body {
 }
 
 .rain {
-    opacity: 0;
+    opacity: 0.4;
+    background-color: @color_rain_rgba;
+    transition: opacity 2s ease 0;
+    border: steelblue 1px solid;
 }
 
 .rain.active {
     opacity: 1;
     background-color: @color_rain_rgba;
-    transition: all 0.4s ease 0.6s;
+    transition: opacity 0.4s ease 0.6s;
 }
 
 .rain_top.active {
@@ -128,10 +131,6 @@ body {
     bottom: 0;
     transition: all 0.4s ease 0.6s;
 } 
-
-// .yourcard_menu_tab.active {
-//     color: rgb(41, 128, 0);
-// }
 
 .yourcard_submenu {
     position: relative;
@@ -186,14 +185,6 @@ body {
     margin: 0;
     padding-inline-start: 0;
 }
-
-// .yourcard_menu_link:hover, .yourcard_submenu_block a:hover {
-//     color: @color_itten_orange;
-// }
-
-// .yourcard_menu_link.active, .yourcard_blocks_link.active {
-//     color: @color_itten_orange;
-// }
 
 .yourcar_menu_tb.active {
     color: @color_itten_orange;

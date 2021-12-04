@@ -1,109 +1,52 @@
-// @transition_rain: bottom 1s ease 0.75s;
+.rain {
+    opacity: 0.4;
+    background-color: @color_rain_rgba;
+    transition: opacity 2s ease 0;
+    border: steelblue 1px solid;
+}
 
-// .background_top {
-//     grid-column: 1/8;
-//     grid-row: 1/2;
-//     background-color: @color_itten_cornflower_rgba;
-// }
+.rain.active {
+    opacity: 1;
+    background-color: @color_rain_rgba;
+    transition: opacity 0.4s ease 0.6s;
+}
 
-// .background_left {
-//     grid-column: 1/5;
-//     grid-row: 2/3;
-//     background-color: @color_itten_cornflower_rgba;
-// }
+.rain_top {
+    grid-column: 5/6;
+    grid-row: 1/2;
+}
 
-// .background_right {
-//     grid-column: 6/8;
-//     grid-row: 2/3;
-//     background-color: @color_itten_cornflower_rgba;
-// }
+.rain_left {
+    grid-column: 1/5;
+    grid-row: 1/4;
+}
 
-// .background_bottom {
-//     grid-column: 1/8;
-//     grid-row: 3/4;
-//     background-color: @color_itten_cornflower_rgba;
-// }
+.rain_right {
+    grid-column: 6/8;
+    grid-row: 1/4;
+}
 
-// .background_2 {
-//     grid-column: 1/8;
-//     grid-row: 1/4;
-//     border: rosybrown solid 1px;
-//     background-image: url(/img/your_photo_1_sepia.jpg);
-//     background-size: cover;
-//     display: grid;
-//     grid-template-columns: 3.25fr 5.5fr 1.25fr;
-//     grid-template-rows: 1fr auto 1fr;
-//     opacity: 0;
-// }
+.rain_bottom {
+    grid-column: 5/6;
+    grid-row: 3/4;
+}
 
-// .yourcard_screen_center {
-//     grid-column: 2/3;
-//     grid-row: 2/3;
-//     .mixin_card_size;
-//     opacity: 1;
-// }
+.rain_top.active {
+    grid-column: 5/6;
+    grid-row: 1/2;
+}
 
-// .yourcard_screen_top {
-//     grid-column: 2/3;
-//     grid-row: 1/2;
-//     // background-color: rgba(red, green, blue, alpha);
-//     opacity: 0.3;
-//     background-color: rosybrown;
-// }
+.rain_left.active {
+    grid-column: 1/5;
+    grid-row: 1/4;
+}
 
-// .yourcard_screen_left {
-//     grid-column: 1/2;
-//     grid-row: 1/4;
-// }
+.rain_right.active {
+    grid-column: 6/8;
+    grid-row: 1/4;
+}
 
-// .yourcard_screen_right {
-//     grid-column: 3/4;
-//     grid-row: 1/4;
-// }
-
-// .yourcard_screen_bottom {
-//     grid-column: 2/3;
-//     grid-row: 3/4;
-// }
-
-// .rain.active .rain_block {
-//     // backdrop-filter: blur(8px);
-//     opacity: 0;
-//     transition: all 0.75s linear 0.75s;
-// }
-
-//     height: 100%;
-//     background-color: @color_cards_alfa;
-//     backdrop-filter: blur(0px);
-//     transition: all 0.75s linear 0.75s;
-
-// .rain {
-//     grid-column: 1/8;
-//     grid-row: 1/4;
-//     width: 100%;
-//     height: 100%;
-//     background-color: @color_cards_alfa;
-//     backdrop-filter: blur(0px);
-//     transition: all 0.75s linear 0.75s;
-// }
-
-// .rain.active {
-//     transition: all 0.75s linear 0.75s;
-//     backdrop-filter: blur(6px);
-// }
-
-
-// .yourcard_envelope_screen {
-//     grid-column: 5/6;
-//     grid-row: 2/3;
-//     background-color: @color_cards_alfa;
-//     border: aqua solid 1px;
-//     width: 100%;
-//     height: 100%;
-//     backdrop-filter: blur(0px);
-//     transition: all 0.75s linear 0.75s;
-// }
-// .youcard_envelope_screen.active {
-//     transition: all 0.75s linear 0.75s;
-//     backdrop-filter: blur(-6px);
-// }
+.rain_bottom.active {
+    grid-column: 5/6;
+    grid-row: 3/4;
+}
