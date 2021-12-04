@@ -15,9 +15,17 @@ html {
     font-weight: 200;
 }
 
-.main a {
+main a {
     text-decoration: none;
     color: @color_light;
+}
+
+main a:hover {
+    color: @color_itten_orange;
+}
+
+.yourcard_menu_tab.active {
+    color: seagreen;
 }
 
 .wrapper li {
@@ -71,21 +79,6 @@ body {
     grid-row: 1/2;
 }
 
-// .background {
-//     grid-column: 1/8;
-//     grid-row: 1/4;
-    // background-image: url(/img/your_photo_1.jpg);
-    // background-size: cover;
-    // background-repeat: no-repeat;   
-//     opacity: 1;
-//     transition: all 0.6s linear 0s;
-// }
-
-// .background.active {
-//     opacity: 0;
-//     transition: all 0.6s linear 0s;
-// }
-
 .yourcard_menu {
     position: relative;
     display: flex;
@@ -106,10 +99,14 @@ body {
     height: 60px;
 }
 
-.yourcard_menu._yourcard_active {
+.yourcard_menu.active {
     bottom: 0;
     transition: all 0.4s ease 0.6s;
 } 
+
+// .yourcard_menu_tab.active {
+//     color: rgb(41, 128, 0);
+// }
 
 .yourcard_submenu {
     position: relative;
@@ -165,11 +162,15 @@ body {
     padding-inline-start: 0;
 }
 
-.yourcard_menu_link:hover, .yourcard_submenu_block a:hover {
-    color: @color_itten_orange;
-}
+// .yourcard_menu_link:hover, .yourcard_submenu_block a:hover {
+//     color: @color_itten_orange;
+// }
 
-.yourcard_menu_link.active, .yourcard_blocks_link.active {
+// .yourcard_menu_link.active, .yourcard_blocks_link.active {
+//     color: @color_itten_orange;
+// }
+
+.yourcar_menu_tb.active {
     color: @color_itten_orange;
 }
 
@@ -197,15 +198,7 @@ body {
 
 .yourcard_envelope {
     position: relative;
-    // border: solid 1px greenyellow;
-    // box-sizing: border-box;
 }
-
-// .card11 {
-// border: solid 1px palevioletred;
-// width: 100%;
-// height: 100%;
-// }
 
 .yourcard_photo {
     border: @color_cards solid 1px;

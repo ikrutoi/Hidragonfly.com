@@ -7,101 +7,54 @@ if (menuIcon) {
     });
 }
 
-let yourcardHeaderTabYourcard = document.querySelector('.yourcard_header_tab_yourcard');
-let yourcardMenu = document.querySelector('.yourcard_menu');
-let yourcardEnvelope = document.querySelector('.yourcard_envelope');
-let background = document.querySelector('.background');
-let footer = document.querySelector('.footer');
-// let yourcardSubmenuBlock = document.querySelector('.yourcard_submenu_block');
-if (yourcardHeaderTabYourcard) {
-    yourcardHeaderTabYourcard.addEventListener('click', function() {
-        yourcardHeaderTabYourcard.classList.toggle('_yourcard_active');
-        yourcardMenu.classList.toggle('_yourcard_active');
-        yourcardEnvelope.classList.toggle('active');
-        // background.classList.toggle('active');
-        footer.classList.toggle('active');
-        // yourcardSubmenuBlock.classList.toggle('_yourcard_active');
+// let yourcardHeaderTabYourcard = document.querySelector('.yourcard_header_tab_yourcard');
+// let yourcardMenu = document.querySelector('.yourcard_menu');
+// let yourcardEnvelope = document.querySelector('.yourcard_envelope');
+// let background = document.querySelector('.background');
+// let footer = document.querySelector('.footer');
+// if (yourcardHeaderTabYourcard) {
+//     yourcardHeaderTabYourcard.addEventListener('click', function() {
+//         yourcardHeaderTabYourcard.classList.toggle('_yourcard_active');
+//         yourcardMenu.classList.toggle('_yourcard_active');
+//         yourcardEnvelope.classList.toggle('active');
+//         footer.classList.toggle('active');
+//         let yourcardMenuLink = document.querySelectorAll('yourcard_menu_link');
+//         let yourcardSubmenu = document.querySelectorAll('yourcard_submenu');
+//         let yourcardMenuActive = document.querySelector('yourcard_menu._yourcard_active');
+//         let tabMenu
+//         if (yourcardMenuActive) {
+//             yourcardMenuLink.forEach(item=> {
+//                 item.addEventListener('click', selectYourcardMenuLink);
+//             })
+//             function selectYourcardMenuLink () {
+//                 yourcardMenuLink.forEach(item=> {
+//                     item.classList.contains(tabMenu)?
+//                     item.classList.toggle('active'):
+//                     item.classList.remove('active');
+//                 })             
+//                 this.classList.toggle('active');
+//                 tabMenu = this.getAttribute('data-tab-name');
+//                 selectYourcardBlocks(tabMenu);                
+//             }
+//             function selectYourcardBlocks(tabMenu) {
+//                 yourcardSubmenu.forEach(item=> {
+//                     item.classList.contains(tabMenu)?
+//                     item.classList.toggle('active'):
+//                     item.classList.remove('active');
+//                 })
+//             }
+//         }
+//     });
+// }
 
-        let yourcardMenuLink = document.querySelectorAll('.yourcard_menu_link');
-        let yourcardSubmenu = document.querySelectorAll('.yourcard_submenu');
-        // let yourcardCenterScreen = document.querySelector('.yourcard_center_screen');
-        let yourcardMenuActive = document.querySelector('.yourcard_menu._yourcard_active');
-        // let yourcardBlocksActive = document.querySelectorAll('.yourcard_blocks.active');
-        let tabMenu
-        if (yourcardMenuActive) {
-            yourcardMenuLink.forEach(item=> {
-                item.addEventListener('click', selectYourcardMenuLink);
-            })
-            function selectYourcardMenuLink () {
-                // yourcardCenterScreen.classList.toggle('active');
-                yourcardMenuLink.forEach(item=> {
-                    item.classList.contains(tabMenu)?
-                    item.classList.toggle('active'):
-                    item.classList.remove('active');
-                })             
-                this.classList.toggle('active');
-                tabMenu = this.getAttribute('data-tab-name');
-                selectYourcardBlocks(tabMenu);                
-            }
-            function selectYourcardBlocks(tabMenu) {
-                yourcardSubmenu.forEach(item=> {
-                    item.classList.contains(tabMenu)?
-                    item.classList.toggle('active'):
-                    item.classList.remove('active');
-                })
-            }
-        }
-        // let tab = function() {
-        //     let yourcardMenuLink = document.querySelectorAll('.yourcard_menu_link');
-        //     const yourcardBlocks = document.querySelectorAll('.yourcard_blocks');
-        //     const yourcardCenterScreen = document.querySelector('.yourcard_center_screen');
-        //     let tabName;
-        //     if (yourcardMenuActive) {
-        //         yourcardMenuLink.forEach(item=> {
-        //             item.addEventListener('click', selectYourcardMenuLink);
-        //         })
-        //         function selectYourcardMenuLink() {
-        //             yourcardCenterScreen.classList.toggle('_active_menu');           
-        //             yourcardMenuLink.forEach(item=>{
-        //                 item.classList.remove('is-act');
-        //             })
-        //             this.classList.toggle('is-act');
-        //             tabName = this.getAttribute('data-tab-name');
-        //             selectYourcardBlocks(tabName);
-        //         }
-        //         function selectYourcardBlocks(tabName) {
-        //             yourcardBlocks.forEach(item=> {
-        //                 item.classList.contains(tabName)? 
-        //                 item.classList.toggle('is-act') :
-        //                 item.classList.remove('is-act');
-        //             })
-        //         }
-        //     }
-        // }
-        
-        // tab();
-        
-    });
-}
+// let yourcardHeaderTabCards = document.querySelector('.yourcard_header_tab_cards');
+// if (yourcardHeaderTabCards) {
+//     yourcardHeaderTabCards.addEventListener("click", function() {
+//         yourcardHeaderTabCards.classList.toggle('_active_header');
+//     })
+// }
 
-let yourcardHeaderTabCards = document.querySelector('.yourcard_header_tab_cards');
-if (yourcardHeaderTabCards) {
-    yourcardHeaderTabCards.addEventListener("click", function() {
-        yourcardHeaderTabCards.classList.toggle('_active_header');
-    })
-}
-
-let addres = document.querySelector('.addres');
-let yourcardAddres = document.querySelector('.yourcard_addres');
-let yourcardPhoto = document.querySelector('.yourcard_photo');
-if (addres) {
-    addres.addEventListener('click', function() {
-        yourcardAddres.classList.toggle('active');     
-        yourcardPhoto.classList.toggle('active');
-    });
-}
-
-// let addres = document.querySelector('.data');
+// let addres = document.querySelector('.addres');
 // let yourcardAddres = document.querySelector('.yourcard_addres');
 // let yourcardPhoto = document.querySelector('.yourcard_photo');
 // if (addres) {
@@ -111,3 +64,23 @@ if (addres) {
 //     });
 // }
 
+const headerTabYourcard = document.querySelector('.header_tab_yourcard');
+const yourcardMenu = document.querySelector('.yourcard_menu');
+headerTabYourcard.addEventListener('click', function() {
+    headerTabYourcard.classList.toggle('active');
+    yourcardMenu.classList.toggle('active');
+})
+
+const yourcardMenuTab = document.querySelectorAll('.yourcard_menu_tab');
+
+yourcardMenuTab.forEach(function(item) {
+    item.addEventListener('click', function() {
+        let currentTab = item;
+
+        yourcardMenuTab.forEach(function(item) {
+            item.classList.remove('active');
+        })
+
+        currentTab.classList.add('active');
+    })
+})
