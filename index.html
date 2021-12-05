@@ -78,28 +78,28 @@
             <nav class="yourcard_menu yourcard_menu_main">
                         <ul>
                             <li>
-                                <a href="#" class="yourcard_menu_tab yourcard_menu_link" data-tab-name="photo">Photo</a>
+                                <a href="#" class="yourcard_menu_tab yourcard_menu_link" data-tab="#photo">Photo</a>
                             </li>
                             <li>
-                                <a href="#" class="yourcard_menu_tab yourcard_menu_link">Text</a>
+                                <a href="#" class="yourcard_menu_tab yourcard_menu_link" data-tab="#text">Text</a>
                             </li>
                             <li>
-                                <a href="#" class="yourcard_menu_tab yourcard_menu_link addres" data-tab-name="addres">Addres</a>
+                                <a href="#" class="yourcard_menu_tab yourcard_menu_link addres" data-tab="#addres">Addres</a>
                             </li>
                             <li>
-                                <a href="#" class="yourcard_menu_tab yourcard_menu_link" data-tab-name="aroma">Aroma</a>
+                                <a href="#" class="yourcard_menu_tab yourcard_menu_link" data-tab="#aroma">Aroma</a>
                             </li>
                             <li>
-                                <a href="#" class="yourcard_menu_tab yourcard_menu_link" data-tab-name="data">Data</a>
+                                <a href="#" class="yourcard_menu_tab yourcard_menu_link" data-tab="#data">Data</a>
                             </li>
                         </ul>
             </nav>
-            <nav class="yourcard_submenu photo">
+            <nav id="photo" class="yourcard_submenu photo yourcard_submenu_tab">
                     <ul>
                         <li>
                                 <a href="#" class="yourcard_blocks_link">
                                     <form action="photo.js" enctype="multipart/form-data" method="POST">
-                                        <input type="button" value="Add" onclick="document.getElementById('file').click();" />
+                                        <input type="button" value="Add"/>
                                         <input type="file" style="display:none" id="file" name="file"/>
                                     </form>
                                 </a>       
@@ -116,7 +116,24 @@
                         <li></li>
                     </ul>
             </nav>
-            <nav class="yourcard_submenu addres">
+            <nav id="text" class="yourcard_submenu photo yourcard_submenu_tab">
+                <ul>
+                    <li>
+                        <a href="#" class="yourcard_blocks_link">Curcive</a>       
+                    </li>
+                    <li>
+                        <a href="#" class="yourcard_blocks_link">Color</a>
+                    </li>
+                    <li>
+                        <a href="#" class="yourcard_blocks_link">Size</a>
+                    </li>
+                    <li>
+                        <a href="#" class="yourcard_blocks_link"></a>
+                    </li>
+                    <li></li>
+                </ul>
+        </nav>
+            <nav id="addres" class="yourcard_submenu addres yourcard_submenu_tab">
                         <ul class="yourcard_block_list">
                             <li>
                                 <a href="#" class="yourcard_blocks_link">Address Book</a>
@@ -127,7 +144,7 @@
                             <li></li>
                         </ul>
             </nav>
-            <nav class="yourcard_submenu aroma">
+            <nav id="aroma" class="yourcard_submenu aroma yourcard_submenu_tab">
                         <ul class="yourcard_block_list">
                             <li>
                                 <a href="#" class="yourcard_blocks_link">Shanel #5</a>
@@ -140,7 +157,7 @@
                             <li></li>
                         </ul>
             </nav>
-            <nav class="yourcard_submenu data">
+            <nav id="data" class="yourcard_submenu data yourcard_submenu_tab">
                         <ul class="yourcard_menu_sub_list">
                             <li>
                                 <a href="#" class="yourcard_blocks_link">Add Data</a>

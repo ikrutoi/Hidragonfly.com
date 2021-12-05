@@ -68,6 +68,7 @@ const headerTabYourcard = document.querySelector('.header_tab_yourcard');
 const yourcardMenu = document.querySelector('.yourcard_menu');
 const yourcardMenuTab = document.querySelectorAll('.yourcard_menu_tab');
 const yourcardEnvelope = document.querySelector('.yourcard_envelope');
+const yourcardSubmenuTab = document.querySelectorAll('.yourcard_submenu_tab');
 
 headerTabYourcard.addEventListener('click', function() {
     headerTabYourcard.classList.toggle('active');
@@ -80,21 +81,29 @@ headerTabYourcard.addEventListener('click', function() {
         item.classList.toggle('active');
     })
     
-    const headerTabYourcardActive = document.querySelector('.header_tab_yourcard.active');
-    
-    if (headerTabYourcardActive) {
+    if (headerTabYourcard.classList.contains('active')) {
         yourcardMenuTab.forEach(function(item) {
             item.addEventListener('click', function() {
                 let currentTab = item;
-        
-                yourcardMenuTab.forEach(function(item) {
-                    item.classList.remove('active');
-                })
-        
-                currentTab.classList.add('active');
+                let tabId = currentTab.getAttribute('data-tab');
+                let currentMenuTab = document.querySelector(tabId);
+
+                if (!currentTab.classList.contains('active')) {
+                    yourcardMenuTab.forEach(function(item) {
+                        item.classList.remove('active');
+                    })
+                    
+                    yourcardSubmenuTab.forEach(function(item) {
+                        item.classList.remove('active');
+                    })
+                    
+                    currentTab.classList.add('active');
+                    currentMenuTab.classList.add('active');
+                }
             })
         })
     }
+
     else yourcardMenuTab.forEach(function(item) {
         item.classList.remove('active');
     })
