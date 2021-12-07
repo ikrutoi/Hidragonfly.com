@@ -115,7 +115,12 @@ headerTabYourcard.addEventListener('click', function() {
     })
 })
         
-
+const widthScr = document.querySelector('.screen_header');
+console.log(window.innerWidth);
+console.log(widthScr);
+console.log(widthScr.offsetWidth);
+console.log(widthScr.clientWidth);
+console.log(getComputedStyle(widthScr).width);
 
 
 
