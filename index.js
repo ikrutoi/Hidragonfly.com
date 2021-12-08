@@ -65,6 +65,8 @@ headerTabYourcard.addEventListener('click', function() {
     yourcardSubmenuTab.forEach(function(item) {
         item.classList.remove('active');   
     })
+
+    youcardAddress.classList.remove('active');
 })
 
 
