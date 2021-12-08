@@ -1,4 +1,4 @@
-.yourcard_envelope, .yourcard_envelope_address, .yourcard_photo, .yourcard_text, .yourcard_address {
+.yourcard_envelope, .yourcard_photo, .yourcard_text, .yourcard_address {
     grid-column: 5/6;
     grid-row: 2/3;
 }
@@ -42,13 +42,12 @@
     background-color: @color_light;
     .mixin_card_size;
     margin: auto;
-    // z-index: 5;
-    transition: all 2.8s linear 0s;
+    transition: all 0.3s linear 0s;
 }
 
 .yourcard_address.active {
     opacity: 1;
-    transition:  all 2.8s linear 0s;
+    transition: all 0.3s linear 0.1s;
 }
 
 .address_logo {
