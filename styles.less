@@ -54,6 +54,7 @@ body {
 }
 
 .main {
+    // position: relative;
     display: grid;
     grid-column: 1/4;
     grid-row: 2/4;
@@ -100,11 +101,6 @@ body {
     z-index: 1;
 }
 
-.main span {
-    height: 22px;
-    width: 1px;
-}
-
 .yourcard_submenu.active {
     bottom: 0;
     transition: all 0.4s ease 0s;
@@ -131,6 +127,7 @@ body {
     margin-right: 8px;
     color: @color_light;
     height: 14px;
+    width: 0px;
     font-size: 10px;
     transform: rotate(-90deg);
 }
