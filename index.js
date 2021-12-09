@@ -15,11 +15,13 @@ const yourcardSubmenuTab = document.querySelectorAll('.yourcard_submenu_tab');
 const rain = document.querySelectorAll('.rain');
 const address = document.querySelector('.address');
 const youcardAddress = document.querySelector('.yourcard_address');
+const footer = document.querySelector('.footer');
 
 headerTabYourcard.addEventListener('click', function() {
     headerTabYourcard.classList.toggle('active');
     yourcardMenu.classList.toggle('active');
     yourcardEnvelope.classList.toggle('active');
+    footer.classList.toggle('active');
     
     rain.forEach(function(item) {
         item.classList.toggle('active');
