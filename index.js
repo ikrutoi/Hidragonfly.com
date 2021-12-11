@@ -13,7 +13,6 @@ const yourcardMenuTab = document.querySelectorAll('.yourcard_menu_tab');
 const yourcardEnvelope = document.querySelector('.yourcard_envelope');
 const yourcardSubmenuTab = document.querySelectorAll('.yourcard_submenu_tab');
 const rain = document.querySelectorAll('.rain');
-// const address = document.querySelector('.address');
 const youcardText = document.querySelector('.yourcard_text');
 const youcardAddress = document.querySelector('.yourcard_address');
 const footer = document.querySelector('.footer');
