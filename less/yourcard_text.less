@@ -1,20 +1,32 @@
 .yourcard_text {
-    // display: grid;
-    // grid-template-columns: 1fr 6fr 1fr 5fr 1.8fr 1fr;
-    // grid-template-rows: 1fr 2fr 1fr 5fr 1fr;
-    opacity: 0;
+    display: grid;
+    grid-template-columns: 0.5fr 14fr 0.5fr;
+    grid-template-rows: 0.5fr 9fr 0.5fr;
+    display: none;
     border: @color_cards solid 1px;
     box-shadow: @color_border 0 0 1px,
     @color_border 0 0 1px,
     @color_border 0 0 1px,
     @color_border 0 0 1px;
     background-color: @color_light;
-    .mixin_card_size;
-    margin: auto;
     transition: all 0.2s linear 0s;
 }
 
 .yourcard_text.active {
-    opacity: 1;
-    transition: all 0.2s linear 0.2s;
+    display: inherit;
+    transition: all 0.2s linear 0.1s;
 }
+
+.yourcard_text textarea {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    font-size: 15px;
+    line-height: 140%;
+    width: 99%;
+    height: 99%;
+    border: none;
+    z-index: 1;
+}
+
+
+
