@@ -3,7 +3,7 @@
     grid-template-columns: 0.5fr 14fr 0.5fr;
     grid-template-rows: 0.5fr 9fr 0.5fr;
     display: none;
-    border: @color_cards solid 1px;
+    // border: @color_cards solid 1px;
     box-shadow: @color_border 0 0 1px,
     @color_border 0 0 1px,
     @color_border 0 0 1px,
@@ -20,13 +20,17 @@
 .yourcard_text textarea {
     grid-column: 2/3;
     grid-row: 2/3;
-    font-size: 15px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 42px;
     line-height: 140%;
-    width: 99%;
-    height: 99%;
+    // width: 100%;
+    // height: 100%;
+    overflow: hidden;
+    resize: none;
     border: none;
     z-index: 1;
 }
 
-
-
+.yourcard_text textarea:focus, input:focus {
+    outline: none;
+}
