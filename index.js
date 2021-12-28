@@ -77,3 +77,18 @@ headerTabYourcard.addEventListener('click', function() {
     youcardAddress.classList.remove('active');
     youcardText.classList.remove('active');
 })
+
+document.querySelectorAll('.new_line').forEach(newLine => {
+    newLine.addEventListener('keydown', myBrHandler)
+  })
+  
+function myBrHandler(e) {
+    if (e.ctrlKey || e.keyCode == 13) {
+      let brNode = document.createElement('br');
+      
+      let range = window.getSelection().getRangeAt(0);
+      range.deleteContents();
+      range.insertNode(brNode);
+      range.collapse();
+    }
+}
