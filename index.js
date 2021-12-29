@@ -1,3 +1,7 @@
+import { fragmentHeader } from './JS/header.js';
+
+fragmentHeader;
+
 let menuIcon = document.querySelector('.menu_icon');
 let cardsBodyNav = document.querySelector('.cards_body_nav');
 if (menuIcon) {
@@ -92,3 +96,4 @@ function myBrHandler(e) {
       range.collapse();
     }
 }
+
