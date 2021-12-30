@@ -1,6 +1,6 @@
-import { fragmentHeader } from './JS/header.js';
+import { header } from './JS/header.js';
 
-fragmentHeader;
+header;
 
 let menuIcon = document.querySelector('.menu_icon');
 let cardsBodyNav = document.querySelector('.cards_body_nav');
