@@ -1,14 +1,6 @@
 import { header } from './JS/header.js';
-import { croppic } from './сroppic/croppic.js';
 
 header;
-croppic;
-
-// let cropperOptions = {
-//     uploadUrl:'path_to_your_image_proccessing_file.php'
-// }			
-
-// let cropperHeader = new Croppic('yourId', cropperOptions);
 
 let menuIcon = document.querySelector('.menu_icon');
 let cardsBodyNav = document.querySelector('.cards_body_nav');

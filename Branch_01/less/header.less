@@ -1,0 +1,65 @@
+.header {
+    grid-column: 1/4;
+    grid-row: 1/2;
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 5fr 2fr 0.5fr;
+    grid-template-rows: 40px;
+    z-index: 2;
+}
+
+.screen_header {
+    grid-column: 1/6;
+    grid-row: 1/2;
+    // background-color: hsla(28, 100%, 44%, 0.5);
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.yourcard_header_logo {
+    grid-column: 2/3;
+    grid-row: 1/2;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    z-index: 1;
+}
+
+.header_menu {
+    grid-column: 3/4;
+    grid-row: 1/2;
+    display: flex;
+    align-items: center;
+    z-index: 1;
+}
+
+.header_login {
+    grid-column: 4/5;
+    grid-row: 1/2;
+    display: flex;
+    align-items: center;
+    z-index: 1;
+}
+
+.header_tab {
+    text-decoration: none;
+    color: @color_light;
+    font-weight: 300;
+}
+
+.header_tab:hover {
+    color: @color_itten_orange;
+}
+
+.header_tab.active {
+    color: @color_itten_orange;
+}
+
+.header_menu ul {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+    width: 100%;
+}
+
+.header_menu li:first-child {
+    padding-inline-end: 40px;
+}

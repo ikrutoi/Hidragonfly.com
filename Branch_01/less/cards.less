@@ -1,0 +1,78 @@
+.cards_main_body {
+    grid-row: 2/4;
+    width: 100vw;
+    background-color: @color_light;
+}
+
+.cards_list {
+    width: 100%;
+    display: flex;
+    padding-inline-start: 0;
+    flex-wrap: wrap;
+    list-style: none;
+    justify-content: center;
+    margin-top: 55px;
+}
+
+.cards_item {
+    min-width: 280px;
+    position: relative;
+    top: 0;
+    margin-bottom: 30px;
+    transition: @transition_card;
+    border: solid @color_cards 1px;
+}
+
+.cards_item:hover {
+    box-shadow: @box_shadow_cards;
+    top: -2px;
+}
+
+.cards_item_href {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+}
+
+.cards_item_href img {
+    width: 100%;
+    margin-bottom: 0px;
+}
+
+.cards_item_href p {
+    padding-left: 20px;
+    font-size: 0.9em;
+}
+
+@media (min-width: 1583px) {
+    .cards_item {
+        width: calc(25% - 18px);
+        margin-bottom: 20px;
+        overflow: hidden;
+    }
+}
+
+@media (min-width: 1263px) and (max-width: 1582px) {
+    .cards_item {
+        width: calc(33.333333333333% - 16px);
+        margin-right: 15px;
+        overflow: hidden;
+    }
+}
+
+@media (min-width: 643px) and (max-width: 1262px) {
+    .cards_item {
+        width: calc(50% - 12px);
+        margin-right: 15px;
+        overflow: hidden;
+    }
+}
+
+@media (max-width: 642px) {
+    .cards_item {
+        width: calc(50% - 12px);
+        margin-right: 15px;
+        overflow: hidden;
+    }
+}

@@ -1,0 +1,153 @@
+.logo_hi {
+    display: block;
+    position: relative;
+    width: 32px;
+    height: 28px;
+    margin-right: 30px;
+}
+
+.logo_hi::before,
+.logo_hi::after {
+    content: '';
+}
+
+.logo_hi::before {
+    position: absolute;
+    height: 28px;
+    width: 2px;
+    left: 22px;
+    background-color: @color_light;
+    animation: wing_right 25s ease 0s infinite normal;
+}
+
+.logo_hi span:first-child {
+    position: absolute;
+    height: 28px;
+    width: 2px;
+    left: 18px;
+    background-color: @color_light;
+    animation: wing_left 25s ease 0s infinite normal;
+}
+
+.logo_hi span:nth-child(2) {
+    position: absolute;
+    height: 2px;
+    width: 26px;
+    bottom: 13px;
+    background-color: @color_light;
+    transform: rotate(0deg);
+    animation: carcass 25s ease 0s infinite normal;
+}
+
+.logo_hi span:last-child {
+    position: absolute;
+    border-radius: 50%;
+    height: 4px;
+    width: 4px;
+    top: 12px;
+    right: 0px;
+    background-color: @color_light;
+    animation: lap 25s ease 0s infinite normal;
+}
+
+.logo_hi::after {
+    position: absolute;
+    top: 13px;
+    left: 26px;
+    height: 2px;
+    width: 0px;
+    background-color: @color_light;
+    animation: tail 25s ease 0s infinite normal;
+}
+
+@keyframes wing_right {
+    49% {
+        top: 0px;
+        left: 22px;
+        height: 28px;
+    }
+
+    50% {
+        top: 2px;
+        left: 10px;
+        height: 24px;
+    }
+
+    99% {
+        top: 2px;
+        left: 10px;
+        height: 24px;
+    }
+ }
+
+ @keyframes wing_left {
+    49% {
+        top: 0px;
+        left: 18px;
+        height: 28px;
+    }
+
+    50% {
+        top: 2px;
+        left: 0px;
+        height: 24px;
+    }
+
+    99% {
+        top: 2px;
+        left: 0px;
+        height: 24px;
+    }
+ }
+
+ @keyframes carcass {
+    49% {
+        width: 26px;
+        bottom: 13px;
+        transform: rotate(0deg);
+    }
+
+    50% {
+        width: 16px;
+        transform: rotate(-90deg) translate(-4px, 10px);
+    }
+
+    99% {
+        width: 16px;
+        transform: rotate(-90deg) translate(-4px, 10px);
+    }
+ }
+
+ @keyframes lap {
+    49% {
+        top: 12px;
+        right: 0px;
+    }
+
+    50% {
+        top: 2px;
+        right: 12px;
+    }
+
+    99% {
+        top: 2px;
+        right: 12px;
+    }
+ }
+
+ @keyframes tail {
+    49% {
+        width: 0px;
+        left: 26px;
+    }
+
+    50% {
+        width: 10px;
+        left: 0px;
+    }
+
+    99% {
+        width: 10px;
+        left: 0px;
+    }
+ }
