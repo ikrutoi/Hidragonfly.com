@@ -1,14 +1,7 @@
 import { header } from './JS/header.js';
-import { croppic } from './сroppic/croppic.js';
+// import { croppic } from './сroppic/croppic.js';
 
 header;
-croppic;
-
-// let cropperOptions = {
-//     uploadUrl:'path_to_your_image_proccessing_file.php'
-// }			
-
-// let cropperHeader = new Croppic('yourId', cropperOptions);
 
 let menuIcon = document.querySelector('.menu_icon');
 let cardsBodyNav = document.querySelector('.cards_body_nav');
@@ -25,9 +18,17 @@ const yourcardMenuTab = document.querySelectorAll('.yourcard_menu_tab');
 const yourcardEnvelope = document.querySelector('.yourcard_envelope');
 const yourcardSubmenuTab = document.querySelectorAll('.yourcard_submenu_tab');
 const rain = document.querySelectorAll('.rain');
+
 const youcardText = document.querySelector('.yourcard_text');
 const youcardAddress = document.querySelector('.yourcard_address');
 const footer = document.querySelector('.footer');
+// const tabPhoto = document.querySelector('.yourcard_submenu_photo_block');
+// const photoReset = document.querySelector('.photo_reset');
+// const photoAddReset = document.querySelector('.photo_add_reset');
+
+// tabPhoto.addEventListener('click', function() {
+//     submenuPhoto.classList.add('active')
+// });
 
 headerTabYourcard.addEventListener('click', function() {
     headerTabYourcard.classList.toggle('active');
@@ -37,14 +38,18 @@ headerTabYourcard.addEventListener('click', function() {
     
     rain.forEach(function(item) {
         item.classList.toggle('active');
-    })   
+    }) 
     
+    // photoReset.addEventListener('click', function() {
+    //     photoAddReset.classList.remove('active');
+    // })
+
     yourcardMenuTab.forEach(function(item) {
         item.addEventListener('click', function() {
             let currentTab = item;
             let tabId = currentTab.getAttribute('data-tab');
-            let currentMenuTab = document.querySelector(tabId);  
-                
+            let currentMenuTab = document.querySelector(tabId);
+            
             if (currentTab.classList.contains('active')) {
                 currentTab.classList.remove('active');
                 currentMenuTab.classList.remove('active');
@@ -105,3 +110,4 @@ function myBrHandler(e) {
     }
 }
 
+// const photoReset

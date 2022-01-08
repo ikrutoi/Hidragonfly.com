@@ -9,7 +9,8 @@
 @import url(less/rain.less);
 @import url(less/yourcard_envelope.less);
 @import url(/less/yourcard_text.less);
-@import url(/less/yourcard_photo.less);
+@import url(/less/submenu_photo.less);
+// @import url(/less/yourcard_photo.less);
 @import url(/сroppic/croppic.css);
 // @import url(less/hicoin.less);
 
@@ -71,22 +72,24 @@ body {
     display: flex;
     grid-column: 2/3;
     grid-row: 2/3;
-    bottom: 140%;
+    bottom: 150%;
     transition: all 0.4s ease 0s;
     z-index: 1;
 }
 
-.yourcard_menu ul, .yourcard_submenu ul {
+.yourcard_menu ul, .yourcard_submenu ul, .yourcard_submenu_photo ul, .photo_add_hello ul {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    margin: 0;
+    padding-inline-start: 0;
 }
 
 .yourcard_menu_tab.active {
     color: @color_itten_orange;
 }
 
-.yourcard_menu li, .yourcard_submenu_tab li {
+.yourcard_menu li, .yourcard_submenu_tab li, .yourcard_submenu_photo li, .photo_add_hello li {
     height: 60px;
 }
 
@@ -100,12 +103,34 @@ body {
     display: flex;
     grid-column: 3/4;
     grid-row: 2/3;
-    bottom: 140%;
+    bottom: 150%;
     transition: all 0.4s ease 0s;
     z-index: 1;
 }
 
 .yourcard_submenu.active {
+    bottom: 0;
+    transition: all 0.4s ease 0s;
+}
+
+.photo_add_hello {
+    position: relative;
+    display: flex;
+    grid-column: 4/5;
+    grid-row: 2/3;
+    bottom: 150%;
+    transition: all 0.4s ease 0s;
+    z-index: 1;
+}
+
+.cropControls {
+    position: relative;
+    display: flex;
+    grid-column: 4/5;
+    grid-row: 2/3;
+}
+
+.photo_add_hello.active {
     bottom: 0;
     transition: all 0.4s ease 0s;
 }
@@ -134,11 +159,6 @@ body {
     width: 0px;
     font-size: 10px;
     transform: rotate(-90deg);
-}
-
-.yourcard_menu ul, .yourcard_submenu ul {
-    margin: 0;
-    padding-inline-start: 0;
 }
 
 .yourcar_menu_tb.active {
