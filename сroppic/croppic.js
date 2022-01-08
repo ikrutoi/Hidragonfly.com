@@ -1,4 +1,4 @@
-let yourcardSubmenuPhoto = document.querySelector('.yourcard_submenu_photo');
+// let yourcardSubmenuPhoto = document.querySelector('.yourcard_submenu_photo');
 
 (function (window, document) {
 
@@ -18,9 +18,9 @@ let yourcardSubmenuPhoto = document.querySelector('.yourcard_submenu_photo');
 			outputUrlId:'',
 			//styles
 			imgEyecandy:true,
-			imgEyecandyOpacity:0.2,
-			zoomFactor:10,
-			rotateFactor:5,
+			imgEyecandyOpacity:0.4,
+			zoomFactor:15,
+			rotateFactor:90,
 			doubleZoomControls:true,
 			rotateControls: true,
 			modal:false,
@@ -121,9 +121,11 @@ let yourcardSubmenuPhoto = document.querySelector('.yourcard_submenu_photo');
 			that.outputDiv.append(html);
 			
 			that.cropControlsUpload = that.outputDiv.find('.cropControlsUpload');
+
+			that.tabSpan = $('.tab_span');
 			
 			if(that.options.customUploadButtonId ===''){ that.imgUploadControl = that.outputDiv.find('.cropControlUpload'); }
-			else{	that.imgUploadControl = $('#'+that.options.customUploadButtonId); that.imgUploadControl.show();	}
+			else{	that.imgUploadControl = $('#'+that.options.customUploadButtonId); that.imgUploadControl.show();	that.tabSpan.hide(); }
 
 			if( !$.isEmptyObject(that.croppedImg)){
 				that.cropControlRemoveCroppedImage = that.outputDiv.find('.cropControlRemoveCroppedImage');
@@ -183,6 +185,7 @@ let yourcardSubmenuPhoto = document.querySelector('.yourcard_submenu_photo');
 				
 				that.showLoader();
 				that.imgUploadControl.hide();
+				that.tabSpan.show();
 				
 				if(that.options.processInline){			
 					// Checking Browser Support for FileReader API
@@ -385,152 +388,43 @@ let yourcardSubmenuPhoto = document.querySelector('.yourcard_submenu_photo');
 			
 		},
 		
-		/*createCropControls: function(){
+		createCropControls: function(){
 			var that = this;
-
 			// CREATE CONTROLS
-			var cropControlZoomMuchIn =      '';
+			// var cropControlZoomMuchIn =      '';
 			var cropControlZoomIn =          '<i class="cropControlZoomIn"></i>';
 			var cropControlZoomOut =         '<i class="cropControlZoomOut"></i>';
-			var cropControlZoomMuchOut =     '';
+			// var cropControlZoomMuchOut =     '';
 			var cropControlRotateLeft =      '';
 	        var cropControlRotateRight =     '';
 	        var cropControlCrop =            '<i class="cropControlCrop"></i>';
 			var cropControlReset =           '<i class="cropControlReset"></i>';
-
-			var myCropControlZoomMuchIn =      '';
-			var myCropControlZoomIn =          '<i class="cropControlZoomIn">Zoom In</i>';
-			var myCropControlZoomOut =         '<i class="cropControlZoomOut">Zoom Out</i>';
-			var myCropControlZoomMuchOut =     '';
-			var myCropControlRotateLeft =      '';
-	        var myCropControlRotateRight =     '';
-	        var myCropControlCrop =            '<i class="cropControlCrop">Crop</i>';
-			var myCropControlReset =           '<i class="myCropControlReset">Reset</i>';
-			// let blockPhoto = '<ul><li><a href="#">Zoom Much In</a></li></ul>';
-			// let myCropControlReset = '<ul><li><a href="#">Zoom Much In</a></li></ul>';
-			// const photoAddHello = document.querySelector('.photo_add_hello');
-			// const p101 = document.getElementById('photo');
-			// const photoReset = document.querySelector('.photo_reset');
-
-            var html;
-			// let html1;  
-			// let myCropControlsCrop;
-            
-			if(that.options.doubleZoomControls){
-				cropControlZoomMuchIn = '<i class="cropControlZoomMuchIn"></i>';
-				cropControlZoomMuchOut = '<i class="cropControlZoomMuchOut"></i>';
-			}
-			if(that.options.rotateControls){
-				cropControlRotateLeft = '<i class="cropControlRotateLeft"></i>';
-				cropControlRotateRight = '<i class="cropControlRotateRight"></i>';
-			} 
 			
-			html = '<div class="cropControls cropControlsCrop">'+ cropControlZoomMuchIn + cropControlZoomIn + cropControlZoomOut + cropControlZoomMuchOut + cropControlRotateLeft + cropControlRotateRight + cropControlCrop + cropControlReset + '</div>';
-			// let modalHTML = '<div class="myCropControls myCropControlsCrop">'+ myCropControlZoomMuchIn + myCropControlZoomIn + myCropControlZoomOut + myCropControlZoomMuchOut + myCropControlRotateLeft + myCropControlRotateRight + myCropControlCrop + myCropControlReset + '</div>';
-
-			that.obj.append(html);
-			// $('div.photo_add_hello').append(modalHTML);
-
-			$('div.photo_add_hello').addClass('active');
-			
-			that.cropControlsCrop = that.obj.find('.cropControlsCrop');
-			// that.obj = $('.myCropControlsCrop');
-			// that.myCropControlsCrop = that.obj.find('.myCropControlsCrop');
-
-			// CACHE AND BIND CONTROLS
-			if(that.options.doubleZoomControls){
-				that.cropControlZoomMuchIn = that.cropControlsCrop.find('.cropControlZoomMuchIn');
-				that.cropControlZoomMuchIn.on('click',function(){ that.zoom( that.options.zoomFactor*10 ); });
-			
-				that.cropControlZoomMuchOut = that.cropControlsCrop.find('.cropControlZoomMuchOut');
-				that.cropControlZoomMuchOut.on('click',function(){ that.zoom(-that.options.zoomFactor*10); });
-			}
-			
-			that.cropControlZoomIn = that.cropControlsCrop.find('.cropControlZoomIn');
-			that.cropControlZoomIn.on('click',function(){ that.zoom(that.options.zoomFactor); });
-
-			that.cropControlZoomOut = that.cropControlsCrop.find('.cropControlZoomOut');
-			that.cropControlZoomOut.on('click',function(){ that.zoom(-that.options.zoomFactor); });		
-
-			that.cropControlZoomIn = that.cropControlsCrop.find('.cropControlRotateLeft');
-	        that.cropControlZoomIn.on('click', function() { that.rotate(-that.options.rotateFactor); });
-	        
-	        that.cropControlZoomOut = that.cropControlsCrop.find('.cropControlRotateRight');
-	        that.cropControlZoomOut.on('click', function() { that.rotate(that.options.rotateFactor); });
-	        
-	        that.cropControlCrop = that.cropControlsCrop.find('.cropControlCrop');
-			that.cropControlCrop.on('click',function(){ that.crop(); });
-
-			that.cropControlReset = that.cropControlsCrop.find('.cropControlReset');
-			that.cropControlReset.on('click',function(){ that.reset(); });
-			
-			// myCropControlReset = that.myCropControlsCrop.find('.myCropControlReset');
-			// myCropControlReset.on('click',function(){ that.reset(); });
-			
-		},*/
-
-		createCropControls: function(){
-			var that = this;
-
-			// CREATE CONTROLS
-			var cropControlZoomMuchIn =      '';
-			var cropControlZoomIn =          '<i class="cropControlZoomIn"></i>';
-			var cropControlZoomOut =         '<i class="cropControlZoomOut"></i>';
-			var cropControlZoomMuchOut =     '';
-			var cropControlRotateLeft =      '';
-	        var cropControlRotateRight =     '';
-	        var cropControlCrop =            '<i class="cropControlCrop"></i>';
-			var cropControlReset =           '<i class="cropControlReset cropControl"></i>';
-
-			// var myCropControlZoomMuchIn =      '';
-			// var myCropControlZoomIn =          '<i class="cropControlZoomIn">Zoom In</i>';
-			// var myCropControlZoomOut =         '<i class="cropControlZoomOut">Zoom Out</i>';
-			// var myCropControlZoomMuchOut =     '';
-			// var myCropControlRotateLeft =      '';
-	        // var myCropControlRotateRight =     '';
-	        // var myCropControlCrop =            '<i class="cropControlCrop">Crop</i>';
-			// var myCropControlReset =           '<i class="myCropControlReset">Reset</i>';
-			// let blockPhoto = '<ul><li><a href="#">Zoom Much In</a></li></ul>';
-			// let myCropControlReset = '<ul><li><a href="#">Zoom Much In</a></li></ul>';
-			let photoAddHello = $('div.photo_add_hello');
-			// const p101 = document.getElementById('photo');
-			// const photoReset = document.querySelector('.photo_reset');
-
             let html;
-			// let html1;  
-			// let myCropControlsCrop;
             
-			if(that.options.doubleZoomControls){
-				cropControlZoomMuchIn = '<i class="cropControlZoomMuchIn"></i>';
-				cropControlZoomMuchOut = '<i class="cropControlZoomMuchOut"></i>';
-			}
+			// if(that.options.doubleZoomControls){
+			// 	cropControlZoomMuchIn = '<i class="cropControlZoomMuchIn"></i>';
+			// 	cropControlZoomMuchOut = '<i class="cropControlZoomMuchOut"></i>';
+			// }
 			if(that.options.rotateControls){
 				cropControlRotateLeft = '<i class="cropControlRotateLeft"></i>';
 				cropControlRotateRight = '<i class="cropControlRotateRight"></i>';
 			} 
 			
-			html = '<div class="cropControls cropControlsCrop">'+ cropControlZoomMuchIn + cropControlZoomIn + cropControlZoomOut + cropControlZoomMuchOut + cropControlRotateLeft + cropControlRotateRight + cropControlCrop + cropControlReset + '</div>';
-			// let modalHTML = '<div class="myCropControls myCropControlsCrop">'+ myCropControlZoomMuchIn + myCropControlZoomIn + myCropControlZoomOut + myCropControlZoomMuchOut + myCropControlRotateLeft + myCropControlRotateRight + myCropControlCrop + myCropControlReset + '</div>';
-			
+			html = '<div class="cropControls cropControlsCrop">' /*+ cropControlZoomMuchIn*/ + cropControlZoomIn + cropControlZoomOut /*+ cropControlZoomMuchOut*/ + cropControlRotateLeft + cropControlRotateRight + cropControlCrop + cropControlReset + '</div>';
+				
 			that.obj.append(html);
-			// photoAddHello.append(html);
-			
-			photoAddHello.addClass('active');
-			
-			// that.obj = $('.cropControlsCrop');
-			
 			that.cropControlsCrop = that.obj.find('.cropControlsCrop');
-			// that.obj = $('.myCropControlsCrop');
-			// that.myCropControlsCrop = that.obj.find('.myCropControlsCrop');
+
 
 			// CACHE AND BIND CONTROLS
-			if(that.options.doubleZoomControls){
-				that.cropControlZoomMuchIn = that.cropControlsCrop.find('.cropControlZoomMuchIn');
-				that.cropControlZoomMuchIn.on('click',function(){ that.zoom( that.options.zoomFactor*10 ); });
+			// if(that.options.doubleZoomControls){
+			// 	that.cropControlZoomMuchIn = that.cropControlsCrop.find('.cropControlZoomMuchIn');
+			// 	that.cropControlZoomMuchIn.on('click',function(){ that.zoom( that.options.zoomFactor*10 ); });
 			
-				that.cropControlZoomMuchOut = that.cropControlsCrop.find('.cropControlZoomMuchOut');
-				that.cropControlZoomMuchOut.on('click',function(){ that.zoom(-that.options.zoomFactor*10); });
-			}
+			// 	that.cropControlZoomMuchOut = that.cropControlsCrop.find('.cropControlZoomMuchOut');
+			// 	that.cropControlZoomMuchOut.on('click',function(){ that.zoom(-that.options.zoomFactor*10); });
+			// }
 			
 			that.cropControlZoomIn = that.cropControlsCrop.find('.cropControlZoomIn');
 			that.cropControlZoomIn.on('click',function(){ that.zoom(that.options.zoomFactor); });
@@ -549,9 +443,6 @@ let yourcardSubmenuPhoto = document.querySelector('.yourcard_submenu_photo');
 
 			that.cropControlReset = that.cropControlsCrop.find('.cropControlReset');
 			that.cropControlReset.on('click',function(){ that.reset(); });
-			
-			// myCropControlReset = that.myCropControlsCrop.find('.myCropControlReset');
-			// myCropControlReset.on('click',function(){ that.reset(); });
 			
 		},
 			

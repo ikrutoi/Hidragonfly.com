@@ -1,7 +1,16 @@
-.yourcard_envelope, .yourcard_text, .yourcard_address, .yourcard_photo {
-    grid-column: 6/7;
+.yourcard_envelope, .yourcard_text, .yourcard_address {
+    grid-column: 5/6;
     grid-row: 2/3;
     .mixin_card_size;
+}
+
+.yourcard_photo {
+    grid-column: 4/7;
+    grid-row: 1/4;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-rows: 1fr auto 1fr;
+    overflow: hidden;
 }
 
 .yourcard_envelope {
