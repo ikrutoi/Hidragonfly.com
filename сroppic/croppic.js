@@ -870,7 +870,7 @@ let croppicOptions = {
 	// modal:true,
 	// imgEyecandyOpacity:0.4,
     processInline:true,
-	loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span></div> ',
+	loaderHtml:'<div class="loader bubblingG"><span id="bubblingG_1"></span><span id="bubblingG_2"></span><span id="bubblingG_3"></span><span id="bubblingG_4"></span></div> ',
     onBeforeImgUpload: function(){ console.log('onBeforeImgUpload') },
     onAfterImgUpload: function(){ console.log('onAfterImgUpload') },
     onImgDrag: function(){ console.log('onImgDrag') },
