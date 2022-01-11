@@ -5,11 +5,6 @@
 // login;
 // header;
 
-
-
-
-
-
 let menuIcon = document.querySelector('.menu_icon');
 let cardsBodyNav = document.querySelector('.cards_body_nav');
 if (menuIcon) {
