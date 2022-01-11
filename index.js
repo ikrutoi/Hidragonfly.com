@@ -146,3 +146,38 @@ loginField.forEach(function (item) {
     item.addEventListener('focus', () => item.classList.add('focused'),true);
     item.addEventListener('blur', () => item.classList.remove('focused'),true);
 });
+
+const signupForm = document.querySelector('.signup_form');
+
+signupForm.classList.add('active');
+
+const signUpTab = document.querySelector('.login_signup_tab');
+const loginForm = document.querySelector('.login_form');
+const signupField = document.querySelectorAll('.signup_field');
+const loginGreeting = document.querySelector('.login_greeting');
+
+signUpTab.addEventListener('click', function () {
+    loginGreeting.classList.add('active');
+    loginForm.classList.add('active');
+    signupForm.classList.remove('active');
+
+    const signupFormBlock = document.querySelector('.signup_form_block');
+    const signupFieldOne = document.querySelector('.signup_field');
+
+    signupFormBlock.setAttribute('display', 'flex');
+   
+    // function addBlock () {
+        signupFieldOne.classList.remove('active');
+    // }
+    
+    // function addText () {
+    //     signupText.classList.add('active');
+    // }
+
+    // setTimeout (addText, 1500);
+    // setTimeout (addBlock, 2000);
+});
+
+signupField.forEach(function (item) {
+    item.classList.add('active');
+});
