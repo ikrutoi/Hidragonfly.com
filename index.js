@@ -1,7 +1,14 @@
-import { header } from './JS/header.js';
+// import { header } from './JS/header.js';
 // import { croppic } from './сroppic/croppic.js';
+// import { login } from './JS/login.js';
 
-header;
+// login;
+// header;
+
+
+
+
+
 
 let menuIcon = document.querySelector('.menu_icon');
 let cardsBodyNav = document.querySelector('.cards_body_nav');
@@ -22,13 +29,6 @@ const rain = document.querySelectorAll('.rain');
 const youcardText = document.querySelector('.yourcard_text');
 const youcardAddress = document.querySelector('.yourcard_address');
 const footer = document.querySelector('.footer');
-// const tabPhoto = document.querySelector('.yourcard_submenu_photo_block');
-// const photoReset = document.querySelector('.photo_reset');
-// const photoAddReset = document.querySelector('.photo_add_reset');
-
-// tabPhoto.addEventListener('click', function() {
-//     submenuPhoto.classList.add('active')
-// });
 
 headerTabYourcard.addEventListener('click', function() {
     headerTabYourcard.classList.toggle('active');
@@ -40,10 +40,6 @@ headerTabYourcard.addEventListener('click', function() {
         item.classList.toggle('active');
     }) 
     
-    // photoReset.addEventListener('click', function() {
-    //     photoAddReset.classList.remove('active');
-    // })
-
     yourcardMenuTab.forEach(function(item) {
         item.addEventListener('click', function() {
             let currentTab = item;
@@ -65,13 +61,13 @@ headerTabYourcard.addEventListener('click', function() {
                 yourcardSubmenuTab.forEach(function(item) {
                     item.classList.remove('active');
                 })
-
+                
                 youcardAddress.classList.remove('active');
                 youcardText.classList.remove('active');
-             
+                
                 currentTab.classList.add('active');
                 currentMenuTab.classList.add('active');
-
+                
                 if (address.classList.contains('active')) {
                     youcardAddress.classList.add('active');
                 }
@@ -97,17 +93,61 @@ headerTabYourcard.addEventListener('click', function() {
 
 document.querySelectorAll('.new_line').forEach(newLine => {
     newLine.addEventListener('keydown', myBrHandler)
-  })
-  
+})
+
 function myBrHandler(e) {
     if (e.ctrlKey || e.keyCode == 13) {
-      let brNode = document.createElement('br');
-      
-      let range = window.getSelection().getRangeAt(0);
-      range.deleteContents();
-      range.insertNode(brNode);
-      range.collapse();
+        let brNode = document.createElement('br');
+        
+        let range = window.getSelection().getRangeAt(0);
+        range.deleteContents();
+        range.insertNode(brNode);
+        range.collapse();
     }
 }
 
-// const photoReset
+const headerTabLogin = document.querySelector('.header_tab_login');
+const rainCenter = document.querySelector('.rain_center');
+const loginBlock = document.querySelector('.login_block');
+
+headerTabLogin.addEventListener('click', function() {
+    headerTabLogin.classList.toggle('active');
+    yourcardEnvelope.classList.toggle('active');
+    rainCenter.classList.toggle('active');
+    loginBlock.classList.toggle('active');
+});
+
+function show() {
+    let pas = document.querySelector('.pas_add');
+    pas.setAttribute('type', 'text');
+}
+
+function hide() {
+    let pas = document.querySelector('.pas_add');
+    pas.setAttribute('type', 'password');
+}
+
+let passwordShown = 0;
+
+document.getElementById("eye").addEventListener("click", function () {
+    if (passwordShown == 0) {
+        passwordShown = 1;
+        show();
+    } else {
+        passwordShown = 0;
+        hide();
+    }
+});
+
+const loginEye = document.querySelector('.login_eye');
+
+loginEye.addEventListener('click', function () {
+    loginEye.classList.toggle('active');
+});
+
+const loginField = document.querySelectorAll('.login_field');
+
+loginField.forEach(function (item) {
+    item.addEventListener('focus', () => item.classList.add('focused'),true);
+    item.addEventListener('blur', () => item.classList.remove('focused'),true);
+});

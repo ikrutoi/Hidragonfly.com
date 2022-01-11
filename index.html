@@ -23,7 +23,7 @@
 </head>
 <body>
     <div id="root" class="wrapper">
-        <!-- <header class="header">
+        <header class="header">
             <div class="screen_header"></div>
             <div class="yourcard_header_logo">
                 <div class="logo_hi">
@@ -44,7 +44,7 @@
                 <ul>
                     <li>
                         <div class="yourcard_header_yourcard">
-                            <a href="#" class="header_tab header_tab_yourcard yourcard_header_tab_yourcard header_tab_yourcard">Your Card</a>
+                            <a href="#" class="header_tab header_tab_yourcard yourcard_header_tab_yourcard">Your Card</a>
                         </div>
                     </li>
                 </ul>
@@ -53,7 +53,7 @@
                 <ul>
                     <li>
                         <div class="yourcard_header_login">
-                            <a href="#" class="header_tab menu_it" data-tab-name="">Login</a>
+                            <a href="#" class="header_tab menu_it header_tab_login" data-tab-name="">Login</a>
                         </div>
                     </li>
                     <li>
@@ -63,7 +63,7 @@
                     </li>
                 </ul>
             </nav>
-        </header> -->
+        </header>
         <div class="screen"></div>
         <div class="rain rain_header"></div>
         <main class="main"> 
@@ -71,6 +71,7 @@
             <div class="rain rain_left"></div>
             <div class="rain rain_right"></div>
             <div class="rain rain_bottom"></div>
+            <div class="rain_center"></div>
             <nav class="yourcard_menu yourcard_menu_main">
                         <ul>
                             <li>
@@ -227,6 +228,37 @@
                         <input type="text" placeholder="City" maxlength="16">
                     </div>
                     <input type="text" placeholder="Country" maxlength="30">
+                </form>
+            </div>
+            <div class="login_block">
+                <div class="login_greeting">
+                    <p>Hi, let's fly!</p>
+                </div>
+                <form class="login_form">
+                    <div>
+                        <div class="login_field">
+                            <input id="login_text_input" class="login_add login_tab" type="text" placeholder="Username" name="userName" required>
+                        </div>
+                        <div class="login_field">
+                            <input id="login_pas_input" class="pas_add login_tab" type="password" placeholder="Password" name="password" required>
+                            <span>
+                                <i id="eye" class="login_eye"></i>
+                            </span>
+                        </div>
+                        <div class="login_sign">
+                            <button class="login_submit login_tab">SIGN IN</button>
+                        </div>
+                    </div>
+                    <div class="login_forgot">
+                        <div>
+                            <div class="login_sign">
+                                <button class="login_submit login_tab">SIGN UP</button>
+                            </div>
+                            <span>
+                                <i class="login_forgot_link login_tab">Forgot Username / Password?</i>
+                            </span>
+                        </div>
+                    </div>
                 </form>
             </div>
             <div class="footer">

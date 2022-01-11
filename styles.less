@@ -9,18 +9,19 @@
 @import url(less/rain.less);
 @import url(less/yourcard_envelope.less);
 @import url(/less/yourcard_text.less);
+@import url(/less/login.less);
 // @import url(/less/submenu_photo.less);
 // @import url(/less/yourcard_photo.less);
 @import url(/сroppic/croppic.css);
 // @import url(less/hicoin.less);
 
 html {
-    font-size: 17px;
+    font-size: 18px;
     font-family: 'Barlow', sans-serif;
     font-weight: 200;
 }
 
-main a {
+main a, header a, main a:link, header a:link {
     text-decoration: none;
     color: @color_light;
 }
@@ -59,7 +60,6 @@ body {
 }
 
 .main {
-    // position: relative;
     display: grid;
     grid-column: 1/4;
     grid-row: 2/4;
@@ -112,14 +112,6 @@ body {
     bottom: 0;
     transition: all 0.4s ease 0s;
 }
-
-// .photo_add_panel {
-//     position: relative;
-//     display: flex;
-//     grid-column: 4/5;
-//     grid-row: 2/3;
-//     z-index: 1;
-// }
 
 .tab_span {
     color: @color_itten_orange;

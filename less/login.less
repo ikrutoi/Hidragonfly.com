@@ -1,0 +1,122 @@
+.rain_center {
+    grid-column: 5/6;
+    grid-row: 2/3;
+    opacity: 0;
+    background-color: @color_rain_rgba;
+    transition: all 0.4s ease 0s;
+}
+
+.rain_center.active {
+    opacity: 1;
+    background-color: @color_rain_rgba;
+    transition: all 0.4s ease 0.6s;
+}
+
+.login_block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 8fr 1fr;
+    opacity: 0;
+    transition: all 0.4s ease 0s;
+    z-index: -1;
+}
+
+.login_greeting {
+    grid-column: 1/2;
+    grid-row: 2/3;
+}
+
+.login_form {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.login_block.active {
+    opacity: 1;
+    transition: all 0.4s ease 0.6s;
+    z-index: 1;
+}
+
+.login_greeting p {
+    font-size: 48px;
+    color: @color_light;
+    padding-inline-start: 20px;
+    margin-top: 0;
+}
+
+.login_field {
+    margin: 0 20px;
+    border-bottom: 1px solid @color_cards;
+}
+
+.login_field:hover, .login_field.focused {
+    border-bottom: 1px solid @color_itten_orange;
+}
+
+.login_eye {
+    background-image: url(/img/eye.svg);
+    background-repeat: no-repeat;
+    cursor: pointer;
+    display: inline-block;
+    padding-bottom: 15px;
+    width: 26px;
+    height: 26px;
+}
+
+.login_eye:hover, .login_eye.active {
+    background-image: url(/img/eye_hover.svg);
+}
+
+.login_field span {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.login_sign, .login_forgot span {
+    margin: 0 20px;
+    padding: 15px 15px 15px 0px;
+    cursor: pointer;
+}
+
+.login_submit {
+    cursor: pointer;
+}
+
+.login_tab {
+    font-family: 'Barlow', sans-serif;
+    color: @color_light;
+    padding: 15px 15px 15px 0px;
+}
+
+.login_add, .pas_add, .login_submit {
+    font-size: 22px;
+    background: transparent;
+    outline: none;
+    border: none;
+}
+
+.login_forgot {
+    font-size: 18px;
+}
+
+.login_block input::placeholder {
+    font-size: 22px;
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    color: @color_light;
+}
+
+.login_tab:hover, .login_block input:hover::placeholder, .login_add:focus, .pas_add:focus, .login_block input:focus::placeholder {
+    color: @color_itten_orange;
+}
+
+.login_form div:nth-child(2) {
+    display: flex;
+    justify-content: space-between;
+}
+
+
