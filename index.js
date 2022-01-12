@@ -109,6 +109,7 @@ function myBrHandler(e) {
 const divLoginBlock = document.querySelector('.login_block');
 const formSignupForm = myCreateElement('form', ['signup_form']);
 const divSignupBlock = myCreateElement('div', ['signup_form_block']);
+const divSignup1 = myCreateElement('div');
 const inputSignEmail = myCreateElement('input', ['email_add', 'login_tab'],
 [['type', 'email'],
 ['placeholder', 'Enter your email'],
@@ -118,7 +119,7 @@ const inputSignEmail = myCreateElement('input', ['email_add', 'login_tab'],
 const divEnterEmail = myCreateElement('div', ['enter_email', 'login_field', 'signup_field']);
 const pText = myCreateElement('p');
 const spanText = myCreateElement ('span');
-const divLoginGign = myCreateElement('div', ['login_sign']);
+const divLoginSign = myCreateElement('div', ['login_sign']);
 const spanText1 = myCreateElement('span');
 const pText1 = myCreateElement('p');
 const buttonLogin = myCreateElement('button', ['login_submit', 'login_tab']);
@@ -130,9 +131,51 @@ divEnterEmail.append(inputSignEmail, spanText);
 pText1.append(document.createTextNode('Already have an account?'));
 spanText1.append(pText1);
 buttonLogin.append(document.createTextNode('LOG IN'));
-divLoginGign.append(spanText1, buttonLogin);
+divLoginSign.append(spanText1, buttonLogin);
 
-divSignupBlock.append(divEnterEmail, divLoginGign);
+const iEye1 = myCreateElement('i', ['login_eye'], [['id', 'eye']]);
+const spanI1 = myCreateElement ('span');
+const inputPasAdd = myCreateElement ('input',
+    ['pas_add', 'login_tab'],
+    [['id', 'login_pas_input'],
+    ['type', 'password'],
+    ['placeholder', 'Create a password'],
+    ['name', 'password'],
+    ['required']]
+);
+const divEnterPas1 = myCreateElement('div', ['enter_pas', 'login_field', 'signup_field']);
+
+spanI1.append(iEye1);
+divEnterPas1.append(inputPasAdd, spanI1);
+
+const iEye2 = myCreateElement('i', ['login_eye'], [['id', 'eye']]);
+const spanI2 = myCreateElement ('span');
+const inputPasAdd2 = myCreateElement ('input',
+    ['pas_add', 'login_tab'],
+    [['id', 'login_pas_input'],
+    ['type', 'password'],
+    ['placeholder', 'Repeat create a password'],
+    ['name', 'password'],
+    ['required']]
+);
+const divEnterPas2 = myCreateElement('div', ['enter_pas2', 'login_field', 'signup_field']);
+
+spanI2.append(iEye2);
+divEnterPas2.append(inputPasAdd2, spanI2);
+
+const inputUserName = myCreateElement ('input',
+    ['login_add', 'login_tab'],
+    [['type', 'text'],
+    ['placeholder', 'Enter a username'],
+    ['name', 'userName'],
+    ['maxlength', '20']
+]);
+const divEnterUserName = myCreateElement('div', ['enter_user_name', 'login_field', 'signup_field']);
+
+divEnterUserName.append(inputUserName);
+
+divSignup1.append(divEnterEmail, divEnterPas1, divEnterPas2, divEnterUserName);
+divSignupBlock.append(divSignup1, divLoginSign);
 formSignupForm.append(divSignupBlock);
 divLoginBlock.append(formSignupForm);
 
@@ -201,21 +244,12 @@ signUpTab.addEventListener('click', function () {
 
     signupFormBlock.setAttribute('display', 'flex');
    
-    // function addBlock () {
-        signupFieldOne.classList.remove('active');
-    // }
-    
-    // function addText () {
-    //     signupText.classList.add('active');
-    // }
-
-    // setTimeout (addText, 1500);
-    // setTimeout (addBlock, 2000);
+    signupFieldOne.classList.remove('active');
 });
 
-signupField.forEach(function (item) {
-    item.classList.add('active');
-});
+// signupField.forEach(function (item) {
+//     item.classList.add('active');
+// });
 
 
 
