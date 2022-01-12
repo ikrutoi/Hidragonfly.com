@@ -5,6 +5,8 @@
 // login;
 // header;
 
+import { myCreateElement } from "./JS/func_create_element.js";
+
 let menuIcon = document.querySelector('.menu_icon');
 let cardsBodyNav = document.querySelector('.cards_body_nav');
 if (menuIcon) {
@@ -101,6 +103,39 @@ function myBrHandler(e) {
     }
 }
 
+
+/* SIGN UP ------------------------------------------*/
+
+const divLoginBlock = document.querySelector('.login_block');
+const formSignupForm = myCreateElement('form', ['signup_form']);
+const divSignupBlock = myCreateElement('div', ['signup_form_block']);
+const inputSignEmail = myCreateElement('input', ['email_add', 'login_tab'],
+[['type', 'email'],
+['placeholder', 'Enter your email'],
+['name', 'email'],
+['required']]
+);
+const divEnterEmail = myCreateElement('div', ['enter_email', 'login_field', 'signup_field']);
+const pText = myCreateElement('p');
+const spanText = myCreateElement ('span');
+const divLoginGign = myCreateElement('div', ['login_sign']);
+const spanText1 = myCreateElement('span');
+const pText1 = myCreateElement('p');
+const buttonLogin = myCreateElement('button', ['login_submit', 'login_tab']);
+
+pText.append(document.createTextNode('Continue'));
+spanText.append(pText);
+divEnterEmail.append(inputSignEmail, spanText);
+
+pText1.append(document.createTextNode('Already have an account?'));
+spanText1.append(pText1);
+buttonLogin.append(document.createTextNode('LOG IN'));
+divLoginGign.append(spanText1, buttonLogin);
+
+divSignupBlock.append(divEnterEmail, divLoginGign);
+formSignupForm.append(divSignupBlock);
+divLoginBlock.append(formSignupForm);
+
 const headerTabLogin = document.querySelector('.header_tab_login');
 const rainCenter = document.querySelector('.rain_center');
 const loginBlock = document.querySelector('.login_block');
@@ -181,3 +216,6 @@ signUpTab.addEventListener('click', function () {
 signupField.forEach(function (item) {
     item.classList.add('active');
 });
+
+
+
