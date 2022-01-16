@@ -1,4 +1,4 @@
-// const root = document.getElementById('root');
+const root = document.getElementById('root');
 
 function myCreateElement(myTeg, myClass, myAttribute) {
     console.log(myClass);
@@ -15,4 +15,4 @@ function myCreateElement(myTeg, myClass, myAttribute) {
     return elem
 }
 
-export { myCreateElement };
+export { root, myCreateElement };

@@ -5,7 +5,7 @@
 // login;
 // header;
 
-import { myCreateElement } from "./JS/func_create_element.js";
+import { root, myCreateElement } from "./JS/func_create_element.js";
 
 let menuIcon = document.querySelector('.menu_icon');
 let cardsBodyNav = document.querySelector('.cards_body_nav');
@@ -16,6 +16,8 @@ if (menuIcon) {
     });
 }
 
+// const main = document.querySelector('.main');
+const textHi = document.querySelector('.text_hi');
 const headerTabYourcard = document.querySelector('.header_tab_yourcard');
 const yourcardMenu = document.querySelector('.yourcard_menu');
 const yourcardMenuTab = document.querySelectorAll('.yourcard_menu_tab');
@@ -26,6 +28,8 @@ const rain = document.querySelectorAll('.rain');
 const youcardText = document.querySelector('.yourcard_text');
 const youcardAddress = document.querySelector('.yourcard_address');
 const footer = document.querySelector('.footer');
+
+// root.addEventListener('click', () => textHi.classList.add('active'));
 
 headerTabYourcard.addEventListener('click', function() {
     headerTabYourcard.classList.toggle('active');
@@ -133,32 +137,32 @@ spanText1.append(pText1);
 buttonLogin.append(document.createTextNode('LOG IN'));
 divLoginSign.append(spanText1, buttonLogin);
 
-const iEye1 = myCreateElement('i', ['login_eye'], [['id', 'eye']]);
+const iEye1 = myCreateElement('i', ['login_eye'], [['id', 'eye2_input'], ['data-tab', '#eye2']]);
 const spanI1 = myCreateElement ('span');
 const inputPasAdd = myCreateElement ('input',
     ['pas_add', 'login_tab'],
-    [['id', 'login_pas_input'],
+    [['id', 'eye2'],
     ['type', 'password'],
     ['placeholder', 'Create a password'],
     ['name', 'password'],
     ['required']]
 );
-const divEnterPas1 = myCreateElement('div', ['enter_pas', 'login_field', 'signup_field']);
+const divEnterPas1 = myCreateElement('div', ['enter_pas', 'login_field', 'signup_field', 'login_field_pas']);
 
 spanI1.append(iEye1);
 divEnterPas1.append(inputPasAdd, spanI1);
 
-const iEye2 = myCreateElement('i', ['login_eye'], [['id', 'eye']]);
+const iEye2 = myCreateElement('i', ['login_eye'], [['id', 'eye3_input'], ['data-tab', '#eye3']]);
 const spanI2 = myCreateElement ('span');
 const inputPasAdd2 = myCreateElement ('input',
     ['pas_add', 'login_tab'],
-    [['id', 'login_pas_input'],
+    [['id', 'eye3'],
     ['type', 'password'],
     ['placeholder', 'Repeat create a password'],
     ['name', 'password'],
     ['required']]
 );
-const divEnterPas2 = myCreateElement('div', ['enter_pas2', 'login_field', 'signup_field']);
+const divEnterPas2 = myCreateElement('div', ['enter_pas2', 'login_field', 'signup_field', 'login_field_pas']);
 
 spanI2.append(iEye2);
 divEnterPas2.append(inputPasAdd2, spanI2);
@@ -190,66 +194,72 @@ headerTabLogin.addEventListener('click', function() {
     loginBlock.classList.toggle('active');
 });
 
-function show() {
-    let pas = document.querySelector('.pas_add');
-    pas.setAttribute('type', 'text');
-}
 
-function hide() {
-    let pas = document.querySelector('.pas_add');
-    pas.setAttribute('type', 'password');
-}
+const signupForm = document.querySelector('.signup_form');
+signupForm.classList.add('active');
+
+const area = document.querySelectorAll('.area_in');
+const blockArea = document.querySelectorAll('.i_area');
+const imgEye = document.querySelectorAll('.i_img_eye');
+// const elemTarg = document.querySelectorAll('.i_target');
 
 let passwordShown = 0;
 
-document.getElementById("eye").addEventListener("click", function () {
-    if (passwordShown == 0) {
-        passwordShown = 1;
-        show();
-    } else {
-        passwordShown = 0;
-        hide();
-    }
+imgEye.forEach(function (item) {
+    item.addEventListener('click', function () {
+        const currentTab = item;
+        const idDataTab = currentTab.getAttribute('data-tab');
+        const elemDataTab = document.getElementById(idDataTab);
+
+        elemDataTab.focus();
+        item.classList.toggle('active');
+        
+        if (passwordShown == 0) {
+            passwordShown = 1;
+            show(elemDataTab);
+        } else {
+            passwordShown = 0;
+            hide(elemDataTab);
+        }
+    })
 });
 
-const loginEye = document.querySelector('.login_eye');
-
-loginEye.addEventListener('click', function () {
-    loginEye.classList.toggle('active');
+blockArea.forEach(function (item) {
+    item.addEventListener('focus', function () {
+        console.log('Hello');
+        addVisib(item); 
+    }, true)
 });
 
-const loginField = document.querySelectorAll('.login_field');
-
-loginField.forEach(function (item) {
-    item.addEventListener('focus', () => item.classList.add('focused'),true);
-    item.addEventListener('blur', () => item.classList.remove('focused'),true);
+blockArea.forEach(function (item) {
+    item.addEventListener('blur', function () {
+       console.log('Bye');
+       delVisib(item);
+    }, true)
 });
 
-const signupForm = document.querySelector('.signup_form');
+function show(elem) {
+    elem.setAttribute('type', 'text');
+};
 
-signupForm.classList.add('active');
+function hide(elem) {
+    elem.setAttribute('type', 'password');
+};
 
-const signUpTab = document.querySelector('.login_signup_tab');
-const loginForm = document.querySelector('.login_form');
-const signupField = document.querySelectorAll('.signup_field');
-const loginGreeting = document.querySelector('.login_greeting');
+function addVisib(elem) {
+    const currentTab = elem;
+    const idDataTab = currentTab.getAttribute('data-tab');
+    const elemDataTab = document.getElementById(idDataTab);
+    
+    elemDataTab.setAttribute('style', 'visibility: visible');
+    elemDataTab.classList.add('visible');
+};
 
-signUpTab.addEventListener('click', function () {
-    loginGreeting.classList.add('active');
-    loginForm.classList.add('active');
-    signupForm.classList.remove('active');
+function delVisib(elem) {
+    const currentTab = elem;
+    const idDataTab = currentTab.getAttribute('data-tab');
+    const elemDataTab = document.getElementById(idDataTab);
 
-    const signupFormBlock = document.querySelector('.signup_form_block');
-    const signupFieldOne = document.querySelector('.signup_field');
+    elemDataTab.setAttribute('style', 'visibility: hidden');
 
-    signupFormBlock.setAttribute('display', 'flex');
-   
-    signupFieldOne.classList.remove('active');
-});
-
-// signupField.forEach(function (item) {
-//     item.classList.add('active');
-// });
-
-
-
+};

@@ -68,26 +68,26 @@
     display: none;
 }
 
-.login_field, .signup_field {
+.login_field, .signup_field, .i_area {
     margin: 0 20px;
     border-bottom: 1px solid @color_cards;
 }
 
-.login_field:hover, .login_field.focused {
+.login_field:hover, .login_field.focused, .i_area:hover, .i_area:focus {
     border-bottom: 1px solid @color_itten_orange;
 }
 
-.login_eye {
+.i_img_eye {
     background-image: url(/img/eye.svg);
     background-repeat: no-repeat;
     cursor: pointer;
-    display: inline-block;
+    visibility: hidden;
     padding-bottom: 15px;
     width: 26px;
     height: 26px;
 }
 
-.login_eye:hover, .login_eye.active {
+.login_eye.active {
     background-image: url(/img/eye_hover.svg);
 }
 
@@ -103,7 +103,7 @@
 }
 
 
-.login_submit, .login_forgot span {
+.login_submit, .login_forgot {
     cursor: pointer;
 }
 
@@ -114,7 +114,7 @@
     padding: 15px 15px 15px 0px;
 }
 
-.login_add, .pas_add, .login_submit, .email_add {
+.login_add, .pas_add, .login_submit, .email_add, .area_in {
     font-size: 20px;
     background: transparent;
     outline: none;
@@ -123,6 +123,7 @@
 
 .login_forgot {
     font-size: 18px;
+    // visibility: hidden;
 }
 
 .login_block input::placeholder, .login_block::-webkit-input-placeholder, :-moz-placeholder, ::-moz-placeholder, :-ms-input-placeholder {

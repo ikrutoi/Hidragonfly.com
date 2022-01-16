@@ -13,7 +13,7 @@
     <link type="image/png" sizes="192x192" rel="icon" href="/favicon/favicon_hi_192x192.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet/less" type="text/css" href="styles.less">
+    <link rel="stylesheet/less" type="text/css" href="styles.less" />
     <link href="/croppic/croppic.css" rel="stylesheet">
     <script defer src=" https://code.jquery.com/jquery-2.1.3.min.js"></script>
     <script defer src="/croppic/croppic.js"></script>
@@ -71,6 +71,9 @@
             <div class="rain rain_right"></div>
             <div class="rain rain_bottom"></div>
             <div class="rain_center"></div>
+            <!-- <div class="text_hi">
+                <h1>Hi,<br>let's fly!</h1>
+            </div> -->
             <nav class="yourcard_menu yourcard_menu_main">
                         <ul>
                             <li>
@@ -161,29 +164,6 @@
                             <li></li>
                         </ul>
             </nav>
-            <!-- <div class="photo_add_panel"></div> -->
-            <!-- <nav id="photo_add" class="phAdd yourcard_submenu_photo">
-                <ul>
-                    <li>
-                        <a href="#" class="photo_zoom_much_in_link">Zoom Match In</a>       
-                    </li>
-                    <li>
-                        <a href="#" class="photo_zoom_in_link">Zoom In</a>
-                    </li>
-                    <li>
-                        <a href="#" class="photo_zoom_out_link">Zoom Out</a>
-                    </li>
-                    <li>
-                        <a href="#" class="photo_zoom_much_out_link">Zoom Mutch Out</a>
-                    </li>
-                    <li>
-                        <a href="#" class="photo_rotate_left_link">Rotate Left</a>
-                    </li>
-                    <li>
-                        <a href="#" class="photo_rotate_right_link">Rotate Right</a>
-                    </li>
-                </ul>
-            </nav> -->
             <div class="yourcard_envelope">
                 <div class="yourcard_points">
                     <span></span>
@@ -200,7 +180,6 @@
             </div>
             <div class="yourcard_photo col-xs-12 text-center cropHeaderWrapper">
                 <div id="croppic"></div>
-                <!-- <span class="btn" id="cropContainerHeaderButton">Browse</span> -->
                 <input type="hidden" id="get_img_url">
             </div>
             <div class="yourcard_text new_line" contenteditable="true" tabindex="1" spellcheck="true" dir="true" role="textbox" aria-multiline="true"> 
@@ -231,19 +210,22 @@
             </div>
             <div class="login_block">
                 <div class="login_greeting">
-                    <p>Welcome to Hidragonfly!&nbsp
-                        Let’s fly!</p>
+                    <p>Hi, Let’s fly!</p>
                 </div>
                 <form class="login_form">
                     <div class="login_form_block" >
-                        <div>
-                            <div class="login_field">
-                                <input id="login_text_input" class="login_add login_tab" type="text" placeholder="Username or email address" name="userName" maxlength="20">
-                            </div>
-                            <div class="login_field">
-                                <input id="login_pas_input" class="pas_add login_tab" type="password" placeholder="Password" name="password">
+                        <div id="log_area">
+                            <div class="login_field i_area" data-tab="eye1">
+                                <!-- <input id="login_text_input" class="login_add login_tab" type="text" placeholder="Username or email address" name="userName" maxlength="20"> -->
+                                <input id="p2" class="login_tab tab_pas1 i_area_pass_add area_in i_target" type="password" placeholder="Password2" name="password" data-tab="eye1">
                                 <span>
-                                    <i id="eye" class="login_eye"></i>
+                                    <i id="eye1" class="login_eye i_img_eye i_target" data-tab="p2"></i>
+                                </span>
+                            </div>
+                            <div class="login_field login_field_pas i_area" data-tab="eye2">
+                                <input id="p1" class="login_tab tab_pas1 i_area_pass_add area_in i_target" type="password" placeholder="Password" name="password" data-tab="eye2">
+                                <span>
+                                    <i id="eye2" class="login_eye i_img_eye i_target" data-tab="p1"></i>
                                 </span>
                             </div>
                             <div class="login_sign">
@@ -253,7 +235,7 @@
                         <div class="login_forgot">
                             <div>
                                 <div class="login_sign">
-                                    <button class="login_submit login_tab login_signup_tab">SIGN UP</button>
+                                    <button class="login_tab login_signup_tab">SIGN UP</button>
                                 </div>
                                 <span>
                                     <i class="login_forgot_link login_tab">Forgot Password?</i>
