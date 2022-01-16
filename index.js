@@ -111,22 +111,22 @@ function myBrHandler(e) {
 /* SIGN UP ------------------------------------------*/
 
 const divLoginBlock = document.querySelector('.login_block');
-const formSignupForm = myCreateElement('form', ['signup_form']);
-const divSignupBlock = myCreateElement('div', ['signup_form_block']);
-const divSignup1 = myCreateElement('div');
-const inputSignEmail = myCreateElement('input', ['email_add', 'login_tab'],
+const divSignupBlocks = myCreateElement('div', ['signup_blocks']);
+// const divSignupBlock = myCreateElement('div', ['signup_form_block']);
+const form = myCreateElement('form');
+const inputSignEmail = myCreateElement('input', ['input_area'],
 [['type', 'email'],
 ['placeholder', 'Enter your email'],
 ['name', 'email'],
-['required']]
+/*['required']*/]
 );
-const divEnterEmail = myCreateElement('div', ['enter_email', 'login_field', 'signup_field']);
+const divEnterEmail = myCreateElement('div', ['block_input_other']);
 const pText = myCreateElement('p');
 const spanText = myCreateElement ('span');
-const divLoginSign = myCreateElement('div', ['login_sign']);
+const divLoginSign = myCreateElement('div', ['block_button']);
 const spanText1 = myCreateElement('span');
 const pText1 = myCreateElement('p');
-const buttonLogin = myCreateElement('button', ['login_submit', 'login_tab']);
+const buttonLogin = myCreateElement('button', ['tab_button', 'tab_button_login']);
 
 pText.append(document.createTextNode('Continue'));
 spanText.append(pText);
@@ -137,51 +137,52 @@ spanText1.append(pText1);
 buttonLogin.append(document.createTextNode('LOG IN'));
 divLoginSign.append(spanText1, buttonLogin);
 
-const iEye1 = myCreateElement('i', ['login_eye'], [['id', 'eye2_input'], ['data-tab', '#eye2']]);
-const spanI1 = myCreateElement ('span');
-const inputPasAdd = myCreateElement ('input',
-    ['pas_add', 'login_tab'],
-    [['id', 'eye2'],
+const iEye2 = myCreateElement('i', ['img_eye'], [['id', 'eye2'], ['data-tab', 'pass2']]);
+const spanI2 = myCreateElement ('span');
+const inputPasAdd2 = myCreateElement ('input',
+    ['input_area'],
+    [['id', 'pass2'],
     ['type', 'password'],
     ['placeholder', 'Create a password'],
     ['name', 'password'],
-    ['required']]
+    ['data-tab', 'eye2']
+    /*['required']*/]
 );
-const divEnterPas1 = myCreateElement('div', ['enter_pas', 'login_field', 'signup_field', 'login_field_pas']);
-
-spanI1.append(iEye1);
-divEnterPas1.append(inputPasAdd, spanI1);
-
-const iEye2 = myCreateElement('i', ['login_eye'], [['id', 'eye3_input'], ['data-tab', '#eye3']]);
-const spanI2 = myCreateElement ('span');
-const inputPasAdd2 = myCreateElement ('input',
-    ['pas_add', 'login_tab'],
-    [['id', 'eye3'],
-    ['type', 'password'],
-    ['placeholder', 'Repeat create a password'],
-    ['name', 'password'],
-    ['required']]
-);
-const divEnterPas2 = myCreateElement('div', ['enter_pas2', 'login_field', 'signup_field', 'login_field_pas']);
+const divEnterPas2 = myCreateElement('div', ['block_input', 'block_input_other'], [['data-tab', 'eye2']]);
 
 spanI2.append(iEye2);
 divEnterPas2.append(inputPasAdd2, spanI2);
 
+const iEye3 = myCreateElement('i', ['img_eye'], [['id', 'eye3'], ['data-tab', 'pass3']]);
+const spanI3 = myCreateElement ('span');
+const inputPasAdd3 = myCreateElement ('input',
+    ['input_area'],
+    [['id', 'pass3'],
+    ['type', 'password'],
+    ['placeholder', 'Repeat create a password'],
+    ['name', 'password'],
+    ['data-tab', 'eye3']
+    /*['required']*/]
+);
+const divEnterPas3 = myCreateElement('div', ['block_input', 'block_input_other'], [['data-tab', 'eye3']]);
+
+spanI3.append(iEye3);
+divEnterPas3.append(inputPasAdd3, spanI3);
+
 const inputUserName = myCreateElement ('input',
-    ['login_add', 'login_tab'],
+    ['input_area'],
     [['type', 'text'],
     ['placeholder', 'Enter a username'],
     ['name', 'userName'],
     ['maxlength', '20']
 ]);
-const divEnterUserName = myCreateElement('div', ['enter_user_name', 'login_field', 'signup_field']);
+const divEnterUserName = myCreateElement('div', ['block_input_other']);
 
 divEnterUserName.append(inputUserName);
 
-divSignup1.append(divEnterEmail, divEnterPas1, divEnterPas2, divEnterUserName);
-divSignupBlock.append(divSignup1, divLoginSign);
-formSignupForm.append(divSignupBlock);
-divLoginBlock.append(formSignupForm);
+form.append(divEnterEmail, divEnterPas2, divEnterPas3, divEnterUserName);
+divSignupBlocks.append(form, divLoginSign);
+divLoginBlock.append(divSignupBlocks);
 
 const headerTabLogin = document.querySelector('.header_tab_login');
 const rainCenter = document.querySelector('.rain_center');
@@ -194,14 +195,24 @@ headerTabLogin.addEventListener('click', function() {
     loginBlock.classList.toggle('active');
 });
 
+const tabSignup = document.querySelector('.tab_button_signup');
 
-const signupForm = document.querySelector('.signup_form');
-signupForm.classList.add('active');
+tabSignup.addEventListener('click', function () {
+    document.querySelector('.signup_blocks').setAttribute('style', 'visibility: visible');
+    document.querySelector('.logins_blocks').setAttribute('style', 'visibility: hidden');
+    document.querySelector('.login_greeting').setAttribute('style', 'visibility: hidden');
+})
 
-const area = document.querySelectorAll('.area_in');
-const blockArea = document.querySelectorAll('.i_area');
-const imgEye = document.querySelectorAll('.i_img_eye');
-// const elemTarg = document.querySelectorAll('.i_target');
+const tabLogin = document.querySelector('.tab_button_login');
+
+tabLogin.addEventListener('click', function () {
+    document.querySelector('.signup_blocks').setAttribute('style', 'visibility: hidden');
+    document.querySelector('.logins_blocks').setAttribute('style', 'visibility: visible');
+    document.querySelector('.login_greeting').setAttribute('style', 'visibility: visible');
+})
+
+const blockInput = document.querySelectorAll('.block_input');
+const imgEye = document.querySelectorAll('.img_eye');
 
 let passwordShown = 0;
 
@@ -224,14 +235,14 @@ imgEye.forEach(function (item) {
     })
 });
 
-blockArea.forEach(function (item) {
+blockInput.forEach(function (item) {
     item.addEventListener('focus', function () {
         console.log('Hello');
         addVisib(item); 
     }, true)
 });
 
-blockArea.forEach(function (item) {
+blockInput.forEach(function (item) {
     item.addEventListener('blur', function () {
        console.log('Bye');
        delVisib(item);
@@ -261,5 +272,4 @@ function delVisib(elem) {
     const elemDataTab = document.getElementById(idDataTab);
 
     elemDataTab.setAttribute('style', 'visibility: hidden');
-
 };

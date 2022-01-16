@@ -210,71 +210,32 @@
             </div>
             <div class="login_block">
                 <div class="login_greeting">
-                    <p>Hi, Let’s fly!</p>
+                    <p>Let’s fly!</p>
                 </div>
-                <form class="login_form">
-                    <div class="login_form_block" >
-                        <div id="log_area">
-                            <div class="login_field i_area" data-tab="eye1">
-                                <!-- <input id="login_text_input" class="login_add login_tab" type="text" placeholder="Username or email address" name="userName" maxlength="20"> -->
-                                <input id="p2" class="login_tab tab_pas1 i_area_pass_add area_in i_target" type="password" placeholder="Password2" name="password" data-tab="eye1">
+                <div class="logins_blocks">
+                        <form>
+                            <div class="block_input_other">
+                                <input class="input_area" type="text" placeholder="Username or email address" name="userName" maxlength="20">
+                            </div>
+                            <div class="block_input block_input_other" data-tab="eye1">
+                                <input id="pass1" class="input_area" type="password" placeholder="Password" name="password" data-tab="eye1">
                                 <span>
-                                    <i id="eye1" class="login_eye i_img_eye i_target" data-tab="p2"></i>
+                                    <i id="eye1" class="img_eye" data-tab="pass1"></i>
                                 </span>
                             </div>
-                            <div class="login_field login_field_pas i_area" data-tab="eye2">
-                                <input id="p1" class="login_tab tab_pas1 i_area_pass_add area_in i_target" type="password" placeholder="Password" name="password" data-tab="eye2">
+                            <div class="block_button">
+                                <button class="tab_button tab_button_submit">LOG IN</button>
+                            </div>
+                        </form>
+                        <!-- <div class="block_forgot"> -->
+                            <div class="block_button">
+                                <button class="tab_button tab_button_signup">SIGN UP</button>
                                 <span>
-                                    <i id="eye2" class="login_eye i_img_eye i_target" data-tab="p1"></i>
+                                    <i>Forgot Password?</i>
                                 </span>
                             </div>
-                            <div class="login_sign">
-                                <button class="login_submit login_tab">LOG IN</button>
-                            </div>
-                        </div>
-                        <div class="login_forgot">
-                            <div>
-                                <div class="login_sign">
-                                    <button class="login_tab login_signup_tab">SIGN UP</button>
-                                </div>
-                                <span>
-                                    <i class="login_forgot_link login_tab">Forgot Password?</i>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <!-- <form class="signup_form">
-                    <div class="signup_form_block">
-                        <div class="enter_email login_field signup_field">
-                                <input id="signup_email_input" class="email_add login_tab" type="email" placeholder="Enter your email" name="email" required>
-                                <span>
-                                    <p>Continue</p>
-                                </span>
-                        </div>
-                        <div class="login_field signup_field">
-                            <input id="login_text_input" class="login_add login_tab" type="text" placeholder="Username" name="userName" required>
-                        </div>
-                        <div class="login_field signup_field">
-                            <input id="login_pas_input" class="pas_add login_tab" type="password" placeholder="Password" name="password" required>
-                            <span>
-                                <i id="eye" class="login_eye"></i>
-                            </span>
-                        </div>
-                        <div class="login_field signup_field">
-                            <input id="login_pas_input" class="pas_add login_tab" type="password" placeholder="Password" name="password" required>
-                            <span>
-                                <i id="eye" class="login_eye"></i>
-                            </span>
-                        </div>
-                        <div class="login_sign">
-                            <span>
-                                <p>Already have an account?</p>
-                            </span>
-                            <button class="login_submit login_tab">LOG IN</button>
-                        </div>
-                    </div>
-                </form> -->
+                        <!-- </div> -->
+                </div>
             </div>
             <div class="footer">
                 <span>All&nbsprights&nbspreserved&nbsp&copy&nbsp2021&nbspIgor&nbspKrutoi</span>

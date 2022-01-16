@@ -14,41 +14,38 @@
 
 .login_block {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 0.5fr 1fr 4fr 0.5fr 0.5fr 4fr 1fr 0.5fr;
     grid-template-rows: 1fr 8fr 1fr;
+    font-size: 20px;
     opacity: 0;
     transition: all 0.4s ease 0s;
     z-index: -1;
 }
 
-.login_block input {
-    width: 100%;
-}
-
 .login_greeting {
-    grid-column: 1/2;
+    grid-column: 2/4;
     grid-row: 2/3;
 }
 
-.login_form {
-    grid-column: 2/3;
+.logins_blocks {
+    grid-column: 6/8;
     grid-row: 2/3;
 }
 
-.signup_form {
-    grid-column: 1/3;
+.signup_blocks {
+    grid-column: 3/7;
     grid-row: 2/3;
+    visibility: hidden;
 }
 
-.login_form.active, .signup_form.active {
-    display: none;
+.logins_blocks.active {
+    visibility: hidden;
 }
 
-.login_form_block, .signup_form, .signup_form_block {
+.logins_blocks, .signup_blocks {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100%;
 }
 
 .login_block.active {
@@ -60,24 +57,24 @@
 .login_greeting p {
     font-size: 36px;
     color: @color_light;
-    padding-inline-start: 20px;
     margin-top: 0;
 }
 
 .login_greeting.active {
-    display: none;
+    visibility: hidden;
 }
 
-.login_field, .signup_field, .i_area {
-    margin: 0 20px;
+.block_input_other {
+    display: flex;
+    justify-content: space-between;
     border-bottom: 1px solid @color_cards;
 }
 
-.login_field:hover, .login_field.focused, .i_area:hover, .i_area:focus {
+.block_input_other:hover, .block_input_other:focus {
     border-bottom: 1px solid @color_itten_orange;
 }
 
-.i_img_eye {
+.img_eye {
     background-image: url(/img/eye.svg);
     background-repeat: no-repeat;
     cursor: pointer;
@@ -87,46 +84,45 @@
     height: 26px;
 }
 
-.login_eye.active {
+.img_eye.active {
     background-image: url(/img/eye_hover.svg);
 }
 
-.login_field span {
+.block_input span, .block_button {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
 }
 
 .login_sign, .login_forgot span {
-    margin: 0 20px;
-    padding: 15px 15px 15px 0px;
+    margin: 0;
+    padding: 15px 0px;
 }
 
-
-.login_submit, .login_forgot {
+.tab_button, .login_forgot_link {
     cursor: pointer;
 }
 
-.login_tab {
+.input_area {
     font-family: 'Barlow', sans-serif;
     font-weight: 400;
     color: @color_light;
-    padding: 15px 15px 15px 0px;
 }
 
-.login_add, .pas_add, .login_submit, .email_add, .area_in {
+.input_area, .tab_button {
     font-size: 20px;
+    padding: 15px 0px;
+    text-align: left;
     background: transparent;
     outline: none;
     border: none;
 }
 
-.login_forgot {
-    font-size: 18px;
-    // visibility: hidden;
+.tab_button_submit {
+    margin-top: 15px;
 }
 
-.login_block input::placeholder, .login_block::-webkit-input-placeholder, :-moz-placeholder, ::-moz-placeholder, :-ms-input-placeholder {
+.input_area::placeholder, .input_area::-webkit-input-placeholder, :-moz-placeholder, ::-moz-placeholder, :-ms-input-placeholder {
     font-size: 20px;
     font-style: italic;
     font-family: 'Barlow', sans-serif;
@@ -134,38 +130,11 @@
     color: @color_light;
 }
 
-.login_tab:hover, .login_add:focus, .pas_add:focus, .email_add {
+.input_area:hover, .input_area:focus {
     color: @color_itten_orange;
 }
 
-.login_form div:nth-child(2), .signup_field {
-    display: flex;
-    justify-content: space-between;
-}
-
-.signup_field.active {
-    display: none;
-}
-
-.signup_text.active {
-    display: none;
-}
-
-.signup_field p {
-    // font-size: 22px;
-    font-weight: 400;
-    font-style: italic;
-    color: @color_light;
-    margin: 0;
-    padding: 15px 0;
-}
-
-.signup_field p:hover.active {
-    color: @color_itten_orange;
-}
-
-.login_sign p {
-    // font-size: 22px;
+.block_button i {
     font-weight: 400;
     font-style: italic;
     color: @color_light;
