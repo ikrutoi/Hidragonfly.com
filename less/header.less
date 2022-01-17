@@ -5,6 +5,7 @@
     grid-template-columns: 0.5fr 2fr 5fr 2fr 0.5fr;
     grid-template-rows: 40px;
     z-index: 2;
+    color: @color_dark;
 }
 
 .screen_header {
@@ -50,17 +51,11 @@
 
 .header_tab {
     text-decoration: none;
-    color: @color_light;
+    font-weight: 500;
 }
 
-.header_tab:hover {
+.header_tab:hover, .header_tab.active {
     color: @color_itten_orange;
-    font-weight: 300;
-}
-
-.header_tab.active {
-    color: @color_itten_orange;
-    font-weight: 300;
 }
 
 .header_menu ul {
@@ -72,4 +67,8 @@
 
 .header_menu li:first-child {
     padding-inline-end: 40px;
+}
+
+.logo_hidragonfly {
+    margin-top: 4px;
 }

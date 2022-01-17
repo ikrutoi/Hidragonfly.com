@@ -55,8 +55,8 @@
 }
 
 .login_greeting p {
-    font-size: 36px;
-    color: @color_light;
+    font-size: 8vh;
+    color: @color_dark;
     margin-top: 0;
 }
 
@@ -67,7 +67,7 @@
 .block_input_other {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid @color_cards;
+    border-bottom: 1px solid @color_dark;
 }
 
 .block_input_other:hover, .block_input_other:focus {
@@ -118,8 +118,23 @@
     border: none;
 }
 
-.tab_button_submit {
-    margin-top: 15px;
+.tab_button_submit:first-child {
+    margin-top: 20px;
+}
+
+.tab_button {
+    font-size: 20px;
+}
+
+.block_button img {
+    margin: auto 15px auto 0;
+    width: 26px;
+    height: 26px;
+}
+
+.logins_blocks .block_button:nth-child(2) {
+    flex-direction: row;
+    justify-content: flex-start;
 }
 
 .input_area::placeholder, .input_area::-webkit-input-placeholder, :-moz-placeholder, ::-moz-placeholder, :-ms-input-placeholder {
@@ -127,17 +142,18 @@
     font-style: italic;
     font-family: 'Barlow', sans-serif;
     font-weight: 300;
-    color: @color_light;
+    color: @color_dark;
 }
 
 .input_area:hover, .input_area:focus {
     color: @color_itten_orange;
 }
 
-.block_button i {
+.block_button i, .block_button p {
+    display: block;
     font-weight: 400;
     font-style: italic;
-    color: @color_light;
+    color: @color_dark;
     margin: 0;
     padding: 15px 0;
 }

@@ -18,12 +18,17 @@
 html {
     font-size: 18px;
     font-family: 'Barlow', sans-serif;
-    font-weight: 200;
+    font-weight: 400;
 }
 
-main a, header a, main a:link, header a:link {
+main a, main a:link {
     text-decoration: none;
-    color: @color_light;
+    color: @color_rain_login_rgba;
+}
+
+.header a, header a:link {
+    text-decoration: none;
+    color: @color_dark;
 }
 
 main a:hover {
@@ -103,6 +108,8 @@ body {
 
 .yourcard_menu li, .yourcard_submenu_tab li, .yourcard_submenu_photo li {
     height: 60px;
+    font-weight: 300;
+    color: @color_rain_login_rgba;
 }
 
 .yourcard_menu.active {
@@ -148,7 +155,7 @@ body {
 
 .footer span {
     margin-right: 8px;
-    color: @color_light;
+    color: @color_rain_login_rgba;
     height: 14px;
     width: 0px;
     font-size: 10px;

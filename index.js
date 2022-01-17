@@ -112,8 +112,7 @@ function myBrHandler(e) {
 
 const divLoginBlock = document.querySelector('.login_block');
 const divSignupBlocks = myCreateElement('div', ['signup_blocks']);
-// const divSignupBlock = myCreateElement('div', ['signup_form_block']);
-const form = myCreateElement('form');
+const form = myCreateElement('form', [['action', 'form.php'], ['method', 'POST']]);
 const inputSignEmail = myCreateElement('input', ['input_area'],
 [['type', 'email'],
 ['placeholder', 'Enter your email'],
@@ -180,7 +179,13 @@ const divEnterUserName = myCreateElement('div', ['block_input_other']);
 
 divEnterUserName.append(inputUserName);
 
-form.append(divEnterEmail, divEnterPas2, divEnterPas3, divEnterUserName);
+const divBlockButton2 = myCreateElement('div', ['block_button']);
+const buttonSignUp = myCreateElement('button', ['tab_button', 'tab_button_submit']);
+
+buttonSignUp.append(document.createTextNode('SIGN UP'));
+divBlockButton2.append(buttonSignUp);
+
+form.append(divEnterEmail, divEnterPas2, divEnterPas3, divEnterUserName, divBlockButton2);
 divSignupBlocks.append(form, divLoginSign);
 divLoginBlock.append(divSignupBlocks);
 
