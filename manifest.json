@@ -1,0 +1,20 @@
+{
+    "name": "Hidragonfly",
+    "short_name": "Hi",
+    "icons": [
+        {
+          "src": "/favicon/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }, 
+        {
+          "src": "/favicon/icon-192.png",
+          "sizes": "512x512",
+          "type": "image/png"
+        }
+        ],
+    "start_url": "/index.html?homescreen=1",
+    "display": "landscape",
+    "background_color": "#f0f5fd",
+    "theme_color": "#003399"
+  }

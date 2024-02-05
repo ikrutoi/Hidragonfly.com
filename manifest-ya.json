@@ -1,0 +1,9 @@
+{
+    "version": "1.2",
+    "api_version": 3,
+    "layout": {
+        "logo": "https://hidragonfly.com/logoname-ya.png",
+        "color": "#dbe7fb",
+        "show_title": false
+    }
+}
