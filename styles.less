@@ -101,7 +101,7 @@ body {
     row-gap: 2vh;
     column-gap: 2vw;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 4fr 6fr;
+    grid-template-rows: 3fr 7fr;
     grid-template-areas: 
         "from-adress postmark"
         "from-adress adress-recipient";
@@ -123,19 +123,21 @@ body {
 
 .envelope-from-adress {
     grid-area: from-adress;
-    flex-wrap: wrap;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: start;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content 1fr;
+    row-gap: 2vh;
+    grid-template-areas: 
+        "logoname"
+        "adress";
 }
 
 .envelope-from-hidragonfly {
-    height: min-content;
+    grid-area: logoname;
 }
 
 .envelope-my-adress {
-    display: flex;
-    width: 100%;
+    grid-area: adress;
 }
 
 .form-my-adress {
