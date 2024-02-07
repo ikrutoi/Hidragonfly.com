@@ -70,7 +70,6 @@ body {
     padding: 0.5em 1em;
     color: @color-nav;
     font-size: 1.3vh;
-    // font-weight: 600;
     background-color: @color-nav-button-bkg;
     border-radius: 30px;
 }
@@ -143,7 +142,7 @@ body {
 .my-adress-fieldset, .to-adress-fieldset {
     background-color: @color-footer-bkg;
     border: solid 1px @color-header-bkg;
-    border-radius: 0.8rem;
+    border-radius: 1.6vh;
 }
 
 .my-adress-legend, .to-adress-legend {
@@ -170,10 +169,18 @@ body {
 .my-adress-input, .to-adress-input {
     display: block;
     width: 100%;
-    height: 3vh;
+    height: 2vh;
+    font-size: 1.3vh;
+    color: @color-nav;
+    letter-spacing: 1px;
     background-color: @color-main-bkg;
-    border-radius: 0.5rem;
+    border-radius: 1vh;
     border: none;
+    outline: none;
+}
+
+.to-adress-input {
+    text-align: end;
 }
 
 .envelope-stamp {
@@ -197,7 +204,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: end;
-    border: solid 1px green;
 }
 
 .card {
