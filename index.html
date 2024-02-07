@@ -57,60 +57,62 @@
         </div>
     </nav>
     <main class="main">
-        <div class="main-envelope-card">
-            <div class="envelope">
-                <div class="envelope-from-adress envelope-item">
-                    <div class="envelope-logoname">
-                        <img class="envelope-logoname-img" src="/logo/logoname-4-40.svg">
+        <div class="envelope-card">
+            <div class="envelope-letter">
+                <div class="envelope">
+                    <div class="envelope-from-adress envelope-item">
+                        <div class="envelope-logoname">
+                            <img class="envelope-logoname-img" src="/logo/logoname-4-40.svg">
+                        </div>
+                        <div class="envelope-my-adress">
+                            <form class="form-my-adress" action="my-adress.js" method="post">
+                                <fieldset class="my-adress-fieldset">
+                                    <legend class="my-adress-legend">My adress</legend>
+                                    <label class="my-adress-label">Street / House
+                                        <input class="my-adress-input" name="my-adress-street" type="text">
+                                    </label>
+                                    <label class="my-adress-label">Index / City
+                                        <input class="my-adress-input" name="my-adress-index" type="text" pattern="[0-9]">
+                                    </label>
+                                    <label class="my-adress-label">Country
+                                        <input class="my-adress-input" name="my-adress-city" type="text">
+                                    </label>
+                                    <label class="my-adress-label">Name
+                                        <input class="my-adress-input" name="my-adress-name" type="text">
+                                    </label>
+                                </fieldset>
+                            </form>
+                        </div>
                     </div>
-                    <div class="envelope-my-adress">
-                        <form class="form-my-adress" action="my-adress.js" method="post">
-                            <fieldset class="my-adress-fieldset">
-                                <legend class="my-adress-legend">My adress</legend>
-                                <label class="my-adress-label">Street / House
-                                    <input class="my-adress-input" name="my-adress-street" type="text">
+                    <div class="envelope-stamp envelope-item">
+                        <div class="envelope-poststamp envelope-stamp-item">
+                            <img class="envelope-poststamp-img" src="/logo/post-stamp-180.svg">
+                        </div>
+                        <div class="envelope-postmark envelope-stamp-item">
+                        </div>
+                    </div>
+                    <div class="envelope-to-adress envelope-item">
+                        <form class="form-to-adress" action="my-adress.js" method="post">
+                            <fieldset class="to-adress-fieldset">
+                                <legend class="to-adress-legend">Adress recipient</legend>
+                                <label class="to-adress-label">Street / House
+                                    <input class="to-adress-input" name="to-adress-street" type="text">
                                 </label>
-                                <label class="my-adress-label">Index / City
-                                    <input class="my-adress-input" name="my-adress-index" type="text" pattern="[0-9]">
+                                <label class="to-adress-label">Index
+                                    <input class="to-adress-input" name="to-adress-index" type="text">
                                 </label>
-                                <label class="my-adress-label">Country
-                                    <input class="my-adress-input" name="my-adress-city" type="text">
+                                <label class="to-adress-label">City
+                                    <input class="to-adress-input" name="to-adress-city" type="text">
                                 </label>
-                                <label class="my-adress-label">Name
-                                    <input class="my-adress-input" name="my-adress-name" type="text">
+                                <label class="to-adress-label">Country
+                                    <input class="to-adress-input" name="to-adress-city" type="text">
+                                </label>
+                                <label class="to-adress-label">Name
+                                    <input class="to-adress-input" name="to-adress-name" type="text">
                                 </label>
                             </fieldset>
                         </form>
                     </div>
-                </div>
-                <div class="envelope-stamp envelope-item">
-                    <div class="envelope-poststamp envelope-stamp-item">
-                        <img class="envelope-poststamp-img" src="/logo/post-stamp-180.svg">
-                    </div>
-                    <div class="envelope-postmark envelope-stamp-item">
-                    </div>
-                </div>
-                <div class="envelope-to-adress envelope-item">
-                    <form class="form-to-adress" action="my-adress.js" method="post">
-                        <fieldset class="to-adress-fieldset">
-                            <legend class="to-adress-legend">Adress recipient</legend>
-                            <label class="to-adress-label">Street / House
-                                <input class="to-adress-input" name="to-adress-street" type="text">
-                            </label>
-                            <label class="to-adress-label">Index
-                                <input class="to-adress-input" name="to-adress-index" type="text">
-                            </label>
-                            <label class="to-adress-label">City
-                                <input class="to-adress-input" name="to-adress-city" type="text">
-                            </label>
-                            <label class="to-adress-label">Country
-                                <input class="to-adress-input" name="to-adress-city" type="text">
-                            </label>
-                            <label class="to-adress-label">Name
-                                <input class="to-adress-input" name="to-adress-name" type="text">
-                            </label>
-                        </fieldset>
-                    </form>
                 </div>
             </div>
             <div class="card-photo card">
