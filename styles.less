@@ -109,11 +109,13 @@ body {
     position: absolute;
     width: calc(53vh*1.42);
     height: 53vh;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    // top: 50%;
+    // left: 50%;
+    // transform: translate(-50%, -50%);
     background-color: @color-envelope-bkg;
-    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.5);   
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.5);  
+    
+    display: none;
 }
 
 .envelope-from-adress {
@@ -206,19 +208,7 @@ body {
     justify-content: end;
 }
 
-.card {
-    position: absolute;
-    width: calc(50vh*1.42);
-    height: 50vh;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.5);
-
-    display: none;
-}
-
-.card-img {
+.card-photo-img {
     display: flex;
     justify-content: end;
     align-items: flex-end;
@@ -230,8 +220,33 @@ body {
     display: none;
 }
 
-.card-text {
-    display: none;
+.card-letter {
+    // position: relative;
+    width: calc(50vh*1.42);
+    height: 50vh;
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.5);
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+}
+
+.card-letter-text {
+    position: relative;
+    margin: 2vh 2vw;
+    background-color: @color-header-bkg;
+    border-radius: 1.6vh;
+}
+
+.card-letter-text::before {
+    position: absolute;
+    // position: relative;
+    content: '.';
+    width: 8px;
+    height: 2.5rem;
+    top: 1.5rem;
+    left: 1.5rem;
+    background-color: @color-nav;
+    color: @color-nav;
 }
 
 .footer {
