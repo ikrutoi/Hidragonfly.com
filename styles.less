@@ -84,7 +84,6 @@ body {
 }
 
 .main {
-    position: relative;
     grid-area: main;
     display: flex;
     justify-content: center;
@@ -92,35 +91,30 @@ body {
 
 }
 
-.envelope-card {
-    position: relative;
-    margin-bottom: 4rem;
+// .envelope-card {
+//     margin-bottom: 4rem;
+// }
+
+.envelope-letter {
     width: calc(53vh*1.42);
     height: 53vh;
     background-color: @color-envelope-bkg;
-    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.5);  
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.5); 
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
-}
 
-.envelope-letter {
-    margin: 2vh 1.5vw;
+    // display: none;
 }
 
 .envelope {
+    margin: 1.5vh;
     display: grid;
-    width: 100%;
-    height: 100%;
     row-gap: 2vh;
-    column-gap: 2vw;
+    column-gap: 2vh;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto 7fr;
+    grid-template-rows: auto 1fr;
     grid-template-areas: 
         "from-adress postmark"
         "from-adress adress-recipient";
-   
-    // display: none;
 }
 
 .envelope-from-adress {
@@ -240,7 +234,7 @@ body {
 
 .card-letter-text {
     position: relative;
-    margin: 2vh 2vw;
+    margin: 2vh;
     background-color: @color-header-bkg;
     border-radius: 1.6vh;
 }
