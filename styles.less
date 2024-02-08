@@ -61,7 +61,7 @@ body {
 }
 
 .nav-letter {
-    border-radius: 2.5vh;
+    border-radius: 40px;
     background-color: @color-header-bkg;
     display: inline-block;
 }
@@ -74,23 +74,25 @@ body {
 
 
 .nav-button {
-    height: 1.4vh;
-    margin: 0.5vh;
-    padding: 0.8vh 1.4vw;
+    height: 24px;
+    margin: 6px;
+    padding: 6px 16px;
     color: @color-nav;
-    font-size: 1.3vh;
-    background-color: @color-main-bkg;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: @color-header-bkg;
     border-radius: 30px;
-    border: solid 1px @color-nav-border;
+    display: flex;
+    align-items: center;
 }
 
 .nav-button:last-child {
-    background-color: @color-nav-button-not-active;
+    color: @color-nav-button-not-active-color;
 }
 
 .nav-button:hover {
-    border: solid 1px @color-nav-border-hover;
-    color: @color-nav-border-hover;
+    background-color: @color-nav-button-bkg-hover;
+    // color: @color-nav-border-hover;
 }
 
 .main {
@@ -158,8 +160,8 @@ body {
 
 .my-adress-legend, .to-adress-legend, .card-letter-legend {
     color: @color-nav-button-not-active-color;
-    font-size: 1.4vh;
-    font-weight: 500;
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 .to-adress-legend {
@@ -168,7 +170,7 @@ body {
 
 .my-adress-label, .to-adress-label {
     color: @color-label;
-    font-size: 1.3vh;
+    font-size: 1rem;
     display: block;
     margin-top: 0.6vh;
 }
