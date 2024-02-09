@@ -1,5 +1,5 @@
 @import url(/color.less);
-@import url(/font.less);
+@import url(/fonts.less);
 
 body {
     height: 100vh;
@@ -69,7 +69,7 @@ body {
     align-items: center;
 }
 
-.nav-button {
+.nav-button, .nav-cardtext-button {
     margin: 6px;
     padding: 6px 16px;
     color: @color-nav;
@@ -84,9 +84,13 @@ body {
     background-color: @color-main-bkg;
 }
 
-.nav-button:hover {
+.nav-button:hover, .nav-cardtext-button:hover {
     background-color: @color-header-bkg;
 }
+
+.nav-cardtext-button {
+    display: inline-block;
+} 
 
 .main {
     grid-area: main;
