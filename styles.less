@@ -69,22 +69,21 @@ body {
     align-items: center;
 }
 
-.nav-button, .nav-cardtext-button {
+.nav-menu-button {
     .nav-button-mixin;
 
     &:hover {
         background-color: @color-header-bkg;
     }
+
+    &:last-child {
+        background-color: @color-body-bkg;
+    }
 }
 
-.nav-button:last-child {
-    background-color: @color-body-bkg;
-    border: none;
+.nav-cardtext-button {
+    &:extend(.nav-menu-button);
 }
-
-// .nav-button:hover, .nav-cardtext-button:hover {
-//     background-color: @color-nav-hover;
-// }
 
 .nav-cardtext-button {
     display: inline-block;
@@ -141,32 +140,53 @@ body {
     grid-area: adress;
 }
 
-.my-adress-fieldset, .to-adress-fieldset, .card-letter-fieldset {
+.my-adress-fieldset {
     background-color: @color-footer-bkg;
     border: solid 1px @color-fieldset-border;
     border-radius: 1.6vh;
 }
 
-.my-adress-legend, .to-adress-legend, .card-letter-legend {
+.to-adress-fieldset {
+    &:extend(.my-adress-fieldset);
+}
+
+.card-letter-fieldset {
+    &:extend(.my-adress-fieldset);
+}
+
+.my-adress-legend {
     color: @color-nav;
     font-size: 1.4vh;
     font-weight: 600;
 }
 
 .to-adress-legend {
+    &:extend(.my-adress-legend);
+}
+
+.card-letter-legend {
+    &:extend(.my-adress-legend);
+}
+
+.to-adress-legend {
     text-align: right;
 }
 
-.my-adress-label, .to-adress-label {
+.my-adress-label {
     .envelope-style-label;
 }
 
 .to-adress-label {
+    &:extend(.my-adress-label);
     text-align: right;
 }
 
-.my-adress-input, .to-adress-input {
+.my-adress-input {
     .envelope-style-input;
+}
+
+.to-adress-input {
+    &:extend(.my-adress-input);
 }
 
 .to-adress-input {
