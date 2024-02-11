@@ -1,5 +1,6 @@
 @import url(/color.less);
 @import url(/fonts.less);
+@import url(/sizes.less);
 
 body {
     height: 100vh;
@@ -21,7 +22,6 @@ body {
     margin: 0.5vh 0 0.5vh 3vw;
     background-color: @color-header-bkg;
     border-radius: 25px 0 0 25px;
-    grid-area: header;
 }
 
 .header-menu {
@@ -70,23 +70,21 @@ body {
 }
 
 .nav-button, .nav-cardtext-button {
-    margin: 6px;
-    padding: 6px 16px;
-    color: @color-nav;
-    font-weight: 600;
-    background-color: @color-footer-bkg;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
+    .nav-button-mixin;
+
+    &:hover {
+        background-color: @color-header-bkg;
+    }
 }
 
 .nav-button:last-child {
-    background-color: @color-main-bkg;
+    background-color: @color-body-bkg;
+    border: none;
 }
 
-.nav-button:hover, .nav-cardtext-button:hover {
-    background-color: @color-header-bkg;
-}
+// .nav-button:hover, .nav-cardtext-button:hover {
+//     background-color: @color-nav-hover;
+// }
 
 .nav-cardtext-button {
     display: inline-block;
@@ -101,10 +99,8 @@ body {
 }
 
 .envelope-letter {
-    width: calc(53vh*1.42);
-    height: 53vh;
+    .envelope-size-mixin;
     background-color: @color-envelope-bkg;
-    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.5); 
     display: grid;
 
     // display: none;
@@ -162,10 +158,7 @@ body {
 }
 
 .my-adress-label, .to-adress-label {
-    color: @color-nav;
-    font-size: 1.4vh;
-    display: block;
-    margin-top: 0.6vh;
+    .envelope-style-label;
 }
 
 .to-adress-label {
@@ -173,16 +166,7 @@ body {
 }
 
 .my-adress-input, .to-adress-input {
-    display: block;
-    width: 100%;
-    height: 2vh;
-    font-size: 1.4vh;
-    color: @color-nav;
-    letter-spacing: 1px;
-    background-color: @color-main-bkg;
-    border-radius: 1vh;
-    border: none;
-    outline: none;
+    .envelope-style-input;
 }
 
 .to-adress-input {
@@ -227,9 +211,7 @@ body {
 }
 
 .card-letter {
-    width: calc(50vh*1.42);
-    height: 50vh;
-    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.5);
+   .card-size-mixin;
     display: grid;
     background-color: @color-footer-bkg;
 

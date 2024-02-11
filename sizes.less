@@ -1,0 +1,27 @@
+.box-shadow-mixin {
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.5);
+}
+
+.nav-button-mixin {
+    margin: 6px;
+    padding: 6px 16px;
+    color: @color-nav;
+    font-weight: 600;
+    // border: solid 1px @color-nav;
+    background-color: @color-footer-bkg;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.envelope-size-mixin {
+    width: calc(53vh*1.42);
+    height: 53vh;
+    .box-shadow-mixin; 
+}
+
+.card-size-mixin {
+    width: calc(50vh*1.42);
+    height: 50vh;
+    .box-shadow-mixin; 
+}
