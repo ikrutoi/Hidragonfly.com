@@ -9,10 +9,9 @@ body {
     background-color: @color-body-bkg;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: min-content min-content auto min-content;
+    grid-template-rows: min-content auto min-content;
     grid-template-areas: 
         "header"
-        "nav"
         "main"
         "footer";
 }
@@ -27,8 +26,6 @@ body {
 .header-menu {
     height: 100%;
     display: flex;
-    display: flex;
-    justify-content: space-between;
     align-items: center;  
     padding: 0 4vw 0 6px;
     justify-content: space-between;
@@ -54,8 +51,18 @@ body {
     width: 300px;
 }
 
+.main {
+    grid-area: main;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content auto;
+    justify-items: center;
+    align-items: center;
+}
+
 .nav {
-    grid-area: nav;
+    grid-column: 1;
+    grid-row: 1/2;
     text-align: center;
 }
 
@@ -86,19 +93,16 @@ body {
 }
 
 .nav-cardtext {
-    display: none;
+    // display: none;
 }
 
 .nav-cardtext-button {
     display: inline-block;
 } 
 
-.main {
-    grid-area: main;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
+.envelope-card {
+    grid-column: 1;
+    grid-row: 1/3
 }
 
 .envelope-letter {
@@ -106,7 +110,7 @@ body {
     background-color: @color-envelope-bkg;
     display: grid;
 
-    display: none;
+    // display: none;
 }
 
 .envelope {
@@ -223,7 +227,7 @@ body {
 .card-photo {
     .card-size-mixin;
 
-    // display: none;
+    display: none;
 }
 
 .card-photo-img {
