@@ -1,0 +1,38 @@
+.card-letter {
+    .card-size-mixin;
+     display: grid;
+     background-color: @color-footer-bkg;
+ 
+     display: none;
+ }
+ 
+ .form-card-letter {
+     position: relative;
+     margin: 1.5vh;
+     display: grid;
+ }
+ 
+ .card-letter-legend {
+     margin-left: 1rem;
+ }
+ 
+ .card-letter-area {
+     height: 100%;
+     width: 100%;
+     border: none;
+     border-radius: 1vh;
+     background-color: @color-body-bkg;
+     outline: none;
+     resize: none;
+ }
+ 
+ .card-letter-cursor::before {
+     position: absolute;
+     content: '.';
+     width: 8px;
+     height: 2rem;
+     top: 3rem;
+     left: 2rem;
+     background-color: @color-nav;
+     color: @color-nav;
+ }
