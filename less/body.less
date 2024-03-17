@@ -1,0 +1,13 @@
+body {
+    height: 100vh;
+    margin: 0;
+    position: relative;
+    background-color: @color-body-bkg;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content auto min-content;
+    grid-template-areas: 
+        "header"
+        "main"
+        "footer";
+}
