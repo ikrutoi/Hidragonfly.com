@@ -14,23 +14,23 @@
     align-items: center;
 }
 
+.nav-menu .active {
+    background-color: @color-basis;
+    border: solid 1px @color-basis;
+    color: @color-basis-white;
+}
+
 .nav-menu-button {
+    border: solid 1px @color-body-bkg;
+
     .nav-button-mixin;
 
     &:hover {
-        background-color: @color-header-bkg;
+        border: solid 1px @color-basis;
     }
 
-    &:last-child {
+    &:nth-child(6) {
         background-color: @color-body-bkg;
-    }
-
-    &:nth-child(2) {
-        background-color: @color-nav-bkg-accept;
-    }
-
-    &:nth-child(3) {
-        background-color: @color-header-bkg;
     }
 }
 
@@ -38,9 +38,9 @@
     &:extend(.nav-menu-button);
 }
 
-.nav-cardtext {
-    // display: none;
-}
+// .nav-cardtext {
+//     // display: none;
+// }
 
 .nav-cardtext-button {
     display: inline-block;
