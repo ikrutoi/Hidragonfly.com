@@ -45,7 +45,7 @@
                     <div class="button-card-photo nav-menu-button" data-menu-nav="card-photo">
                         <p>Card photo</p>
                     </div>
-                    <div class="button-card-text nav-menu-button" data-menu-nav="card-text">
+                    <div class="button-card-text nav-menu-button" data-menu-nav="card-text" data-menu-nav-block="menu-nav-block">
                         <p>Card text</p>
                     </div>
                     <div class="button-date nav-menu-button" data-menu-nav="date">
@@ -59,7 +59,7 @@
                     </div>
                 </div>
             </div>
-            <div class="nav-cardtext">
+            <div class="nav-cardtext menu-nav-block">
                 <div class="nav-cardtext-button nav-menu-button"><p>A1</p></div>
                 <div class="nav-cardtext-button nav-menu-button"><p>A2</p></div>
                 <div class="nav-cardtext-button nav-menu-button"><p>A3</p></div>
@@ -134,7 +134,9 @@
                 <form class="form-card-letter">
                     <fieldset class="card-letter-fieldset">
                         <legend class="card-letter-legend">My text</legend>
-                        <span class="card-letter-cursor"></span>
+                        <span class="card-letter-cursor-block">
+                            <span class="card-letter-cursor"></span>
+                        </span>
                         <textarea class="card-letter-area" name="card-text">
                         </textarea>
                     </fieldset>

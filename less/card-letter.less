@@ -11,6 +11,7 @@
  
  .card-letter-legend {
      margin-left: 1rem;
+    //  color: red;
  }
  
  .card-letter-area {
@@ -26,10 +27,26 @@
  .card-letter-cursor::before {
      position: absolute;
      content: '.';
-     width: 8px;
+     width: 10px;
      height: 2rem;
      top: 3rem;
      left: 2rem;
-     background-color: @color-nav;
-     color: @color-nav;
+     background-color: @color-basis;
+     color: @color-basis;
  }
+
+ .card-letter-cursor-block {
+    opacity: 1;
+    animation-name: cursor-block;
+    animation-duration: 1500ms;
+    animation-delay: 400ms;
+    animation-iteration-count: infinite;
+ }
+
+@keyframes cursor-block {
+    from {opacity: 1;}
+    30% {opacity: 1;}
+    50% {opacity: 0;}
+    70% {opacity: 1;}
+    to {opacity: 1;}
+}
