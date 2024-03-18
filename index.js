@@ -3,27 +3,26 @@ const buttonMenuNav = document.querySelectorAll('.nav-menu-button');
 buttonMenuNav.forEach((e) => {
     
     function clickButtonActive() {
+        function removeClassActive(e) {
+            e.classList.remove('active');
+        }
+
         (() => {
             buttonMenuNav.forEach((e) => {
-                e.classList.remove('active');
+                removeClassActive(e);
             })
         })();
-              
-        // e.classList.add('active');
+
+        const block = document.querySelectorAll('.block');
+        const navMenuAddit = document.querySelectorAll('.nav-menu-addit');
         
-        // function showBlockTimer() {
-        //     blockActive.setAttribute('style', 'display: grid');
-        // }
+        block.forEach((e) => {
+            removeClassActive(e);
+        })
         
-        // const block = document.querySelectorAll('.block');
-        
-        // block.forEach((e) => {
-        //     e.setAttribute('style', 'display: none');
-        // })
-        
-        // const blockActive = document.querySelector(`.${e.dataset.menuNav}`);
-        
-        // setTimeout(showBlockTimer, 100);
+        navMenuAddit.forEach((e) => {
+            removeClassActive(e);
+        })
 
         e.classList.add('active');
         
@@ -32,40 +31,12 @@ buttonMenuNav.forEach((e) => {
                 e.classList.add('active');
             })
         }
-        
-        const block = document.querySelectorAll('.block');
-        const navMenuAddit = document.querySelectorAll('.nav-menu-addit');
-        
-        block.forEach((e) => {
-            e.classList.remove('active');
-        })
-        
-        navMenuAddit.forEach((e) => {
-            e.classList.remove('active');
-        })
-        
+                
         const blockActive = document.querySelectorAll(`.${e.dataset.menuNav}`);
        
         setTimeout(showBlockTimer, 100);
-
-
-
-
-
-        
-        
-        // const menuNavBlock = document.querySelectorAll('.menu-nav-block');
-        
-        // menuNavBlock.forEach((e) => {
-        //     e.setAttribute('style', 'display: none');
-        // })
-
-        // const menuNavBlockActive = document.querySelector(`.${e.dataset.menuNavBlock}`);
-        // menuNavBlockActive.setAttribute('style', 'display: block');
-
     }
 
-    e.addEventListener('click', clickButtonActive);
-    
+    e.addEventListener('click', clickButtonActive);   
 });
 
