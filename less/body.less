@@ -1,3 +1,12 @@
+.main {
+    grid-area: main;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content auto;
+    justify-items: center;
+    align-items: center;
+}
+
 body {
     height: 100vh;
     margin: 0;
@@ -17,6 +26,10 @@ body p {
     transform: skew(-7deg);
 }
 
-.block, .menu-nav-block {
+.block, .nav-menu-addit {
     display: none;
+}
+
+.block.active {
+    display: grid;
 }

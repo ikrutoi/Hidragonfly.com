@@ -11,7 +11,6 @@
  
  .card-letter-legend {
      margin-left: 1rem;
-    //  color: red;
  }
  
  .card-letter-area {
@@ -38,15 +37,17 @@
  .card-letter-cursor-block {
     opacity: 1;
     animation-name: cursor-block;
-    animation-duration: 1500ms;
-    animation-delay: 400ms;
+    animation-duration: 1400ms;
+    animation-delay: 350ms;
     animation-iteration-count: infinite;
  }
 
 @keyframes cursor-block {
     from {opacity: 1;}
-    30% {opacity: 1;}
+    25% {opacity: 1;}
+    35% {opacity: 0;}
     50% {opacity: 0;}
-    70% {opacity: 1;}
+    65% {opacity: 0;}
+    75% {opacity: 1;}
     to {opacity: 1;}
 }

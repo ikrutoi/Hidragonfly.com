@@ -4,17 +4,13 @@
     text-align: center;
 }
 
-.nav-letter {
-    border-radius: 40px;
-}
-
 .nav-menu {
     display: flex;    
     justify-content: center;
     align-items: center;
 }
 
-.nav-menu .active, .nav-cardtext .active {
+.nav-menu-button.active {
     background-color: @color-basis;
     border: solid 1px @color-basis;
     color: @color-basis-white;
@@ -27,21 +23,20 @@
 
     &:hover {
         border: solid 1px @color-basis;
-    }
-
-    &:nth-child(6) {
-        background-color: @color-body-bkg;
+        cursor: pointer;
     }
 }
 
-.nav-cardtext-button {
-    &:extend(.nav-menu-button);
+.nav-menu-addit.active {
+    display: flex;    
+    justify-content: center;
+    align-items: center;
 }
 
-// .nav-cardtext {
-//     // display: none;
+// .nav-cardtext-button, .nav-cardphoto-button {
+//     &:extend(.nav-menu-button);
 // }
 
-.nav-cardtext-button {
-    display: inline-block;
-} 
+// .nav-cardtext-button, .nav-cardphoto-button {
+//     display: inline-block;
+// } 

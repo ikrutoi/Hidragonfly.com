@@ -39,27 +39,32 @@
         <nav class="nav">
             <div class="nav-letter">
                 <div class="nav-menu">
-                    <div class="button-envelope nav-menu-button" data-menu-nav="envelope-letter">
+                    <div class="button-envelope nav-menu-button" data-menu-nav="envelope-anchor">
                         <p>Envelope</p>
                     </div>
-                    <div class="button-card-photo nav-menu-button" data-menu-nav="card-photo">
+                    <div class="button-card-photo nav-menu-button" data-menu-nav="cardphoto-anchor">
                         <p>Card photo</p>
                     </div>
-                    <div class="button-card-text nav-menu-button" data-menu-nav="card-text" data-menu-nav-block="menu-nav-block">
+                    <div class="button-card-text nav-menu-button" data-menu-nav="cardtext-anchor">
                         <p>Card text</p>
                     </div>
-                    <div class="button-date nav-menu-button" data-menu-nav="date">
+                    <div class="button-date nav-menu-button" data-menu-nav="date-anchor">
                         <p>Date</p>
                     </div>
-                    <div class="button-aroma nav-menu-button" data-menu-nav="aroma">
+                    <div class="button-aroma nav-menu-button" data-menu-nav="aroma-anchor">
                         <p>Aroma</p>
                     </div>
-                    <div class="button-history nav-menu-button" data-menu-nav="history">
+                    <div class="button-history nav-menu-button" data-menu-nav="history-anchor">
                         <p>History</p>
                     </div>
                 </div>
             </div>
-            <div class="nav-cardtext menu-nav-block">
+            <div class="nav-menu-addit cardphoto-anchor">
+                <div class="nav-cardphoto-button nav-menu-button"><p>Add</p></div>
+                <div class="nav-cardphoto-button nav-menu-button"><p>Edit</p></div>
+                <div class="nav-cardphoto-button nav-menu-button"><p>Delete</p></div>
+            </div>
+            <div class="nav-menu-addit cardtext-anchor">
                 <div class="nav-cardtext-button nav-menu-button"><p>A1</p></div>
                 <div class="nav-cardtext-button nav-menu-button"><p>A2</p></div>
                 <div class="nav-cardtext-button nav-menu-button"><p>A3</p></div>
@@ -71,7 +76,7 @@
             </div>
         </nav>
         <div class="envelope-card">
-            <div class="block envelope-letter">
+            <div class="block envelope-letter envelope-anchor">
                 <div class="envelope">
                     <div class="envelope-from-adress envelope-item">
                         <div class="envelope-logoname">
@@ -99,7 +104,7 @@
                     </div>
                     <div class="envelope-stamp envelope-item">
                         <div class="envelope-poststamp envelope-stamp-item">
-                            <img class="envelope-poststamp-img" src="/logo/poststamp-180.svg">
+                            <img class="envelope-poststamp-img" src="/logo/poststamp-180-noactive.svg">
                         </div>
                         <div class="envelope-postmark envelope-stamp-item">
                         </div>
@@ -125,12 +130,12 @@
                     </div>
                 </div>
             </div>
-            <div class="block card-photo card">
+            <div class="block card-photo card cardphoto-anchor">
                 <div class="card-photo-img">
                     card-img
                 </div>
             </div>
-            <div class="block card-text card">
+            <div class="block card-text card cardtext-anchor">
                 <form class="form-card-letter">
                     <fieldset class="card-letter-fieldset">
                         <legend class="card-letter-legend">My text</legend>
