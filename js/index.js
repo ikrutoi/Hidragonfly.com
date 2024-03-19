@@ -1,4 +1,4 @@
-import { crop } from './crop.js'
+import { newElem } from './crop.js'
 
 const buttonMenuNav = document.querySelectorAll('.nav-menu-button');
 
@@ -42,4 +42,4 @@ buttonMenuNav.forEach((e) => {
     e.addEventListener('click', clickButtonActive);   
 });
 
-crop();
+newElem();
