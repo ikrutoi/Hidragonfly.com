@@ -31,7 +31,30 @@ buttonMenuNav.forEach((e) => {
         function showBlockTimer() {
             blockActive.forEach((e) => {
                 e.classList.add('active');
-            })
+            })    
+            
+            const circleTL = document.querySelector('.crop-circle-tl');
+            const circleTR = document.querySelector('.crop-circle-tr');
+            const circleBL = document.querySelector('.crop-circle-bl');
+
+            // console.log('circleTL', circleTL.getBoundingClientRect());
+            console.log('circleTL', circleTL.getBoundingClientRect().left);
+            console.log('circleTR', circleTL.getBoundingClientRect());
+            console.log('circleTL', circleTL.getBoundingClientRect());
+
+            const widthBlockImg = circleTR.getBoundingClientRect().left - circleTL.getBoundingClientRect().left;
+            const heightBlockImg = circleBL.getBoundingClientRect().top - circleTL.getBoundingClientRect().top;
+
+            addBlockImg(
+                circleTL.getBoundingClientRect().left, 
+                circleTL.getBoundingClientRect().top, 
+                heightBlockImg, 
+                widthBlockImg
+            );
+
+            // const fullBlockImg = document.querySelector('.full-block-img');
+            // console.log(fullBlockImg.getBoundingClientRect());
+
         }
                 
         const blockActive = document.querySelectorAll(`.${e.dataset.menuNav}`);
@@ -46,27 +69,44 @@ newElem();
 
 const circle = document.querySelectorAll('.crop-circle');
 
-circle.forEach((el) => {
-    el.onmousedown = function(e) {
-        let shiftX = e.clientX - el.getBoundingClientRect().left;
-        let shiftY = e.clientY - el.getBoundingClientRect().top;
+circle.forEach((elem) => {
 
-        moveAt(e.pageX, e.pageY);
+    elem.ondragstart = function() {
+        return false;
+    }
+
+    elem.onmousedown = function(event) {
+        const heightHeader = document.querySelector('.header').clientHeight;
+        const heightNav = document.querySelector('.nav').clientHeight;
+
+        const shiftX = event.clientX - elem.getBoundingClientRect().left;
+        const shiftY = event.clientY - elem.getBoundingClientRect().top;
+
+        moveAt(event.clientX, event.clientY);
     
         function moveAt(pageX, pageY) {
-            el.style.left = pageX - shiftX + 'px';
-            el.style.top = pageY - shiftY + 'px';
+            elem.style.left = pageX - shiftX + 'px';
+            elem.style.top = pageY - shiftY - heightHeader - heightNav - 9 + 'px';
+            // console.log(elem.style.top, elem.getBoundingClientRect().top);
         } 
     
-        function onMouseMove(e) {
-            moveAt(e.pageX, e.pageY)
+        function onMouseMove(event) {
+            moveAt(event.clientX, event.clientY)
         }
     
         document.addEventListener('mousemove', onMouseMove);
     
-        el.onmouseup = function() {
+        elem.onmouseup = function() {
             document.removeEventListener('mousemove', onMouseMove);
-            el.onmouseup = null;
+            elem.onmouseup = null;
         }
     };
 })
+
+function addBlockImg(pageX, pageY, height, width) {
+    const fullBlockImg = document.querySelector('.full-block-img');
+    fullBlockImg.setAttribute('style', `left: ${pageX}px; top: ${pageY}px; heingth: ${height}px; width: ${width}px;`);
+
+    console.log(fullBlockImg.getBoundingClientRect());
+}
+
