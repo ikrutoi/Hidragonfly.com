@@ -1,16 +1,9 @@
-.envelope-card {
-    display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto;
-    grid-template-areas: "fullblockimg";
-    position: relative;
-    grid-column: 1;
-    grid-row: 1/3
-}
-
 .envelope-letter {
     .envelope-size-mixin;
     background-color: @color-envelope-bkg;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
 }
 
 .envelope {
@@ -21,12 +14,12 @@
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto 1fr;
     grid-template-areas: 
-        "from-adress postmark"
-        "from-adress adress-recipient";
+        "adressfrom postmark"
+        "adressfrom adressto";
 }
 
 .envelope-from-adress {
-    grid-area: from-adress;
+    grid-area: adressfrom;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: min-content 1fr;
@@ -119,7 +112,7 @@
 }
 
 .envelope-to-adress {
-    grid-area: adress-recipient;
+    grid-area: adressto;
     display: flex;
     flex-direction: column;
     justify-content: end;

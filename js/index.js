@@ -37,7 +37,6 @@ buttonMenuNav.forEach((e) => {
             const circleTR = document.querySelector('.crop-circle-tr');
             const circleBL = document.querySelector('.crop-circle-bl');
 
-            // console.log('circleTL', circleTL.getBoundingClientRect());
             console.log('circleTL', circleTL.getBoundingClientRect().left);
             console.log('circleTR', circleTL.getBoundingClientRect());
             console.log('circleTL', circleTL.getBoundingClientRect());
@@ -51,10 +50,6 @@ buttonMenuNav.forEach((e) => {
                 heightBlockImg, 
                 widthBlockImg
             );
-
-            // const fullBlockImg = document.querySelector('.full-block-img');
-            // console.log(fullBlockImg.getBoundingClientRect());
-
         }
                 
         const blockActive = document.querySelectorAll(`.${e.dataset.menuNav}`);
@@ -65,48 +60,46 @@ buttonMenuNav.forEach((e) => {
     e.addEventListener('click', clickButtonActive);   
 });
 
-newElem();
+// newElem();
 
-const circle = document.querySelectorAll('.crop-circle');
+// const circle = document.querySelectorAll('.crop-circle');
 
-circle.forEach((elem) => {
+// circle.forEach((elem) => {
 
-    elem.ondragstart = function() {
-        return false;
-    }
+//     elem.ondragstart = function() {
+//         return false;
+//     }
 
-    elem.onmousedown = function(event) {
-        const heightHeader = document.querySelector('.header').clientHeight;
-        const heightNav = document.querySelector('.nav').clientHeight;
+//     elem.onmousedown = function(event) {
+//         const heightHeader = document.querySelector('.header').clientHeight;
+//         const heightNav = document.querySelector('.nav').clientHeight;
 
-        const shiftX = event.clientX - elem.getBoundingClientRect().left;
-        const shiftY = event.clientY - elem.getBoundingClientRect().top;
+//         const shiftX = event.clientX - elem.getBoundingClientRect().left;
+//         const shiftY = event.clientY - elem.getBoundingClientRect().top;
 
-        moveAt(event.clientX, event.clientY);
+//         moveAt(event.clientX, event.clientY);
     
-        function moveAt(pageX, pageY) {
-            elem.style.left = pageX - shiftX + 'px';
-            elem.style.top = pageY - shiftY - heightHeader - heightNav - 9 + 'px';
-            // console.log(elem.style.top, elem.getBoundingClientRect().top);
-        } 
+//         function moveAt(pageX, pageY) {
+//             elem.style.left = pageX - shiftX + 'px';
+//             elem.style.top = pageY - shiftY - heightHeader - heightNav - 9 + 'px';
+//         } 
     
-        function onMouseMove(event) {
-            moveAt(event.clientX, event.clientY)
-        }
+//         function onMouseMove(event) {
+//             moveAt(event.clientX, event.clientY)
+//         }
     
-        document.addEventListener('mousemove', onMouseMove);
+//         document.addEventListener('mousemove', onMouseMove);
     
-        elem.onmouseup = function() {
-            document.removeEventListener('mousemove', onMouseMove);
-            elem.onmouseup = null;
-        }
-    };
-})
+//         elem.onmouseup = function() {
+//             document.removeEventListener('mousemove', onMouseMove);
+//             elem.onmouseup = null;
+//         }
+//     };
+// })
 
-function addBlockImg(pageX, pageY, height, width) {
-    const fullBlockImg = document.querySelector('.full-block-img');
-    fullBlockImg.setAttribute('style', `left: ${pageX}px; top: ${pageY}px; heingth: ${height}px; width: ${width}px;`);
+// function addBlockImg(pageX, pageY, height, width) {
+//     const fullBlockImg = document.querySelector('.full-block-img');
+//     fullBlockImg.setAttribute('style', `left: ${pageX}px; top: ${pageY}px; heingth: ${height}px; width: ${width}px;`);
 
-    console.log(fullBlockImg.getBoundingClientRect());
-}
-
+//     console.log(fullBlockImg.getBoundingClientRect());
+// }

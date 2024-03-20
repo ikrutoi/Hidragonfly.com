@@ -1,17 +1,20 @@
 .full-block-img {
-    border: solid 1px red;
     display: grid;
     grid-template-rows: auto;
     grid-template-columns: auto;
     grid-template-areas: "card";
 }
 
+// .block-new-img {
+//     position: relative;
+//     border: solid 1px red;
+// }
+
 .card-photo {
+    .card-size-mixin;
     grid-area: card;
     grid-column: 2/3;
     grid-row: 2/3;
-    .card-size-mixin;
-    position: relative;
 }
 
 .card-photo-img {
