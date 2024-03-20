@@ -1,4 +1,4 @@
-import { newElem } from './crop.js'
+import { newElem } from './new-element.js'
 
 const buttonMenuNav = document.querySelectorAll('.nav-menu-button');
 
@@ -43,3 +43,30 @@ buttonMenuNav.forEach((e) => {
 });
 
 newElem();
+
+const circle = document.querySelectorAll('.crop-circle');
+
+circle.forEach((el) => {
+    el.onmousedown = function(e) {
+        let shiftX = e.clientX - el.getBoundingClientRect().left;
+        let shiftY = e.clientY - el.getBoundingClientRect().top;
+
+        moveAt(e.pageX, e.pageY);
+    
+        function moveAt(pageX, pageY) {
+            el.style.left = pageX - shiftX + 'px';
+            el.style.top = pageY - shiftY + 'px';
+        } 
+    
+        function onMouseMove(e) {
+            moveAt(e.pageX, e.pageY)
+        }
+    
+        document.addEventListener('mousemove', onMouseMove);
+    
+        el.onmouseup = function() {
+            document.removeEventListener('mousemove', onMouseMove);
+            el.onmouseup = null;
+        }
+    };
+})
