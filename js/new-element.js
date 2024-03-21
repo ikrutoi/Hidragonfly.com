@@ -5,6 +5,9 @@ export function newElem(toTag, tag, newClass, newStyle) {
         newTag.classList.add(el);
     }
 
-    newTag.setAttribute('style', `${newStyle}`);
-    toTag.append(newTag);
+    if (!!newStyle) {
+        newTag.setAttribute('style', `${newStyle}`);
+    };
+    
+    toTag.append(newTag);        
 }

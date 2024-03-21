@@ -1,61 +1,62 @@
 export function dragNDrop() { 
     const circle = document.querySelectorAll('.crop-circle');
     
-    circle.forEach((elem) => {
+    circle.forEach((el) => {
 
-        elem.onmouseover = function() {
-            elem.style.backgroundColor = 'red';
+        // el.onmouseover = function() {
+        //     el.style.backgroundColor = 'red';
+        // };
 
-            
-        };
-
-        elem.onmouseout = function() {
-            elem.style.backgroundColor = '#008aed';
-        };
+        // el.onmouseout = function() {
+        //     el.style.backgroundColor = '#008aed';
+        // };
                 
-        elem.ondragstart = function() {
+        el.ondragstart = function() {
             return false;
         };
         
-        elem.onmousedown = function(event) {
-            // console.log('elem:', elem.getBoundingClientRect());
-            // console.log('blockImgTop:', document.querySelector('.block-new-img').getBoundingClientRect().top);
-
-            // const heightHeader = document.querySelector('.header').clientHeight;
-            // const heightNav = document.querySelector('.nav').clientHeight;
+        el.onmousedown = function(ev) {
             const retreatBlockImgLeft = document.querySelector('.block-new-img').getBoundingClientRect().left;
             const retreatBlockImgTop = document.querySelector('.block-new-img').getBoundingClientRect().top;
-
             
-            // const shiftX = event.clientX - elem.getBoundingClientRect().left;
-            // const shiftY = event.clientY - elem.getBoundingClientRect().top;
-            
-            moveAt(event.clientX, event.clientY);
+            moveAt(ev.clientX, ev.clientY);
             
             function moveAt(pageX, pageY) {
-                elem.style.left = pageX  - retreatBlockImgLeft + 'px';
-                elem.style.top = pageY - retreatBlockImgTop + 'px';
+                el.style.left = pageX  - retreatBlockImgLeft + 'px';
+                el.style.top = pageY - retreatBlockImgTop + 'px';
         } 
         
-        function onMouseMove(event) {
-            moveAt(event.clientX, event.clientY)
+        function onMouseMove(ev) {
+            moveAt(ev.clientX, ev.clientY)
         }
         
         document.addEventListener('mousemove', onMouseMove);
         
-        elem.onmouseup = function() {
+        el.onmouseup = function() {
             document.removeEventListener('mousemove', onMouseMove);
-            elem.onmouseup = null;
+            el.onmouseup = null;
         }
     };
 })
 };
 
+export function increaseCropCircle() {
+    const cropCircleShadow = document.querySelectorAll('.crop-circle-shadow');
 
+    cropCircleShadow.forEach((el) => {
+        el.onmouseover = function() {
+            el.classList.add('active');
+        };
+        
+        el.onmouseout = function() {
+            el.classList.remove('active');
+            el.classList.add('deactivation');
+            
+            function removeDeActivation() {
+                el.classList.remove('deactivation');
+            }
 
-// function addBlockImg(pageX, pageY, height, width) {
-//     const fullBlockImg = document.querySelector('.full-block-img');
-//     fullBlockImg.setAttribute('style', `left: ${pageX}px; top: ${pageY}px; heingth: ${height}px; width: ${width}px;`);
-
-//     console.log(fullBlockImg.getBoundingClientRect());
-// }
+            setTimeout(removeDeActivation, 330);
+        };
+    })
+}
