@@ -4,53 +4,12 @@
     border: solid 1px red;
 }
 
-.crop-circle-shadow {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    background-color: @color-basis;
-    opacity: 1;
-    border-radius: 50px;
+.crop-circle {
+    background-color: #008aed; 
+    position: absolute; 
+    width: 9px; 
+    height: 9px; 
+    border-radius: 10px; 
+    border: solid 1px #ffffff;
+    cursor: alias;
 }
-
-.crop-circle-shadow.active {
-    animation-name: increase-crop;
-    animation-duration: 300ms;
-    animation-fill-mode: forwards;
-}
-
-@keyframes increase-crop {
-    from {}
-    to {
-        width: 50px;
-        height: 50px;
-        opacity: 0.4;
-        left: -20px;
-        top: -20px;
-    }
-}
-
-.crop-circle-shadow.deactivation {
-    animation-name: cancel-increase-crop;
-    animation-duration: 300ms;
-    animation-fill-mode: forwards;
-    // background-color: red;
-}
-
-@keyframes cancel-increase-crop {
-    from {
-        width: 50px;
-        height: 50px;
-        opacity: 0.4;
-        left: -20px;
-        top: -20px;
-    }
-    to {
-        width: 8px;
-        height: 8px;
-        opacity: 1;
-        left: 0px;
-        top: 0px;
-    }
-}
-
