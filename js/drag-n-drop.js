@@ -1,9 +1,20 @@
+import { newElem } from "./new-element.js";
+
+const blockNewImg = document.querySelector('.new-img-rubber');
+
+newElem(blockNewImg, 'span', ['crop-circle', 'crop-circle-1'], 'top: -5px; left: -5px;');
+newElem(blockNewImg, 'span', ['crop-circle', 'crop-circle-2'], 'top: -5px; right: -5px;');
+newElem(blockNewImg, 'span', ['crop-circle', 'crop-circle-3'], 'bottom: -5px; right: -5px;');
+newElem(blockNewImg, 'span', ['crop-circle', 'crop-circle-4'], 'bottom: -5px; left: -5px;');
+newElem(blockNewImg, 'div', ['new-img-new-area']);
+
 export function dragNDrop() { 
     const circle = document.querySelectorAll('.crop-circle');
     const circle1 = document.querySelector('.crop-circle-1');
     const circle2 = document.querySelector('.crop-circle-2');
     const circle3 = document.querySelector('.crop-circle-3');
     const circle4 = document.querySelector('.crop-circle-4');
+    const newArea = document.querySelector('.new-img-new-area');
 
     circle.forEach((el) => {            
         el.ondragstart = function() {
@@ -12,8 +23,8 @@ export function dragNDrop() {
         
         el.onmousedown = function(ev) {
             // console.log(el.getBoundingClientRect());
-            const retreatBlockImgLeft = document.querySelector('.new-img').getBoundingClientRect().left;
-            const retreatBlockImgTop = document.querySelector('.new-img').getBoundingClientRect().top;
+            const retreatBlockImgLeft = document.querySelector('.new-img-rubber').getBoundingClientRect().left;
+            const retreatBlockImgTop = document.querySelector('.new-img-rubber').getBoundingClientRect().top;
             
             moveAt(ev.clientX, ev.clientY);
             
@@ -54,6 +65,23 @@ export function dragNDrop() {
                         break;       
                     }
                 }
+
+                console.log(circle1.getBoundingClientRect());
+                const elWidth = circle2.getBoundingClientRect().left - circle1.getBoundingClientRect().left;
+                const elHeight = circle3.getBoundingClientRect().top - circle2.getBoundingClientRect().top;
+                // console.log('w1: ', elWidth, 'h1: ', elHeight);
+                // const pp = circle1.getBoundingClientRect().left;
+                // console.log('elTop: ', elTop);
+                // console.log('elLeft: ', elLeft);
+                // console.log(ev);
+                const styleNewImgRubber = `
+                    left: ${circle1.getBoundingClientRect().left}px; 
+                    top: ${circle1.getBoundingClientRect().top}px;
+                    width: ${elWidth}px;
+                    height: ${elHeight}px;`;
+                // newArea.setAttribute('style', `${styleNewImgRubber}`);
+                console.log(newArea.getBoundingClientRect());
+                // console.log('w2: ', newArea.style.width, 'h2: ', newArea.style.top);
             } 
         
             function onMouseMove(ev) {

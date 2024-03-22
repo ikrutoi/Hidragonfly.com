@@ -1,3 +1,5 @@
+import { dragNDrop } from "./drag-n-drop.js";
+
 export function navButtonMenu() {  
     const buttonMenuNav = document.querySelectorAll('.nav-menu-button');
     const blockMain = document.querySelector('.main');
@@ -58,3 +60,6 @@ export function addNewImg() {
 
     buttonAdd.addEventListener('click', clickButtonActive);
 }
+
+const buttonAdd = document.querySelector('.nav-cardphoto-add');
+buttonAdd.addEventListener('click', dragNDrop);
