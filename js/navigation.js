@@ -1,10 +1,12 @@
-
 export function navButtonMenu() {  
     const buttonMenuNav = document.querySelectorAll('.nav-menu-button');
+    const blockMain = document.querySelector('.main');
     
     buttonMenuNav.forEach((el) => {
         
         function clickButtonActive() {
+            blockMain.classList.remove('img-active');
+            
             function removeClassActive(el) {
                 el.classList.remove('active');
             }
@@ -42,3 +44,17 @@ export function navButtonMenu() {
         el.addEventListener('click', clickButtonActive);   
     });
 };
+
+
+export function addNewImg() {
+    const buttonAdd = document.querySelector('.nav-cardphoto-add');
+    const blockNewImg = document.querySelector('.block-new-img');
+    const blockMain = document.querySelector('.main');
+
+    function clickButtonActive() {
+        blockNewImg.classList.add('active');
+        blockMain.classList.add('img-active');
+    }
+
+    buttonAdd.addEventListener('click', clickButtonActive);
+}

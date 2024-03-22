@@ -1,7 +1,19 @@
 .block-new-img {
+    display: none;
+}
+
+.block-new-img.active {
     .new-img-mixin;
-    position: absolute;
-    border: solid 1px red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // position: absolute;
+    // border: solid 1px red;
+}
+
+.new-img {
+    .card-size-mixin;
+    position: relative;
 }
 
 .crop-circle {
@@ -11,5 +23,12 @@
     height: 9px; 
     border-radius: 10px; 
     border: solid 1px #ffffff;
-    cursor: alias;
+}
+
+.crop-circle-tl, .crop-circle-br {
+    cursor: nwse-resize;
+}
+
+.crop-circle-tr, .crop-circle-bl {
+    cursor: nesw-resize;
 }

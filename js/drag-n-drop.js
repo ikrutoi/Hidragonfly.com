@@ -1,16 +1,7 @@
 export function dragNDrop() { 
     const circle = document.querySelectorAll('.crop-circle');
     
-    circle.forEach((el) => {
-
-        el.onmouseover = function() {
-            el.style.backgroundColor = 'red';
-        };
-
-        el.onmouseout = function() {
-            el.style.backgroundColor = '#008aed';
-        };
-                
+    circle.forEach((el) => {            
         el.ondragstart = function() {
             return false;
         };
