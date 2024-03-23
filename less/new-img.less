@@ -17,12 +17,16 @@
 .new-img-rubber {
     .card-size-mixin;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .new-img-new-area {
     // .card-size-mixin;
     border: solid 1px red;
     position: absolute;
+    z-index: 1;
 }
 
 .crop-circle {
@@ -32,6 +36,15 @@
     height: 9px; 
     border-radius: 10px; 
     border: solid 1px #ffffff;
+    z-index: 2;
+}
+
+.crop-circle-start {
+    position: absolute; 
+    width: 9px; 
+    height: 9px;
+    border-radius: 10px; 
+    z-index: 1;
 }
 
 .crop-circle-1, .crop-circle-3 {
