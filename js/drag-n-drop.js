@@ -32,9 +32,6 @@ export function dragNDrop() {
         el.onmousedown = function(ev) {
             const retreatBlockImgTop = document.querySelector('.new-img-rubber').getBoundingClientRect().top;
             const retreatBlockImgLeft = document.querySelector('.new-img-rubber').getBoundingClientRect().left;
-
-            console.log(document.querySelector('.new-img-rubber').getBoundingClientRect().top);
-            console.log(document.querySelector('.new-img-rubber').getBoundingClientRect().left);
             const blockNewImgTop = document.querySelector('.new-img-rubber').getBoundingClientRect().top;
             
             moveAt(ev.clientX, ev.clientY);
@@ -70,7 +67,7 @@ export function dragNDrop() {
                         break;
                         case 'crop-circle-2': {
                             const c2Left = circle2start.getBoundingClientRect().left;
-                            const delta2 = (c2Left - circle2.getBoundingClientRect().left - circle2.getBoundingClientRect().width / 2) / 1.42;
+                            const delta2 = (c2Left - circle2.getBoundingClientRect().left) / 1.42;
                             
                             circle2.style.top = delta2 +'px';
                             circle1.style.top = circle2.style.top;
@@ -98,18 +95,8 @@ export function dragNDrop() {
                     }
                 }
 
-
-
-                // console.log(circle1.getBoundingClientRect());
                 const elWidth = circle2.getBoundingClientRect().left - circle1.getBoundingClientRect().left;
                 const elHeight = circle3.getBoundingClientRect().top - circle2.getBoundingClientRect().top;
-                // console.log('w1: ', elWidth, 'h1: ', elHeight);
-                // const pp = circle1.getBoundingClientRect().left;
-                // console.log('elTop: ', elTop);
-                // console.log('elLeft: ', elLeft);
-                // console.log(ev);
-                // left: ${circle1.getBoundingClientRect().left}px; 
-                // top: ${circle1.getBoundingClientRect().top}px;
                 const styleNewImgRubber = `
                     width: ${elWidth}px;
                     height: ${elHeight}px;`;
