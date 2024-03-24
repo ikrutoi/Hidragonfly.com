@@ -35,123 +35,125 @@
             </div>
         </div>
     </header>
-    <nav class="nav">
-        <div class="nav-letter">
-            <div class="nav-menu">
-                <div class="button-envelope nav-menu-button" data-menu-nav="envelope-anchor">
-                    <p>Envelope</p>
+    <div class="main-full">
+        <nav class="nav">
+            <div class="nav-letter">
+                <div class="nav-menu">
+                    <div class="button-envelope nav-menu-button" data-menu-nav="envelope-anchor">
+                        <p>Envelope</p>
+                    </div>
+                    <div class="button-card-photo nav-menu-button" data-menu-nav="cardphoto-anchor">
+                        <p>Card photo</p>
+                    </div>
+                    <div class="button-card-text nav-menu-button" data-menu-nav="cardtext-anchor">
+                        <p>Card text</p>
+                    </div>
+                    <div class="button-date nav-menu-button" data-menu-nav="date-anchor">
+                        <p>Date</p>
+                    </div>
+                    <div class="button-aroma nav-menu-button" data-menu-nav="aroma-anchor">
+                        <p>Aroma</p>
+                    </div>
+                    <div class="button-history nav-menu-button" data-menu-nav="history-anchor">
+                        <p>History</p>
+                    </div>
                 </div>
-                <div class="button-card-photo nav-menu-button" data-menu-nav="cardphoto-anchor">
-                    <p>Card photo</p>
+                <div class="nav-menu-addit cardphoto-anchor">
+                    <div class="nav-cardphoto-button nav-menu-button nav-cardphoto-add" data-menu-nav="block-new-img"><p>Add</p></div>
+                    <div class="nav-cardphoto-button nav-menu-button"><p>Edit</p></div>
+                    <div class="nav-cardphoto-button nav-menu-button"><p>Delete</p></div>
                 </div>
-                <div class="button-card-text nav-menu-button" data-menu-nav="cardtext-anchor">
-                    <p>Card text</p>
-                </div>
-                <div class="button-date nav-menu-button" data-menu-nav="date-anchor">
-                    <p>Date</p>
-                </div>
-                <div class="button-aroma nav-menu-button" data-menu-nav="aroma-anchor">
-                    <p>Aroma</p>
-                </div>
-                <div class="button-history nav-menu-button" data-menu-nav="history-anchor">
-                    <p>History</p>
+                <div class="nav-menu-addit cardtext-anchor">
+                    <div class="nav-cardtext-button nav-menu-button"><p>A1</p></div>
+                    <div class="nav-cardtext-button nav-menu-button"><p>A2</p></div>
+                    <div class="nav-cardtext-button nav-menu-button"><p>A3</p></div>
+                    <div class="nav-cardtext-button nav-menu-button"><p>A4</p></div>
+                    <div class="nav-cardtext-button nav-menu-button"><p>A5</p></div>
+                    <div class="nav-cardtext-button nav-menu-button"><p>A6</p></div>
+                    <div class="nav-cardtext-button nav-menu-button"><p>A7</p></div>
+                    <div class="nav-cardtext-button nav-menu-button"><p>A8</p></div>
                 </div>
             </div>
-            <div class="nav-menu-addit cardphoto-anchor">
-                <div class="nav-cardphoto-button nav-menu-button nav-cardphoto-add" data-menu-nav="block-new-img"><p>Add</p></div>
-                <div class="nav-cardphoto-button nav-menu-button"><p>Edit</p></div>
-                <div class="nav-cardphoto-button nav-menu-button"><p>Delete</p></div>
-            </div>
-            <div class="nav-menu-addit cardtext-anchor">
-                <div class="nav-cardtext-button nav-menu-button"><p>A1</p></div>
-                <div class="nav-cardtext-button nav-menu-button"><p>A2</p></div>
-                <div class="nav-cardtext-button nav-menu-button"><p>A3</p></div>
-                <div class="nav-cardtext-button nav-menu-button"><p>A4</p></div>
-                <div class="nav-cardtext-button nav-menu-button"><p>A5</p></div>
-                <div class="nav-cardtext-button nav-menu-button"><p>A6</p></div>
-                <div class="nav-cardtext-button nav-menu-button"><p>A7</p></div>
-                <div class="nav-cardtext-button nav-menu-button"><p>A8</p></div>
-            </div>
-        </div>
-    </nav>
-    <main class="main">
-        <div class="block envelope-card envelope-anchor">
-            <div class="envelope-letter">
-                <div class="envelope">
-                    <div class="envelope-from-adress envelope-item">
-                        <div class="envelope-logoname">
-                            <img class="envelope-logoname-img" src="/logo/logoname-v3-40.svg">
+        </nav>
+        <main class="main">
+            <div class="block envelope-card envelope-anchor">
+                <div class="envelope-letter">
+                    <div class="envelope">
+                        <div class="envelope-from-adress envelope-item">
+                            <div class="envelope-logoname">
+                                <img class="envelope-logoname-img" src="/logo/logoname-v3-40.svg">
+                            </div>
+                            <div class="envelope-my-adress">
+                                <form class="form-my-adress" action="my-adress.js" method="post">
+                                    <fieldset class="my-adress-fieldset">
+                                        <legend class="my-adress-legend">My adress</legend>
+                                        <label class="my-adress-label">Street / House
+                                            <input class="my-adress-input" name="my-adress-street" type="text">
+                                        </label>
+                                        <label class="my-adress-label">Index / City
+                                            <input class="my-adress-input" name="my-adress-index" type="text" pattern="[0-9]">
+                                        </label>
+                                        <label class="my-adress-label">Country
+                                            <input class="my-adress-input" name="my-adress-city" type="text">
+                                        </label>
+                                        <label class="my-adress-label">Name
+                                            <input class="my-adress-input" name="my-adress-name" type="text">
+                                        </label>
+                                    </fieldset>
+                                </form>
+                            </div>
                         </div>
-                        <div class="envelope-my-adress">
-                            <form class="form-my-adress" action="my-adress.js" method="post">
-                                <fieldset class="my-adress-fieldset">
-                                    <legend class="my-adress-legend">My adress</legend>
-                                    <label class="my-adress-label">Street / House
-                                        <input class="my-adress-input" name="my-adress-street" type="text">
+                        <div class="envelope-stamp envelope-item">
+                            <div class="envelope-poststamp envelope-stamp-item">
+                                <img class="envelope-poststamp-img" src="/logo/poststamp-180-noactive.svg">
+                            </div>
+                            <div class="envelope-postmark envelope-stamp-item">
+                            </div>
+                        </div>
+                        <div class="envelope-to-adress envelope-item">
+                            <form class="form-to-adress" action="my-adress.js" method="post">
+                                <fieldset class="to-adress-fieldset">
+                                    <legend class="to-adress-legend">Adress recipient</legend>
+                                    <label class="to-adress-label">Name
+                                        <input class="to-adress-input" name="to-adress-name" type="text">
                                     </label>
-                                    <label class="my-adress-label">Index / City
-                                        <input class="my-adress-input" name="my-adress-index" type="text" pattern="[0-9]">
+                                    <label class="to-adress-label">Street / House
+                                        <input class="to-adress-input" name="to-adress-street-house" type="text">
                                     </label>
-                                    <label class="my-adress-label">Country
-                                        <input class="my-adress-input" name="my-adress-city" type="text">
+                                    <label class="to-adress-label">Index / City
+                                        <input class="to-adress-input" name="to-adress-index-city" type="text">
                                     </label>
-                                    <label class="my-adress-label">Name
-                                        <input class="my-adress-input" name="my-adress-name" type="text">
+                                    <label class="to-adress-label">Country
+                                        <input class="to-adress-input" name="to-adress-country" type="text">
                                     </label>
                                 </fieldset>
                             </form>
                         </div>
                     </div>
-                    <div class="envelope-stamp envelope-item">
-                        <div class="envelope-poststamp envelope-stamp-item">
-                            <img class="envelope-poststamp-img" src="/logo/poststamp-180-noactive.svg">
-                        </div>
-                        <div class="envelope-postmark envelope-stamp-item">
-                        </div>
-                    </div>
-                    <div class="envelope-to-adress envelope-item">
-                        <form class="form-to-adress" action="my-adress.js" method="post">
-                            <fieldset class="to-adress-fieldset">
-                                <legend class="to-adress-legend">Adress recipient</legend>
-                                <label class="to-adress-label">Name
-                                    <input class="to-adress-input" name="to-adress-name" type="text">
-                                </label>
-                                <label class="to-adress-label">Street / House
-                                    <input class="to-adress-input" name="to-adress-street-house" type="text">
-                                </label>
-                                <label class="to-adress-label">Index / City
-                                    <input class="to-adress-input" name="to-adress-index-city" type="text">
-                                </label>
-                                <label class="to-adress-label">Country
-                                    <input class="to-adress-input" name="to-adress-country" type="text">
-                                </label>
-                            </fieldset>
-                        </form>
-                    </div>
                 </div>
             </div>
-        </div>
-        <div class="block card-photo cardphoto-anchor">
-            <div class="card-photo-img"></div>
-        </div>
-        <div class="block block-new-img">
-            <div class="new-img">
-                <div class="new-img-rubber"></div>
+            <div class="block card-photo cardphoto-anchor">
+                <div class="card-photo-img"></div>
             </div>
-        </div>
-        <div class="block card-text cardtext-anchor">
-            <form class="form-card-letter">
-                <fieldset class="card-letter-fieldset">
-                    <legend class="card-letter-legend">My text</legend>
-                    <span class="card-letter-cursor-block">
-                        <span class="card-letter-cursor"></span>
-                    </span>
-                    <textarea class="card-letter-area" name="card-text">
-                    </textarea>
-                </fieldset>
-            </form>
-        </div>
-    </main>
+            <div class="block block-new-img">
+                <div class="new-img">
+                    <div class="new-img-rubber"></div>
+                </div>
+            </div>
+            <div class="block card-text cardtext-anchor">
+                <form class="form-card-letter">
+                    <fieldset class="card-letter-fieldset">
+                        <legend class="card-letter-legend">My text</legend>
+                        <span class="card-letter-cursor-block">
+                            <span class="card-letter-cursor"></span>
+                        </span>
+                        <textarea class="card-letter-area" name="card-text">
+                        </textarea>
+                    </fieldset>
+                </form>
+            </div>
+        </main>
+    </div>
     <footer class="footer">
         <div class="footer-text">
             <p>All rights reserved &copy Ihar Krutoi</p>
