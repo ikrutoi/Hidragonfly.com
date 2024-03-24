@@ -1,17 +1,17 @@
 import { newElem } from "./new-element.js";
 
-const blockNewImg = document.querySelector('.new-img-rubber');
-// const blockMain = document.querySelector('.block-shadow');
+const blockNewImgRubber = document.querySelector('.new-img-rubber');
+const blockNewImg = document.querySelector('.new-img');
 
-newElem(blockNewImg, 'span', ['crop-circle', 'crop-circle-1'], 'top: -5px; left: -5px; background-color: blue;');
-newElem(blockNewImg, 'span', ['crop-circle-start', 'crop-circle-1start'], 'top: -5px; left: -5px; background-color: orange;');
-newElem(blockNewImg, 'span', ['crop-circle', 'crop-circle-2'], 'top: -5px; right: -5px; background-color: red;');
-newElem(blockNewImg, 'span', ['crop-circle-start', 'crop-circle-2start'], 'top: -5px; right: -5px; background-color: orange;');
-newElem(blockNewImg, 'span', ['crop-circle', 'crop-circle-3'], 'bottom: -5px; right: -5px; background-color: green;');
-newElem(blockNewImg, 'span', ['crop-circle-start', 'crop-circle-3start'], 'bottom: -5px; right: -5px; background-color: orange;');
-newElem(blockNewImg, 'span', ['crop-circle', 'crop-circle-4'], 'bottom: -5px; left: -5px; background-color: pink;');
-newElem(blockNewImg, 'span', ['crop-circle-start', 'crop-circle-4start'], 'bottom: -5px; left: -5px; background-color: orange;');
-// newElem(blockMain, 'div', ['new-img-new-area']);
+newElem(blockNewImgRubber, 'span', ['crop-circle', 'crop-circle-1'], 'top: -5px; left: -5px; background-color: blue;');
+newElem(blockNewImgRubber, 'span', ['crop-circle-start', 'crop-circle-1start'], 'top: -5px; left: -5px; background-color: orange;');
+newElem(blockNewImgRubber, 'span', ['crop-circle', 'crop-circle-2'], 'top: -5px; right: -5px; background-color: red;');
+newElem(blockNewImgRubber, 'span', ['crop-circle-start', 'crop-circle-2start'], 'top: -5px; right: -5px; background-color: orange;');
+newElem(blockNewImgRubber, 'span', ['crop-circle', 'crop-circle-3'], 'bottom: -5px; right: -5px; background-color: green;');
+newElem(blockNewImgRubber, 'span', ['crop-circle-start', 'crop-circle-3start'], 'bottom: -5px; right: -5px; background-color: orange;');
+newElem(blockNewImgRubber, 'span', ['crop-circle', 'crop-circle-4'], 'bottom: -5px; left: -5px; background-color: pink;');
+newElem(blockNewImgRubber, 'span', ['crop-circle-start', 'crop-circle-4start'], 'bottom: -5px; left: -5px; background-color: orange;');
+newElem(blockNewImg, 'div', ['new-img-new-area']);
 
 export function dragNDrop() { 
     const circle = document.querySelectorAll('.crop-circle');
@@ -23,7 +23,7 @@ export function dragNDrop() {
     const circle3start = document.querySelector('.crop-circle-3start');
     const circle4 = document.querySelector('.crop-circle-4');
     const circle4start = document.querySelector('.crop-circle-4start');
-    const newArea = document.querySelector('.new-img-new-area');
+    const areaCut = document.querySelector('.new-img-new-area');
 
     
     circle.forEach((el) => {            
@@ -56,6 +56,10 @@ export function dragNDrop() {
                 // 'el.get.top', ${el.getBoundingClientRect().top}
                 // `
                 // );
+                let areaCutWidth = circle2.getBoundingClientRect().left - circle1.getBoundingClientRect().left;
+                let areaCutHeight = circle3.getBoundingClientRect().top - circle2.getBoundingClientRect().top;
+                let areaCutLeft = circle1.getBoundingClientRect().left - blockNewImg.getBoundingClientRect().left;
+                let areaCutTop = circle1.getBoundingClientRect().top - blockNewImg.getBoundingClientRect().top; 
 
                 el.className.split(' ').forEach((nameClass) => {
                     if(
@@ -67,6 +71,7 @@ export function dragNDrop() {
                         } 
                 })
             
+
                 function keepProportions(nameClass) {
                     switch (nameClass) {
                         case 'crop-circle-1': {
@@ -77,6 +82,8 @@ export function dragNDrop() {
                             circle1.style.top = c1Top + delta1 +'px';
                             circle2.style.top = circle1.style.top;
                             circle4.style.left = circle1.style.left;
+
+                            areaCut.setAttribute('style', `width: ${areaCutWidth}px; height: ${areaCutHeight}px; left: ${areaCutLeft}px; top: ${areaCutTop}px`);
                         }
                         break;
                         case 'crop-circle-2': {
@@ -87,16 +94,19 @@ export function dragNDrop() {
                             circle2.style.top = c2Top + delta2 +'px';
                             circle1.style.top = circle2.style.top;
                             circle3.style.left = circle2.style.left;
+
+                            areaCut.setAttribute('style', `width: ${areaCutWidth}px; height: ${areaCutHeight}px; left: ${areaCutLeft}px; top: ${areaCutTop}px`);
                         }
                         break;
                         case 'crop-circle-3': {    
                             let c3Left = circle3start.getBoundingClientRect().left;
-                            // let c2Top = circle3start.getBoundingClientRect().top - rubberBlockImgTop;
                             let delta3 = (c3Left - circle3.getBoundingClientRect().left) / 1.42;
                             
                             circle3.style.top = circle3start.getBoundingClientRect().top - rubberBlockImgTop - delta3 + 'px';
                             circle4.style.top = circle3.style.top;
                             circle2.style.left = circle3.style.left;
+
+                            areaCut.setAttribute('style', `width: ${areaCutWidth}px; height: ${areaCutHeight}px; left: ${areaCutLeft}px; top: ${areaCutTop}px`);
                         }
                         break;
                         case 'crop-circle-4': {
@@ -106,45 +116,40 @@ export function dragNDrop() {
                             circle4.style.top = circle4start.getBoundingClientRect().top - rubberBlockImgTop - delta4 + 'px';
                             circle3.style.top = circle4.style.top;
                             circle1.style.left = circle4.style.left;
+
+                            areaCut.setAttribute('style', `width: ${areaCutWidth}px; height: ${areaCutHeight}px; left: ${areaCutLeft}px; top: ${areaCutTop}px`);
                         }
                         break;       
                     }
-                }
-
-            // let elNewWidth = circle2.getBoundingClientRect().left - circle1.getBoundingClientRect().left;
-            // let elNewHeight = circle3.getBoundingClientRect().top - circle2.getBoundingClientRect().top;
-            // let elNewLeft = el.getBoundingClientRect().left - blockMain.getBoundingClientRect().left;
-            // let elNewTop = circle1.getBoundingClientRect().top;
-
-            // newArea.setAttribute('style', `width: ${elNewWidth}px; height: ${elNewHeight}px; left: ${elNewLeft}px; top: ${elNewTop}`);
-
-            } 
-    
-            function onPointerMove(ev) {
-                moveAt(ev.clientX, ev.clientY)
-            }
-
-            document.addEventListener('pointermove', onPointerMove);
-
-            el.onpointerup = function() {
-                
-                el.className.split(' ').forEach((nameClass) => {
-                    if(
-                        nameClass == 'crop-circle-1' || 
-                        nameClass == 'crop-circle-2' || 
-                        nameClass == 'crop-circle-3' || 
-                        nameClass == 'crop-circle-4') {
-                            keepProportions(nameClass);
-                        } 
-                })
+                }         
+        } 
+        
+        function onPointerMove(ev) {
+            moveAt(ev.clientX, ev.clientY)
+        }
+        
+        document.addEventListener('pointermove', onPointerMove);
+        
+        el.onpointerup = function() {
             
+            el.className.split(' ').forEach((nameClass) => {
+                if(
+                    nameClass == 'crop-circle-1' || 
+                    nameClass == 'crop-circle-2' || 
+                    nameClass == 'crop-circle-3' || 
+                    nameClass == 'crop-circle-4') {
+                        keepProportions(nameClass);
+                    } 
+                })
+                
+                
                 function keepProportions(nameClass) {
                     switch (nameClass) {
                         case 'crop-circle-1': {
                             circle1start.style.left = el.style.left;
                             circle1start.style.top = el.style.top;
                             circle2start.style.top = el.style.top;
-                            circle4start.style.left = el.style.left;
+                            circle4start.style.left = el.style.left;                           
                         }
                         break;
                         case 'crop-circle-2': {
