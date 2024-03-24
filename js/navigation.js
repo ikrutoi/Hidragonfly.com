@@ -50,12 +50,12 @@ export function navButtonMenu() {
 
 export function addNewImg() {
     const buttonAdd = document.querySelector('.nav-cardphoto-add');
-    const blockNewImg = document.querySelector('.block-new-img');
-    const blockMain = document.querySelector('.main-full');
+    // const blockNewImg = document.querySelector('.block-shadow');
+    // const blockMain = document.querySelector('.main-full');
 
     function clickButtonActive() {
-        blockNewImg.classList.add('active');
-        blockMain.classList.add('img-active');
+        // blockNewImg.classList.add('active');
+        // blockMain.classList.add('img-active');
     }
 
     buttonAdd.addEventListener('click', clickButtonActive);
