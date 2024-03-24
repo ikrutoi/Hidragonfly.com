@@ -1,7 +1,7 @@
 import { newElem } from "./new-element.js";
 
 const blockNewImg = document.querySelector('.new-img-rubber');
-const blockMain = document.querySelector('.main');
+const blockMain = document.querySelector('.main-full');
 
 newElem(blockNewImg, 'span', ['crop-circle', 'crop-circle-1'], 'top: -5px; left: -5px; background-color: blue;');
 newElem(blockNewImg, 'span', ['crop-circle-start', 'crop-circle-1start'], 'top: -5px; left: -5px; background-color: orange;');
@@ -25,11 +25,12 @@ export function dragNDrop() {
     const circle4start = document.querySelector('.crop-circle-4start');
     const newArea = document.querySelector('.new-img-new-area');
 
+    
     circle.forEach((el) => {            
         el.ondragstart = function() {
             return false;
         };
-
+        
         el.onpointerdown = function(ev) {
             el.setPointerCapture(ev.pointerId);
             
@@ -90,7 +91,7 @@ export function dragNDrop() {
                         break;
                         case 'crop-circle-3': {    
                             let c3Left = circle3start.getBoundingClientRect().left;
-                            let c2Top = circle3start.getBoundingClientRect().top - rubberBlockImgTop;
+                            // let c2Top = circle3start.getBoundingClientRect().top - rubberBlockImgTop;
                             let delta3 = (c3Left - circle3.getBoundingClientRect().left) / 1.42;
                             
                             circle3.style.top = circle3start.getBoundingClientRect().top - rubberBlockImgTop - delta3 + 'px';
@@ -112,8 +113,10 @@ export function dragNDrop() {
 
             let elNewWidth = circle2.getBoundingClientRect().left - circle1.getBoundingClientRect().left;
             let elNewHeight = circle3.getBoundingClientRect().top - circle2.getBoundingClientRect().top;
+            let elNewLeft = el.getBoundingClientRect().left - blockMain.getBoundingClientRect().left;
+            let elNewTop = circle1.getBoundingClientRect().top;
 
-            newArea.setAttribute('style', `width: ${elNewWidth}px; height: ${elNewHeight}px`);
+            newArea.setAttribute('style', `width: ${elNewWidth}px; height: ${elNewHeight}px; left: ${elNewLeft}px; top: ${elNewTop}`);
 
             } 
     
