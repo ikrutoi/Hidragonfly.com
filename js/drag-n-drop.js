@@ -44,17 +44,17 @@ export function dragNDrop() {
                 el.style.top = elTop;
                 el.style.left = elLeft;
 
-                console.log(`
-                'ev.pageX', ${pageX}, 
-                'ev.pageY', ${pageY}, 
-                'rubber.left', ${rubberBlockImgLeft}, 
-                'rubbertop', ${rubberBlockImgTop},
-                'el.st.left', ${el.style.left}, 
-                'el.st.top', ${el.style.top},
-                'el.get.left', ${el.getBoundingClientRect().left},
-                'el.get.top', ${el.getBoundingClientRect().top}
-                `
-                );
+                // console.log(`
+                // 'ev.pageX', ${pageX}, 
+                // 'ev.pageY', ${pageY}, 
+                // 'rubber.left', ${rubberBlockImgLeft}, 
+                // 'rubbertop', ${rubberBlockImgTop},
+                // 'el.st.left', ${el.style.left}, 
+                // 'el.st.top', ${el.style.top},
+                // 'el.get.left', ${el.getBoundingClientRect().left},
+                // 'el.get.top', ${el.getBoundingClientRect().top}
+                // `
+                // );
 
                 el.className.split(' ').forEach((nameClass) => {
                     if(
