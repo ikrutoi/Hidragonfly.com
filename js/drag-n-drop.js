@@ -1,16 +1,16 @@
 import { newElem } from "./new-element.js";
 
 const blockNewImgRubber = document.querySelector('.new-img-rubber');
-const blockNewImg = document.querySelector('.new-img');
+const blockNewImg = document.querySelector('.main');
 
 newElem(blockNewImgRubber, 'span', ['crop-circle', 'crop-circle-1'], 'top: -5px; left: -5px; background-color: blue;');
-newElem(blockNewImgRubber, 'span', ['crop-circle-start', 'crop-circle-1start'], 'top: -5px; left: -5px; background-color: orange;');
+newElem(blockNewImgRubber, 'span', ['crop-circle-start', 'crop-circle-1start'], 'top: -5px; left: -5px;');
 newElem(blockNewImgRubber, 'span', ['crop-circle', 'crop-circle-2'], 'top: -5px; right: -5px; background-color: red;');
-newElem(blockNewImgRubber, 'span', ['crop-circle-start', 'crop-circle-2start'], 'top: -5px; right: -5px; background-color: orange;');
+newElem(blockNewImgRubber, 'span', ['crop-circle-start', 'crop-circle-2start'], 'top: -5px; right: -5px;');
 newElem(blockNewImgRubber, 'span', ['crop-circle', 'crop-circle-3'], 'bottom: -5px; right: -5px; background-color: green;');
-newElem(blockNewImgRubber, 'span', ['crop-circle-start', 'crop-circle-3start'], 'bottom: -5px; right: -5px; background-color: orange;');
+newElem(blockNewImgRubber, 'span', ['crop-circle-start', 'crop-circle-3start'], 'bottom: -5px; right: -5px;');
 newElem(blockNewImgRubber, 'span', ['crop-circle', 'crop-circle-4'], 'bottom: -5px; left: -5px; background-color: pink;');
-newElem(blockNewImgRubber, 'span', ['crop-circle-start', 'crop-circle-4start'], 'bottom: -5px; left: -5px; background-color: orange;');
+newElem(blockNewImgRubber, 'span', ['crop-circle-start', 'crop-circle-4start'], 'bottom: -5px; left: -5px;');
 newElem(blockNewImg, 'div', ['new-img-new-area']);
 
 export function dragNDrop() { 
@@ -24,7 +24,7 @@ export function dragNDrop() {
     const circle4 = document.querySelector('.crop-circle-4');
     const circle4start = document.querySelector('.crop-circle-4start');
     const areaCut = document.querySelector('.new-img-new-area');
-
+    const circleValueCenter = circle1.getBoundingClientRect().width;
     
     circle.forEach((el) => {            
         el.ondragstart = function() {
@@ -56,10 +56,6 @@ export function dragNDrop() {
                 // 'el.get.top', ${el.getBoundingClientRect().top}
                 // `
                 // );
-                let areaCutWidth = circle2.getBoundingClientRect().left - circle1.getBoundingClientRect().left;
-                let areaCutHeight = circle3.getBoundingClientRect().top - circle2.getBoundingClientRect().top;
-                let areaCutLeft = circle1.getBoundingClientRect().left - blockNewImg.getBoundingClientRect().left;
-                let areaCutTop = circle1.getBoundingClientRect().top - blockNewImg.getBoundingClientRect().top; 
 
                 el.className.split(' ').forEach((nameClass) => {
                     if(
@@ -71,7 +67,6 @@ export function dragNDrop() {
                         } 
                 })
             
-
                 function keepProportions(nameClass) {
                     switch (nameClass) {
                         case 'crop-circle-1': {
@@ -83,7 +78,11 @@ export function dragNDrop() {
                             circle2.style.top = circle1.style.top;
                             circle4.style.left = circle1.style.left;
 
-                            areaCut.setAttribute('style', `width: ${areaCutWidth}px; height: ${areaCutHeight}px; left: ${areaCutLeft}px; top: ${areaCutTop}px`);
+                            let areaCutWidth = circle2.getBoundingClientRect().left - circle1.getBoundingClientRect().left;
+                            let areaCutHeight = circle3.getBoundingClientRect().top - circle2.getBoundingClientRect().top;
+                            areaCut.setAttribute('style', `width: ${areaCutWidth}px; height: ${areaCutHeight}px;`);
+                            areaCut.style.left = circle1.getBoundingClientRect().left + 'px';
+                            areaCut.style.top = circle1.getBoundingClientRect().top + 'px';
                         }
                         break;
                         case 'crop-circle-2': {
@@ -95,7 +94,11 @@ export function dragNDrop() {
                             circle1.style.top = circle2.style.top;
                             circle3.style.left = circle2.style.left;
 
-                            areaCut.setAttribute('style', `width: ${areaCutWidth}px; height: ${areaCutHeight}px; left: ${areaCutLeft}px; top: ${areaCutTop}px`);
+                            let areaCutWidth = circle2.getBoundingClientRect().left - circle1.getBoundingClientRect().left;
+                            let areaCutHeight = circle3.getBoundingClientRect().top - circle2.getBoundingClientRect().top;
+                            areaCut.setAttribute('style', `width: ${areaCutWidth}px; height: ${areaCutHeight}px;`);
+                            areaCut.style.left = circle1.getBoundingClientRect().left + 'px';
+                            areaCut.style.top = circle1.getBoundingClientRect().top + 'px'; 
                         }
                         break;
                         case 'crop-circle-3': {    
@@ -106,7 +109,11 @@ export function dragNDrop() {
                             circle4.style.top = circle3.style.top;
                             circle2.style.left = circle3.style.left;
 
-                            areaCut.setAttribute('style', `width: ${areaCutWidth}px; height: ${areaCutHeight}px; left: ${areaCutLeft}px; top: ${areaCutTop}px`);
+                            let areaCutWidth = circle2.getBoundingClientRect().left - circle1.getBoundingClientRect().left;
+                            let areaCutHeight = circle3.getBoundingClientRect().top - circle2.getBoundingClientRect().top;
+                            areaCut.setAttribute('style', `width: ${areaCutWidth}px; height: ${areaCutHeight}px;`);
+                            areaCut.style.left = circle1.getBoundingClientRect().left + 'px';
+                            areaCut.style.top = circle1.getBoundingClientRect().top + 'px';
                         }
                         break;
                         case 'crop-circle-4': {
@@ -117,7 +124,11 @@ export function dragNDrop() {
                             circle3.style.top = circle4.style.top;
                             circle1.style.left = circle4.style.left;
 
-                            areaCut.setAttribute('style', `width: ${areaCutWidth}px; height: ${areaCutHeight}px; left: ${areaCutLeft}px; top: ${areaCutTop}px`);
+                            let areaCutWidth = circle2.getBoundingClientRect().left - circle1.getBoundingClientRect().left;
+                            let areaCutHeight = circle3.getBoundingClientRect().top - circle2.getBoundingClientRect().top;
+                            areaCut.setAttribute('style', `width: ${areaCutWidth}px; height: ${areaCutHeight}px;`);
+                            areaCut.style.left = circle1.getBoundingClientRect().left + 'px';
+                            areaCut.style.top = circle1.getBoundingClientRect().top + 'px';
                         }
                         break;       
                     }
