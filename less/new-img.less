@@ -19,12 +19,11 @@
     position: relative;
 }
 
-.new-img-new-area {
-    // .card-size-mixin;
-    border: solid 1px red;
+.new-area {
     background-color: @color-basis-main-shadow;
     opacity: 0.2;
     position: absolute;
+    cursor: move;
     z-index: 1;
 }
 
@@ -44,7 +43,6 @@
     width: 1px; 
     height: 1px;
     opacity: 0;
-    // border-radius: 10px; 
     z-index: 1;
 }
 
@@ -55,3 +53,4 @@
 .crop-circle-2, .crop-circle-4 {
     cursor: nesw-resize;
 }
+
