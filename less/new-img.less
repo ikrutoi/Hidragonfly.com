@@ -9,22 +9,23 @@
     align-items: center;
 }
 
-.new-img {
-    .card-size-mixin;
-    position: relative;
-}
-
 .new-img-rubber {
     .card-size-mixin;
     position: relative;
 }
 
 .new-area {
-    background-color: @color-basis-main-shadow;
+    // display: none;
+}
+
+.new-area {
+    .card-size-mixin;
+    display: block;
+    background-color: pink;
     opacity: 0.2;
     position: absolute;
     cursor: move;
-    z-index: 1;
+    // z-index: 1;
 }
 
 .crop-circle {

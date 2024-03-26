@@ -1,11 +1,11 @@
 import { newElem } from "./new-element.js";
+import { captureAreaMove } from "./capture-area.js";
 
 const blockNewImgRubber = document.querySelector('.new-img-rubber');
-const blockNewImg = document.querySelector('.new-img');
 const blockParent = document.querySelector('.main');
 
-newElem(blockNewImgRubber, 'span', ['crop-circle', 'crop-circle-1'], 'top: -5px; left: -5px;');
-newElem(blockNewImgRubber, 'span', ['crop-circle-start', 'crop-circle-1start'], 'top: -5px; left: -5px;');
+newElem(blockNewImgRubber, 'span', ['crop-circle', 'crop-circle-1']);
+newElem(blockNewImgRubber, 'span', ['crop-circle-start', 'crop-circle-1start']);
 newElem(blockNewImgRubber, 'span', ['crop-circle', 'crop-circle-2'], 'top: -5px; right: -5px;');
 newElem(blockNewImgRubber, 'span', ['crop-circle-start', 'crop-circle-2start'], 'top: -5px; right: -5px;');
 newElem(blockNewImgRubber, 'span', ['crop-circle', 'crop-circle-3'], 'bottom: -5px; right: -5px;');
@@ -14,10 +14,12 @@ newElem(blockNewImgRubber, 'span', ['crop-circle', 'crop-circle-4'], 'bottom: -5
 newElem(blockNewImgRubber, 'span', ['crop-circle-start', 'crop-circle-4start'], 'bottom: -5px; left: -5px;');
 newElem(blockParent, 'div', ['new-area']);
 
-// newElem(blockNewImg1, 'span', ['span-hello']);
-
-
-
+// let areaCutWidth = circle2.getBoundingClientRect().left - circle1.getBoundingClientRect().left;
+// let areaCutHeight = circle3.getBoundingClientRect().top - circle2.getBoundingClientRect().top;
+// areaCut.setAttribute('style', `width: ${areaCutWidth}px; height: ${areaCutHeight}px;`);
+// areaCut.style.left = circle1.getBoundingClientRect().left + deltaCircle + 'px';
+// areaCut.style.top = circle1.getBoundingClientRect().top + deltaCircle + 'px';
+const areaCut = document.querySelector('.new-area');
 const circle = document.querySelectorAll('.crop-circle');
 const circle1 = document.querySelector('.crop-circle-1');
 const circle1start = document.querySelector('.crop-circle-1start');
@@ -27,23 +29,24 @@ const circle3 = document.querySelector('.crop-circle-3');
 const circle3start = document.querySelector('.crop-circle-3start');
 const circle4 = document.querySelector('.crop-circle-4');
 const circle4start = document.querySelector('.crop-circle-4start');
-const areaCut = document.querySelector('.new-area');
 const deltaCircle = 5.5;
 
+function keepCirclesInCorners(myX, myY) {
+    circle1.style.left = -deltaCircle + 'px';
+    circle1.style.top = -deltaCircle + 'px';
+    circle1start.style.left = -deltaCircle + 'px';
+    circle1start.style.top = -deltaCircle + 'px';
+}
+
 export function dragNDrop() { 
-    let areaCutWidth = circle2.getBoundingClientRect().left - circle1.getBoundingClientRect().left;
-    let areaCutHeight = circle3.getBoundingClientRect().top - circle2.getBoundingClientRect().top;
-    areaCut.setAttribute('style', `width: ${areaCutWidth}px; height: ${areaCutHeight}px;`);
-    areaCut.style.left = circle1.getBoundingClientRect().left + deltaCircle + 'px';
-    areaCut.style.top = circle1.getBoundingClientRect().top + deltaCircle + 'px';
-    
-    
+ 
+    keepCirclesInCorners();
+
     circle.forEach((el) => {            
         el.ondragstart = function() {
             return false;
         };
         
-        // console.log(circle2.getBoundingClientRect());
         el.onpointerdown = function(ev) {
             el.setPointerCapture(ev.pointerId);
            
@@ -195,46 +198,8 @@ export function dragNDrop() {
     });
 };
 
-const areaCut1 = document.querySelector('.new-area');   
-
-function myDown1(ev) {
-    const leftArea = areaCut1.getBoundingClientRect().left;
-    const topArea = areaCut1.getBoundingClientRect().top;
-    const widthArea = areaCut1.getBoundingClientRect().width;
-    const heightArea = areaCut1.getBoundingClientRect().height;
-
-    console.log('left:', leftArea, 'top:', topArea, 'width:', widthArea, 'height:', heightArea);
-
-    startMove1(ev);
+function myPointerDown(ev) {
+    captureAreaMove(ev);
 }
 
-function startMove1(ev) {
-
-    let shiftX = ev.clientX - areaCut1.getBoundingClientRect().left;
-    let shiftY = ev.clientY - areaCut1.getBoundingClientRect().top;
-
-    areaCut1.addEventListener('pointermove', myMove1);
-    
-    function myMove1(ev) {             
-        moveArea1(ev.pageX, ev.pageY);
-    }
-    
-    function moveArea1(pageX, pageY) {                    
-        areaCut1.style.left = pageX - shiftX + 'px';
-        areaCut1.style.top = pageY - shiftY + 'px';     
-        
-        console.log('area.st.left:', areaCut1.style.left, 'area.st.top:', areaCut1.style.top);    
-    }
-
-    function myUp1() {
-        areaCut1.removeEventListener('pointermove', myMove1);
-        areaCut1.onpointerdown = null;
-        areaCut1.onpointermove = null;
-    }
-
-    areaCut1.addEventListener('pointerup', myUp1);
-}
-
-areaCut1.addEventListener('pointerdown', myDown1);
-
-//***************************************************** */
+areaCut.addEventListener('pointerdown', myPointerDown);
