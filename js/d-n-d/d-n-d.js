@@ -1,5 +1,5 @@
-import { newElem } from "./new-element.js";
-import { captureAreaMove } from "./capture-area.js";
+import { newElem } from "../new-element.js";
+import { captureAreaMove } from "./capture-area-move.js";
 
 const blockNewImgRubber = document.querySelector('.new-img-rubber');
 const blockParent = document.querySelector('.main');
@@ -14,11 +14,6 @@ newElem(blockNewImgRubber, 'span', ['crop-circle', 'crop-circle-4'], 'bottom: -5
 newElem(blockNewImgRubber, 'span', ['crop-circle-start', 'crop-circle-4start'], 'bottom: -5px; left: -5px;');
 newElem(blockParent, 'div', ['new-area']);
 
-// let areaCutWidth = circle2.getBoundingClientRect().left - circle1.getBoundingClientRect().left;
-// let areaCutHeight = circle3.getBoundingClientRect().top - circle2.getBoundingClientRect().top;
-// areaCut.setAttribute('style', `width: ${areaCutWidth}px; height: ${areaCutHeight}px;`);
-// areaCut.style.left = circle1.getBoundingClientRect().left + deltaCircle + 'px';
-// areaCut.style.top = circle1.getBoundingClientRect().top + deltaCircle + 'px';
 const areaCut = document.querySelector('.new-area');
 const circle = document.querySelectorAll('.crop-circle');
 const circle1 = document.querySelector('.crop-circle-1');

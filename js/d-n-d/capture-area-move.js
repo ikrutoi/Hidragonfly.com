@@ -1,3 +1,4 @@
+// import { keepCirclesInCorners } from "./keep-circles-in-corners";
 
 export function captureAreaMove(ev) {
         const areaCut = document.querySelector('.new-area');
@@ -28,4 +29,4 @@ export function captureAreaMove(ev) {
         }
         
         areaCut.addEventListener('pointerup', myUp);
-    }
+    };
