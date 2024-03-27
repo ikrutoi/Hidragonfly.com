@@ -1,7 +1,7 @@
 import { dragNDrop } from "./d-n-d/d-n-d.js";
 
 export function navButtonMenu() {  
-    const buttonMenuNav = document.querySelectorAll('.nav-menu-button');
+    const buttonMenuNav = document.querySelectorAll('.header-nav-button');
     const blockMain = document.querySelector('.main');
     
     buttonMenuNav.forEach((el) => {

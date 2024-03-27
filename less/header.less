@@ -26,14 +26,38 @@
     padding-left: 0.6rem;
 }
 
+.header-nav {
+    display: flex;
+    justify-content: center
+}
+
+.header-nav-button {
+    .header-nav-button-mixin;
+}
+
+.header-nav-button:hover {
+    cursor: pointer;
+    background-color: @color-basis-bkg;
+}
+
+.header-nav-button.active {
+    background-color: @color-basis-active;
+}
+
+.header-nav p {
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin: 0 1rem;
+}
+
 .header-menu-login {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     font-weight: 600;
     display: flex;
     justify-content: end;
     align-items: center;
 }
 
-.header-menu-item {
-    width: 300px;
-}
+// .header-menu-item {
+//     // width: 300px;
+// }
