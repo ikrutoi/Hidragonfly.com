@@ -6,34 +6,19 @@
     display: flex;
     justify-content: center;
     text-align: center;
+    // border: solid 1px red;
+    // background-color: antiquewhite;
 }
 
-.nav-menu {
+.nav-additional {
     display: flex;    
     justify-content: center;
     align-items: center;
+    width: 32px;
 }
 
-.nav-menu-button.active {
-    background-color: @color-basis;
-    border: solid 1px @color-basis;
-    color: @color-basis-white;
-}
-
-.nav-menu-button {
-    border: solid 1px @color-body-bkg;
-
-    .nav-button-mixin;
-
-    &:hover {
-        border: solid 1px @color-basis;
-        cursor: pointer;
-    }
-}
-
-.nav-menu-addit.active {
-    display: flex;    
+.nav-additional-cardphoto, .nav-additional-cardtext {
+    display: flex;
     justify-content: center;
     align-items: center;
 }
-

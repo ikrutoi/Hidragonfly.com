@@ -31,20 +31,24 @@
     justify-content: center
 }
 
-.header-nav-button {
-    .header-nav-button-mixin;
+.nav-button, .nav-additional-button {
+    .nav-button-mixin;
 }
 
-.header-nav-button:hover {
+.nav-button:hover, .nav-additional-button:hover {
     cursor: pointer;
+    background-color: @color-basis-hover;
+}
+
+.nav-button.active {
     background-color: @color-basis-bkg;
 }
 
-.header-nav-button.active {
-    background-color: @color-basis-active;
+.nav-additional-button.active {
+    background-color: @color-basis-white;
 }
 
-.header-nav p {
+.header-nav p, .nav-additional p {
     font-size: 0.8rem;
     font-weight: 600;
     margin: 0 1rem;
@@ -57,7 +61,3 @@
     justify-content: end;
     align-items: center;
 }
-
-// .header-menu-item {
-//     // width: 300px;
-// }
