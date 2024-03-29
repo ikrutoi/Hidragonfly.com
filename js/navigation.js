@@ -73,67 +73,19 @@ function onClickAdd() {
 const mainNavButton = document.querySelectorAll('.nav-button');
 
 mainNavButton.forEach((el) => {
-    const datasetBlockAddit = el.dataset.blockAddit;
-    const elemBlockAddit = document.querySelector(`${datasetBlockAddit}`);
+    el.onpointerdown = function() {
+        const datasetBlockAddit = el.dataset.blockAddit;
+        const elemBlockAddit = document.querySelector(`.${datasetBlockAddit}`);
+        
+        if (elemBlockAddit.classList.contains('active')) {
+            elemBlockAddit.classList.remove('active');
+        }        
 
-    el.onpointerup = function() {
-        elemBlockAddit.classList.remove('active')
+        el.onclick = function() {
+            elemBlockAddit.classList.add('active');
+        }
     }
+})
 
-    el.onclick = function() {
-        elemBlockAddit.classList.add('active');
-    }
-    
-    // el.removeEventListener('click', addBlockAdditional);
-    // el.addEventListener('click', addBlockAdditional);
-
-    // function addBlockAdditional() {
-    //     switch(datasetBlockAddit) {
-    //         case 'nav-additional-envelope': {
-
-    //         }
-    //         break;
-    //         case 'nav-additional-cardphoto': {
-    //             addBlockCardphoto();
-    //         }
-    //         break;
-    //         case 'nav-additional-cardtext': {
-    //             addBlockCardtext();
-    //         }
-    //         break;
-    //     }
-    // }
-});
-
-function addBlockCardphoto() {
-
-    newElem(document.querySelector('.nav-additional-cardphoto'), 'div', ['nav-additional-button', 'nav-additional-add']);
-    newElem(document.querySelector('.nav-additional-add'), 'p', ['nav-additional-add-text']);
-    document.querySelector('.nav-additional-add-text').textContent = 'Add';
-
-    newElem(document.querySelector('.nav-additional-cardphoto'), 'div', ['nav-additional-button', 'nav-additional-edit']);
-    newElem(document.querySelector('.nav-additional-edit'), 'p', ['nav-additional-add-edit']);
-    document.querySelector('.nav-additional-add-edit').textContent = 'Edit';
-
-    newElem(document.querySelector('.nav-additional-cardphoto'), 'div', ['nav-additional-button', 'nav-additional-del']);
-    newElem(document.querySelector('.nav-additional-del'), 'p', ['nav-additional-add-del']);
-    document.querySelector('.nav-additional-add-del').textContent = 'Delete';
-
-    const buttonAdd = document.querySelector('.nav-additional-add');
-    buttonAdd.addEventListener('click', onClickAdd);
-}
-
-function addBlockCardtext() {
-    
-    newElem(document.querySelector('.nav-additional-cardtext'), 'div', ['nav-additional-button', 'nav-additional-size']);
-    newElem(document.querySelector('.nav-additional-size'), 'p', ['nav-additional-size-text']);
-    document.querySelector('.nav-additional-size-text').textContent = 'Size';
-
-    newElem(document.querySelector('.nav-additional-cardtext'), 'div', ['nav-additional-button', 'nav-additional-color']);
-    newElem(document.querySelector('.nav-additional-color'), 'p', ['nav-additional-color-text']);
-    document.querySelector('.nav-additional-color-text').textContent = 'Color';
-
-    newElem(document.querySelector('.nav-additional-cardtext'), 'div', ['nav-additional-button', 'nav-additional-font']);
-    newElem(document.querySelector('.nav-additional-font'), 'p', ['nav-additional-font-text']);
-    document.querySelector('.nav-additional-font-text').textContent = 'Font';
-}
+const buttonAdd = document.querySelector('.nav-addit-cardphoto-add');
+buttonAdd.addEventListener('click', onClickAdd);
