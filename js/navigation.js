@@ -1,14 +1,15 @@
 import { dragNDrop } from "./d-n-d/d-n-d.js";
-// import { newElem } from "./new-element.js";
      
 export function clickButtonActive(el) {
+        console.log('++++++');
             
         function removeClassActive(el) {
             el.classList.remove('active');
         };
         
-        const buttonMenuNav = document.querySelectorAll('.nav-button');
-        buttonMenuNav.forEach((el) => {
+        const buttonHeaderNav = document.querySelectorAll('.nav-button');
+
+        buttonHeaderNav.forEach((el) => {
             removeClassActive(el);
         });
         
@@ -17,9 +18,19 @@ export function clickButtonActive(el) {
         block.forEach((el) => {
             removeClassActive(el);
         });
+
+        const buttonNavAdditional = document.querySelectorAll('.nav-additional-button');
+
+        buttonNavAdditional.forEach((el) => {
+            removeClassActive(el);
+        })
         
-        el.classList.add('active');
-        
+        function showButtonTimer() {
+            el.classList.add('active');
+        }
+
+        setTimeout(showButtonTimer, 200);
+
         const blockDataSetMenuNav = document.querySelectorAll(`.${el.dataset.menuNav}`);
         
         function showBlockTimer() {
@@ -30,8 +41,9 @@ export function clickButtonActive(el) {
         
         const blockNavAddition = document.querySelectorAll('.nav-additional-block');
         const blockDataSetAddit = el.dataset.blockAddit;
+        
         blockNavAddition.forEach((el) => {
-            el.classList.remove('active');
+            removeClassActive(el);
         })
 
         blockNavAddition.forEach((el) => {
@@ -40,30 +52,13 @@ export function clickButtonActive(el) {
             }
         })
             
-        setTimeout(showBlockTimer, 100);
+        setTimeout(showBlockTimer, 200);
 };
         
 
 function onClickAdd() {
     dragNDrop();
 }
-
-const mainNavButton = document.querySelectorAll('.nav-button');
-
-mainNavButton.forEach((el) => {
-    el.onpointerdown = function() {
-        const datasetBlockAddit = el.dataset.blockAddit;
-        const elemBlockAddit = document.querySelector(`.${datasetBlockAddit}`);
-        
-        if (elemBlockAddit.classList.contains('active')) {
-            elemBlockAddit.classList.remove('active');
-        }        
-
-        el.onclick = function() {
-            elemBlockAddit.classList.add('active');
-        }
-    }
-})
 
 const additNavButton = document.querySelectorAll('.nav-additional-button');
 

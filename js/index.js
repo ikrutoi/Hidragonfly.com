@@ -6,6 +6,9 @@ buttonMenuNav.forEach((el) => {
     el.addEventListener('pointerdown', startClassActive);
     
     function startClassActive() {
-        clickButtonActive(el);
+        if(!el.classList.contains('active')) {
+            console.log('-----');
+            clickButtonActive(el);
+        }
     }
 });
