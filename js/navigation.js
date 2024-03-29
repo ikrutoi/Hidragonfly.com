@@ -1,7 +1,6 @@
 import { dragNDrop } from "./d-n-d/d-n-d.js";
      
 export function clickButtonActive(el) {
-        console.log('++++++');
             
         function removeClassActive(el) {
             el.classList.remove('active');
@@ -56,24 +55,29 @@ export function clickButtonActive(el) {
 };
         
 
-function onClickAdd() {
-    dragNDrop();
-}
+// function onClickAdd() {
+//     dragNDrop();
+// }
 
-const additNavButton = document.querySelectorAll('.nav-additional-button');
+const buttonNavAdditional = document.querySelectorAll('.nav-additional-button');
 
-additNavButton.forEach((el) => {
+buttonNavAdditional.forEach((el) => {
 
     function startClassActive() {
-        additNavButton.forEach((el) => {
+        buttonNavAdditional.forEach((el) => {
             el.classList.remove('active');
         })
 
         el.classList.add('active');
+
+        if(el.classList.contains('nav-addit-cardphoto-add')) {
+            dragNDrop();
+        }
     }
+
     
     el.addEventListener('pointerdown', startClassActive);
 })
 
-const buttonAdd = document.querySelector('.nav-addit-cardphoto-add');
-buttonAdd.addEventListener('click', onClickAdd);
+// const buttonAdd = document.querySelector('.nav-addit-cardphoto-add');
+// buttonAdd.addEventListener('click', onClickAdd);

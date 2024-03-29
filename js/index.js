@@ -7,7 +7,6 @@ buttonMenuNav.forEach((el) => {
     
     function startClassActive() {
         if(!el.classList.contains('active')) {
-            console.log('-----');
             clickButtonActive(el);
         }
     }

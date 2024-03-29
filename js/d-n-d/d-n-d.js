@@ -29,13 +29,14 @@ const deltaCircle = 5.5;
 // function keepCirclesInCorners() {
     
     
-    // circle1.style.left = -deltaCircle + 'px';
-    // circle1.style.top = -deltaCircle + 'px';
-    // circle1start.style.left = -deltaCircle + 'px';
-    // circle1start.style.top = -deltaCircle + 'px';
+//     circle1.style.left = -deltaCircle + 'px';
+//     circle1.style.top = -deltaCircle + 'px';
+//     circle1start.style.left = -deltaCircle + 'px';
+//     circle1start.style.top = -deltaCircle + 'px';
 // }
 
 export function dragNDrop() { 
+    console.log('+++++++');
     
     circle.forEach((el) => {            
         el.ondragstart = function() {
