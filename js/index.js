@@ -1,24 +1,11 @@
-import { navButtonMenu } from './navigation.js';
+import { clickButtonActive } from './navigation.js';
 
-// const 
+const buttonMenuNav = document.querySelectorAll('.nav-button');
 
-
-
-
-// const buttonCardPhoto = document.querySelector('.button-cardphoto');
-
-// function onClickAddBlockCardphoto() {
-//     addBlockCardphoto();
-// }
-
-// buttonCardPhoto.addEventListener('click', onClickAddBlockCardphoto);
-
-// const buttonCardText = document.querySelector('.button-cardtext');
-
-// function onClickAddBlockCardtext() {
-//     addBlockCardtext();
-// }
-
-// buttonCardText.addEventListener('click', onClickAddBlockCardtext);
-
-navButtonMenu();
+buttonMenuNav.forEach((el) => {
+    el.addEventListener('pointerdown', startClassActive);
+    
+    function startClassActive() {
+        clickButtonActive(el);
+    }
+});
