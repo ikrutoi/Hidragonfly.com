@@ -17,12 +17,14 @@ export function clickButtonActive(el) {
         block.forEach((el) => {
             removeClassActive(el);
         });
-
+        
         const buttonNavAdditional = document.querySelectorAll('.nav-additional-button');
-
+        
         buttonNavAdditional.forEach((el) => {
             removeClassActive(el);
         })
+        
+        document.querySelector('.new-area').classList.remove('active');
         
         function showButtonTimer() {
             el.classList.add('active');
@@ -52,32 +54,29 @@ export function clickButtonActive(el) {
         })
             
         setTimeout(showBlockTimer, 200);
-};
         
-
-// function onClickAdd() {
-//     dragNDrop();
-// }
-
-const buttonNavAdditional = document.querySelectorAll('.nav-additional-button');
-
-buttonNavAdditional.forEach((el) => {
-
-    function startClassActive() {
+        // const buttonNavAdditional = document.querySelectorAll('.nav-additional-button');
+        
         buttonNavAdditional.forEach((el) => {
-            el.classList.remove('active');
+            
+            function startClassActive() {
+
+                buttonNavAdditional.forEach((el) => {
+                    el.classList.remove('active');
+                })
+                
+                el.classList.add('active');
+                
+                if(el.classList.contains('nav-addit-cardphoto-add')) {
+                    document.querySelector('.cardphoto-anchor').classList.remove('active');
+                    document.querySelector('.block-new-img').classList.add('active');
+                    document.querySelector('.new-area').classList.add('active');
+                    console.log('-pdc d-cd-c ');
+                    dragNDrop();
+                }
+            }
+            
+            el.addEventListener('pointerdown', startClassActive);
         })
-
-        el.classList.add('active');
-
-        if(el.classList.contains('nav-addit-cardphoto-add')) {
-            dragNDrop();
-        }
-    }
-
-    
-    el.addEventListener('pointerdown', startClassActive);
-})
-
-// const buttonAdd = document.querySelector('.nav-addit-cardphoto-add');
-// buttonAdd.addEventListener('click', onClickAdd);
+    };
+        

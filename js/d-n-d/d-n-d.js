@@ -4,8 +4,8 @@ import { captureAreaMove } from "./capture-area-move.js";
 const blockNewImgRubber = document.querySelector('.new-img-rubber');
 const blockParent = document.querySelector('.main');
 
-newElem(blockNewImgRubber, 'span', ['crop-circle', 'crop-circle-1']);
-newElem(blockNewImgRubber, 'span', ['crop-circle-start', 'crop-circle-1start']);
+newElem(blockNewImgRubber, 'span', ['crop-circle', 'crop-circle-1'],'top: -5px; left: -5px;');
+newElem(blockNewImgRubber, 'span', ['crop-circle-start', 'crop-circle-1start'],'top: -5px; left: -5px;');
 newElem(blockNewImgRubber, 'span', ['crop-circle', 'crop-circle-2'], 'top: -5px; right: -5px;');
 newElem(blockNewImgRubber, 'span', ['crop-circle-start', 'crop-circle-2start'], 'top: -5px; right: -5px;');
 newElem(blockNewImgRubber, 'span', ['crop-circle', 'crop-circle-3'], 'bottom: -5px; right: -5px;');
@@ -26,25 +26,12 @@ const circle4start = document.querySelector('.crop-circle-4start');
 const areaCut = document.querySelector('.new-area');
 const deltaCircle = 5.5;
 
-// function keepCirclesInCorners() {
-    
-    
-//     circle1.style.left = -deltaCircle + 'px';
-//     circle1.style.top = -deltaCircle + 'px';
-//     circle1start.style.left = -deltaCircle + 'px';
-//     circle1start.style.top = -deltaCircle + 'px';
-// }
-
 export function dragNDrop() { 
-    console.log('+++++++');
     
     circle.forEach((el) => {            
         el.ondragstart = function() {
             return false;
         };
-        
-        // const circle = document.querySelectorAll('.crop-circle');
-        // keepCirclesInCorners(circle);
         
         el.onpointerdown = function(ev) {
             el.setPointerCapture(ev.pointerId);
