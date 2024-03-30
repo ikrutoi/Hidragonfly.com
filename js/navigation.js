@@ -1,4 +1,5 @@
 import { dragNDrop } from "./d-n-d/d-n-d.js";
+import { keepCirclesInCorners } from "./d-n-d/keep-circles-in-corners.js"
      
 export function clickButtonActive(el) {
             
@@ -23,7 +24,7 @@ export function clickButtonActive(el) {
         buttonNavAdditional.forEach((el) => {
             removeClassActive(el);
         })
-        
+
         document.querySelector('.new-area').classList.remove('active');
         
         function showButtonTimer() {
@@ -54,9 +55,7 @@ export function clickButtonActive(el) {
         })
             
         setTimeout(showBlockTimer, 200);
-        
-        // const buttonNavAdditional = document.querySelectorAll('.nav-additional-button');
-        
+             
         buttonNavAdditional.forEach((el) => {
             
             function startClassActive() {
@@ -71,9 +70,33 @@ export function clickButtonActive(el) {
                     document.querySelector('.cardphoto-anchor').classList.remove('active');
                     document.querySelector('.block-new-img').classList.add('active');
                     document.querySelector('.new-area').classList.add('active');
-                    console.log('-pdc d-cd-c ');
+
                     dragNDrop();
+
+                    el.onpointerup = function() {
+                        el.classList.remove('active');
+                    }
                 }
+            }
+
+            function startToCenter() {
+                const blockNewImg = document.querySelector('.new-img');
+                const newArea = document.querySelector('.new-area');
+                const startImgLeft = blockNewImg.getBoundingClientRect().left;
+                const startImgTop = blockNewImg.getBoundingClientRect().top;
+                const startImgWidth = blockNewImg.getBoundingClientRect().width;
+                const startImgHeight = blockNewImg.getBoundingClientRect().height;
+
+                newArea.setAttribute('style', `left: ${startImgLeft}; top: ${startImgTop}; width: ${startImgWidth}; height: ${startImgHeight};`)
+
+                keepCirclesInCorners(startImgLeft, startImgTop, startImgWidth, startImgHeight);
+            }
+
+            if(el.classList.contains('nav-addit-cardphoto-center')) {
+                el.addEventListener('pointerdown', startToCenter);
+                el.onpointerup = function() {
+                    el.classList.remove('active');
+                };
             }
             
             el.addEventListener('pointerdown', startClassActive);

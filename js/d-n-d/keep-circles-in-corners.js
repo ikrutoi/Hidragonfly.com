@@ -1,4 +1,5 @@
 export function keepCirclesInCorners(myX, myY, widthArea, heightArea) {
+  
     let circle1 = document.querySelector('.crop-circle-1');
     let circle1start = document.querySelector('.crop-circle-1start');
     let circle2 = document.querySelector('.crop-circle-2');
