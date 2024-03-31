@@ -1,5 +1,6 @@
 import { dragNDrop } from "./d-n-d/d-n-d.js";
-import { keepCirclesInCorners } from "./d-n-d/keep-circles-in-corners.js"
+import { keepCirclesInCorners } from "./d-n-d/keep-circles-in-corners.js";
+import { formationLetterArea } from "./card-letter.js";
      
 export function clickButtonActive(el) {
             
@@ -47,7 +48,11 @@ export function clickButtonActive(el) {
                 el.classList.add('active');
             }
         })
-        
+
+        if(el.classList.contains('button-cardtext')) {
+            formationLetterArea();
+        }
+
         setTimeout(showBlockTimer, 200);
 
         const buttonNavAdditional = document.querySelectorAll('.nav-additional-button');

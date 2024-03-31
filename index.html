@@ -32,12 +32,6 @@
             </div>
             <div class="header-nav">
                 <div 
-                    class="button-envelope nav-button" 
-                    data-menu-nav="envelope-anchor"
-                    data-block-addit="nav-additional-envelope">
-                        <p>Envelope</p>
-                </div>
-                <div 
                     class="button-cardphoto nav-button" 
                     data-menu-nav="cardphoto-anchor" 
                     data-block-addit="nav-additional-cardphoto">
@@ -48,6 +42,12 @@
                     data-menu-nav="cardtext-anchor" 
                     data-block-addit="nav-additional-cardtext">
                         <p>Card text</p>
+                </div>
+                <div 
+                    class="button-envelope nav-button" 
+                    data-menu-nav="envelope-anchor"
+                    data-block-addit="nav-additional-envelope">
+                        <p>Envelope</p>
                 </div>
                 <div 
                     class="button-date nav-button" 
@@ -89,21 +89,15 @@
                 </div>
                 <div class="nav-additional-block nav-additional-cardtext">
                     <div class="nav-additional-button nav-addit-cardtext-size">
+                        <div class="nav-additional-multi nav-addit-size-plus">
+                            <p>+</p>
+                        </div>
                         <div class="nav-additional-multi-title">
                             <p>Size</p>
                         </div>
-                        <div class="nav-additional-multi">
-                            <p>A</p>
+                        <div class="nav-additional-multi nav-addit-size-minus">
+                            <p>-</p>
                         </div>
-                        <div class="nav-additional-multi">
-                            <p>A</p>
-                        </div>
-                        <div class="nav-additional-multi">
-                            <p>A</p>
-                        </div>
-                    </div>
-                    <div class="nav-additional-button nav-addit-cardtext-font">
-                        <p>Font</p>
                     </div>
                     <div class="nav-additional-button nav-addit-cardtext-color">
                         <p>Color</p>
@@ -180,16 +174,21 @@
                 <form class="form-card-letter">
                     <fieldset class="card-letter-fieldset">
                         <legend class="card-letter-legend">My text</legend>
+                        <div class="card-letter-area">
+                            <!-- <div class="card-letter-area-start">
+                                <span></span>
+                            </div> -->
+
+                        </div>
                         <!-- <span class="card-letter-cursor-block">
                             <span class="card-letter-cursor"></span>
                         </span> -->
-                        <textarea 
+                        <!-- <textarea 
                             class="card-letter-area" 
-                            name="card-text" 
-                            type="file"
-                            autofocus
-                            maxlength="40">
-                        </textarea>
+                            name="card-text"
+                            maxlength="40"
+                        > -->
+                        <!-- </textarea> -->
                     </fieldset>
                 </form>
             </div>
