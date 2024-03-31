@@ -16,38 +16,51 @@
  .card-letter-area {
      height: 100%;
      width: 100%;
+     font-size: 2rem;
+     font-style: italic;
+     caret-color: aqua;
+    //  caret-shape: block;
+    //  pointer-events: fill;
      border: none;
      border-radius: 1vh;
      background-color: @color-body-bkg;
      outline: none;
      resize: none;
  }
+
+// .card-letter-area {
+    // maxlength: 10;
+// }
+
+//  input[type="file"] {
+//     cursor: pointer;
+//   }
  
- .card-letter-cursor::before {
-     position: absolute;
-     content: '.';
-     width: 10px;
-     height: 2rem;
-     top: 3rem;
-     left: 2rem;
-     background-color: @color-basis;
-     color: @color-basis;
- }
+//  .card-letter-cursor::before {
+//      position: absolute;
+//      content: '.';
+//      width: 10px;
+//      height: 2rem;
+//      top: 3rem;
+//      left: 2rem;
+//      background-color: @color-basis;
+//      color: @color-basis;
+//  }
 
- .card-letter-cursor-block {
-    opacity: 1;
-    animation-name: cursor-block;
-    animation-duration: 1400ms;
-    animation-delay: 350ms;
-    animation-iteration-count: infinite;
- }
+//  .card-letter-cursor-block {
+//     opacity: 1;
+//     animation-name: cursor-block;
+//     animation-duration: 1400ms;
+//     animation-delay: 350ms;
+//     animation-iteration-count: infinite;
+//  }
 
-@keyframes cursor-block {
-    from {opacity: 1;}
-    25% {opacity: 1;}
-    35% {opacity: 0;}
-    50% {opacity: 0;}
-    65% {opacity: 0;}
-    75% {opacity: 1;}
-    to {opacity: 1;}
-}
+// @keyframes cursor-block {
+//     0% {opacity: 1;}
+//     25% {opacity: 1;}
+//     35% {opacity: 0;}
+//     50% {opacity: 0;}
+//     65% {opacity: 0;}
+//     75% {opacity: 1;}
+//     100% {opacity: 1;}
+// }

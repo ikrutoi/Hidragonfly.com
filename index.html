@@ -77,14 +77,11 @@
                     <div class="nav-additional-button nav-addit-cardphoto-add">
                         <p>Add</p>
                     </div>
-                    <div class="nav-additional-button nav-addit-cardphoto-edit">
-                        <p>Edit</p>
-                    </div>
                     <div class="nav-additional-button nav-addit-cardphoto-center">
                         <p>Center</p>
                     </div>
                     <div class="nav-additional-button nav-addit-cardphoto-torn90">
-                        <p>Torn90</p>
+                        <p>Torn90&#176</p>
                     </div>
                     <div class="nav-additional-button nav-addit-cardphoto-del">
                         <p>Delete</p>
@@ -92,7 +89,18 @@
                 </div>
                 <div class="nav-additional-block nav-additional-cardtext">
                     <div class="nav-additional-button nav-addit-cardtext-size">
-                        <p>Size</p>
+                        <div class="nav-additional-multi-title">
+                            <p>Size:</p>
+                        </div>
+                        <div class="nav-additional-multi">
+                            <p>A</p>
+                        </div>
+                        <div class="nav-additional-multi">
+                            <p>A</p>
+                        </div>
+                        <div class="nav-additional-multi">
+                            <p>A</p>
+                        </div>
                     </div>
                     <div class="nav-additional-button nav-addit-cardtext-font">
                         <p>Font</p>
@@ -172,10 +180,15 @@
                 <form class="form-card-letter">
                     <fieldset class="card-letter-fieldset">
                         <legend class="card-letter-legend">My text</legend>
-                        <span class="card-letter-cursor-block">
+                        <!-- <span class="card-letter-cursor-block">
                             <span class="card-letter-cursor"></span>
-                        </span>
-                        <textarea class="card-letter-area" name="card-text">
+                        </span> -->
+                        <textarea 
+                            class="card-letter-area" 
+                            name="card-text" 
+                            type="file"
+                            autofocus
+                            maxlength="40">
                         </textarea>
                     </fieldset>
                 </form>

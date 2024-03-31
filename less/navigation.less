@@ -6,8 +6,6 @@
     display: flex;
     justify-content: center;
     text-align: center;
-    // border: solid 1px red;
-    // background-color: antiquewhite;
 }
 
 .nav-additional-block {
@@ -19,4 +17,48 @@
     justify-content: center;
     align-items: center;
     width: 32px;
+}
+
+.nav-addit-cardtext-size:hover {
+    cursor: default;
+}
+
+.nav-additional-multi-title p {
+    margin-right: 0.5rem;
+}
+
+.nav-additional-multi {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: solid 1px @color-basis-transparent;
+    padding: 5px 0;
+    margin: 0 4px;
+    border-radius: 20px;
+    width: 26px;
+    height: 16px;
+}
+.nav-additional-multi:hover {
+    border: solid 1px @color-basis-black;
+}
+
+.nav-additional-multi:last-child {
+    margin-right: 16px;
+}
+
+.nav-additional-multi:nth-child(2) > p {
+    font-size: 1.1rem;
+}
+
+.nav-additional-multi:nth-child(3) > p {
+    font-size: 0.9rem;
+}
+
+.nav-additional-multi:nth-child(4) > p {
+    font-size: 0.7rem;
+}
+
+.nav-additional-multi p {
+    margin: 0 4px;
 }
