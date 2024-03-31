@@ -18,21 +18,15 @@ export function clickButtonActive(el) {
         block.forEach((el) => {
             removeClassActive(el);
         });
-        
-        const buttonNavAdditional = document.querySelectorAll('.nav-additional-button');
-        
-        buttonNavAdditional.forEach((el) => {
-            removeClassActive(el);
-        })
-
+          
         document.querySelector('.new-area').classList.remove('active');
         
         function showButtonTimer() {
             el.classList.add('active');
         }
-
+        
         setTimeout(showButtonTimer, 200);
-
+        
         const blockDataSetMenuNav = document.querySelectorAll(`.${el.dataset.menuNav}`);
         
         function showBlockTimer() {
@@ -47,14 +41,20 @@ export function clickButtonActive(el) {
         blockNavAddition.forEach((el) => {
             removeClassActive(el);
         })
-
+        
         blockNavAddition.forEach((el) => {
             if(el.classList.contains(blockDataSetAddit)) {
                 el.classList.add('active');
             }
         })
-            
+        
         setTimeout(showBlockTimer, 200);
+
+        const buttonNavAdditional = document.querySelectorAll('.nav-additional-button');
+        
+        buttonNavAdditional.forEach((el) => {
+            removeClassActive(el);
+        })
              
         buttonNavAdditional.forEach((el) => {
             
@@ -77,8 +77,24 @@ export function clickButtonActive(el) {
                         el.classList.remove('active');
                     }
                 }
-            }
 
+                const navAdditionalMulti = document.querySelectorAll('.nav-additional-multi');
+                const navAdditionalMultiTitle = document.querySelector('.nav-additional-multi-title');
+                
+                navAdditionalMulti.forEach((el) => {
+                    el.classList.remove('appearance');
+                })
+
+                navAdditionalMultiTitle.classList.remove('active');
+
+                if(el.classList.contains('nav-addit-cardtext-size')) {
+                    navAdditionalMultiTitle.classList.add('active');
+                    navAdditionalMulti.forEach((el) => {
+                        el.classList.add('appearance');
+                    })
+                }       
+            }
+                            
             function startToCenter() {
                 const blockNewImg = document.querySelector('.new-img');
                 const newArea = document.querySelector('.new-area');
@@ -86,12 +102,12 @@ export function clickButtonActive(el) {
                 const startImgTop = blockNewImg.getBoundingClientRect().top;
                 const startImgWidth = blockNewImg.getBoundingClientRect().width;
                 const startImgHeight = blockNewImg.getBoundingClientRect().height;
-
+                
                 newArea.setAttribute('style', `left: ${startImgLeft}; top: ${startImgTop}; width: ${startImgWidth}; height: ${startImgHeight};`)
-
+                
                 keepCirclesInCorners(startImgLeft, startImgTop, startImgWidth, startImgHeight);
             }
-
+            
             if(el.classList.contains('nav-addit-cardphoto-center')) {
                 el.addEventListener('pointerdown', startToCenter);
                 el.onpointerup = function() {

@@ -12,5 +12,5 @@ buttonMenuNav.forEach((el) => {
     }
 });
 
-const textArea = document.querySelector('.card-letter-area');
-console.log(getComputedStyle(textArea));
+// const textArea = document.querySelector('.card-letter-area');
+// console.log(getComputedStyle(textArea));
