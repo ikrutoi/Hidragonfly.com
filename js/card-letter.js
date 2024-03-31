@@ -5,15 +5,20 @@ export function formationLetterArea() {
         const areaText = document.querySelector('.card-letter-area');
         const areaTextHeight = areaText.getBoundingClientRect().height;
         const startRows = 17;
-        let areaRowsHeight = areaTextHeight / startRows + 2; 
+        let areaRowsHeight = (areaTextHeight - startRows * 2) / startRows; 
 
         function creationAreaTextRows(startRows) {
-            for (let i = 0; i < startRows - 2; i++) {
-                newElem(areaText, 'div', [], `border: solid 1px green; height: ${areaRowsHeight}px;`);
+            for (let i = 0; i < startRows; i++) {
+                newElem(
+                    areaText, 
+                    'div', 
+                    [], 
+                    `border-bottom: dotted 2px rgba(0, 0, 0, 0.1); height: ${areaRowsHeight}px;`
+                );
             }
         }
         
-        setTimeout(creationAreaTextRows(startRows), 10000);
+        creationAreaTextRows(startRows);
     }
 
     setTimeout(takeSize, 400);
