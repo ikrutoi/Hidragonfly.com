@@ -15,35 +15,28 @@
 
  .card-letter-area {
     height: 100%;
-    border: solid 1px red;
+    // border: solid 1px red;
     cursor: text;
+    border-color: red;
+    caret-color: @color-basis;
  }
  
- .card-letter-area-start {
-    border: solid 1px blue; 
-    height: 1rem;
+[contenteditable] {
+    outline: 0px solid transparent;
  }
 
-//  .card-letter-area {
-//      height: 100%;
-//      width: 100%;
-//     //  font-size: 1.5rem;
-//      font-style: italic;
-//      caret-color: aqua;
-//      border: none;
-//      border-radius: 1vh;
-//     //  background-color: @color-body-bkg;
-//      outline: none;
-//      resize: none;
-//  }
-
-// .card-letter-area {
-    // maxlength: 10;
-// }
-
-//  input[type="file"] {
-//     cursor: pointer;
-//   }
+ .card-letter-area div {
+    border-bottom: dotted 2px rgba(0, 0, 0, 0.1);
+    font-size: 1.3rem;
+    font-style: italic;
+    letter-spacing: 1px;
+    // overflow-y: auto;
+    // overflow-x: hidden;
+    word-wrap: break-word;
+    // line-height: 140%;
+    display: flex;
+    justify-content: space-between;
+ }
  
 //  .card-letter-cursor::before {
 //      position: absolute;
