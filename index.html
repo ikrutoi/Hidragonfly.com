@@ -174,7 +174,14 @@
                 <form class="form-card-letter">
                     <fieldset class="card-letter-fieldset">
                         <legend class="card-letter-legend">My text</legend>
-                        <div class="card-letter-area" contenteditable="true">
+                        <div 
+                            class="card-letter-area" 
+                            contenteditable="true"
+                            aria-readonly="false"
+                            spellcheck="false"
+                            role="textbox"
+                            aria-multiline="false"
+                            tabindex="10">
                         </div>
                     </fieldset>
                 </form>

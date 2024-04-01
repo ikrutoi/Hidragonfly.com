@@ -16,7 +16,6 @@
  .card-letter-area {
     height: 100%;
     cursor: text;
-    // border-color: red;
     border: solid 1px red;
     caret-color: @color-basis;
  }
@@ -25,17 +24,20 @@
     outline: 0px solid transparent;
  }
 
- .card-letter-area div {
+ .cardtext-size-row {
     border-bottom: dotted 2px rgba(0, 0, 0, 0.1);
     font-size: 1.3rem;
     font-style: italic;
     letter-spacing: 1px;
-    // overflow-y: auto;
-    // overflow-x: hidden;
-    word-wrap: break-word;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    // word-wrap: break-word;
+    // max-width: 20ch;
+    // white-space: nowrap;
+    text-overflow: clip;
     // line-height: 140%;
-    display: flex;
-    justify-content: space-between;
+    // display: flex;
+    // justify-content: space-between;
  }
  
 //  .card-letter-cursor::before {

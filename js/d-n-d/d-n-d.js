@@ -4,14 +4,14 @@ import { captureAreaMove } from "./capture-area-move.js";
 const blockNewImgRubber = document.querySelector('.new-img-rubber');
 const blockParent = document.querySelector('.main');
 
-newElem(blockNewImgRubber, 'span', ['crop-circle', 'crop-circle-1'],'top: -5px; left: -5px;');
-newElem(blockNewImgRubber, 'span', ['crop-circle-start', 'crop-circle-1start'],'top: -5px; left: -5px;');
-newElem(blockNewImgRubber, 'span', ['crop-circle', 'crop-circle-2'], 'top: -5px; right: -5px;');
-newElem(blockNewImgRubber, 'span', ['crop-circle-start', 'crop-circle-2start'], 'top: -5px; right: -5px;');
-newElem(blockNewImgRubber, 'span', ['crop-circle', 'crop-circle-3'], 'bottom: -5px; right: -5px;');
-newElem(blockNewImgRubber, 'span', ['crop-circle-start', 'crop-circle-3start'], 'bottom: -5px; right: -5px;');
-newElem(blockNewImgRubber, 'span', ['crop-circle', 'crop-circle-4'], 'bottom: -5px; left: -5px;');
-newElem(blockNewImgRubber, 'span', ['crop-circle-start', 'crop-circle-4start'], 'bottom: -5px; left: -5px;');
+newElem(blockNewImgRubber, 'span', ['crop-circle', 'crop-circle-1'], [['style', 'top: -5px; left: -5px;']]);
+newElem(blockNewImgRubber, 'span', ['crop-circle-start', 'crop-circle-1start'], [['style', 'top: -5px; left: -5px;']]);
+newElem(blockNewImgRubber, 'span', ['crop-circle', 'crop-circle-2'], [['style', 'top: -5px; right: -5px;']]);
+newElem(blockNewImgRubber, 'span', ['crop-circle-start', 'crop-circle-2start'], [['style', 'top: -5px; right: -5px;']]);
+newElem(blockNewImgRubber, 'span', ['crop-circle', 'crop-circle-3'], [['style', 'bottom: -5px; right: -5px;']]);
+newElem(blockNewImgRubber, 'span', ['crop-circle-start', 'crop-circle-3start'], [['style', 'bottom: -5px; right: -5px;']]);
+newElem(blockNewImgRubber, 'span', ['crop-circle', 'crop-circle-4'], [['style', 'bottom: -5px; left: -5px;']]);
+newElem(blockNewImgRubber, 'span', ['crop-circle-start', 'crop-circle-4start'], [['style', 'bottom: -5px; left: -5px;']]);
 newElem(blockParent, 'div', ['new-area']);
 
 const circle = document.querySelectorAll('.crop-circle');
