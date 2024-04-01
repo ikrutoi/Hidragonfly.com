@@ -57,6 +57,7 @@
 
 .my-adress-legend {
     color: @color-nav;
+    user-select: none;
     font-size: 1.4vh;
     font-weight: 600;
 }
@@ -75,10 +76,12 @@
 
 .my-adress-label {
     .envelope-style-label;
+    user-select: none;
 }
 
 .to-adress-label {
     &:extend(.my-adress-label);
+    user-select: none;
     text-align: right;
 }
 

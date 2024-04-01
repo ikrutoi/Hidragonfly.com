@@ -123,4 +123,3 @@ export function clickButtonActive(el) {
             el.addEventListener('pointerdown', startClassActive);
         })
     };
-        
