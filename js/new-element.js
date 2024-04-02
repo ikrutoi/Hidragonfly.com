@@ -14,8 +14,6 @@ export function newElem(toTag, tag, newClass, newStyle) {
         })
     }
 
-    console.log(newStyle)
-
     if (!!newStyle) {
         newStyle.forEach(el => {
             addStyle(el);

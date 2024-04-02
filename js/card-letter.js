@@ -18,18 +18,19 @@ export function formationLetterArea() {
                     areaText, 
                     'div', 
                     ['cardtext-size-row'], 
-                    [['style', `height: ${areaRowsHeight}px;`]]);
-            }
+                    [['style', `height: ${areaRowsHeight}px;`]]
+                );
+            } 
         }
         
         creationAreaTextRows(startRows);
         
         const rows = document.querySelectorAll('.cardtext-size-row');
 
-        rows.forEach((el) => {
-            console.dir(el);
+        // rows.forEach((el) => {
+        //     console.dir(el);
 
-        })
+        // })
 
     }
     
