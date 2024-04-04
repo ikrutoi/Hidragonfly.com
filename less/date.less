@@ -1,0 +1,80 @@
+.date.active {
+    .card-size-mixin;
+    background-color: @color-basis-white;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content auto;
+    grid-template-areas: 
+        "date-year-month"
+        "date-days";
+}
+
+.date p {
+    font-size: 0.8rem;
+    margin: 0 0.7rem 0 0.6rem;
+    user-select: none;
+}
+
+.date-year-month {
+    grid-area: date-year-month;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    margin-top: 2vh;
+}
+
+.date-year-full, .date-month-full {
+    margin: 0 8px;
+}
+
+.date-year, .date-month {
+    padding-right: 4px;
+    padding-left: 4px;
+    transition: background-color .2s ease-in;
+}
+
+.date-year:hover, .date-month:hover {
+    background-color: @color-basis-hover;
+    transition: background-color .2s ease-in;
+}
+
+.date-multi-button {
+    .nav-button-mixin;
+    transition: background-color .2s ease-in;
+}
+
+.date-year-title p, .date-month-title p {
+    margin: 0 4px;
+}
+
+.date-multi {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 20px;
+    padding: 0 4px;
+    height: 28px;
+}
+
+.date-year-title p, .date-month-title p {
+    margin: 0 8px;
+}
+
+.date-multi:hover {
+    background-color: @color-basis-white;
+    transition: background-color .2s ease-in;
+}
+
+.date-multi:last-child p {
+    padding-bottom: 2px;
+}
+
+.date-multi p {
+    font-size: 1rem;
+}
+
+.date-days {
+    grid-area: date-days;
+}

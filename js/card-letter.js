@@ -35,20 +35,18 @@ export function formationLetterArea() {
             if(value.selectorText === '.card-letter-textarea') {
                 switch (operator) {
                     case 'minus':
-                        fontSizeTextArea = parseFloat(fontSizeTextArea) / 1.2;
+                        fontSizeTextArea = parseFloat(fontSizeTextArea) / 1.08;
                         value.style.setProperty('font-size', `${fontSizeTextArea}px`);
                         break;
                     case 'plus':
-                        fontSizeTextArea = parseFloat(fontSizeTextArea) * 1.2;
+                        fontSizeTextArea = parseFloat(fontSizeTextArea) * 1.08;
                         value.style.setProperty('font-size', `${fontSizeTextArea}px`);
                         break;
                 }
             }
-
-            console.log(fontSizeTextArea);
         }
     }
-    
+
     let startNumberRows = 15;
     const maxNumberRows = 18;
     const minNumberRows = 5;
@@ -57,7 +55,6 @@ export function formationLetterArea() {
 
     function startSize() {
         if(!document.querySelector('.cardtext-size-row')) {
-            console.log('++++');
             takeSize(startNumberRows);
         }
     }
