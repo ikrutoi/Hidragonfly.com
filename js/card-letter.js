@@ -22,68 +22,31 @@ export function formationLetterArea() {
         }
         
         creationAreaTextRows(startRows);
-
-        //************** */
-
-        console.log('-+-+-+-+-+-');
-
-        // let myRules = document.styleSheets[0].cssRules;
-        // console.log(myRules);
-
-        // const textArea = document.querySelector('.card-letter-textarea');
-
-        const stylesheetAreaText = [...document.styleSheets[0].cssRules];
-
-        // stylesheetAreaText.find(el => {
-
-        // })
-
-        stylesheetAreaText.forEach(el => {
-            console.log(el.cssText);
-
-            let elemArray = el.cssText.split(' ');
-
-            for (const value of elemArray) {
-                if (value == '.card-letter-textarea') {
-                    console.log(elemArray);
+    }
+       
+    function recordNewValueFontSize(operator) { 
+        const stylesheet = document.styleSheets[0];
+        
+        for (const value of stylesheet.cssRules) {
+            const textArea = document.querySelector('.card-letter-textarea');
+            const textAreaGet = getComputedStyle(textArea);
+            let fontSizeTextArea = textAreaGet.fontSize;
+            
+            if(value.selectorText === '.card-letter-textarea') {
+                switch (operator) {
+                    case 'minus':
+                        fontSizeTextArea = parseFloat(fontSizeTextArea) / 1.2;
+                        value.style.setProperty('font-size', `${fontSizeTextArea}px`);
+                        break;
+                    case 'plus':
+                        fontSizeTextArea = parseFloat(fontSizeTextArea) * 1.2;
+                        value.style.setProperty('font-size', `${fontSizeTextArea}px`);
+                        break;
                 }
             }
-        })
 
-        // for (let elem of stylesheetAreaText) {
-        //     console.log(elem)
-        // }
-
-
-        // console.log(stylesheetAreaText);
-
-        // const stylesheetArea = [...stylesheet.cssRules].find((el) => {el.selectorText === '.card-letter-textarea'});
-
-        // console.log(stylesheetArea);
-        // textArea.addEventListener('mouseover', () => {
-        //     stylesheetArea.style.setProperty('background-color', 'tomato');
-        //   });
-    }
-    
-    
-    function changeFontSizePlus(fontSize) {
-        // console.log(fontSize);
-        fontSize = parseFloat(fontSize) * 1.1;
-        // console.log(fontSize);
-
-        textArea.setAttribute('style', `${fontSize}px;`);
-        textArea.style.fontSize = fontSize + 'px';
-        // console.log(fontSizeTextArea);
-    }
-    
-    function changeFontSizeMinus(fontSize) {
-        // console.log(fontSize);
-        fontSize = parseFloat(fontSize) / 1.1;
-        // console.log(fontSize);
-        
-        textArea.setAttribute('style', `${fontSize}px;`);
-        textArea.style.fontSize = fontSize + 'px';
-        // console.log(fontSizeTextArea);
+            console.log(fontSizeTextArea);
+        }
     }
     
     let startNumberRows = 15;
@@ -93,7 +56,10 @@ export function formationLetterArea() {
     const buttonSizePlus = document.querySelector('.nav-addit-size-plus');  
 
     function startSize() {
-        takeSize(startNumberRows);
+        if(!document.querySelector('.cardtext-size-row')) {
+            console.log('++++');
+            takeSize(startNumberRows);
+        }
     }
 
     function removeRows() {
@@ -103,14 +69,14 @@ export function formationLetterArea() {
             el.remove();
         })
     }
-    
+
     function minusSize() {
         startNumberRows = startNumberRows + 1;
         
         if(startNumberRows <= maxNumberRows && startNumberRows >= minNumberRows) {
             removeRows();
             takeSize(startNumberRows);
-            changeFontSizeMinus(fontSizeTextArea);
+            recordNewValueFontSize('minus');
         } else startNumberRows = startNumberRows - 1;
     }
     
@@ -120,7 +86,7 @@ export function formationLetterArea() {
         if(startNumberRows <= maxNumberRows && startNumberRows >= minNumberRows) {
             removeRows();
             takeSize(startNumberRows);
-            changeFontSizePlus(fontSizeTextArea);
+            recordNewValueFontSize('plus');
         } else startNumberRows = startNumberRows + 1;
     }
     
