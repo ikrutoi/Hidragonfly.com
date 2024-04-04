@@ -3,10 +3,11 @@
     background-color: @color-basis-white;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: min-content auto;
+    grid-template-rows: min-content min-content auto;
     grid-template-areas: 
-        "date-year-month"
-        "date-days";
+        "datetitle"
+        "dateyearmonth"
+        "datedays";
 }
 
 .date p {
@@ -15,13 +16,22 @@
     user-select: none;
 }
 
-.date-year-month {
-    grid-area: date-year-month;
+.date-title {
+    grid-area: datetitle;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 50px;
-    margin-top: 2vh;
+    margin-top: 0.5vh;
+}
+
+.date-year-month {
+    grid-area: dateyearmonth;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    // margin-top: 0.5vh;
 }
 
 .date-year-full, .date-month-full {
@@ -29,8 +39,7 @@
 }
 
 .date-year, .date-month {
-    padding-right: 4px;
-    padding-left: 4px;
+    padding: 0 4px;
     transition: background-color .2s ease-in;
 }
 
@@ -76,5 +85,5 @@
 }
 
 .date-days {
-    grid-area: date-days;
+    grid-area: datedays;
 }
