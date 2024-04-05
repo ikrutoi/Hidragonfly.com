@@ -22,3 +22,7 @@ export function newElem(toTag, tag, newClass, newStyle) {
    
     toTag.append(newTag);        
 }
+
+export function newElemHTML(toTag, method, newTag) {
+    toTag.insertAdjacentHTML(method, newTag);
+}

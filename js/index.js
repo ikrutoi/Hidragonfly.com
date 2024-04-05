@@ -1,4 +1,5 @@
 import { clickButtonActive } from './navigation.js';
+import { createCalendar} from './date.js';
 
 const buttonMenuNav = document.querySelectorAll('.nav-button');
 
@@ -9,5 +10,9 @@ buttonMenuNav.forEach((el) => {
         if(!el.classList.contains('active')) {
             clickButtonActive(el);
         }
+    }
+
+    if(el.classList.contains('button-date')) {
+        el.addEventListener('pointerdown', () => {createCalendar()});
     }
 });

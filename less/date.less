@@ -1,13 +1,9 @@
 .date.active {
     .card-size-mixin;
     background-color: @color-basis-white;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: min-content min-content auto;
-    grid-template-areas: 
-        "datetitle"
-        "dateyearmonth"
-        "datedays";
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .date p {
@@ -16,22 +12,34 @@
     user-select: none;
 }
 
+.date-block-additive {
+    .card-calendar-size-mixin;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content min-content auto;
+    grid-template-areas: 
+        "datetitle"
+        "dateyearmonth"
+        "datedays";
+        // border: solid orange 1px;
+}
+    
 .date-title {
     grid-area: datetitle;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50px;
-    margin-top: 0.5vh;
+    height: 40px;
+    // border: solid blue 1px;
 }
-
+    
 .date-year-month {
     grid-area: dateyearmonth;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 50px;
-    // margin-top: 0.5vh;
+    // border: solid palevioletred 1px;
 }
 
 .date-year-full, .date-month-full {
@@ -84,6 +92,26 @@
     font-size: 1rem;
 }
 
-.date-days {
+.date-table-month {
     grid-area: datedays;
+    padding: 0 10% 10% 10%;
+    border: solid 1px blueviolet;
+}
+
+.date-table {
+    border-collapse: collapse;
+    width: 100%;
+    height: 100%;
+}
+
+// tr {
+//     height: auto;
+// }
+
+td, th {
+    border: 1px solid green;
+    font-style: italic;
+    padding: 3px;
+    text-align: center;
+    font-weight: 300;
 }
