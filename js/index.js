@@ -7,12 +7,12 @@ buttonMenuNav.forEach((el) => {
     el.addEventListener('pointerdown', startClassActive);
     
     function startClassActive() {
-        if(!el.classList.contains('active')) {
+        if (!el.classList.contains('active')) {
             clickButtonActive(el);
-        }
+        }        
     }
 
-    if(el.classList.contains('button-date')) {
-        el.addEventListener('pointerdown', () => {createCalendar()});
-    }
+    // if (el.classList.contains('button-date')) {
+    //     el.addEventListener('pointerdown', () => {createCalendar()});
+    // }
 });

@@ -6,12 +6,6 @@
     align-items: center;
 }
 
-.date p {
-    font-size: 0.8rem;
-    margin: 0 0.7rem 0 0.6rem;
-    user-select: none;
-}
-
 .date-block-additive {
     .card-calendar-size-mixin;
     display: grid;
@@ -29,7 +23,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 40px;
+    height: 50px;
     // border: solid blue 1px;
 }
     
@@ -56,13 +50,13 @@
     transition: background-color .2s ease-in;
 }
 
+.date-year-title p, .date-month-title p {
+    margin: 0 6px;
+}
+
 .date-multi-button {
     .nav-button-mixin;
     transition: background-color .2s ease-in;
-}
-
-.date-year-title p, .date-month-title p {
-    margin: 0 4px;
 }
 
 .date-multi {
@@ -71,16 +65,12 @@
     align-items: center;
     cursor: pointer;
     border-radius: 20px;
-    padding: 0 4px;
+    padding: 0 8px;
     height: 28px;
 }
 
-.date-year-title p, .date-month-title p {
-    margin: 0 8px;
-}
-
 .date-multi:hover {
-    background-color: @color-basis-white;
+    background-color: @color-basis-active;
     transition: background-color .2s ease-in;
 }
 
@@ -88,35 +78,37 @@
     padding-bottom: 2px;
 }
 
-.date-multi p {
-    font-size: 1rem;
-}
-
 .date-table-month {
     grid-area: datedays;
-    padding: 4% 10% 8% 10%;
-    border: solid 1px blueviolet;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // border: solid 1px blue;
 }
 
 .date-table {
-    border-collapse: collapse;
-    width: 100%;
-    height: 100%;
-    border: solid 1px yellowgreen;
+    border-spacing: 8px;
+    // border: solid 1px yellowgreen;
 }
 
-.date-table-header th {
-    width: 14%;
+.date-multi p {
+    margin: 0 8px 0 7px;
 }
 
-tr {
-    // height: 5vh;
+.date-table p, .date-multi p {
+    margin: 0 8px 0 7px;
+    user-select: none;
 }
 
 td, th {
-    border: 1px solid green;
     font-style: italic;
-    padding: 3px;
+    padding: 8px;
     text-align: center;
     font-weight: 300;
+    border-radius: 30px;
+    // border: solid 1px fuchsia;
+}
+
+td:hover, th:hover {
+    background-color: @color-basis-hover;
 }

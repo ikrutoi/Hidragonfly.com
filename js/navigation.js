@@ -1,6 +1,7 @@
 import { dragNDrop } from "./d-n-d/d-n-d.js";
 import { keepCirclesInCorners } from "./d-n-d/keep-circles-in-corners.js";
 import { formationLetterArea } from "./card-letter.js";
+import { createCalendar } from "./date.js";
      
 export function clickButtonActive(el) {
             
@@ -53,6 +54,10 @@ export function clickButtonActive(el) {
             formationLetterArea();
         }
 
+        if (el.classList.contains('button-date') && !el.classList.contains('created')) {
+            createCalendar();
+        }
+
         setTimeout(showBlockTimer, 200);
 
         const buttonNavAdditional = document.querySelectorAll('.nav-additional-button');
@@ -97,7 +102,7 @@ export function clickButtonActive(el) {
                     navAdditionalMulti.forEach((el) => {
                         el.classList.add('appearance');
                     })
-                }       
+                }  
             }
                             
             function startToCenter() {

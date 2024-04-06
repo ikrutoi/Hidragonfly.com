@@ -1,6 +1,11 @@
 import { newElemHTML } from "./new-element.js";
 
 export function createCalendar() {
+
+    const buttonDate = document.querySelector('.button-date');
+
+    buttonDate.classList.add('created');
+
     let valueDate = new Date();
     let year = valueDate.getFullYear();
     let numberMonth = valueDate.getMonth();
@@ -45,11 +50,9 @@ export function createCalendar() {
     newElemHTML(areaDateDays, 'beforeend', '<table class="date-table"></table>');
 
     const blockTable = document.querySelector('.date-table');
-    
-    // newElemHTML(blockTable, 'beforeend', '<thead class="date-table-header"></thead>');
+
     newElemHTML(blockTable, 'beforeend', '<tbody class="date-table-body"></tbody>');
-    
-    // const tableHeader = document.querySelector('.date-table-header');
+
     const tableBody = document.querySelector('.date-table-body');
 
     newElemHTML(tableBody, 'beforeend', '<tr class="date-table-header-row"></tr>');
@@ -87,41 +90,28 @@ export function createCalendar() {
 
             if (i == 1) {   
                 for (let i = 0; i < 7; i++) {
-                    if (i <= numberFirstDay) {
+                    if (i < numberFirstDay) {
                         newElemHTML(tableRow, 'beforeend', `<td></td>`);
                     } else 
-                    newElemHTML(tableRow, 'beforeend', `<td>${dayCounter++}</td>`);
+                    newElemHTML(tableRow, 'beforeend', `<td class="date-day-counter"><p>${dayCounter++}</p></td>`);
                 }
             } else {
                 for (let i = 0; i < 7; i++) {
                     if (dayCounter <= quantityDaysOfMonth) {
-                        newElemHTML(tableRow, 'beforeend', `<td>${dayCounter++}</td>`);
+                        newElemHTML(tableRow, 'beforeend', `<td class="date-day-counter"><p>${dayCounter++}</p></td>`);
                     } else 
                     newElemHTML(tableRow, 'beforeend', `<td></td>`);
                 }
             }
         }
 
-        // function entryEqualWidthHeight() {
-        //     const blockTableWidth = blockTable.getBoundingClientRect();
-        //     const tableColumnWidth = blockTableWidth.width / 7;
-        //     const tableRowHeight = blockTableWidth.height / (quanityRows + 1);
+        const daysMonth = document.querySelectorAll('.date-day-counter');
 
-        //     const tableColumn = document.querySelectorAll('th');
-            
-        //     tableColumn.forEach(el => {
-        //         el.setAttribute('style', `width: ${tableColumnWidth}px;`);
-        //     })
-
-
-        //     console.log(tableColumnWidth);
-        //     console.log(tableRowHeight);
-        // }
-
-
-        // setTimeout(entryEqualWidthHeight, 300);
-
-
+        daysMonth.forEach(el => {
+            if (el.textContent == date) {
+                el.setAttribute('style', 'background-color: #dfdfdf;');
+            }
+        })
     }
 
     addRow();
