@@ -24,6 +24,7 @@
     justify-content: center;
     align-items: center;
     height: 50px;
+    user-select: none;
     // border: solid blue 1px;
 }
     
@@ -106,9 +107,20 @@ td, th {
     text-align: center;
     font-weight: 300;
     border-radius: 30px;
+    user-select: none;
     // border: solid 1px fuchsia;
 }
 
-td:hover, th:hover {
+.date-day-counter {
+    transition: background-color .2s ease-in;
+}
+
+.date-day-counter:hover {
     background-color: @color-basis-hover;
+    transition: background-color .2s ease-in;
+    cursor: pointer;
+}
+
+.date-month-text, .date-year-text {
+    user-select: none;
 }

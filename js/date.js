@@ -42,8 +42,8 @@ export function createCalendar() {
     const monthTitle = document.querySelector('.date-month-title');
     const yearTitle = document.querySelector('.date-year-title');
 
-    newElemHTML(monthTitle, 'afterbegin', `<p>${month}</p>`);
-    newElemHTML(yearTitle, 'afterbegin', `<p>${year}</p>`);
+    newElemHTML(monthTitle, 'afterbegin', `<p class="date-month-text">${month}</p>`);
+    newElemHTML(yearTitle, 'afterbegin', `<p class="date-year-text">${year}</p>`);
 
     const areaDateDays = document.querySelector('.date-table-month');
 
@@ -113,6 +113,62 @@ export function createCalendar() {
             }
         })
     }
+
+    const buttonDatePlus = document.querySelector('.date-month-plus');
+    const buttonDateMinus = document.querySelector('.date-month-minus');
+    const buttonMonthTitle = document.querySelector('.date-month-text');
+    
+    const buttonYearPlus = document.querySelector('.date-year-plus');
+    const buttonYearMinus = document.querySelector('.date-year-minus');
+    const buttonYearTitle = document.querySelector('.date-year-text');
+
+    function nextMonth() {
+        numberMonth = ++numberMonth;
+
+        function changeMonth(month) {
+            buttonMonthTitle.textContent = `${nameMonth[month]}`;
+        }
+
+        function changeYear(year) {
+            buttonYearTitle.textContent = `${year}`;
+            return year;
+        }
+
+        function verificationNumberMonth(year, month) {
+            if (month >= 0 && month <= 11) {
+                changeMonth(month)
+            } else {
+                year = changeYear(++year);
+                month = 0;
+                verificationNumberMonth(year, month);
+            }
+
+            return [year, month];
+        }
+
+        let newYearMonth = verificationNumberMonth(year, numberMonth);
+
+        year = newYearMonth[0];
+        numberMonth = newYearMonth[1];
+    }
+
+    function lastMonth() {
+       buttonMonthTitle.textContent = `${nameMonth[--numberMonth]}`;
+    }
+    
+    buttonDatePlus.addEventListener('pointerdown', nextMonth);
+    buttonDateMinus.addEventListener('pointerdown', lastMonth);
+
+    
+    function nextYear() {
+       buttonYearTitle.textContent = `${++year}`;
+    }
+    function lastYear() {
+       buttonYearTitle.textContent = `${--year}`;
+    }
+    
+    buttonYearPlus.addEventListener('pointerdown', nextYear);
+    buttonYearMinus.addEventListener('pointerdown', lastYear);
 
     addRow();
 }
