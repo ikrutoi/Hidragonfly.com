@@ -7,10 +7,12 @@ export function createCalendar() {
     buttonDate.classList.add('created');
 
     let valueDate = new Date();
+    console.log(valueDate);
     let year = valueDate.getFullYear();
     let numberMonth = valueDate.getMonth();
-    let date = valueDate.getDate();
-    let day = valueDate.getDay();
+    // let date = valueDate.getDate();
+    // let day = valueDate.getDay();
+    // console.log(day);
     const nameMonth = [
         'January', 
         'February', 
@@ -66,16 +68,14 @@ export function createCalendar() {
     
 //********************************************* */
 
-    function addRow(year, numberMonth) {
-
-        console.log(year, numberMonth);
+    function addRow(year, numberMonth) {   
 
         function getFirstDay(year, numberMonth) {
             let firstDay = new Date(year, numberMonth, 1);
-    
+            
             return firstDay.getDay();
         }
-    
+        
         let numberFirstDay = getFirstDay(year, numberMonth);
 
         function getQuantityDaysOfMonth(year, numberMonth) {
@@ -121,7 +121,7 @@ export function createCalendar() {
         const daysMonth = document.querySelectorAll('.date-day-counter');
 
         daysMonth.forEach(el => {
-            if (el.textContent == date) {
+            if (year == new Date().getFullYear() && numberMonth == new Date().getMonth() && el.textContent == new Date().getDate()) {
                 el.setAttribute('style', 'background-color: #dfdfdf;');
             }
         })
