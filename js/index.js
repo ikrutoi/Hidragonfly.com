@@ -11,8 +11,5 @@ buttonMenuNav.forEach((el) => {
             clickButtonActive(el);
         }        
     }
-
-    // if (el.classList.contains('button-date')) {
-    //     el.addEventListener('pointerdown', () => {createCalendar()});
-    // }
 });
+

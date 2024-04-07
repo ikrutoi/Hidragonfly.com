@@ -60,50 +60,63 @@ export function createCalendar() {
     const tableHeaderRow = document.querySelector('.date-table-header-row');
     const nameDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-    function getFirstDay(year, month) {
-        let firstDay = new Date(year, month, 1);
-
-        return firstDay.getDay();
+    for (let i = 0; i < 7; i++) {
+        newElemHTML(tableHeaderRow, 'beforeend', `<th>${nameDays[i]}</th>`);
     }
+    
+//********************************************* */
 
-    let numberFirstDay = getFirstDay(year, numberMonth);
+    function addRow(year, numberMonth) {
 
-    function addRow() {
-        for (let i = 0; i < 7; i++) {
-            newElemHTML(tableHeaderRow, 'beforeend', `<th>${nameDays[i]}</th>`);
+        console.log(year, numberMonth);
+
+        function getFirstDay(year, numberMonth) {
+            let firstDay = new Date(year, numberMonth, 1);
+    
+            return firstDay.getDay();
         }
+    
+        let numberFirstDay = getFirstDay(year, numberMonth);
 
-        function getQuantityDaysOfMonth(year, month) {
-            let dateLastDay = new Date(year, month + 1, 0);
+        function getQuantityDaysOfMonth(year, numberMonth) {
+            const dateLastDay = new Date(year, numberMonth + 1, 0);
     
             return dateLastDay.getDate();
         }
           
         let quantityDaysOfMonth = getQuantityDaysOfMonth(year, numberMonth);
-        let quanityRows = Math.ceil(quantityDaysOfMonth / 7);
-        let dayCounter = 1;
+        let dayCounter = 0;
+        let numberRow = 0;
 
-        for (let i = 1; i <= quanityRows; i++) {
-            newElemHTML(tableBody, 'beforeend', `<tr class="table-row-${i}"></tr>`);
+        function newRow(numberRow) {     
+            numberRow = ++numberRow;
 
-            const tableRow = document.querySelector(`.table-row-${i}`);
-
-            if (i == 1) {   
+            newElemHTML(tableBody, 'beforeend', `<tr class="date-row-days date-row-${numberRow}"></tr>`);
+            
+            const tableRow = document.querySelector(`.date-row-${numberRow}`);
+            
+            if (numberRow == 1) {   
                 for (let i = 0; i < 7; i++) {
                     if (i < numberFirstDay) {
                         newElemHTML(tableRow, 'beforeend', `<td></td>`);
                     } else 
-                    newElemHTML(tableRow, 'beforeend', `<td class="date-day-counter"><p>${dayCounter++}</p></td>`);
+                    newElemHTML(tableRow, 'beforeend', `<td class="date-day-counter"><p>${++dayCounter}</p></td>`);
                 }
+                newRow(numberRow);
             } else {
                 for (let i = 0; i < 7; i++) {
-                    if (dayCounter <= quantityDaysOfMonth) {
-                        newElemHTML(tableRow, 'beforeend', `<td class="date-day-counter"><p>${dayCounter++}</p></td>`);
+                    if (dayCounter < quantityDaysOfMonth) {
+                        newElemHTML(tableRow, 'beforeend', `<td class="date-day-counter"><p>${++dayCounter}</p></td>`);
                     } else 
                     newElemHTML(tableRow, 'beforeend', `<td></td>`);
+                }   
+                if (dayCounter < quantityDaysOfMonth) {
+                    newRow(numberRow);
                 }
             }
         }
+
+        newRow(numberRow);
 
         const daysMonth = document.querySelectorAll('.date-day-counter');
 
@@ -114,6 +127,8 @@ export function createCalendar() {
         })
     }
 
+    addRow(year, numberMonth);
+
     const buttonDatePlus = document.querySelector('.date-month-plus');
     const buttonDateMinus = document.querySelector('.date-month-minus');
     const buttonMonthTitle = document.querySelector('.date-month-text');
@@ -122,54 +137,105 @@ export function createCalendar() {
     const buttonYearMinus = document.querySelector('.date-year-minus');
     const buttonYearTitle = document.querySelector('.date-year-text');
 
-    function nextMonth() {
-        numberMonth = ++numberMonth;
+    function changeYearMonth(val) {
 
-        function changeMonth(month) {
-            buttonMonthTitle.textContent = `${nameMonth[month]}`;
+        function changeMonth(numberMonth) {
+            buttonMonthTitle.textContent = `${nameMonth[numberMonth]}`;
         }
-
+        
         function changeYear(year) {
             buttonYearTitle.textContent = `${year}`;
-            return year;
         }
 
-        function verificationNumberMonth(year, month) {
-            if (month >= 0 && month <= 11) {
-                changeMonth(month)
-            } else {
-                year = changeYear(++year);
-                month = 0;
-                verificationNumberMonth(year, month);
+        function delRows() {
+            const dateRowDays = document.querySelectorAll('.date-row-days');
+
+            dateRowDays.forEach(el => el.remove());
+        }
+
+        switch (val) {
+            case 'plusYear': 
+                year = ++year;
+                changeYear(year);
+                delRows();
+                addRow(year, numberMonth);
+                break;
+            case 'minusYear': 
+                year = --year;
+                changeYear(year);
+                delRows();
+                addRow(year, numberMonth);
+                break;
+            case 'plusMonth': {
+                numberMonth = ++numberMonth;
+                
+                function verificationNumberMonth(year, numberMonth) {
+                    
+                    if (numberMonth >= 0 && numberMonth <= 11) {
+                        changeMonth(numberMonth);
+                        delRows();
+                        addRow(year, numberMonth);
+                    } else {
+                        year = ++year;
+                        changeYear(year);
+                        numberMonth = 0;
+                        verificationNumberMonth(year, numberMonth);
+                    }
+                    
+                    return [year, numberMonth];
+                }
+                
+                const newYearMonth = verificationNumberMonth(year, numberMonth);
+                year = newYearMonth[0];
+                numberMonth = newYearMonth[1];
+                break;
             }
-
-            return [year, month];
+            case 'minusMonth': {
+                numberMonth = --numberMonth;
+                
+                function verificationNumberMonth(year, numberMonth) {
+                    
+                    if (numberMonth >= 0 && numberMonth <= 11) {
+                        changeMonth(numberMonth);
+                        delRows();
+                        addRow(year, numberMonth);
+                    } else {
+                        year = --year;
+                        changeYear(year);
+                        numberMonth = 11;
+                        verificationNumberMonth(year, numberMonth);
+                    }
+                    
+                    return [year, numberMonth];
+                }
+                
+                const newYearMonth = verificationNumberMonth(year, numberMonth);
+                year = newYearMonth[0];
+                numberMonth = newYearMonth[1];
+                break;
+            }
         }
-
-        let newYearMonth = verificationNumberMonth(year, numberMonth);
-
-        year = newYearMonth[0];
-        numberMonth = newYearMonth[1];
     }
 
-    function lastMonth() {
-       buttonMonthTitle.textContent = `${nameMonth[--numberMonth]}`;
+    function newNextYear() {
+        changeYearMonth('plusYear');
     }
-    
-    buttonDatePlus.addEventListener('pointerdown', nextMonth);
-    buttonDateMinus.addEventListener('pointerdown', lastMonth);
 
-    
-    function nextYear() {
-       buttonYearTitle.textContent = `${++year}`;
-    }
-    function lastYear() {
-       buttonYearTitle.textContent = `${--year}`;
+    function newLastYear() {
+        changeYearMonth('minusYear');
     }
     
-    buttonYearPlus.addEventListener('pointerdown', nextYear);
-    buttonYearMinus.addEventListener('pointerdown', lastYear);
+    function newNextMonth() {
+        changeYearMonth('plusMonth');
+    }
 
-    addRow();
+    function newLastMonth() {
+        changeYearMonth('minusMonth');
+    }
+
+    buttonYearPlus.addEventListener('pointerdown', newNextYear);
+    buttonYearMinus.addEventListener('pointerdown', newLastYear);
+    
+    buttonDatePlus.addEventListener('pointerdown', newNextMonth);
+    buttonDateMinus.addEventListener('pointerdown', newLastMonth);
 }
-

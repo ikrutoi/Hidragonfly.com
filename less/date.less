@@ -38,7 +38,7 @@
 }
 
 .date-year-full, .date-month-full {
-    margin: 0 8px;
+    margin: 0 0.5rem;
 }
 
 .date-year, .date-month {
@@ -83,7 +83,7 @@
     grid-area: datedays;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     // border: solid 1px blue;
 }
 
@@ -121,6 +121,9 @@ td, th {
     cursor: pointer;
 }
 
-.date-month-text, .date-year-text {
+.date-month-title, .date-year-title {
+    width: 4.4rem;
+    display: flex;
+    justify-content: center;
     user-select: none;
 }
