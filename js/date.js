@@ -118,13 +118,17 @@ export function createCalendar() {
 
         newRow(numberRow);
 
-        const daysMonth = document.querySelectorAll('.date-day-counter');
+        function showBackgroundTodayDay() {   
+            const daysMonth = document.querySelectorAll('.date-day-counter');
+            
+            daysMonth.forEach(el => {
+                if (year == new Date().getFullYear() && numberMonth == new Date().getMonth() && el.textContent == new Date().getDate()) {
+                    el.setAttribute('style', 'background-color: #dfdfdf;');
+                }
+            })
+        }
 
-        daysMonth.forEach(el => {
-            if (year == new Date().getFullYear() && numberMonth == new Date().getMonth() && el.textContent == new Date().getDate()) {
-                el.setAttribute('style', 'background-color: #dfdfdf;');
-            }
-        })
+        setTimeout(showBackgroundTodayDay, 300);
     }
 
     addRow(year, numberMonth);

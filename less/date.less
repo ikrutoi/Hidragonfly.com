@@ -101,6 +101,20 @@
     user-select: none;
 }
 
+tr {
+    animation-name: show-rows;
+    animation-duration: 600ms;
+}
+
+@keyframes show-rows {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
 td, th {
     font-style: italic;
     padding: 8px;
