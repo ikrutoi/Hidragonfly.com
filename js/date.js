@@ -1,4 +1,5 @@
 import { newElemHTML } from "./new-element.js";
+import { newElem } from "./new-element.js";
 
 export function createCalendar() {
 
@@ -9,9 +10,6 @@ export function createCalendar() {
     let valueDate = new Date();
     let year = valueDate.getFullYear();
     let numberMonth = valueDate.getMonth();
-    // let date = valueDate.getDate();
-    // let day = valueDate.getDay();
-    // console.log(day);
     const nameMonth = [
         'January', 
         'February', 
@@ -64,8 +62,6 @@ export function createCalendar() {
     for (let i = 0; i < 7; i++) {
         newElemHTML(tableHeaderRow, 'beforeend', `<th>${nameDays[i]}</th>`);
     }
-    
-//********************************************* */
 
     function addRow(year, numberMonth) {   
 
@@ -99,13 +95,13 @@ export function createCalendar() {
                     if (i < numberFirstDay) {
                         newElemHTML(tableRow, 'beforeend', `<td></td>`);
                     } else 
-                    newElemHTML(tableRow, 'beforeend', `<td class="date-day-counter"><p>${++dayCounter}</p></td>`);
+                    newElemHTML(tableRow, 'beforeend', `<td class="date-day date-day-counter"><p>${++dayCounter}</p></td>`);
                 }
                 newRow(numberRow);
             } else {
                 for (let i = 0; i < 7; i++) {
                     if (dayCounter < quantityDaysOfMonth) {
-                        newElemHTML(tableRow, 'beforeend', `<td class="date-day-counter"><p>${++dayCounter}</p></td>`);
+                        newElemHTML(tableRow, 'beforeend', `<td class="date-day date-day-counter"><p>${++dayCounter}</p></td>`);
                     } else 
                     newElemHTML(tableRow, 'beforeend', `<td></td>`);
                 }   
@@ -128,6 +124,47 @@ export function createCalendar() {
         }
 
         setTimeout(showBackgroundTodayDay, 300);
+
+        const daysMonth = document.querySelectorAll('.date-day');
+  
+        daysMonth.forEach(el => {
+
+            function selectionDay() {
+                daysMonth.forEach(el => el.classList.remove('active'));
+
+                el.classList.add('active');
+            }
+
+            function addButtonDate() {
+                const elemNavAdditionalDateFull = document.querySelector('.nav-additional-date-full');             
+                const elemNavAdditionalDate = document.querySelector('.nav-additional-date');
+                
+                if (elemNavAdditionalDateFull.classList.contains('active')) {
+                    elemNavAdditionalDateFull.classList.remove('active');
+
+                    const elemNavAdditionalDateMulti = document.querySelector('.nav-additional-date-multi');
+
+                    elemNavAdditionalDateMulti.remove();
+                }
+
+                newElem(elemNavAdditionalDate, 'div', ['nav-additional-date-multi']);
+                
+                const elemNavAdditionalDateMulti = document.querySelector('.nav-additional-date-multi');
+                
+                newElemHTML(
+                    elemNavAdditionalDateMulti, 
+                    'beforeend', 
+                    `<p class="additional-date-multi"><span>${year}</span>
+                    <span>${nameMonth[numberMonth]}</span>
+                    <span>${el.textContent}</span></p>`
+                );
+                
+                elemNavAdditionalDateFull.classList.add('active');
+            }
+    
+            el.addEventListener('pointerdown', selectionDay);
+            el.addEventListener('pointerdown', addButtonDate);
+        })
     }
 
     addRow(year, numberMonth);
