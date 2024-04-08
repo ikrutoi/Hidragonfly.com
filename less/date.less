@@ -48,7 +48,7 @@
 
 .date-year:hover, .date-month:hover {
     background-color: @color-basis-hover;
-    transition: background-color .15s ease-in;
+    transition: background-color 150ms ease-in;
 }
 
 .date-year-title p, .date-month-title p {
@@ -57,7 +57,7 @@
 
 .date-multi-button {
     .nav-button-mixin;
-    transition: background-color .15s ease-in;
+    transition: background-color 150ms ease-in;
 }
 
 .date-multi {
@@ -80,17 +80,17 @@
 .date-month-plus:hover, .date-year-plus:hover {
     background-color: @color-basis-active;
     cursor: pointer;
-    transition: background-color .15s ease-in;
+    transition: background-color 150ms ease-in;
 }
 
 .date-month-minus:hover, .date-year-minus:hover {
-    transition: background-color .15s ease-in;
+    transition: background-color 150ms ease-in;
 }
 
 .date-month-minus:hover.active, .date-year-minus:hover.active {
     background-color: @color-basis-active;
     cursor: pointer;
-    transition: background-color .15s ease-in;
+    transition: background-color 150ms ease-in;
 }
 
 .date-multi:last-child p {
@@ -136,13 +136,19 @@ tr {
 .date-day.active {
     color: @color-basis-white;
     background-color: @color-basis;
-    transition: background-color .15s ease-in;
+    transition: background-color 150ms ease-in;
 }
 
 .date-day:hover.active {
     color: @color-basis-white;
     background-color: @color-basis;
-    transition: background-color .15s ease-in;
+    transition: background-color 150ms ease-in;
+}
+
+.day-neighbor {
+    background-color: @color-basis-light;
+    transition: background-color 150ms ease-in;
+    transition-delay: 150ms;
 }
 
 td, th {
@@ -152,17 +158,17 @@ td, th {
     font-weight: 300;
     border-radius: 30px;
     user-select: none;
-    transition: background-color .15s ease-in;
+    transition: background-color 150ms ease-in;
     // border: solid 1px fuchsia;
 }
 
 .date-day-counter {
-    transition: background-color .15s ease-in;
+    transition: background-color 150ms ease-in;
 }
 
 .date-day-counter:hover {
-    background-color: @color-basis-hover;
-    transition: background-color .15s ease-in;
+    background-color: @color-basis-light;
+    transition: background-color 150ms ease-in;
     cursor: pointer;
 }
 
@@ -173,6 +179,7 @@ td, th {
 
 .nav-additional-date:hover {
     user-select: none;
+    cursor: default;
 }
 
 .additional-date-multi {

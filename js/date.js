@@ -81,6 +81,7 @@ export function createCalendar() {
           
         let quantityDaysOfMonth = getQuantityDaysOfMonth(year, numberMonth);
         let dayCounter = 0;
+        let numberDayCounter = 0;
         let numberRow = 0;
 
         function newRow(numberRow) {     
@@ -95,13 +96,13 @@ export function createCalendar() {
                     if (i < numberFirstDay) {
                         newElemHTML(tableRow, 'beforeend', `<td></td>`);
                     } else 
-                    newElemHTML(tableRow, 'beforeend', `<td class="date-day date-day-counter"><p>${++dayCounter}</p></td>`);
+                    newElemHTML(tableRow, 'beforeend', `<td class="date-day date-day-counter day-${++numberDayCounter}"><p>${++dayCounter}</p></td>`);
                 }
                 newRow(numberRow);
             } else {
                 for (let i = 0; i < 7; i++) {
                     if (dayCounter < quantityDaysOfMonth) {
-                        newElemHTML(tableRow, 'beforeend', `<td class="date-day date-day-counter"><p>${++dayCounter}</p></td>`);
+                        newElemHTML(tableRow, 'beforeend', `<td class="date-day date-day-counter day-${++numberDayCounter}"><p>${++dayCounter}</p></td>`);
                     } else 
                     newElemHTML(tableRow, 'beforeend', `<td></td>`);
                 }   
@@ -131,8 +132,21 @@ export function createCalendar() {
 
             function selectionDay() {
                 daysMonth.forEach(el => el.classList.remove('active'));
+                daysMonth.forEach(el => el.classList.remove('day-neighbor'));
 
                 el.classList.add('active');
+
+                const numberLeft = el.textContent - 1;
+                const numberRight = parseInt(el.textContent) + 1;                
+                const neighborLeft = document.querySelector(`.day-${numberLeft}`);
+                const neighborRight = document.querySelector(`.day-${numberRight}`);
+                
+                function addClassNeighbor() {
+                    neighborLeft.classList.add('day-neighbor');
+                    neighborRight.classList.add('day-neighbor');
+                }
+
+                setTimeout(addClassNeighbor, 150);
             }
 
             function addButtonDate() {
@@ -151,12 +165,16 @@ export function createCalendar() {
                 
                 const elemNavAdditionalDateMulti = document.querySelector('.nav-additional-date-multi');
                 
+                const selectedYear = year;
+                const selectedMonth = nameMonth[numberMonth];
+                const selectedDay = el.textContent; 
+
                 newElemHTML(
                     elemNavAdditionalDateMulti, 
                     'beforeend', 
-                    `<p class="additional-date-multi"><span>${year}</span>
-                    <span>${nameMonth[numberMonth]}</span>
-                    <span>${el.textContent}</span></p>`
+                    `<p class="additional-date-multi"><span>${selectedYear}</span>
+                    <span>${selectedMonth}</span>
+                    <span>${selectedDay}</span></p>`
                 );
                 
                 elemNavAdditionalDateFull.classList.add('active');
