@@ -56,6 +56,14 @@ export function clickButtonActive(el) {
 
         if (el.classList.contains('button-date') && !el.classList.contains('created')) {
             createCalendar();
+
+            // const elemNavAdditionalDateFull = document.querySelector('.nav-additional-date-full');
+            // const elemNavAdditionalDate = document.querySelector('.nav-additional-date');
+            
+            // if (elemNavAdditionalDate.classList.contains('active')) {
+            //     console.log('+++++');
+            //     elemNavAdditionalDateFull.classList.add('active');
+            // }
         }
 
         setTimeout(showBlockTimer, 200);
