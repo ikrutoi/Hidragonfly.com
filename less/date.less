@@ -43,12 +43,12 @@
 
 .date-year, .date-month {
     padding: 0 4px;
-    transition: background-color .2s ease-in;
+    transition: background-color .15s ease-in;
 }
 
 .date-year:hover, .date-month:hover {
     background-color: @color-basis-hover;
-    transition: background-color .2s ease-in;
+    transition: background-color .15s ease-in;
 }
 
 .date-year-title p, .date-month-title p {
@@ -57,22 +57,40 @@
 
 .date-multi-button {
     .nav-button-mixin;
-    transition: background-color .2s ease-in;
+    transition: background-color .15s ease-in;
 }
 
 .date-multi {
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
+    // cursor: pointer;
     border-radius: 20px;
     padding: 0 8px;
     height: 28px;
 }
 
-.date-multi:hover {
+.date-month-title, .date-year-title {
+    width: 4.4rem;
+    display: flex;
+    justify-content: center;
+    user-select: none;
+}
+
+.date-month-plus:hover, .date-year-plus:hover {
     background-color: @color-basis-active;
-    transition: background-color .2s ease-in;
+    cursor: pointer;
+    transition: background-color .15s ease-in;
+}
+
+.date-month-minus:hover, .date-year-minus:hover {
+    transition: background-color .15s ease-in;
+}
+
+.date-month-minus:hover.active, .date-year-minus:hover.active {
+    background-color: @color-basis-active;
+    cursor: pointer;
+    transition: background-color .15s ease-in;
 }
 
 .date-multi:last-child p {
@@ -126,18 +144,11 @@ td, th {
 }
 
 .date-day-counter {
-    transition: background-color .2s ease-in;
+    transition: background-color .15s ease-in;
 }
 
 .date-day-counter:hover {
     background-color: @color-basis-hover;
-    transition: background-color .2s ease-in;
+    transition: background-color .15s ease-in;
     cursor: pointer;
-}
-
-.date-month-title, .date-year-title {
-    width: 4.4rem;
-    display: flex;
-    justify-content: center;
-    user-select: none;
 }

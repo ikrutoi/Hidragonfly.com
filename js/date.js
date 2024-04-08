@@ -7,7 +7,6 @@ export function createCalendar() {
     buttonDate.classList.add('created');
 
     let valueDate = new Date();
-    console.log(valueDate);
     let year = valueDate.getFullYear();
     let numberMonth = valueDate.getMonth();
     // let date = valueDate.getDate();
@@ -133,8 +132,8 @@ export function createCalendar() {
 
     addRow(year, numberMonth);
 
-    const buttonDatePlus = document.querySelector('.date-month-plus');
-    const buttonDateMinus = document.querySelector('.date-month-minus');
+    const buttonMonthPlus = document.querySelector('.date-month-plus');
+    const buttonMonthMinus = document.querySelector('.date-month-minus');
     const buttonMonthTitle = document.querySelector('.date-month-text');
     
     const buttonYearPlus = document.querySelector('.date-year-plus');
@@ -226,7 +225,9 @@ export function createCalendar() {
     }
 
     function newLastYear() {
-        changeYearMonth('minusYear');
+        if(year > new Date().getFullYear()) {
+            changeYearMonth('minusYear');
+        }
     }
     
     function newNextMonth() {
@@ -234,12 +235,52 @@ export function createCalendar() {
     }
 
     function newLastMonth() {
-        changeYearMonth('minusMonth');
+        if (numberMonth > new Date().getMonth()) {
+            changeYearMonth('minusMonth');
+        }
+    }
+
+    function additionalYearHover() {
+        if (year > new Date().getFullYear()) {
+            buttonYearMinus.classList.add('active');
+        }
+    }
+
+    function cancelYearHover() {
+        buttonYearMinus.classList.remove('active');
+    }
+
+    function validationCancelYearHover() {
+        if (year == new Date().getFullYear()) {
+            cancelYearHover();
+        }
+    }
+
+    function additionalMonthHover() {
+        if (numberMonth > new Date().getMonth()) {
+            buttonMonthMinus.classList.add('active');
+        }
+    }
+
+    function cancelMonthHover() {
+        buttonMonthMinus.classList.remove('active');
+    }
+
+    function validationCancelMonthHover() {
+        if (numberMonth == new Date().getMonth()) {
+            cancelMonthHover();
+        }
     }
 
     buttonYearPlus.addEventListener('pointerdown', newNextYear);
     buttonYearMinus.addEventListener('pointerdown', newLastYear);
+    buttonYearMinus.addEventListener('pointerup', validationCancelYearHover);
+    buttonYearMinus.addEventListener('mouseenter', additionalYearHover);
+    buttonYearMinus.addEventListener('mouseleave', cancelYearHover);
     
-    buttonDatePlus.addEventListener('pointerdown', newNextMonth);
-    buttonDateMinus.addEventListener('pointerdown', newLastMonth);
+    buttonMonthPlus.addEventListener('pointerdown', newNextMonth);
+    buttonMonthMinus.addEventListener('pointerdown', newLastMonth);
+    buttonMonthMinus.addEventListener('pointerup', validationCancelMonthHover);
+    buttonMonthMinus.addEventListener('mouseenter', additionalMonthHover);
+    buttonMonthMinus.addEventListener('mouseleave', cancelMonthHover);
 }
