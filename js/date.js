@@ -60,6 +60,8 @@ export function createCalendar() {
     const nameDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     let memorySelectedDay;
     let quantityDaysOfMonth;
+    let memoryNeighborDayLeft;
+    let memoryNeighborDayRight;
 
     for (let i = 0; i < 7; i++) {
         newElemHTML(tableHeaderRow, 'beforeend', `<th>${nameDays[i]}</th>`);
@@ -115,20 +117,14 @@ export function createCalendar() {
         }
 
         newRow(numberRow);
-
-        function showBackgroundTodayDay() {   
-            const daysMonth = document.querySelectorAll('.date-day-counter');
-            
-            daysMonth.forEach(el => {
-                if (year == new Date().getFullYear() && numberMonth == new Date().getMonth() && el.textContent == new Date().getDate()) {
-                    el.classList.add('today-day');
-                }
-            })
-        }
-
-        setTimeout(showBackgroundTodayDay, 150);
-
-        const daysMonth = document.querySelectorAll('.date-day');
+ 
+        const daysMonth = document.querySelectorAll('.date-day-counter');
+        
+        daysMonth.forEach(el => {
+            if (year == new Date().getFullYear() && numberMonth == new Date().getMonth() && el.textContent == new Date().getDate()) {
+                el.classList.add('today-day');
+            }
+        })
 
         function addForbiddenAllowedDays() {   
             daysMonth.forEach(el => {
@@ -151,6 +147,7 @@ export function createCalendar() {
             function selectionDay() {
                 daysMonth.forEach(el => el.classList.remove('active'));
                 daysMonth.forEach(el => el.classList.remove('day-neighbor'));
+                daysMonth.forEach(el => el.classList.remove('left-right-previous-day'));
 
                 el.classList.add('active');
                 
@@ -162,9 +159,29 @@ export function createCalendar() {
                 function addClassNeighbor() {
                     if (el.textContent > 1) {
                         neighborLeft.classList.add('day-neighbor');
+                    } else if (el.textContent == 1) {
+
+                        function getQuantityDaysOfMonth(year, numberMonth) {
+                            const dateLastDay = new Date(year, numberMonth, 0);
+                            
+                            return dateLastDay.getDate();
+                        }
+                        
+                        let lastDay = getQuantityDaysOfMonth(year, numberMonth);
+
+                        memoryNeighborDayLeft = [year, numberMonth - 1, lastDay]
                     }
+
+                    function getLastDay() {
+                        const dateLastDay = new Date(year, numberMonth + 1, 0);
+                            
+                        return dateLastDay.getDate();
+                    }
+
                     if (el.textContent < quantityDaysOfMonth) {
                         neighborRight.classList.add('day-neighbor');
+                    } else if (el.textContent == getLastDay()) {
+                        memoryNeighborDayRight = [year, numberMonth + 1, 1];
                     }
                 }
                 
@@ -355,9 +372,9 @@ export function createCalendar() {
 
     function validationMemorySelectedDay() {
         if (memorySelectedDay) {
-            if (memorySelectedDay[0] == year && memorySelectedDay[1] == numberMonth) {
-                const daysMonth = document.querySelectorAll('.date-day');
-                
+            const daysMonth = document.querySelectorAll('.date-day');
+            
+            if (memorySelectedDay[0] == year && memorySelectedDay[1] == numberMonth) {           
                 daysMonth.forEach(el => {
                     if (el.textContent == memorySelectedDay[2]) {
 
@@ -385,6 +402,26 @@ export function createCalendar() {
                         setTimeout(showActiveDay, 150);
                     }
                 })
+            }
+
+            if (!!memoryNeighborDayLeft) {   
+                if (memoryNeighborDayLeft[0] == year && memoryNeighborDayLeft[1] == numberMonth) {
+                    daysMonth.forEach(el => {
+                        if (el.textContent == memoryNeighborDayLeft[2]) {
+                            setTimeout(() => el.classList.add('left-right-previous-day'), 150)
+                        }
+                    })   
+                }
+            }
+
+            if (!!memoryNeighborDayRight) {
+                if (memoryNeighborDayRight[0] == year && memoryNeighborDayRight[1] == numberMonth) {
+                    daysMonth.forEach(el => {
+                        if (el.textContent == memoryNeighborDayRight[2]) {
+                            setTimeout(() => el.classList.add('left-right-previous-day'), 150)
+                        }
+                    })   
+                }
             }
         }
     }
