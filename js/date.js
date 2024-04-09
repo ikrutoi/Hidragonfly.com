@@ -293,10 +293,13 @@ export function createCalendar() {
             }
             case 'minusMonth': {
                 numberMonth = --numberMonth;
+
+                console.log('--', year, numberMonth);
                 
                 function verificationNumberMonth(year, numberMonth) {
                     
                     if (numberMonth >= 0 && numberMonth <= 11) {
+                        console.log('-+-+-+-+-+');
                         changeMonth(numberMonth);
                         delRows();
                         addRow(year, numberMonth);
@@ -323,7 +326,11 @@ export function createCalendar() {
     }
 
     function newLastYear() {
-        if(year > new Date().getFullYear()) {
+        if (year == parseInt(new Date().getFullYear()) + 1 && numberMonth >= new Date().getMonth()) {
+            changeYearMonth('minusYear');
+        }
+
+        if (year > parseInt(new Date().getFullYear()) + 1) {
             changeYearMonth('minusYear');
         }
     }
@@ -333,29 +340,54 @@ export function createCalendar() {
     }
 
     function newLastMonth() {
-        if (numberMonth > new Date().getMonth()) {
+        if (numberMonth > new Date().getMonth() && year == new Date().getFullYear()) {
+            changeYearMonth('minusMonth');
+        }
+
+        if (year > new Date().getFullYear()) {
             changeYearMonth('minusMonth');
         }
     }
 
-    function additionalYearHover() {
-        if (year > new Date().getFullYear()) {
-            buttonYearMinus.classList.add('active');
-        }
-    }
+    // function additionalYearHover() {
+    //     if (year > new Date().getFullYear()) {
+    //         buttonYearMinus.classList.add('active');
+    //     }
+    // }
 
     function cancelYearHover() {
         buttonYearMinus.classList.remove('active');
     }
 
     function validationCancelYearHover() {
+        // if (year == new Date().getFullYear()) {
+        //     cancelYearHover();
+        // }
+        if (year == parseInt(new Date().getFullYear()) + 1 && numberMonth < new Date().getMonth()) {
+            cancelYearHover();
+        }
+
         if (year == new Date().getFullYear()) {
             cancelYearHover();
         }
     }
 
+    function additionalYearHover() {
+        if (year == parseInt(new Date().getFullYear()) + 1 && numberMonth >= new Date().getMonth()) {
+            buttonYearMinus.classList.add('active');
+        }
+
+        if (year > parseInt(new Date().getFullYear()) + 1) {
+            buttonYearMinus.classList.add('active');
+        }
+    }
+
     function additionalMonthHover() {
-        if (numberMonth > new Date().getMonth()) {
+        if (numberMonth > new Date().getMonth() && year == new Date().getFullYear()) {
+            buttonMonthMinus.classList.add('active');
+        }
+
+        if (year > new Date().getFullYear()) {
             buttonMonthMinus.classList.add('active');
         }
     }
@@ -365,7 +397,7 @@ export function createCalendar() {
     }
 
     function validationCancelMonthHover() {
-        if (numberMonth == new Date().getMonth()) {
+        if (numberMonth == new Date().getMonth()  && year == new Date().getFullYear()) {
             cancelMonthHover();
         }
     }
@@ -408,7 +440,7 @@ export function createCalendar() {
                 if (memoryNeighborDayLeft[0] == year && memoryNeighborDayLeft[1] == numberMonth) {
                     daysMonth.forEach(el => {
                         if (el.textContent == memoryNeighborDayLeft[2]) {
-                            setTimeout(() => el.classList.add('left-right-previous-day'), 150)
+                            el.classList.add('left-right-previous-day');
                         }
                     })   
                 }
@@ -418,7 +450,7 @@ export function createCalendar() {
                 if (memoryNeighborDayRight[0] == year && memoryNeighborDayRight[1] == numberMonth) {
                     daysMonth.forEach(el => {
                         if (el.textContent == memoryNeighborDayRight[2]) {
-                            setTimeout(() => el.classList.add('left-right-previous-day'), 150)
+                            el.classList.add('left-right-previous-day');
                         }
                     })   
                 }
@@ -428,16 +460,16 @@ export function createCalendar() {
 
     buttonYearPlus.addEventListener('pointerdown', newNextYear);
     buttonYearMinus.addEventListener('pointerdown', newLastYear);
-    buttonYearPlus.addEventListener('pointerdown', validationMemorySelectedDay);
-    buttonYearMinus.addEventListener('pointerdown', validationMemorySelectedDay);
+    // buttonYearPlus.addEventListener('pointerdown', validationMemorySelectedDay);
+    // buttonYearMinus.addEventListener('pointerdown', validationMemorySelectedDay);
     buttonYearMinus.addEventListener('pointerup', validationCancelYearHover);
     buttonYearMinus.addEventListener('mouseenter', additionalYearHover);
     buttonYearMinus.addEventListener('mouseleave', cancelYearHover);
     
     buttonMonthPlus.addEventListener('pointerdown', newNextMonth);
     buttonMonthMinus.addEventListener('pointerdown', newLastMonth);
-    buttonMonthPlus.addEventListener('pointerdown', validationMemorySelectedDay);
-    buttonMonthMinus.addEventListener('pointerdown', validationMemorySelectedDay);
+    // buttonMonthPlus.addEventListener('pointerdown', validationMemorySelectedDay);
+    // buttonMonthMinus.addEventListener('pointerdown', validationMemorySelectedDay);
     buttonMonthMinus.addEventListener('pointerup', validationCancelMonthHover);
     buttonMonthMinus.addEventListener('mouseenter', additionalMonthHover);
     buttonMonthMinus.addEventListener('mouseleave', cancelMonthHover);
