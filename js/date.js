@@ -58,6 +58,8 @@ export function createCalendar() {
 
     const tableHeaderRow = document.querySelector('.date-table-header-row');
     const nameDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    let memorySelectedDay;
+    let quantityDaysOfMonth;
 
     for (let i = 0; i < 7; i++) {
         newElemHTML(tableHeaderRow, 'beforeend', `<th>${nameDays[i]}</th>`);
@@ -72,14 +74,14 @@ export function createCalendar() {
         }
         
         let numberFirstDay = getFirstDay(year, numberMonth);
-
+        
         function getQuantityDaysOfMonth(year, numberMonth) {
             const dateLastDay = new Date(year, numberMonth + 1, 0);
-    
+            
             return dateLastDay.getDate();
         }
-          
-        let quantityDaysOfMonth = getQuantityDaysOfMonth(year, numberMonth);
+        
+        quantityDaysOfMonth = getQuantityDaysOfMonth(year, numberMonth);
         let dayCounter = 0;
         let numberDayCounter = 0;
         let numberRow = 0;
@@ -119,12 +121,12 @@ export function createCalendar() {
             
             daysMonth.forEach(el => {
                 if (year == new Date().getFullYear() && numberMonth == new Date().getMonth() && el.textContent == new Date().getDate()) {
-                    el.setAttribute('style', 'background-color: #dfdfdf;');
+                    el.classList.add('today-day');
                 }
             })
         }
 
-        setTimeout(showBackgroundTodayDay, 300);
+        setTimeout(showBackgroundTodayDay, 150);
 
         const daysMonth = document.querySelectorAll('.date-day');
 
@@ -143,33 +145,30 @@ export function createCalendar() {
         }
 
         addForbiddenAllowedDays();
-  
+
         daysMonth.forEach(el => {
 
             function selectionDay() {
                 daysMonth.forEach(el => el.classList.remove('active'));
                 daysMonth.forEach(el => el.classList.remove('day-neighbor'));
 
-                if (el.classList.contains('allowed')) {
-                    el.classList.add('active');
-                    
-                    const numberLeft = el.textContent - 1;
-                    const numberRight = parseInt(el.textContent) + 1;                
-                    const neighborLeft = document.querySelector(`.day-${numberLeft}`);
-                    const neighborRight = document.querySelector(`.day-${numberRight}`);
-                    
-                    function addClassNeighbor() {
-                        if (el.textContent > 1) {
-                            neighborLeft.classList.add('day-neighbor');
-                        }
-
-                        if (el.textContent < quantityDaysOfMonth) {
-                            neighborRight.classList.add('day-neighbor');
-                        }
+                el.classList.add('active');
+                
+                const numberLeft = el.textContent - 1;
+                const numberRight = parseInt(el.textContent) + 1;                
+                const neighborLeft = document.querySelector(`.day-${numberLeft}`);
+                const neighborRight = document.querySelector(`.day-${numberRight}`);
+                
+                function addClassNeighbor() {
+                    if (el.textContent > 1) {
+                        neighborLeft.classList.add('day-neighbor');
                     }
-                    
-                    setTimeout(addClassNeighbor, 150);
+                    if (el.textContent < quantityDaysOfMonth) {
+                        neighborRight.classList.add('day-neighbor');
+                    }
                 }
+                
+                setTimeout(addClassNeighbor, 150);
             }
 
             function addButtonDate() {
@@ -184,26 +183,25 @@ export function createCalendar() {
                     elemNavAdditionalDateMulti.remove();
                 }
 
-                if(el.classList.contains('allowed')) {
+                newElem(elemNavAdditionalDate, 'div', ['nav-additional-date-multi']);
+                
+                const elemNavAdditionalDateMulti = document.querySelector('.nav-additional-date-multi');
+                
+                const selectedYear = year;
+                const selectedMonth = nameMonth[numberMonth];
+                const selectedDay = el.textContent; 
+                
+                newElemHTML(
+                    elemNavAdditionalDateMulti, 
+                    'beforeend', 
+                    `<p class="additional-date-multi"><span>${selectedYear}</span>
+                    <span>${selectedMonth}</span>
+                    <span>${selectedDay}</span></p>`
+                );
+                
+                elemNavAdditionalDateFull.classList.add('active');
 
-                    newElem(elemNavAdditionalDate, 'div', ['nav-additional-date-multi']);
-                    
-                    const elemNavAdditionalDateMulti = document.querySelector('.nav-additional-date-multi');
-                    
-                    const selectedYear = year;
-                    const selectedMonth = nameMonth[numberMonth];
-                    const selectedDay = el.textContent; 
-                    
-                    newElemHTML(
-                        elemNavAdditionalDateMulti, 
-                        'beforeend', 
-                        `<p class="additional-date-multi"><span>${selectedYear}</span>
-                        <span>${selectedMonth}</span>
-                        <span>${selectedDay}</span></p>`
-                    );
-                    
-                    elemNavAdditionalDateFull.classList.add('active');
-                }
+                memorySelectedDay = [year, numberMonth, selectedDay];
             }
     
             if (el.classList.contains('allowed')) {
@@ -355,14 +353,54 @@ export function createCalendar() {
         }
     }
 
+    function validationMemorySelectedDay() {
+        if (memorySelectedDay) {
+            if (memorySelectedDay[0] == year && memorySelectedDay[1] == numberMonth) {
+                const daysMonth = document.querySelectorAll('.date-day');
+                
+                daysMonth.forEach(el => {
+                    if (el.textContent == memorySelectedDay[2]) {
+
+                        function showActiveDay() {
+
+                            el.classList.add('active');
+                            
+                            const numberLeft = el.textContent - 1;
+                            const numberRight = parseInt(el.textContent) + 1;                
+                            const neighborLeft = document.querySelector(`.day-${numberLeft}`);
+                            const neighborRight = document.querySelector(`.day-${numberRight}`);
+                            
+                            function addClassNeighbor() {
+                                if (el.textContent > 1) {
+                                    neighborLeft.classList.add('day-neighbor');
+                                }
+                                if (el.textContent < quantityDaysOfMonth) {
+                                    neighborRight.classList.add('day-neighbor');
+                                }
+                            }
+                            
+                            setTimeout(addClassNeighbor, 150);
+                        }
+
+                        setTimeout(showActiveDay, 150);
+                    }
+                })
+            }
+        }
+    }
+
     buttonYearPlus.addEventListener('pointerdown', newNextYear);
     buttonYearMinus.addEventListener('pointerdown', newLastYear);
+    buttonYearPlus.addEventListener('pointerdown', validationMemorySelectedDay);
+    buttonYearMinus.addEventListener('pointerdown', validationMemorySelectedDay);
     buttonYearMinus.addEventListener('pointerup', validationCancelYearHover);
     buttonYearMinus.addEventListener('mouseenter', additionalYearHover);
     buttonYearMinus.addEventListener('mouseleave', cancelYearHover);
     
     buttonMonthPlus.addEventListener('pointerdown', newNextMonth);
     buttonMonthMinus.addEventListener('pointerdown', newLastMonth);
+    buttonMonthPlus.addEventListener('pointerdown', validationMemorySelectedDay);
+    buttonMonthMinus.addEventListener('pointerdown', validationMemorySelectedDay);
     buttonMonthMinus.addEventListener('pointerup', validationCancelMonthHover);
     buttonMonthMinus.addEventListener('mouseenter', additionalMonthHover);
     buttonMonthMinus.addEventListener('mouseleave', cancelMonthHover);
