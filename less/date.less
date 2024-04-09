@@ -162,11 +162,15 @@ td, th {
     // border: solid 1px fuchsia;
 }
 
-.date-day-counter {
+.date-day {
     transition: background-color 150ms ease-in;
 }
 
-.date-day-counter:hover {
+.forbidden {
+    color: @color-basis-grey;
+}
+
+.allowed:hover {
     background-color: @color-basis-light;
     transition: background-color 150ms ease-in;
     cursor: pointer;

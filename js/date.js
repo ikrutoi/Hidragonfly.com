@@ -127,6 +127,22 @@ export function createCalendar() {
         setTimeout(showBackgroundTodayDay, 300);
 
         const daysMonth = document.querySelectorAll('.date-day');
+
+        function addForbiddenAllowedDays() {   
+            daysMonth.forEach(el => {
+                if (
+                    el.textContent < (new Date().getDate() + 7) && 
+                    numberMonth == new Date().getMonth()  &&
+                    year == new Date().getFullYear()
+                ) {
+                    el.classList.add('forbidden');
+                } else {
+                    el.classList.add('allowed');
+                }
+            })
+        }
+
+        addForbiddenAllowedDays();
   
         daysMonth.forEach(el => {
 
@@ -134,19 +150,26 @@ export function createCalendar() {
                 daysMonth.forEach(el => el.classList.remove('active'));
                 daysMonth.forEach(el => el.classList.remove('day-neighbor'));
 
-                el.classList.add('active');
+                if (el.classList.contains('allowed')) {
+                    el.classList.add('active');
+                    
+                    const numberLeft = el.textContent - 1;
+                    const numberRight = parseInt(el.textContent) + 1;                
+                    const neighborLeft = document.querySelector(`.day-${numberLeft}`);
+                    const neighborRight = document.querySelector(`.day-${numberRight}`);
+                    
+                    function addClassNeighbor() {
+                        if (el.textContent > 1) {
+                            neighborLeft.classList.add('day-neighbor');
+                        }
 
-                const numberLeft = el.textContent - 1;
-                const numberRight = parseInt(el.textContent) + 1;                
-                const neighborLeft = document.querySelector(`.day-${numberLeft}`);
-                const neighborRight = document.querySelector(`.day-${numberRight}`);
-                
-                function addClassNeighbor() {
-                    neighborLeft.classList.add('day-neighbor');
-                    neighborRight.classList.add('day-neighbor');
+                        if (el.textContent < quantityDaysOfMonth) {
+                            neighborRight.classList.add('day-neighbor');
+                        }
+                    }
+                    
+                    setTimeout(addClassNeighbor, 150);
                 }
-
-                setTimeout(addClassNeighbor, 150);
             }
 
             function addButtonDate() {
@@ -161,23 +184,26 @@ export function createCalendar() {
                     elemNavAdditionalDateMulti.remove();
                 }
 
-                newElem(elemNavAdditionalDate, 'div', ['nav-additional-date-multi']);
-                
-                const elemNavAdditionalDateMulti = document.querySelector('.nav-additional-date-multi');
-                
-                const selectedYear = year;
-                const selectedMonth = nameMonth[numberMonth];
-                const selectedDay = el.textContent; 
+                if(el.classList.contains('allowed')) {
 
-                newElemHTML(
-                    elemNavAdditionalDateMulti, 
-                    'beforeend', 
-                    `<p class="additional-date-multi"><span>${selectedYear}</span>
-                    <span>${selectedMonth}</span>
-                    <span>${selectedDay}</span></p>`
-                );
-                
-                elemNavAdditionalDateFull.classList.add('active');
+                    newElem(elemNavAdditionalDate, 'div', ['nav-additional-date-multi']);
+                    
+                    const elemNavAdditionalDateMulti = document.querySelector('.nav-additional-date-multi');
+                    
+                    const selectedYear = year;
+                    const selectedMonth = nameMonth[numberMonth];
+                    const selectedDay = el.textContent; 
+                    
+                    newElemHTML(
+                        elemNavAdditionalDateMulti, 
+                        'beforeend', 
+                        `<p class="additional-date-multi"><span>${selectedYear}</span>
+                        <span>${selectedMonth}</span>
+                        <span>${selectedDay}</span></p>`
+                    );
+                    
+                    elemNavAdditionalDateFull.classList.add('active');
+                }
             }
     
             el.addEventListener('pointerdown', selectionDay);
