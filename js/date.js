@@ -206,8 +206,10 @@ export function createCalendar() {
                 }
             }
     
-            el.addEventListener('pointerdown', selectionDay);
-            el.addEventListener('pointerdown', addButtonDate);
+            if (el.classList.contains('allowed')) {
+                el.addEventListener('pointerdown', selectionDay);
+                el.addEventListener('pointerdown', addButtonDate);
+            }
         })
     }
 
