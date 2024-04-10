@@ -55,15 +55,13 @@ export function clickButtonActive(el) {
         }
 
         if (el.classList.contains('button-date') && !el.classList.contains('created')) {
-            createCalendar();
+            createCalendar();  
+        }
 
-            // const elemNavAdditionalDateFull = document.querySelector('.nav-additional-date-full');
-            // const elemNavAdditionalDate = document.querySelector('.nav-additional-date');
-            
-            // if (elemNavAdditionalDate.classList.contains('active')) {
-            //     console.log('+++++');
-            //     elemNavAdditionalDateFull.classList.add('active');
-            // }
+        const elemNavAdditionalDateFull = document.querySelector('.nav-additional-date-full');
+
+        if (el.classList.contains('button-date') && elemNavAdditionalDateFull.classList.contains('selectedDayActive')) { 
+            elemNavAdditionalDateFull.classList.add('active');
         }
 
         setTimeout(showBlockTimer, 200);

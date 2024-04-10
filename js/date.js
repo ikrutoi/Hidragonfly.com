@@ -145,9 +145,14 @@ export function createCalendar() {
         daysMonth.forEach(el => {
 
             function selectionDay() {
-                daysMonth.forEach(el => el.classList.remove('active'));
-                daysMonth.forEach(el => el.classList.remove('day-neighbor'));
-                daysMonth.forEach(el => el.classList.remove('left-right-previous-day'));
+                daysMonth.forEach(el => {
+                    el.classList.remove('active');
+                    el.classList.remove('day-neighbor');
+                    el.classList.remove('left-right-previous-day')
+                });
+
+                memoryNeighborDayLeft = null;
+                memoryNeighborDayRight = null;
 
                 el.classList.add('active');
                 
@@ -183,9 +188,8 @@ export function createCalendar() {
                     } else if (el.textContent == getLastDay()) {
                         memoryNeighborDayRight = [year, numberMonth + 1, 1];
                     }
-                }
-                
-                setTimeout(addClassNeighbor, 150);
+                }            
+                    setTimeout(addClassNeighbor, 150);
             }
 
             function addButtonDate() {
@@ -193,8 +197,6 @@ export function createCalendar() {
                 const elemNavAdditionalDate = document.querySelector('.nav-additional-date');
                 
                 if (elemNavAdditionalDateFull.classList.contains('active')) {
-                    elemNavAdditionalDateFull.classList.remove('active');
-
                     const elemNavAdditionalDateMulti = document.querySelector('.nav-additional-date-multi');
 
                     elemNavAdditionalDateMulti.remove();
@@ -202,8 +204,7 @@ export function createCalendar() {
 
                 newElem(elemNavAdditionalDate, 'div', ['nav-additional-date-multi']);
                 
-                const elemNavAdditionalDateMulti = document.querySelector('.nav-additional-date-multi');
-                
+                const elemNavAdditionalDateMulti = document.querySelector('.nav-additional-date-multi');    
                 const selectedYear = year;
                 const selectedMonth = nameMonth[numberMonth];
                 const selectedDay = el.textContent; 
@@ -217,13 +218,18 @@ export function createCalendar() {
                 );
                 
                 elemNavAdditionalDateFull.classList.add('active');
+                elemNavAdditionalDateFull.classList.add('selectedDayActive');
 
-                memorySelectedDay = [year, numberMonth, selectedDay];
+                return memorySelectedDay = [year, numberMonth, selectedDay];
             }
     
+            function addButtonMemoryDate() {
+                memorySelectedDay = addButtonDate();
+            }
+
             if (el.classList.contains('allowed')) {
                 el.addEventListener('pointerdown', selectionDay);
-                el.addEventListener('pointerdown', addButtonDate);
+                el.addEventListener('pointerdown', addButtonMemoryDate);
             }
         })
     }
@@ -293,13 +299,10 @@ export function createCalendar() {
             }
             case 'minusMonth': {
                 numberMonth = --numberMonth;
-
-                console.log('--', year, numberMonth);
                 
                 function verificationNumberMonth(year, numberMonth) {
                     
                     if (numberMonth >= 0 && numberMonth <= 11) {
-                        console.log('-+-+-+-+-+');
                         changeMonth(numberMonth);
                         delRows();
                         addRow(year, numberMonth);
@@ -349,20 +352,11 @@ export function createCalendar() {
         }
     }
 
-    // function additionalYearHover() {
-    //     if (year > new Date().getFullYear()) {
-    //         buttonYearMinus.classList.add('active');
-    //     }
-    // }
-
     function cancelYearHover() {
         buttonYearMinus.classList.remove('active');
     }
 
     function validationCancelYearHover() {
-        // if (year == new Date().getFullYear()) {
-        //     cancelYearHover();
-        // }
         if (year == parseInt(new Date().getFullYear()) + 1 && numberMonth < new Date().getMonth()) {
             cancelYearHover();
         }
@@ -428,10 +422,10 @@ export function createCalendar() {
                                 }
                             }
                             
-                            setTimeout(addClassNeighbor, 150);
+                            addClassNeighbor();
                         }
 
-                        setTimeout(showActiveDay, 150);
+                        showActiveDay();
                     }
                 })
             }
@@ -454,22 +448,22 @@ export function createCalendar() {
                         }
                     })   
                 }
-            }
+            } 
         }
     }
 
     buttonYearPlus.addEventListener('pointerdown', newNextYear);
     buttonYearMinus.addEventListener('pointerdown', newLastYear);
-    // buttonYearPlus.addEventListener('pointerdown', validationMemorySelectedDay);
-    // buttonYearMinus.addEventListener('pointerdown', validationMemorySelectedDay);
+    buttonYearPlus.addEventListener('pointerdown', validationMemorySelectedDay);
+    buttonYearMinus.addEventListener('pointerdown', validationMemorySelectedDay);
     buttonYearMinus.addEventListener('pointerup', validationCancelYearHover);
     buttonYearMinus.addEventListener('mouseenter', additionalYearHover);
     buttonYearMinus.addEventListener('mouseleave', cancelYearHover);
     
     buttonMonthPlus.addEventListener('pointerdown', newNextMonth);
     buttonMonthMinus.addEventListener('pointerdown', newLastMonth);
-    // buttonMonthPlus.addEventListener('pointerdown', validationMemorySelectedDay);
-    // buttonMonthMinus.addEventListener('pointerdown', validationMemorySelectedDay);
+    buttonMonthPlus.addEventListener('pointerdown', validationMemorySelectedDay);
+    buttonMonthMinus.addEventListener('pointerdown', validationMemorySelectedDay);
     buttonMonthMinus.addEventListener('pointerup', validationCancelMonthHover);
     buttonMonthMinus.addEventListener('mouseenter', additionalMonthHover);
     buttonMonthMinus.addEventListener('mouseleave', cancelMonthHover);
