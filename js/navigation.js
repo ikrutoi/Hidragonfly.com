@@ -1,6 +1,7 @@
 import { dragNDrop } from "./d-n-d/d-n-d.js";
 import { keepCirclesInCorners } from "./d-n-d/keep-circles-in-corners.js";
 import { formationLetterArea } from "./card-letter.js";
+import { createAroma } from "./aroma.js";
 import { createCalendar } from "./date.js";
      
 export function clickButtonActive(el) {
@@ -52,6 +53,10 @@ export function clickButtonActive(el) {
 
         if(el.classList.contains('button-cardtext')) {
             formationLetterArea();
+        }
+
+        if (el.classList.contains('button-aroma')) {
+            createAroma();
         }
 
         if (el.classList.contains('button-date') && !el.classList.contains('created')) {
