@@ -3,13 +3,13 @@ export function newElem(toTag, tag, newClass, newStyle) {
     const newTag = document.createElement(tag);
 
     if (!!newClass) {
-        for (const el of newClass) {
-            newTag.classList.add(el);
+        for (const elem of newClass) {
+            newTag.classList.add(elem);
         }
     }
 
-    function addStyle(el) {
-        el.forEach(function(elem, i, arr) {
+    function addStyle(elem) {
+        elem.forEach(function(elem, i, arr) {
             newTag.setAttribute(`${arr[0]}`, `${arr[1]}`);
         })
     }

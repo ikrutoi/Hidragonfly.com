@@ -56,7 +56,11 @@ export function clickButtonActive(el) {
         }
 
         if (el.classList.contains('button-aroma')) {
-            createAroma();
+            const blockAroma = document.querySelector('.aroma-block');
+
+            if (!blockAroma.classList.contains('active')) {
+                createAroma();
+            }
         }
 
         if (el.classList.contains('button-date') && !el.classList.contains('created')) {
