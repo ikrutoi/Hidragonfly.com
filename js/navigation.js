@@ -63,6 +63,11 @@ export function clickButtonActive(el) {
             }
         }
 
+        if (el.classList.contains('button-aroma') && el.classList.contains('allowed')) {
+            const elemNavAdditionalAroma = document.querySelector('.nav-additional-aroma');
+            elemNavAdditionalAroma.classList.add('active');
+        }
+
         if (el.classList.contains('button-date') && !el.classList.contains('created')) {
             createCalendar();  
         }

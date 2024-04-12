@@ -17,15 +17,13 @@
 }
 
 .aroma-element {
+    .size-button-aroma;
     display: flex;
     margin: 1rem;
     justify-content: space-evenly;
     align-items: center;
     flex-direction: column;
-    width: 20vw;
-    height: 40px;
     border-radius: 40px;
-    // background-color: @color-basis-hover;
     transition: background-color 150ms ease-in;
 }
 
@@ -40,41 +38,14 @@
     transition: background-color 150ms ease-in;
 }
 
-.nav-additional-aroma-full.active .nav-additional-aroma {
-    background-color: @color-basis;
-    color: @color-basis-white;
-    display: flex;
-    // margin: 0;
-    // padding: 0 8px 0 6px;
-    // border-radius: 20px;
-    border: solid 1px green;
-    justify-content: space-evenly;
-    align-items: center;
-    flex-direction: column;
-    width: 20vw;
-    height: 40px;
-    border-radius: 40px;
-}
-
 .nav-additional-aroma:hover {
     user-select: none;
     cursor: default;
 }
 
-// .additional-aroma-multi {
-//     display: flex;
-//     // margin: 0;
-//     // padding: 0 8px 0 6px;
-//     // border-radius: 20px;
-//     border: solid 1px green;
-//     justify-content: space-evenly;
-//     align-items: center;
-//     flex-direction: column;
-//     width: 20vw;
-//     height: 40px;
-//     border-radius: 40px;
-//     user-select: none;
-// }
+.aroma-make, .aroma-name {
+    user-select: none;
+}
 
 @keyframes show-rows {
     from {
@@ -85,19 +56,29 @@
     }
 }
 
-.nav-additional-aroma-full {
+.nav-additional-aroma {
+    display: none;
+}
+
+.nav-additional-aroma.active {
+    .size-button-aroma;
     animation-name: show-rows;
     animation-duration: 150ms;
+    background-color: @color-basis;
+    color: @color-basis-white;
+    // margin: 1rem;
+    // display: flex;
+    // justify-content: space-evenly;
+    // align-items: center;
+    // flex-direction: column;
+    border-radius: 40px;
+    transition: background-color 150ms ease-in;
+}
+
+.nav-additional-aroma-multi {
+    .size-button-aroma;
     display: flex;
-    // margin: 0;
-    // padding: 0 8px 0 6px;
-    // border-radius: 20px;
-    border: solid 1px green;
     justify-content: space-evenly;
     align-items: center;
     flex-direction: column;
-    width: 20vw;
-    height: 40px;
-    border-radius: 40px;
-    user-select: none;
 }

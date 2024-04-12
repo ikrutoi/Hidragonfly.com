@@ -54,33 +54,51 @@ export function createAroma() {
             addElementAroma(aromaRow);
         }
     }
+
+    let memoryAroma;
+    const elemButtonAroma = document.querySelector('.button-aroma');
+    
+    if (elemButtonAroma.classList.contains('allowed')) {
+        addButtonAroma(memoryAroma);
+    }
     
     const elemNameAroma = document.querySelectorAll('.aroma-element');
     
     elemNameAroma.forEach(el => {
-
-        function addButtonAroma() {
-            const elemNavAdditionalAromaFull = document.querySelector('.nav-additional-aroma-full');             
-            const elemNavAdditionalAroma = document.querySelector('.nav-additional-aroma');
-
-            if (elemNavAdditionalAromaFull.classList.contains('active')) {
+        const elemNavAdditionalAroma = document.querySelector('.nav-additional-aroma');
+        
+        function addButtonAroma(memoryAroma) {
+            if (elemNavAdditionalAroma.classList.contains('active')) {
+                const aromaName = document.querySelector('.additional-aroma-name');
+                const aromaMake = document.querySelector('.additional-aroma-make');
+                
+                aromaName.textContent = el.innerText.split('\n\n')[0];
+                aromaMake.textContent = el.innerText.split('\n\n')[1];
+            } else {   
+                elemNavAdditionalAroma.classList.add('active');
+                elemButtonAroma.classList.add('allowed');
+                
+                newElem(elemNavAdditionalAroma, 'div', ['nav-additional-aroma-multi']);
                 const elemNavAdditionalAromaMulti = document.querySelector('.nav-additional-aroma-multi');
-
-                elemNavAdditionalAromaMulti.remove();
+                
+                if (!memoryAroma) {
+                    newElemHTML(
+                        elemNavAdditionalAromaMulti, 
+                        'beforeend', 
+                        `<p class="additional-aroma-name"><span>${el.innerText.split('\n\n')[0]}</span></p>
+                        <p class="additional-aroma-make"><span>${el.innerText.split('\n\n')[1]}</span></p>`
+                    );
+                } else {
+                    newElemHTML(
+                        elemNavAdditionalAromaMulti, 
+                        'beforeend', 
+                        `<p class="additional-aroma-name"><span>${memoryAroma[0]}</span></p>
+                        <p class="additional-aroma-make"><span>${memoryAroma[1]}</span></p>`
+                    ); 
+                }
             }
 
-            newElem(elemNavAdditionalAroma, 'div', ['nav-additional-aroma-multi']);
-
-            const elemNavAdditionalAromaMulti = document.querySelector('.nav-additional-aroma-multi'); 
-
-            newElemHTML(
-                elemNavAdditionalAromaMulti, 
-                'beforeend', 
-                `<p class="additional-aroma-name"><span>${el.innerText.split('\n\n')[0]}</span></p>
-                <p class="additional-aroma-make"><span>${el.innerText.split('\n\n')[1]}</span></p>`
-            );
-
-            elemNavAdditionalAromaFull.classList.add('active');
+            memoryAroma = [`${el.innerText.split('\n\n')[0]}`, `${el.innerText.split('\n\n')[1]}`];
         }
 
         function addClassActive() {
@@ -91,7 +109,7 @@ export function createAroma() {
             el.classList.remove('active')
         }
 
-        el.addEventListener('pointerdown', addButtonAroma);
+        el.addEventListener('pointerdown', () => addButtonAroma(memoryAroma));
         el.addEventListener('pointerdown', addClassActive);
         el.addEventListener('pointerup', delClassActive);
     });
