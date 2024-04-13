@@ -66,7 +66,7 @@ export function createAroma() {
                 const aromaName = document.querySelector('.additional-aroma-name');
                 const aromaMake = document.querySelector('.additional-aroma-make');
                 aromaName.remove();
-
+                
                 if (aromaMake) aromaMake.remove();
                 
                 if (el.innerText.split('\n\n')[1]) {
@@ -76,6 +76,8 @@ export function createAroma() {
                         `<p class="additional-aroma-name"><nobr>${el.innerText.split('\n\n')[0]}</nobr><span>.&nbsp</span></p>
                         <p class="additional-aroma-make"><nobr>${el.innerText.split('\n\n')[1]}</nobr></p>`
                     );
+                    
+                    setTimeout(startCreateElement, 500);
                 } else {
                     console.log('54656546');
                     newElemHTML(
@@ -98,8 +100,14 @@ export function createAroma() {
                     );
                 }
             }
-
+            
             memoryAroma = [`${el.innerText.split('\n\n')[0]}`, `${el.innerText.split('\n\n')[1]}`];
+            
+            if (memoryAroma) {
+                const elemButtonAroma = document.querySelector('.button-aroma');
+
+                elemButtonAroma.setAttribute('style', 'color: #008aed')
+            }
         }
 
         function addClassActive() {
