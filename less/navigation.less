@@ -15,28 +15,36 @@
 .nav-additional-button {
     padding-right: 8px;
     padding-left: 8px;
-    transition: background-color .2s ease-in;
+    transition: background-color 150ms ease-in;
 }
 
 .nav-additional-block.active {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 32px;
 }
 
 .nav-addit-cardtext-size:hover {
     cursor: default;
-    transition: background-color .2s ease-in;
+    transition: background-color 150ms ease-in;
+}
+
+.nav-addit-cardtext-size p {
+    color: @color-basis-white;
+}
+
+.nav-addit-cardtext-size:hover p {
+    color: @color-basis-black;
 }
 
 .nav-addit-cardtext-size.active {
     background-color: @color-basis-hover;
-    transition: background-color .2s ease-in;
+    transition: background-color 150ms ease-in;
 }
 
 .nav-additional-multi-title p {
     margin: 0 8px;
+    color: @color-basis-white;
 }
 
 .nav-additional-multi {
@@ -51,7 +59,12 @@
 
 .nav-additional-multi:hover {
     background-color: @color-basis-active;
-    transition: background-color .2s ease-in;
+    transition: background-color 150ms ease-in;
+}
+
+.nav-additional-multi:hover p {
+    color: @color-basis-black;
+    transition: background-color 150ms ease-in;
 }
 
 .nav-additional-multi:last-child p {

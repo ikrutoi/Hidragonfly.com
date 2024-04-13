@@ -43,8 +43,13 @@
 }
 
 .nav-button.active {
-    background-color: @color-basis-bkg;
+    background-color: @color-basis-active;
     transition: background-color 0.15s ease-in;
+}
+
+.nav-button:hover.active {
+    background-color: @color-basis-active;
+    cursor: default;
 }
 
 .nav-additional-button.active {

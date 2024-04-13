@@ -29,13 +29,13 @@ export function createAroma() {
                 newElemHTML(
                     aromaRow, 
                     'beforeend', 
-                    `<div class="aroma-element"><p class="name-aroma">None</p></div>`
+                    `<div class="aroma-element"><p class="aroma-name">None</p></div>`
                 ); 
             } else {  
                 newElemHTML(
                     aromaRow, 
                     'beforeend', 
-                    `<div class="aroma-element"><p class="aroma-name">${sortNameAroma[i].name}</p><p class="aroma-make">${sortNameAroma[i].make}</p></div>`
+                    `<div class="aroma-element"><p class="aroma-name">${sortNameAroma[i].name}</p><p class="aroma-make">${sortNameAroma[i].make}<p></div>`
                 );
             }
         }
@@ -55,13 +55,7 @@ export function createAroma() {
         }
     }
 
-    let memoryAroma;
-    const elemButtonAroma = document.querySelector('.button-aroma');
-    
-    if (elemButtonAroma.classList.contains('allowed')) {
-        addButtonAroma(memoryAroma);
-    }
-    
+    let memoryAroma;  
     const elemNameAroma = document.querySelectorAll('.aroma-element');
     
     elemNameAroma.forEach(el => {
@@ -71,30 +65,37 @@ export function createAroma() {
             if (elemNavAdditionalAroma.classList.contains('active')) {
                 const aromaName = document.querySelector('.additional-aroma-name');
                 const aromaMake = document.querySelector('.additional-aroma-make');
+                aromaName.remove();
+
+                if (aromaMake) aromaMake.remove();
                 
-                aromaName.textContent = el.innerText.split('\n\n')[0];
-                aromaMake.textContent = el.innerText.split('\n\n')[1];
+                if (el.innerText.split('\n\n')[1]) {
+                    newElemHTML(
+                        elemNavAdditionalAroma, 
+                        'beforeend', 
+                        `<p class="additional-aroma-name"><nobr>${el.innerText.split('\n\n')[0]}</nobr><span>.&nbsp</span></p>
+                        <p class="additional-aroma-make"><nobr>${el.innerText.split('\n\n')[1]}</nobr></p>`
+                    );
+                } else {
+                    console.log('54656546');
+                    newElemHTML(
+                        elemNavAdditionalAroma, 
+                        'beforeend', 
+                        `<p class="additional-aroma-name"><nobr>${el.innerText.split('\n\n')[0]}</nobr></p>`
+                    )
+                }
             } else {   
-                elemNavAdditionalAroma.classList.add('active');
+                const elemButtonAroma = document.querySelector('.button-aroma');
                 elemButtonAroma.classList.add('allowed');
-                
-                newElem(elemNavAdditionalAroma, 'div', ['nav-additional-aroma-multi']);
-                const elemNavAdditionalAromaMulti = document.querySelector('.nav-additional-aroma-multi');
+                elemNavAdditionalAroma.classList.add('active');
                 
                 if (!memoryAroma) {
                     newElemHTML(
-                        elemNavAdditionalAromaMulti, 
+                        elemNavAdditionalAroma, 
                         'beforeend', 
-                        `<p class="additional-aroma-name"><span>${el.innerText.split('\n\n')[0]}</span></p>
-                        <p class="additional-aroma-make"><span>${el.innerText.split('\n\n')[1]}</span></p>`
+                        `<p class="additional-aroma-name"><nobr>${el.innerText.split('\n\n')[0]}</nobr><span>.&nbsp</span></p>
+                        <p class="additional-aroma-make"><nobr>${el.innerText.split('\n\n')[1]}</nobr></p>`
                     );
-                } else {
-                    newElemHTML(
-                        elemNavAdditionalAromaMulti, 
-                        'beforeend', 
-                        `<p class="additional-aroma-name"><span>${memoryAroma[0]}</span></p>
-                        <p class="additional-aroma-make"><span>${memoryAroma[1]}</span></p>`
-                    ); 
                 }
             }
 
