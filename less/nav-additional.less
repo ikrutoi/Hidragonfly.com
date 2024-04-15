@@ -1,18 +1,8 @@
-.nav {
-    grid-area: navigation;
-    grid-row: 2/3;
-    height: 36px;
-    margin: 0.5vh 4vw 0.5vh 4vw;
-    display: flex;
-    justify-content: center;
-    text-align: center;
-}
-
 .nav-additional-block {
     display: none;
 }
 
-.nav-additional-cardphoto {
+.nav-additional-cardphoto, .nav-additional-cardtext {
     background-color: @color-basis-white;
     border-radius: 30px;
     padding: 2px 7px 2px 7px; 
@@ -27,31 +17,29 @@
     transition: background-color 150ms ease-in;
 }
 
-.nav-additional-button.active {
-    background-color: @color-basis-active;
+.nav-additional-button.press-active {
+    .add-press-button;
 }
 
 .nav-additional-block.active {
     display: flex;
-    // justify-content: center;
-    // align-items: center;
 }
 
-.nav-addit-cardtext-size:hover {
-    cursor: default;
-    transition: background-color 150ms ease-in;
-}
+// .nav-addit-cardtext-size:hover {
+//     cursor: default;
+//     transition: background-color 150ms ease-in;
+// }
 
-.nav-addit-cardtext-size.active {
-    background-color: @color-basis-hover;
-    transition: background-color 150ms ease-in;
-}
+// .nav-addit-cardtext-size.active {
+//     background-color: @color-basis-hover;
+//     transition: background-color 150ms ease-in;
+// }
 
 .nav-additional-multi-title p {
     margin: 0 8px;
 }
 
-.nav-additional-multi {
+.nav-additional-multi-full {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -59,7 +47,7 @@
     border-radius: 20px;
     padding: 0 4px;
     height: 28px;
-    border: solid 1px red;
+    // border: solid 1px red;
 }
 
 .nav-additional-multi:hover {

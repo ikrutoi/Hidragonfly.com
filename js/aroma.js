@@ -102,13 +102,6 @@ export function createAroma() {
             
             memoryAroma = [`${el.innerText.split('\n\n')[0]}`, `${el.innerText.split('\n\n')[1]}`];
             
-            localStorage.setItem('test-memory-aroma', memoryAroma);
-            console.log(localStorage.getItem('test-memory-aroma'));
-            localStorage.setItem('test-2', 'Hello');
-            console.log(localStorage.length);
-            localStorage.removeItem('test-2');
-            console.log(localStorage.length);
-            
             if (memoryAroma) {
                 const elemButtonAroma = document.querySelector('.button-aroma');
 
@@ -120,10 +113,5 @@ export function createAroma() {
         el.addEventListener('pointerdown', () => addPressActivation(el));
         el.addEventListener('pointerup', () => delPressActivation(el));
     });
-
-    // localStorage.setItem('test', 1);
-    // console.log('Local-1', localStorage.getItem('test'));
-    // localStorage.removeItem('test');
-    console.log(localStorage.getItem('test-memory-aroma'));
 }
 

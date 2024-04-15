@@ -50,8 +50,8 @@ export function formationLetterArea() {
     let startNumberRows = 15;
     const maxNumberRows = 18;
     const minNumberRows = 5;
-    const buttonSizeMinus = document.querySelector('.nav-addit-size-minus');       
-    const buttonSizePlus = document.querySelector('.nav-addit-size-plus');  
+    const buttonSizeMinus = document.querySelector('.nav-additional-size-minus');       
+    const buttonSizePlus = document.querySelector('.nav-additional-size-plus');  
 
     function startSize() {
         if(!document.querySelector('.cardtext-size-row')) {
