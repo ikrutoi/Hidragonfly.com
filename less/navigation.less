@@ -12,18 +12,29 @@
     display: none;
 }
 
-.nav-additional-button {
-    color: @color-basis-black;
-    padding-right: 8px;
-    padding-left: 8px;
+.nav-additional-cardphoto {
     background-color: @color-basis-white;
+    border-radius: 30px;
+    padding: 2px 7px 2px 7px; 
+}
+
+.nav-additional-button {
+    .size-nav-additional-button;
+}
+
+.nav-additional-button:hover {
+    background-color: @color-basis-hover;
     transition: background-color 150ms ease-in;
+}
+
+.nav-additional-button.active {
+    background-color: @color-basis-active;
 }
 
 .nav-additional-block.active {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    // justify-content: center;
+    // align-items: center;
 }
 
 .nav-addit-cardtext-size:hover {
@@ -48,6 +59,7 @@
     border-radius: 20px;
     padding: 0 4px;
     height: 28px;
+    border: solid 1px red;
 }
 
 .nav-additional-multi:hover {

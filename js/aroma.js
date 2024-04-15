@@ -1,5 +1,7 @@
 import { newElem } from "./new-element.js";
 import { newElemHTML } from "./new-element.js";
+import { addPressActivation } from "./add-del-press-activation.js";
+import { delPressActivation } from "./add-del-press-activation.js";
 
 export function createAroma() {
     const blockAroma = document.querySelector('.aroma-block');    
@@ -76,10 +78,7 @@ export function createAroma() {
                         `<p class="additional-aroma-name"><nobr>${el.innerText.split('\n\n')[0]}</nobr><span>.&nbsp</span></p>
                         <p class="additional-aroma-make"><nobr>${el.innerText.split('\n\n')[1]}</nobr></p>`
                     );
-                    
-                    setTimeout(startCreateElement, 500);
                 } else {
-                    console.log('54656546');
                     newElemHTML(
                         elemNavAdditionalAroma, 
                         'beforeend', 
@@ -103,23 +102,28 @@ export function createAroma() {
             
             memoryAroma = [`${el.innerText.split('\n\n')[0]}`, `${el.innerText.split('\n\n')[1]}`];
             
+            localStorage.setItem('test-memory-aroma', memoryAroma);
+            console.log(localStorage.getItem('test-memory-aroma'));
+            localStorage.setItem('test-2', 'Hello');
+            console.log(localStorage.length);
+            localStorage.removeItem('test-2');
+            console.log(localStorage.length);
+            
             if (memoryAroma) {
                 const elemButtonAroma = document.querySelector('.button-aroma');
 
-                elemButtonAroma.setAttribute('style', 'color: #008aed')
+                elemButtonAroma.setAttribute('style', 'color: #008aed');
             }
         }
 
-        function addClassActive() {
-            el.classList.add('active')
-        }
-
-        function delClassActive() {
-            el.classList.remove('active')
-        }
-
         el.addEventListener('pointerdown', () => addButtonAroma(memoryAroma));
-        el.addEventListener('pointerdown', addClassActive);
-        el.addEventListener('pointerup', delClassActive);
+        el.addEventListener('pointerdown', () => addPressActivation(el));
+        el.addEventListener('pointerup', () => delPressActivation(el));
     });
+
+    // localStorage.setItem('test', 1);
+    // console.log('Local-1', localStorage.getItem('test'));
+    // localStorage.removeItem('test');
+    console.log(localStorage.getItem('test-memory-aroma'));
 }
+

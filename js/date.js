@@ -220,6 +220,10 @@ export function createCalendar() {
                 elemNavAdditionalDateFull.classList.add('active');
                 elemNavAdditionalDateFull.classList.add('selectedDayActive');
 
+                const elemButtonDate = document.querySelector('.button-date');
+
+                elemButtonDate.setAttribute('style', 'color: #008aed');
+
                 return memorySelectedDay = [year, numberMonth, selectedDay];
             }
     

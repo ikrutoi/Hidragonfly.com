@@ -3,7 +3,7 @@ import { keepCirclesInCorners } from "./d-n-d/keep-circles-in-corners.js";
 import { formationLetterArea } from "./card-letter.js";
 import { createAroma } from "./aroma.js";
 import { createCalendar } from "./date.js";
-import { addCropFilled } from "./header.js"
+// import { addCropFilled }
      
 export function clickButtonActive(el) {
             
@@ -68,7 +68,6 @@ export function clickButtonActive(el) {
             const elemNavAdditionalAroma = document.querySelector('.nav-additional-aroma');
             
             elemNavAdditionalAroma.classList.add('active');
-            addCropFilled(el);
         }
 
         if (el.classList.contains('button-date') && !el.classList.contains('created')) {
