@@ -1,7 +1,6 @@
 import { newElem } from "./new-element.js";
 import { newElemHTML } from "./new-element.js";
-import { addPressActivation } from "./add-del-press-activation.js";
-import { delPressActivation } from "./add-del-press-activation.js";
+import { startPressActivation } from "./start-press-activation.js";
 
 export function createAroma() {
     const blockAroma = document.querySelector('.aroma-block');    
@@ -110,8 +109,7 @@ export function createAroma() {
         }
 
         el.addEventListener('pointerdown', () => addButtonAroma(memoryAroma));
-        el.addEventListener('pointerdown', () => addPressActivation(el));
-        el.addEventListener('pointerup', () => delPressActivation(el));
+        el.addEventListener('pointerdown', () => startPressActivation(el));
     });
 }
 

@@ -2,10 +2,13 @@
     display: none;
 }
 
-.nav-additional-cardphoto, .nav-additional-cardtext {
-    background-color: @color-basis-white;
-    border-radius: 30px;
-    padding: 2px 7px 2px 7px; 
+.nav-additional-block.active {
+    .size-nav-additional-block;
+}
+
+.nav-additional-block p {
+    margin: 0 0.6rem 0 0.5rem;
+    user-select: none;
 }
 
 .nav-additional-button {
@@ -21,48 +24,23 @@
     .add-press-button;
 }
 
-.nav-additional-block.active {
-    display: flex;
+.nav-additional-button-multi {
+    .size-nav-additional-button-multi;
 }
 
-// .nav-addit-cardtext-size:hover {
-//     cursor: default;
-//     transition: background-color 150ms ease-in;
-// }
-
-// .nav-addit-cardtext-size.active {
-//     background-color: @color-basis-hover;
-//     transition: background-color 150ms ease-in;
-// }
-
-.nav-additional-multi-title p {
-    margin: 0 8px;
+.nav-additional-multi-left {
+    .size-nav-additional-multi-left;
 }
 
-.nav-additional-multi-full {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    border-radius: 20px;
-    padding: 0 4px;
-    height: 28px;
-    // border: solid 1px red;
+.nav-additional-multi-right {
+    .size-nav-additional-multi-right;
 }
 
-.nav-additional-multi:hover {
-    background-color: @color-basis-active;
+.nav-additional-multi-left:hover, .nav-additional-multi-right:hover {
+    background-color: @color-basis-hover;
     transition: background-color 150ms ease-in;
 }
 
-.nav-additional-multi:hover p {
-    transition: background-color 150ms ease-in;
-}
-
-.nav-additional-multi:last-child p {
-    padding-bottom: 2px;
-}
-
-.nav-additional-multi p {
-    font-size: 1rem;
+.nav-additional-multi-left.press-active, .nav-additional-multi-right.press-active {
+    .add-press-button;
 }

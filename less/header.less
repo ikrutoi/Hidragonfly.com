@@ -42,15 +42,16 @@
     transition: background-color 0.15s ease-in;
 }
 
+.nav-button.active {
+    background-color: @color-basis-hover;
+    cursor: default;
+}
+
 .nav-button.press-active {
     .add-press-button;
 }
 
-.nav-button:hover.active {
-    cursor: default;
-}
-
-.header-nav p, .nav-additional-envelope p, .nav-additional-cardtext p {
+.header-nav p {
     font-size: 0.8rem;
     margin: 0 0.7rem 0 0.6rem;
     user-select: none;

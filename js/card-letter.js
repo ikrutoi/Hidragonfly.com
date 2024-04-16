@@ -1,4 +1,5 @@
 import { newElem } from "./new-element.js";
+import { startPressActivation } from "./start-press-activation.js";
 
 export function formationLetterArea() {
     
@@ -67,7 +68,9 @@ export function formationLetterArea() {
         })
     }
 
-    function minusSize() {
+    function minusSize(elem) {
+        startPressActivation(elem);
+        
         startNumberRows = startNumberRows + 1;
         
         if(startNumberRows <= maxNumberRows && startNumberRows >= minNumberRows) {
@@ -77,7 +80,9 @@ export function formationLetterArea() {
         } else startNumberRows = startNumberRows - 1;
     }
     
-    function plusSize() {
+    function plusSize(elem) {
+        startPressActivation(elem);
+
         startNumberRows = startNumberRows - 1;
         
         if(startNumberRows <= maxNumberRows && startNumberRows >= minNumberRows) {
@@ -89,6 +94,6 @@ export function formationLetterArea() {
     
     setTimeout(startSize, 400);
     
-    buttonSizeMinus.addEventListener('pointerdown', minusSize);
-    buttonSizePlus.addEventListener('pointerdown', plusSize);
+    buttonSizeMinus.addEventListener('pointerdown', () => minusSize(buttonSizeMinus));
+    buttonSizePlus.addEventListener('pointerdown', () => plusSize(buttonSizePlus));
 }

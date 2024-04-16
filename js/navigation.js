@@ -3,8 +3,7 @@ import { keepCirclesInCorners } from "./d-n-d/keep-circles-in-corners.js";
 import { formationLetterArea } from "./card-letter.js";
 import { createAroma } from "./aroma.js";
 import { createCalendar } from "./date.js";
-import { addPressActivation } from "./add-del-press-activation.js";
-import { delPressActivation } from "./add-del-press-activation.js";
+import { startPressActivation } from "./start-press-activation.js";
 
 export function clickButtonActive(el) {
             
@@ -141,8 +140,7 @@ export function clickButtonActive(el) {
                 keepCirclesInCorners(startImgLeft, startImgTop, startImgWidth, startImgHeight);
             }
 
-            el.addEventListener('pointerdown', () => addPressActivation(el));
-            el.addEventListener('pointerup', () => delPressActivation(el));
+            el.addEventListener('pointerdown', () => startPressActivation(el));
             
             if(el.classList.contains('nav-addit-cardphoto-center')) {
                 el.addEventListener('pointerdown', startToCenter);
