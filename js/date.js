@@ -1,5 +1,6 @@
 import { newElemHTML } from "./new-element.js";
 import { addButtonDate } from "./date-create-button-date.js";
+// import { selectionDay} from "./date-create-button-date.js";
 
 export function createCalendar(memoryDate) {
 
@@ -148,106 +149,81 @@ export function createCalendar(memoryDate) {
         }
 
         addForbiddenAllowedDays();
+   
+        function selectionDay(year, numberMonth, day) {
+            
+            daysMonth.forEach(el => {
+                el.classList.remove('active');
+                el.classList.remove('day-neighbor');
+                el.classList.remove('left-right-previous-day')
+            });
 
-        daysMonth.forEach(el => {
+            const selectionDay = document.querySelector(`.day-${day}`);
 
-            function selectionDay() {
-                daysMonth.forEach(el => {
-                    el.classList.remove('active');
-                    el.classList.remove('day-neighbor');
-                    el.classList.remove('left-right-previous-day')
-                });
-
-                memoryNeighborDayLeft = null;
-                memoryNeighborDayRight = null;
-
-                el.classList.add('active');
+            selectionDay.classList.add('active');
+            
+            memoryNeighborDayLeft = null;
+            memoryNeighborDayRight = null;
+                      
+            const numberLeft = day - 1;
+            const numberRight = parseInt(day) + 1;                
+            const neighborLeft = document.querySelector(`.day-${numberLeft}`);
+            const neighborRight = document.querySelector(`.day-${numberRight}`);
+            console.log(numberLeft, day, numberRight);
                 
-                const numberLeft = el.textContent - 1;
-                const numberRight = parseInt(el.textContent) + 1;                
-                const neighborLeft = document.querySelector(`.day-${numberLeft}`);
-                const neighborRight = document.querySelector(`.day-${numberRight}`);
+            function addClassNeighbor() {
                 
-                function addClassNeighbor() {
-                    if (el.textContent > 1) {
-                        neighborLeft.classList.add('day-neighbor');
-                    } else if (el.textContent == 1) {
-
-                        function getQuantityDaysOfMonth(year, numberMonth) {
-                            const dateLastDay = new Date(year, numberMonth, 0);
-                            
-                            return dateLastDay.getDate();
-                        }
+                if (day > 1) {
+                    neighborLeft.classList.add('day-neighbor');
+                } else if (day == 1) {
+                    
+                    function getQuantityDaysOfMonth(year, numberMonth) {
+                        const dateLastDay = new Date(year, numberMonth, 0);
                         
-                        let lastDay = getQuantityDaysOfMonth(year, numberMonth);
-
-                        memoryNeighborDayLeft = [year, numberMonth - 1, lastDay]
-                    }
-
-                    function getLastDay() {
-                        const dateLastDay = new Date(year, numberMonth + 1, 0);
-                            
                         return dateLastDay.getDate();
                     }
+                    
+                    let lastDay = getQuantityDaysOfMonth(year, numberMonth);
+                    
+                    memoryNeighborDayLeft = [year, numberMonth - 1, lastDay]
+                }
 
-                    if (el.textContent < quantityDaysOfMonth) {
-                        neighborRight.classList.add('day-neighbor');
-                    } else if (el.textContent == getLastDay()) {
-                        memoryNeighborDayRight = [year, numberMonth + 1, 1];
-                    }
-                }            
-                    setTimeout(addClassNeighbor, 150);
-            }
+                function getLastDay() {
+                    const dateLastDay = new Date(year, numberMonth + 1, 0);
+                    
+                    return dateLastDay.getDate();
+                }
+                if (day < quantityDaysOfMonth) {
+                    neighborRight.classList.add('day-neighbor');
+                } else if (day == getLastDay()) {
+                    memoryNeighborDayRight = [year, numberMonth + 1, 1];
+                }
+            }  
 
-            // function addButtonDate() {
-            //     const elemNavAdditionalDateFull = document.querySelector('.nav-additional-date-full');             
-            //     const elemNavAdditionalDate = document.querySelector('.nav-additional-date');
-                
-            //     if (elemNavAdditionalDateFull.classList.contains('active')) {
-            //         const elemNavAdditionalDateMulti = document.querySelector('.nav-additional-date-multi');
-
-            //         elemNavAdditionalDateMulti.remove();
-            //     }
-
-            //     newElem(elemNavAdditionalDate, 'div', ['nav-additional-date-multi']);
-                
-            //     const elemNavAdditionalDateMulti = document.querySelector('.nav-additional-date-multi');    
-            //     const selectedYear = year;
-            //     const selectedMonth = nameMonth[numberMonth];
-            //     const selectedDay = el.textContent; 
-                
-            //     newElemHTML(
-            //         elemNavAdditionalDateMulti, 
-            //         'beforeend', 
-            //         `<p class="additional-date-multi"><span>${selectedYear}</span>
-            //         <span>${selectedMonth}</span>
-            //         <span>${selectedDay}</span></p>`
-            //     );
-                
-            //     elemNavAdditionalDateFull.classList.add('active');
-            //     elemNavAdditionalDateFull.classList.add('selectedDayActive');
-
-            //     const elemButtonDate = document.querySelector('.button-date');
-
-            //     elemButtonDate.setAttribute('style', 'color: #008aed');
-
-            //     localStorage.setItem('date--year', `${year}`);
-            //     localStorage.setItem('date--month', `${numberMonth}`);
-            //     localStorage.setItem('date--day', `${selectedDay}`);
-
-            //     return memorySelectedDate = [year, numberMonth, selectedDay];
-            // }
-
-    
+            setTimeout(addClassNeighbor, 150);
+        }
+  
+        daysMonth.forEach(el => {
             function addButtonMemoryDate() {
                 memorySelectedDate = addButtonDate(year, numberMonth, el.textContent);
+                console.log(memorySelectedDate);
             }
 
             if (el.classList.contains('allowed')) {
-                el.addEventListener('pointerdown', selectionDay);
+                el.addEventListener('pointerdown', () => selectionDay(year, numberMonth, el.textContent));
                 el.addEventListener('pointerdown', addButtonMemoryDate);
-            }
+            }            
         })
+
+        if (localStorage.getItem('date--year') == year && localStorage.getItem('date--month') == numberMonth) {
+            setTimeout(() => {
+                selectionDay(
+                    localStorage.getItem('date--year'), 
+                    localStorage.getItem('date--month'),
+                    localStorage.getItem('date--day')
+                )
+            }, 75);
+        }
     }
 
     addRow(year, numberMonth);

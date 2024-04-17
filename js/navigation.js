@@ -4,6 +4,8 @@ import { formationLetterArea } from "./card-letter.js";
 import { createAroma } from "./aroma.js";
 import { createCalendar } from "./date.js";
 import { startPressActivation } from "./start-press-activation.js";
+import { addButtonDate } from "./date-create-button-date.js";
+// import { selectionDay } from "./date-create-button-date.js";
 
 export function clickButtonActive(el) {
             
@@ -86,9 +88,15 @@ export function clickButtonActive(el) {
             localStorage.getItem('date--day')
         ];
 
-        // if (el.classList.contains('button-date') && memorySelectedDate) {
-        //     createCalendar(memorySelectedDate);
-        // }
+        if (el.classList.contains('button-date') && memorySelectedDate) {
+            setTimeout(() =>
+                addButtonDate(
+                    localStorage.getItem('date--year'), 
+                    localStorage.getItem('date--month'),
+                    localStorage.getItem('date--day')
+                ), 75);
+            // setTimeout(() => selectionDay(), 150);
+        }
 
         setTimeout(showBlockTimer, 200);
 

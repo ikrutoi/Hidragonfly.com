@@ -17,7 +17,6 @@ export function addButtonDate(year, numberMonth, day) {
         'December'
     ];
     const elemNavAdditionalDate = document.querySelector('.nav-additional-date');             
-    // const elemNavAdditionalDate = document.querySelector('.nav-additional-date');
     
     if (elemNavAdditionalDate.classList.contains('active')) {
         const elemNavAdditionalDateMulti = document.querySelector('.nav-additional-date-multi');
@@ -27,10 +26,7 @@ export function addButtonDate(year, numberMonth, day) {
 
     newElem(elemNavAdditionalDate, 'div', ['nav-additional-date-multi']);
     
-    const elemNavAdditionalDateMulti = document.querySelector('.nav-additional-date-multi');    
-    // const selectedYear = year;
-    // const selectedMonth = nameMonth[numberMonth];
-    // const selectedDay = day; 
+    const elemNavAdditionalDateMulti = document.querySelector('.nav-additional-date-multi');     
     
     newElemHTML(
         elemNavAdditionalDateMulti, 
@@ -48,8 +44,10 @@ export function addButtonDate(year, numberMonth, day) {
     elemButtonDate.setAttribute('style', 'color: #008aed');
 
     localStorage.setItem('date--year', `${year}`);
-    localStorage.setItem('date--month', `${nameMonth[numberMonth]}`);
+    localStorage.setItem('date--month', `${numberMonth}`);
     localStorage.setItem('date--day', `${day}`);
 
-    return [year, nameMonth[numberMonth], day];
+    const memorySelectedDate = [year, numberMonth, day];
+
+    return memorySelectedDate;
 }
