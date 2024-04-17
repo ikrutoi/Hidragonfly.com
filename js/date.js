@@ -1,7 +1,7 @@
 import { newElemHTML } from "./new-element.js";
-import { newElem } from "./new-element.js";
+import { addButtonDate } from "./date-create-button-date.js";
 
-export function createCalendar() {
+export function createCalendar(memoryDate) {
 
     const buttonDate = document.querySelector('.button-date');
 
@@ -58,7 +58,14 @@ export function createCalendar() {
 
     const tableHeaderRow = document.querySelector('.date-table-header-row');
     const nameDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    let memorySelectedDay;
+    let memorySelectedDate;
+
+    if (memoryDate) {
+        memorySelectedDate = [memoryDate[0], memoryDate[1], memoryDate[2]];
+        console.log(memoryDate);
+        console.log(memorySelectedDate);
+    }
+
     let quantityDaysOfMonth;
     let memoryNeighborDayLeft;
     let memoryNeighborDayRight;
@@ -192,43 +199,48 @@ export function createCalendar() {
                     setTimeout(addClassNeighbor, 150);
             }
 
-            function addButtonDate() {
-                const elemNavAdditionalDateFull = document.querySelector('.nav-additional-date-full');             
-                const elemNavAdditionalDate = document.querySelector('.nav-additional-date');
+            // function addButtonDate() {
+            //     const elemNavAdditionalDateFull = document.querySelector('.nav-additional-date-full');             
+            //     const elemNavAdditionalDate = document.querySelector('.nav-additional-date');
                 
-                if (elemNavAdditionalDateFull.classList.contains('active')) {
-                    const elemNavAdditionalDateMulti = document.querySelector('.nav-additional-date-multi');
+            //     if (elemNavAdditionalDateFull.classList.contains('active')) {
+            //         const elemNavAdditionalDateMulti = document.querySelector('.nav-additional-date-multi');
 
-                    elemNavAdditionalDateMulti.remove();
-                }
+            //         elemNavAdditionalDateMulti.remove();
+            //     }
 
-                newElem(elemNavAdditionalDate, 'div', ['nav-additional-date-multi']);
+            //     newElem(elemNavAdditionalDate, 'div', ['nav-additional-date-multi']);
                 
-                const elemNavAdditionalDateMulti = document.querySelector('.nav-additional-date-multi');    
-                const selectedYear = year;
-                const selectedMonth = nameMonth[numberMonth];
-                const selectedDay = el.textContent; 
+            //     const elemNavAdditionalDateMulti = document.querySelector('.nav-additional-date-multi');    
+            //     const selectedYear = year;
+            //     const selectedMonth = nameMonth[numberMonth];
+            //     const selectedDay = el.textContent; 
                 
-                newElemHTML(
-                    elemNavAdditionalDateMulti, 
-                    'beforeend', 
-                    `<p class="additional-date-multi"><span>${selectedYear}</span>
-                    <span>${selectedMonth}</span>
-                    <span>${selectedDay}</span></p>`
-                );
+            //     newElemHTML(
+            //         elemNavAdditionalDateMulti, 
+            //         'beforeend', 
+            //         `<p class="additional-date-multi"><span>${selectedYear}</span>
+            //         <span>${selectedMonth}</span>
+            //         <span>${selectedDay}</span></p>`
+            //     );
                 
-                elemNavAdditionalDateFull.classList.add('active');
-                elemNavAdditionalDateFull.classList.add('selectedDayActive');
+            //     elemNavAdditionalDateFull.classList.add('active');
+            //     elemNavAdditionalDateFull.classList.add('selectedDayActive');
 
-                const elemButtonDate = document.querySelector('.button-date');
+            //     const elemButtonDate = document.querySelector('.button-date');
 
-                elemButtonDate.setAttribute('style', 'color: #008aed');
+            //     elemButtonDate.setAttribute('style', 'color: #008aed');
 
-                return memorySelectedDay = [year, numberMonth, selectedDay];
-            }
+            //     localStorage.setItem('date--year', `${year}`);
+            //     localStorage.setItem('date--month', `${numberMonth}`);
+            //     localStorage.setItem('date--day', `${selectedDay}`);
+
+            //     return memorySelectedDate = [year, numberMonth, selectedDay];
+            // }
+
     
             function addButtonMemoryDate() {
-                memorySelectedDay = addButtonDate();
+                memorySelectedDate = addButtonDate(year, numberMonth, el.textContent);
             }
 
             if (el.classList.contains('allowed')) {
@@ -401,12 +413,12 @@ export function createCalendar() {
     }
 
     function validationMemorySelectedDay() {
-        if (memorySelectedDay) {
+        if (memorySelectedDate) {
             const daysMonth = document.querySelectorAll('.date-day');
             
-            if (memorySelectedDay[0] == year && memorySelectedDay[1] == numberMonth) {           
+            if (memorySelectedDate[0] == year && memorySelectedDate[1] == numberMonth) {           
                 daysMonth.forEach(el => {
-                    if (el.textContent == memorySelectedDay[2]) {
+                    if (el.textContent == memorySelectedDate[2]) {
 
                         function showActiveDay() {
 

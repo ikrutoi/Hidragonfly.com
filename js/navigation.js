@@ -74,18 +74,25 @@ export function clickButtonActive(el) {
             createCalendar();  
         }
 
-        const elemNavAdditionalDateFull = document.querySelector('.nav-additional-date-full');
+        const elemNavAdditionalDate = document.querySelector('.nav-additional-date');
 
-        if (el.classList.contains('button-date') && elemNavAdditionalDateFull.classList.contains('selectedDayActive')) { 
-            elemNavAdditionalDateFull.classList.add('active');
+        if (el.classList.contains('button-date') && elemNavAdditionalDate.classList.contains('selectedDayActive')) { 
+            elemNavAdditionalDate.classList.add('active');
         }
+
+        const memorySelectedDate = [
+            +localStorage.getItem('date--year'), 
+            +localStorage.getItem('date--month'), 
+            localStorage.getItem('date--day')
+        ];
+
+        // if (el.classList.contains('button-date') && memorySelectedDate) {
+        //     createCalendar(memorySelectedDate);
+        // }
 
         setTimeout(showBlockTimer, 200);
 
         const buttonNavAdditional = document.querySelectorAll('.nav-additional-button');
-        
-        // buttonNavAdditional.forEach((el) => {
-        // })
         
         buttonNavAdditional.forEach((el) => {
             removeClassActive(el);

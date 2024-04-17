@@ -17,7 +17,7 @@
 
 .nav-additional-button:hover {
     background-color: @color-basis-hover;
-    transition: background-color 150ms ease-in;
+    transition: background-color 100ms ease-in;
 }
 
 .nav-additional-button.press-active {
@@ -38,9 +38,33 @@
 
 .nav-additional-multi-left:hover, .nav-additional-multi-right:hover {
     background-color: @color-basis-hover;
-    transition: background-color 150ms ease-in;
+    transition: background-color 100ms ease-in;
 }
 
 .nav-additional-multi-left.press-active, .nav-additional-multi-right.press-active {
     .add-press-button;
+}
+
+.nav-additional-date.active {
+    background-color: @color-basis;
+    color: @color-basis-white;
+}
+
+.nav-additional-aroma {
+    display: none;
+}
+
+.nav-additional-aroma.active {
+    background-color: @color-basis;
+}
+
+.nav-additional-button-aroma {
+    background-color: @color-basis;
+    color: @color-basis-white;
+}
+
+.nav-additional-button-aroma:hover {
+    background-color: @color-basis;
+    color: @color-basis-white;
+    cursor: default;
 }

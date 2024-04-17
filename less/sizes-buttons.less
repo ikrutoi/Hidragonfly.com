@@ -1,10 +1,15 @@
-.nav-button-mixin() {
+.size-nav-header-button() {
+    color: @color-basis-black;
+    background-color: @color-basis-white;
+    transition: background-color 150ms ease-in;
     margin: 0 4px;
-    padding: 8px;
+    padding: 6px 0.7rem 6px 0.8rem;
     border-radius: 30px;
     display: flex;
     align-items: center;
     height: 16px;
+    cursor: pointer;
+    user-select: none;
 }
 
 .size-nav-additional-block {
@@ -40,7 +45,6 @@
     align-items: center;
     height: 16px;
     cursor: default;
-    // user-select: none;
     // border: solid 1px greenyellow;
 }
 
@@ -59,10 +63,6 @@
     cursor: pointer;
     // border: solid 1px red;
 }
-
-// .size-nav-additional-multi-title {
-
-// }
 
 .size-button-aroma() {
     width: 16vh*1.42;

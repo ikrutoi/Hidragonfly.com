@@ -45,30 +45,3 @@
 .aroma-make, .aroma-name {
     user-select: none;
 }
-
-@keyframes show-rows {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-.nav-additional-aroma {
-    display: none;
-}
-
-.nav-additional-aroma.active {
-    .size-nav-additional-button;
-    animation-name: show-rows;
-    animation-duration: 150ms;
-    background-color: @color-basis;
-    color: @color-basis-white;
-}
-
-.nav-additional-aroma p {
-    display: flex;
-    align-items: center;
-}
-

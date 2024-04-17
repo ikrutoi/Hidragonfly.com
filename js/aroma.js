@@ -63,7 +63,11 @@ export function createAroma() {
         const elemNavAdditionalAroma = document.querySelector('.nav-additional-aroma');
         
         function addButtonAroma(memoryAroma) {
-            if (elemNavAdditionalAroma.classList.contains('active')) {
+            newElem(elemNavAdditionalAroma, 'div', ['nav-additional-button', 'nav-additional-button-aroma']);
+
+            const elemNavAdditionalButtonAroma = document.querySelector('.nav-additional-button-aroma');
+
+            if (elemNavAdditionalButtonAroma.classList.contains('active')) {
                 const aromaName = document.querySelector('.additional-aroma-name');
                 const aromaMake = document.querySelector('.additional-aroma-make');
                 aromaName.remove();
@@ -72,14 +76,14 @@ export function createAroma() {
                 
                 if (el.innerText.split('\n\n')[1]) {
                     newElemHTML(
-                        elemNavAdditionalAroma, 
+                        elemNavAdditionalButtonAroma, 
                         'beforeend', 
                         `<p class="additional-aroma-name"><nobr>${el.innerText.split('\n\n')[0]}</nobr><span>.&nbsp</span></p>
                         <p class="additional-aroma-make"><nobr>${el.innerText.split('\n\n')[1]}</nobr></p>`
                     );
                 } else {
                     newElemHTML(
-                        elemNavAdditionalAroma, 
+                        elemNavAdditionalButtonAroma, 
                         'beforeend', 
                         `<p class="additional-aroma-name"><nobr>${el.innerText.split('\n\n')[0]}</nobr></p>`
                     )
@@ -91,7 +95,7 @@ export function createAroma() {
                 
                 if (!memoryAroma) {
                     newElemHTML(
-                        elemNavAdditionalAroma, 
+                        elemNavAdditionalButtonAroma, 
                         'beforeend', 
                         `<p class="additional-aroma-name"><nobr>${el.innerText.split('\n\n')[0]}</nobr><span>.&nbsp</span></p>
                         <p class="additional-aroma-make"><nobr>${el.innerText.split('\n\n')[1]}</nobr></p>`
