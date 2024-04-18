@@ -216,13 +216,11 @@ export function createCalendar(memoryDate) {
         })
 
         if (localStorage.getItem('date--year') == year && localStorage.getItem('date--month') == numberMonth) {
-            setTimeout(() => {
-                selectionDay(
-                    localStorage.getItem('date--year'), 
-                    localStorage.getItem('date--month'),
-                    localStorage.getItem('date--day')
-                )
-            }, 75);
+            selectionDay(
+                localStorage.getItem('date--year'), 
+                localStorage.getItem('date--month'),
+                localStorage.getItem('date--day')
+            );
         }
     }
 

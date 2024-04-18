@@ -82,20 +82,13 @@ export function clickButtonActive(el) {
             elemNavAdditionalDate.classList.add('active');
         }
 
-        const memorySelectedDate = [
-            +localStorage.getItem('date--year'), 
-            +localStorage.getItem('date--month'), 
-            localStorage.getItem('date--day')
-        ];
-
         if (el.classList.contains('button-date') && memorySelectedDate) {
             setTimeout(() =>
                 addButtonDate(
                     localStorage.getItem('date--year'), 
                     localStorage.getItem('date--month'),
                     localStorage.getItem('date--day')
-                ), 75);
-            // setTimeout(() => selectionDay(), 150);
+                ), 150);
         }
 
         setTimeout(showBlockTimer, 200);
