@@ -1,16 +1,12 @@
 import { newElemHTML } from "./new-element.js";
 import { addButtonDate } from "./date-create-button-date.js";
-// import { selectionDay} from "./date-create-button-date.js";
 
-export function createCalendar(memoryDate) {
+export function createCalendar(year, numberMonth, day) {
 
     const buttonDate = document.querySelector('.button-date');
 
     buttonDate.classList.add('created');
 
-    let valueDate = new Date();
-    let year = valueDate.getFullYear();
-    let numberMonth = valueDate.getMonth();
     const nameMonth = [
         'January', 
         'February', 
@@ -59,14 +55,8 @@ export function createCalendar(memoryDate) {
 
     const tableHeaderRow = document.querySelector('.date-table-header-row');
     const nameDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    
     let memorySelectedDate;
-
-    if (memoryDate) {
-        memorySelectedDate = [memoryDate[0], memoryDate[1], memoryDate[2]];
-        console.log(memoryDate);
-        console.log(memorySelectedDate);
-    }
-
     let quantityDaysOfMonth;
     let memoryNeighborDayLeft;
     let memoryNeighborDayRight;
@@ -169,7 +159,6 @@ export function createCalendar(memoryDate) {
             const numberRight = parseInt(day) + 1;                
             const neighborLeft = document.querySelector(`.day-${numberLeft}`);
             const neighborRight = document.querySelector(`.day-${numberRight}`);
-            console.log(numberLeft, day, numberRight);
                 
             function addClassNeighbor() {
                 
@@ -206,7 +195,6 @@ export function createCalendar(memoryDate) {
         daysMonth.forEach(el => {
             function addButtonMemoryDate() {
                 memorySelectedDate = addButtonDate(year, numberMonth, el.textContent);
-                console.log(memorySelectedDate);
             }
 
             if (el.classList.contains('allowed')) {
@@ -224,6 +212,7 @@ export function createCalendar(memoryDate) {
         }
     }
 
+    delRows();
     addRow(year, numberMonth);
 
     const buttonMonthPlus = document.querySelector('.date-month-plus');
@@ -234,6 +223,12 @@ export function createCalendar(memoryDate) {
     const buttonYearMinus = document.querySelector('.date-year-minus');
     const buttonYearTitle = document.querySelector('.date-year-text');
 
+    function delRows() {
+        const dateRowDays = document.querySelectorAll('.date-row-days');
+
+        dateRowDays.forEach(el => el.remove());
+    }
+    
     function changeYearMonth(val) {
 
         function changeMonth(numberMonth) {
@@ -244,11 +239,6 @@ export function createCalendar(memoryDate) {
             buttonYearTitle.textContent = `${year}`;
         }
 
-        function delRows() {
-            const dateRowDays = document.querySelectorAll('.date-row-days');
-
-            dateRowDays.forEach(el => el.remove());
-        }
 
         switch (val) {
             case 'plusYear': 

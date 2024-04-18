@@ -72,8 +72,18 @@ export function clickButtonActive(el) {
             elemNavAdditionalAroma.classList.add('active');
         }
 
+        const memorySelectedDate = [
+            +localStorage.getItem('date--year'), 
+            +localStorage.getItem('date--month'), 
+            localStorage.getItem('date--day')
+        ];
+
         if (el.classList.contains('button-date') && !el.classList.contains('created')) {
-            createCalendar();  
+            const valueDate = new Date();
+
+            if (memorySelectedDate) {
+                createCalendar(memorySelectedDate[0], memorySelectedDate[1], memorySelectedDate[2]);  
+            } else createCalendar(valueDate.getFullYear(), valueDate.getMonth(), valueDate.getDate())
         }
 
         const elemNavAdditionalDate = document.querySelector('.nav-additional-date');
@@ -83,12 +93,7 @@ export function clickButtonActive(el) {
         }
 
         if (el.classList.contains('button-date') && memorySelectedDate) {
-            setTimeout(() =>
-                addButtonDate(
-                    localStorage.getItem('date--year'), 
-                    localStorage.getItem('date--month'),
-                    localStorage.getItem('date--day')
-                ), 150);
+            setTimeout(() => addButtonDate(memorySelectedDate[0], memorySelectedDate[1], memorySelectedDate[2]), 150);
         }
 
         setTimeout(showBlockTimer, 200);
