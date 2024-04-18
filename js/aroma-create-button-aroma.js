@@ -17,6 +17,7 @@ export function addButtonAroma(memoryAroma) {
     }
     
     if (memoryAroma[1]) {
+        console.log(memoryAroma[1]);
         newElemHTML(
             elemNavAdditionalButtonAroma, 
             'beforeend', 
@@ -30,6 +31,7 @@ export function addButtonAroma(memoryAroma) {
             `<p class="additional-aroma-name"><nobr>${memoryAroma[0]}</nobr></p>`
         )
     }
+
     localStorage.setItem('aroma--name', `${memoryAroma[0]}`);
     localStorage.setItem('aroma--make', `${memoryAroma[1]}`);
 }
