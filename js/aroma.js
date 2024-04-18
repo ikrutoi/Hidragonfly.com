@@ -1,6 +1,7 @@
 import { newElem } from "./new-element.js";
 import { newElemHTML } from "./new-element.js";
 import { startPressActivation } from "./start-press-activation.js";
+import { addButtonAroma } from "./aroma-create-button-aroma.js";
 
 export function createAroma() {
     const blockAroma = document.querySelector('.aroma-block');    
@@ -55,61 +56,17 @@ export function createAroma() {
             addElementAroma(aromaRow);
         }
     }
-
-    let memoryAroma;  
+ 
     const elemNameAroma = document.querySelectorAll('.aroma-element');
     
     elemNameAroma.forEach(el => {
-        const elemNavAdditionalAroma = document.querySelector('.nav-additional-aroma');
-        const elemNavAdditionalButtonAroma = document.querySelector('.nav-additional-button-aroma');
-        
-        function addButtonAroma(memoryAroma) {
-            if (elemNavAdditionalAroma.classList.contains('active')) {
-                const aromaName = document.querySelector('.additional-aroma-name');
-                const aromaMake = document.querySelector('.additional-aroma-make');
-                aromaName.remove();
-                
-                if (aromaMake) aromaMake.remove();
-                
-                if (el.innerText.split('\n\n')[1]) {
-                    newElemHTML(
-                        elemNavAdditionalButtonAroma, 
-                        'beforeend', 
-                        `<p class="additional-aroma-name"><nobr>${el.innerText.split('\n\n')[0]}</nobr><span>.&nbsp</span></p>
-                        <p class="additional-aroma-make"><nobr>${el.innerText.split('\n\n')[1]}</nobr></p>`
-                    );
-                } else {
-                    newElemHTML(
-                        elemNavAdditionalButtonAroma, 
-                        'beforeend', 
-                        `<p class="additional-aroma-name"><nobr>${el.innerText.split('\n\n')[0]}</nobr></p>`
-                    )
-                }
-            } else {   
-                const elemButtonAroma = document.querySelector('.button-aroma');
-                elemButtonAroma.classList.add('allowed');
-                elemNavAdditionalAroma.classList.add('active');
-                
-                if (!memoryAroma) {
-                    newElemHTML(
-                        elemNavAdditionalButtonAroma, 
-                        'beforeend', 
-                        `<p class="additional-aroma-name"><nobr>${el.innerText.split('\n\n')[0]}</nobr><span>.&nbsp</span></p>
-                        <p class="additional-aroma-make"><nobr>${el.innerText.split('\n\n')[1]}</nobr></p>`
-                    );
-                }
-            }
-            
-            memoryAroma = [`${el.innerText.split('\n\n')[0]}`, `${el.innerText.split('\n\n')[1]}`];
-            
-            if (memoryAroma) {
-                const elemButtonAroma = document.querySelector('.button-aroma');
+        function startCreateButtonAroma() {
+            const memoryAroma = [`${el.innerText.split('\n\n')[0]}`, `${el.innerText.split('\n\n')[1]}`];
 
-                elemButtonAroma.setAttribute('style', 'color: #008aed');
-            }
+            addButtonAroma(memoryAroma);
         }
 
-        el.addEventListener('pointerdown', () => addButtonAroma(memoryAroma));
+        el.addEventListener('pointerdown', startCreateButtonAroma);
         el.addEventListener('pointerdown', () => startPressActivation(el));
     });
 }

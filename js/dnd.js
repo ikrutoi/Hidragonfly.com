@@ -1,5 +1,5 @@
-import { newElem } from "../new-element.js";
-import { captureAreaMove } from "./capture-area-move.js";
+import { newElem } from "./new-element.js";
+import { captureAreaMove } from "./dnd-capture-area-move.js";
 
 const blockNewImgRubber = document.querySelector('.new-img-rubber');
 const blockParent = document.querySelector('.main');

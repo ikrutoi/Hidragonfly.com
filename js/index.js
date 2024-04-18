@@ -7,6 +7,10 @@ const memorySelectedDate = [
     +localStorage.getItem('date--month'), 
     localStorage.getItem('date--day')
 ];
+const memoryAroma = [
+    localStorage.getItem('aroma--name'), 
+    localStorage.getItem('aroma--make') 
+];
 
 buttonMenuNav.forEach((el) => {
     function startClassActive() {
@@ -16,8 +20,12 @@ buttonMenuNav.forEach((el) => {
         }        
     }
 
+    if (el.classList.contains('button-aroma') && memoryAroma) {
+        el.classList.add('value-in-memory');
+    }
+    
     if (el.classList.contains('button-date') && memorySelectedDate) {      
-        el.setAttribute('style', 'color: #008aed');
+        el.classList.add('value-in-memory');
     }
 
     el.addEventListener('pointerdown', startClassActive);

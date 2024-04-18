@@ -1,10 +1,11 @@
-import { dragNDrop } from "./d-n-d/d-n-d.js";
-import { keepCirclesInCorners } from "./d-n-d/keep-circles-in-corners.js";
+import { dragNDrop } from "./dnd.js";
+import { keepCirclesInCorners } from "./dnd-keep-circles-in-corners.js";
 import { formationLetterArea } from "./card-letter.js";
 import { createAroma } from "./aroma.js";
 import { createCalendar } from "./date.js";
 import { startPressActivation } from "./start-press-activation.js";
 import { addButtonDate } from "./date-create-button-date.js";
+import { addButtonAroma } from "./aroma-create-button-aroma.js";
 // import { selectionDay } from "./date-create-button-date.js";
 
 export function clickButtonActive(el) {
@@ -66,10 +67,16 @@ export function clickButtonActive(el) {
             }
         }
 
-        if (el.classList.contains('button-aroma') && el.classList.contains('allowed')) {
+        const memoryAroma = [
+            localStorage.getItem('aroma--name'), 
+            localStorage.getItem('aroma--make') 
+        ];
+
+        if (el.classList.contains('button-aroma') && memoryAroma) {
             const elemNavAdditionalAroma = document.querySelector('.nav-additional-aroma');
             
             elemNavAdditionalAroma.classList.add('active');
+            addButtonAroma(memoryAroma);
         }
 
         const memorySelectedDate = [

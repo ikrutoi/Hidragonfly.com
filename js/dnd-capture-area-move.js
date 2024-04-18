@@ -1,4 +1,4 @@
-import { keepCirclesInCorners } from "./keep-circles-in-corners.js";
+import { keepCirclesInCorners } from "./dnd-keep-circles-in-corners.js";
 
 export function captureAreaMove(ev) {
         const areaCut = document.querySelector('.new-area');
