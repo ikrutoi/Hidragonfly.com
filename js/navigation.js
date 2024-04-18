@@ -73,10 +73,7 @@ export function clickButtonActive(el) {
         ];
 
         if (el.classList.contains('button-aroma') && memoryAroma) {
-            const elemNavAdditionalAroma = document.querySelector('.nav-additional-aroma');
-            
-            elemNavAdditionalAroma.classList.add('active');
-            addButtonAroma(memoryAroma);
+            setTimeout(() => addButtonAroma(memoryAroma), 150);
         }
 
         const memorySelectedDate = [
