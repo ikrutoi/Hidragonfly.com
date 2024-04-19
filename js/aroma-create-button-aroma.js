@@ -16,22 +16,26 @@ export function addButtonAroma(memoryAroma) {
         }
     }
     
-    if (memoryAroma[1]) {
-        console.log(memoryAroma[1]);
+    if (memoryAroma[1] == 'undefined' || memoryAroma[1] == null) {
+        newElemHTML(
+            elemNavAdditionalButtonAroma, 
+            'beforeend', 
+            `<p class="additional-aroma-name"><nobr>${memoryAroma[0]}</nobr></p>`
+        )
+    } else {
         newElemHTML(
             elemNavAdditionalButtonAroma, 
             'beforeend', 
             `<p class="additional-aroma-name"><nobr>${memoryAroma[0]}</nobr><span>.&nbsp</span></p>
             <p class="additional-aroma-make"><nobr>${memoryAroma[1]}</nobr></p>`
         );
-    } else {
-        newElemHTML(
-            elemNavAdditionalButtonAroma, 
-            'beforeend', 
-            `<p class="additional-aroma-name"><nobr>${memoryAroma[0]}</nobr></p>`
-        )
     }
 
     localStorage.setItem('aroma--name', `${memoryAroma[0]}`);
     localStorage.setItem('aroma--make', `${memoryAroma[1]}`);
+
+    if (localStorage.getItem('aroma--name')) {
+        const elemButtonAroma = document.querySelector('.button-aroma');
+        elemButtonAroma.classList.add('value-in-memory');
+    }
 }

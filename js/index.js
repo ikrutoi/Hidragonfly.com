@@ -20,7 +20,7 @@ buttonMenuNav.forEach((el) => {
         }        
     }
 
-    if (el.classList.contains('button-aroma') && memoryAroma) {
+    if (el.classList.contains('button-aroma') && localStorage.getItem('aroma--name')) {
         el.classList.add('value-in-memory');
     }
     
@@ -31,3 +31,15 @@ buttonMenuNav.forEach((el) => {
     el.addEventListener('pointerdown', startClassActive);
 });
 
+function clearLocalStarage() {
+    localStorage.clear();  
+    buttonMenuNav.forEach(el => el.classList.remove('value-in-memory'));
+
+    const navAdditionalBlockAroma = document.querySelector('.nav-additional-aroma');
+    navAdditionalBlockAroma.classList.remove('active');
+    
+    const navAdditionalBlockDate = document.querySelector('.nav-additional-date');
+    navAdditionalBlockDate.classList.remove('active');
+}
+
+setTimeout(clearLocalStarage, 20000);

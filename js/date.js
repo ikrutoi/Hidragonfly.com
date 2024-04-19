@@ -1,11 +1,14 @@
 import { newElemHTML } from "./new-element.js";
 import { addButtonDate } from "./date-create-button-date.js";
 
-export function createCalendar(year, numberMonth, day) {
+export function createCalendar(newYear, newNumberMonth, day) {
 
     const buttonDate = document.querySelector('.button-date');
 
     buttonDate.classList.add('created');
+
+    let year = newYear;
+    let numberMonth = newNumberMonth;
 
     const nameMonth = [
         'January', 
@@ -117,7 +120,7 @@ export function createCalendar(year, numberMonth, day) {
         newRow(numberRow);
  
         const daysMonth = document.querySelectorAll('.date-day-counter');
-        
+     
         daysMonth.forEach(el => {
             if (year == new Date().getFullYear() && numberMonth == new Date().getMonth() && el.textContent == new Date().getDate()) {
                 el.classList.add('today-day');
@@ -194,6 +197,7 @@ export function createCalendar(year, numberMonth, day) {
   
         daysMonth.forEach(el => {
             function addButtonMemoryDate() {
+                console.log(year, numberMonth, el.textContent);
                 memorySelectedDate = addButtonDate(year, numberMonth, el.textContent);
             }
 

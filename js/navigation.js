@@ -59,6 +59,8 @@ export function clickButtonActive(el) {
             formationLetterArea();
         }
 
+//* Block Aroma */
+
         if (el.classList.contains('button-aroma')) {
             const blockAroma = document.querySelector('.aroma-block');
 
@@ -67,14 +69,14 @@ export function clickButtonActive(el) {
             }
         }
 
-        const memoryAroma = [
-            localStorage.getItem('aroma--name'), 
-            localStorage.getItem('aroma--make') 
-        ];
-
-        if (el.classList.contains('button-aroma') && memoryAroma) {
-            setTimeout(() => addButtonAroma(memoryAroma), 150);
+        if (el.classList.contains('button-aroma') && localStorage.getItem('aroma--name')) {         
+            setTimeout(() => addButtonAroma(
+                [localStorage.getItem('aroma--name'),
+                localStorage.getItem('aroma--make')]
+            ), 150);
         }
+
+//* Block Date */
 
         const memorySelectedDate = [
             +localStorage.getItem('date--year'), 
@@ -83,11 +85,12 @@ export function clickButtonActive(el) {
         ];
 
         if (el.classList.contains('button-date') && !el.classList.contains('created')) {
-            const valueDate = new Date();
 
             if (memorySelectedDate) {
                 createCalendar(memorySelectedDate[0], memorySelectedDate[1], memorySelectedDate[2]);  
-            } else createCalendar(valueDate.getFullYear(), valueDate.getMonth(), valueDate.getDate())
+            } else {
+                createCalendar(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())
+            }
         }
 
         const elemNavAdditionalDate = document.querySelector('.nav-additional-date');

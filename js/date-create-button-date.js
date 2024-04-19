@@ -39,10 +39,6 @@ export function addButtonDate(year, numberMonth, day) {
     elemNavAdditionalDate.classList.add('active');
     elemNavAdditionalDate.classList.add('selectedDayActive');
 
-    const elemButtonDate = document.querySelector('.button-date');
-
-    elemButtonDate.setAttribute('style', 'color: #008aed');
-
     localStorage.setItem('date--year', `${year}`);
     localStorage.setItem('date--month', `${numberMonth}`);
     localStorage.setItem('date--day', `${day}`);
