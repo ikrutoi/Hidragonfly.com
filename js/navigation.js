@@ -6,7 +6,6 @@ import { createCalendar } from "./date.js";
 import { startPressActivation } from "./start-press-activation.js";
 import { addButtonDate } from "./date-create-button-date.js";
 import { addButtonAroma } from "./aroma-create-button-aroma.js";
-// import { selectionDay } from "./date-create-button-date.js";
 
 export function clickButtonActive(el) {
             
@@ -59,7 +58,7 @@ export function clickButtonActive(el) {
             formationLetterArea();
         }
 
-//* Block Aroma */
+//** Block Aroma */
 
         if (el.classList.contains('button-aroma')) {
             const blockAroma = document.querySelector('.aroma-block');
@@ -69,41 +68,46 @@ export function clickButtonActive(el) {
             }
         }
 
-        if (el.classList.contains('button-aroma') && localStorage.getItem('aroma--name')) {         
+        if (el.classList.contains('button-aroma') && sessionStorage.getItem('aroma--name')) {         
             setTimeout(() => addButtonAroma(
-                [localStorage.getItem('aroma--name'),
-                localStorage.getItem('aroma--make')]
+                [sessionStorage.getItem('aroma--name'),
+                sessionStorage.getItem('aroma--make')]
             ), 150);
         }
 
-//* Block Date */
-
-        const memorySelectedDate = [
-            +localStorage.getItem('date--year'), 
-            +localStorage.getItem('date--month'), 
-            localStorage.getItem('date--day')
-        ];
+//** Block Date */
 
         if (el.classList.contains('button-date') && !el.classList.contains('created')) {
 
-            if (memorySelectedDate) {
-                createCalendar(memorySelectedDate[0], memorySelectedDate[1], memorySelectedDate[2]);  
+            if (sessionStorage.getItem('date--year')) {
+                createCalendar(
+                    +sessionStorage.getItem('date--year'), 
+                    +sessionStorage.getItem('date--month'),
+                    +sessionStorage.getItem('date--day')
+                );  
             } else {
-                createCalendar(new Date().getFullYear(), new Date().getMonth(), new Date().getDate())
+                createCalendar(
+                    new Date().getFullYear(), 
+                    new Date().getMonth(), 
+                    new Date().getDate()
+                );
             }
-        }
-
-        const elemNavAdditionalDate = document.querySelector('.nav-additional-date');
-
-        if (el.classList.contains('button-date') && elemNavAdditionalDate.classList.contains('selectedDayActive')) { 
+        }   
+            
+        if (el.classList.contains('button-date') && sessionStorage.getItem('date--year')) {
+            const elemNavAdditionalDate = document.querySelector('.nav-additional-date');
             elemNavAdditionalDate.classList.add('active');
+
+            setTimeout(() => addButtonDate(
+                +sessionStorage.getItem('date--year'),
+                +sessionStorage.getItem('date--month'),
+                +sessionStorage.getItem('date--day')
+            ), 150);
         }
 
-        if (el.classList.contains('button-date') && memorySelectedDate) {
-            setTimeout(() => addButtonDate(memorySelectedDate[0], memorySelectedDate[1], memorySelectedDate[2]), 150);
-        }
+//** ---------- */
 
-        setTimeout(showBlockTimer, 200);
+        setTimeout(showBlockTimer, 150);
 
         const buttonNavAdditional = document.querySelectorAll('.nav-additional-button');
         

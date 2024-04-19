@@ -1,4 +1,5 @@
 import { newElemHTML } from "./new-element.js";
+import { clearLocalStarage } from "./clear-local-storage.js";
 
 const elemNavAdditionalButtonAroma = document.querySelector('.nav-additional-button-aroma');
 
@@ -31,10 +32,10 @@ export function addButtonAroma(memoryAroma) {
         );
     }
 
-    localStorage.setItem('aroma--name', `${memoryAroma[0]}`);
-    localStorage.setItem('aroma--make', `${memoryAroma[1]}`);
+    sessionStorage.setItem('aroma--name', `${memoryAroma[0]}`);
+    sessionStorage.setItem('aroma--make', `${memoryAroma[1]}`);
 
-    if (localStorage.getItem('aroma--name')) {
+    if (sessionStorage.getItem('aroma--name')) {
         const elemButtonAroma = document.querySelector('.button-aroma');
         elemButtonAroma.classList.add('value-in-memory');
     }

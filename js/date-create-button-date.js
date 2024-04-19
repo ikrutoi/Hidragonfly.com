@@ -2,6 +2,7 @@ import { newElem } from "./new-element.js";
 import { newElemHTML } from "./new-element.js";
 
 export function addButtonDate(year, numberMonth, day) {
+    // console.log(year, numberMonth, day);
     const nameMonth = [
         'January', 
         'February', 
@@ -16,20 +17,21 @@ export function addButtonDate(year, numberMonth, day) {
         'November',
         'December'
     ];
-    const elemNavAdditionalDate = document.querySelector('.nav-additional-date');             
-    
-    if (elemNavAdditionalDate.classList.contains('active')) {
-        const elemNavAdditionalDateMulti = document.querySelector('.nav-additional-date-multi');
 
+    const elemNavAdditionalDateMulti = document.querySelector('.nav-additional-date-multi');
+   
+    if (elemNavAdditionalDateMulti) {
         elemNavAdditionalDateMulti.remove();
     }
+    
+    const elemNavAdditionalDate = document.querySelector('.nav-additional-date'); 
 
     newElem(elemNavAdditionalDate, 'div', ['nav-additional-date-multi']);
     
-    const elemNavAdditionalDateMulti = document.querySelector('.nav-additional-date-multi');     
+    const newElemNavAdditionalDateMulti = document.querySelector('.nav-additional-date-multi');     
     
     newElemHTML(
-        elemNavAdditionalDateMulti, 
+        newElemNavAdditionalDateMulti, 
         'beforeend', 
         `<p class="additional-date-multi"><span>${year}</span>
         <span>${nameMonth[numberMonth]}</span>
@@ -37,11 +39,15 @@ export function addButtonDate(year, numberMonth, day) {
     );
     
     elemNavAdditionalDate.classList.add('active');
-    elemNavAdditionalDate.classList.add('selectedDayActive');
 
-    localStorage.setItem('date--year', `${year}`);
-    localStorage.setItem('date--month', `${numberMonth}`);
-    localStorage.setItem('date--day', `${day}`);
+    sessionStorage.setItem('date--year', `${year}`);
+    sessionStorage.setItem('date--month', `${numberMonth}`);
+    sessionStorage.setItem('date--day', `${day}`);
+
+    if (sessionStorage.getItem('date--year')) {
+        const elemButtonAroma = document.querySelector('.button-date');
+        elemButtonAroma.classList.add('value-in-memory');
+    }
 
     const memorySelectedDate = [year, numberMonth, day];
 

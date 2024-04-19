@@ -62,7 +62,6 @@ export function createAroma() {
     elemNameAroma.forEach(el => {
         function startCreateButtonAroma() {
             const memoryAroma = [`${el.innerText.split('\n\n')[0]}`, `${el.innerText.split('\n\n')[1]}`];
-
             addButtonAroma(memoryAroma);
         }
 
