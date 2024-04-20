@@ -79,12 +79,23 @@ export function createCalendar(newYear, newNumberMonth, day) {
         let numberFirstDay = getFirstDay(year, numberMonth);
         
         function getQuantityDaysOfMonth(year, numberMonth) {
-            const dateLastDay = new Date(year, numberMonth + 1, 0);
-            
-            return dateLastDay.getDate();
+            numberMonth = ++numberMonth;
+
+            if (numberMonth == 12) {
+                year = ++year;
+                numberMonth = 0;
+            }
+
+            if (numberMonth == 0) {
+                year = --year;
+                numberMonth = 11;
+            }
+
+            return new Date(year, numberMonth, 0).getDate();
         }
         
         quantityDaysOfMonth = getQuantityDaysOfMonth(year, numberMonth);
+
         let dayCounter = 0;
         let numberDayCounter = 0;
         let numberRow = 0;
@@ -148,60 +159,49 @@ export function createCalendar(newYear, newNumberMonth, day) {
             daysMonth.forEach(el => {
                 el.classList.remove('active');
                 el.classList.remove('day-neighbor');
-                el.classList.remove('left-right-previous-day')
             });
 
             const selectionDay = document.querySelector(`.day-${day}`);
-
             selectionDay.classList.add('active');
             
             memoryNeighborDayLeft = null;
             memoryNeighborDayRight = null;
-                      
-            const numberLeft = day - 1;
-            const numberRight = parseInt(day) + 1;                
-            const neighborLeft = document.querySelector(`.day-${numberLeft}`);
-            const neighborRight = document.querySelector(`.day-${numberRight}`);
+
+            const neighborLeft = document.querySelector(`.day-${day - 1}`);
+            const neighborRight = document.querySelector(`.day-${Number(day) + 1}`);
                 
             function addClassNeighbor() {
-                
-                if (day > 1) {
+                if (day > 1 && day < quantityDaysOfMonth) {
                     neighborLeft.classList.add('day-neighbor');
-                } else if (day == 1) {
-                    
-                    function getQuantityDaysOfMonth(year, numberMonth) {
-                        const dateLastDay = new Date(year, numberMonth, 0);
-                        
-                        return dateLastDay.getDate();
-                    }
-                    
-                    let lastDay = getQuantityDaysOfMonth(year, numberMonth);
-                    
-                    memoryNeighborDayLeft = [year, --numberMonth, lastDay]
-
-                    // console.log('numberMonth', numberMonth);
-
-                    // console.log('left', memoryNeighborDayLeft)
-                    
-                    if (numberMonth < 0) {
-                        year = --year;
-                        numberMonth = 11;
-                        console.log('year', year, 'month', numberMonth);
-                    }
-                    // console.log('new-year', year);
-                    console.log('correct-left', memoryNeighborDayLeft)
-                }
-
-                function getLastDay() {
-                    const dateLastDay = new Date(year, numberMonth + 1, 0);
-                    
-                    return dateLastDay.getDate();
-                }
-                if (day < quantityDaysOfMonth) {
                     neighborRight.classList.add('day-neighbor');
-                } else if (day == getLastDay()) {
-                    memoryNeighborDayRight = [year, numberMonth + 1, 1];
-                    console.log('right', memoryNeighborDayRight)
+                } else if (day == 1) {
+                    neighborRight.classList.add('day-neighbor');
+                    
+                    if (numberMonth == 0) {
+                        const yearNeighborLeft = --year;
+                        const monthNeighborLeft = 11;
+                        const lastDayMonthNeighborLeft = getQuantityDaysOfMonth(yearNeighborLeft, monthNeighborLeft);
+
+                        memoryNeighborDayLeft = [yearNeighborLeft, monthNeighborLeft, lastDayMonthNeighborLeft];
+                    } else {
+                        const monthNeighborLeft = --numberMonth;
+                        const lastDayMonthNeighborLeft = getQuantityDaysOfMonth(year, monthNeighborLeft);
+                        
+                        memoryNeighborDayLeft = [year, monthNeighborLeft, lastDayMonthNeighborLeft];
+                    }
+                } else if (day == getQuantityDaysOfMonth(year, numberMonth)) {
+                    neighborLeft.classList.add('day-neighbor');
+
+                    if (numberMonth == 11) {
+                        const yearNeighborRight = ++year;
+                        const monthNeighborRight = 0;
+
+                        memoryNeighborDayRight = [yearNeighborRight, monthNeighborRight, 1];
+                    } else {
+                        const monthNeighborRight = ++numberMonth;
+
+                        memoryNeighborDayRight = [year, monthNeighborRight, 1];
+                    }
                 }
             }  
 
@@ -212,8 +212,6 @@ export function createCalendar(newYear, newNumberMonth, day) {
             function addButtonMemoryDate() {
                 addButtonDate(year, numberMonth, Number(el.textContent));
                 memorySelectedDate = [year, numberMonth, Number(el.textContent)];
-
-                console.log('memory', memorySelectedDate);
             }
 
             if (el.classList.contains('allowed')) {
@@ -224,9 +222,9 @@ export function createCalendar(newYear, newNumberMonth, day) {
 
         if (Number(sessionStorage.getItem('date--year')) == year && Number(sessionStorage.getItem('date--month')) == numberMonth) {
             selectionDay(
-                +sessionStorage.getItem('date--year'), 
-                +sessionStorage.getItem('date--month'),
-                +sessionStorage.getItem('date--day')
+                Number(sessionStorage.getItem('date--year')), 
+                Number(sessionStorage.getItem('date--month')),
+                Number(sessionStorage.getItem('date--day'))
             );
         }
     }
@@ -274,8 +272,6 @@ export function createCalendar(newYear, newNumberMonth, day) {
                 break;
             case 'plusMonth': {
                 numberMonth = ++numberMonth;
-
-                console.log('plus', year, numberMonth);
                 
                 function verificationNumberMonth(year, numberMonth) {
                     
@@ -296,13 +292,10 @@ export function createCalendar(newYear, newNumberMonth, day) {
                 const newYearMonth = verificationNumberMonth(year, numberMonth);
                 year = newYearMonth[0];
                 numberMonth = newYearMonth[1];
-                console.log('plus//', year, numberMonth);
                 break;
             }
             case 'minusMonth': {
                 numberMonth = --numberMonth;
-
-                console.log('minus', year, numberMonth);
                 
                 function verificationNumberMonth(year, numberMonth) {
                     
@@ -323,14 +316,10 @@ export function createCalendar(newYear, newNumberMonth, day) {
                 const newYearMonth = verificationNumberMonth(year, numberMonth);
                 year = newYearMonth[0];
                 numberMonth = newYearMonth[1];
-                console.log('minus//', year, numberMonth);
                 break;
             }
         }
     }
-
-    // console.log(memoryNeighborDayLeft)
-    // console.log(memoryNeighborDayRight)
 
     function newNextYear() {
         changeYearMonth('plusYear');
@@ -403,66 +392,28 @@ export function createCalendar(newYear, newNumberMonth, day) {
             cancelMonthHover();
         }
     }
-
-    console.log('left//', memoryNeighborDayLeft)
-    console.log('right//', memoryNeighborDayRight)
-    
+   
     function validationMemorySelectedDay() {
-        console.log('////', memorySelectedDate)
-        if (memorySelectedDate) {
-            const daysMonth = document.querySelectorAll('.date-day');
-            
-            if (memorySelectedDate[0] == year && memorySelectedDate[1] == numberMonth) {           
+        const daysMonth = document.querySelectorAll('.date-day');
+        if (memoryNeighborDayLeft) {   
+            if (memoryNeighborDayLeft[0] == year && memoryNeighborDayLeft[1] == numberMonth) {
                 daysMonth.forEach(el => {
-                    // console.log('-----', typeof Number(el.textContent))
-                    if (Number(el.textContent) == memorySelectedDate[2]) {
-
-                        function showActiveDay() {
-
-                            el.classList.add('active');
-                            
-                            const numberLeft = Number(el.textContent) - 1;
-                            const numberRight = Number(el.textContent) + 1;                
-                            const neighborLeft = document.querySelector(`.day-${numberLeft}`);
-                            const neighborRight = document.querySelector(`.day-${numberRight}`);
-                            
-                            function addClassNeighbor() {
-                                if (Number(el.textContent) > 1) {
-                                    neighborLeft.classList.add('day-neighbor');
-                                }
-                                if (Number(el.textContent) < quantityDaysOfMonth) {
-                                    neighborRight.classList.add('day-neighbor');
-                                }
-                            }
-                            
-                            addClassNeighbor();
-                        }
-
-                        showActiveDay();
+                    if (Number(el.textContent) == memoryNeighborDayLeft[2]) {
+                        el.classList.add('day-neighbor');
                     }
-                })
+                })   
             }
-
-            if (!!memoryNeighborDayLeft) {   
-                if (memoryNeighborDayLeft[0] == year && memoryNeighborDayLeft[1] == numberMonth) {
-                    daysMonth.forEach(el => {
-                        if (Number(el.textContent) == memoryNeighborDayLeft[2]) {
-                            el.classList.add('left-right-previous-day');
-                        }
-                    })   
-                }
-            }
-
-            if (!!memoryNeighborDayRight) {
-                if (memoryNeighborDayRight[0] == year && memoryNeighborDayRight[1] == numberMonth) {
-                    daysMonth.forEach(el => {
-                        if (Number(el.textContent) == memoryNeighborDayRight[2]) {
-                            el.classList.add('left-right-previous-day');
-                        }
-                    })   
-                }
-            } 
         }
+        
+        if (memoryNeighborDayRight) {
+            if (memoryNeighborDayRight[0] == year && memoryNeighborDayRight[1] == numberMonth) {
+                daysMonth.forEach(el => {
+                    if (Number(el.textContent) == memoryNeighborDayRight[2]) {
+                        el.classList.add('day-neighbor');
+                    }
+                })   
+            }
+        } 
     }
 
     buttonYearPlus.addEventListener('pointerdown', newNextYear);
