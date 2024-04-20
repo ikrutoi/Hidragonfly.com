@@ -6,6 +6,7 @@ import { createCalendar } from "./date.js";
 import { startPressActivation } from "./start-press-activation.js";
 import { addButtonDate } from "./date-create-button-date.js";
 import { addButtonAroma } from "./aroma-create-button-aroma.js";
+import { readEnvelope } from "./envelope.js";
 
 export function clickButtonActive(el) {
             
@@ -53,6 +54,14 @@ export function clickButtonActive(el) {
                 el.classList.add('active');
             }
         })
+
+//** Block Envelope */
+
+        if (el.classList.contains('button-envelope')) {
+            readEnvelope();
+        }
+
+//** Block Text */
 
         if(el.classList.contains('button-cardtext')) {
             formationLetterArea();

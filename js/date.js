@@ -133,7 +133,9 @@ export function createCalendar(newYear, newNumberMonth, day) {
         const daysMonth = document.querySelectorAll('.date-day-counter');
      
         daysMonth.forEach(el => {
-            if (year == new Date().getFullYear() && numberMonth == new Date().getMonth() && el.textContent == new Date().getDate()) {
+            if (year == new Date().getFullYear() && 
+                numberMonth == new Date().getMonth() && 
+                Number(el.textContent) == new Date().getDate()) {
                 el.classList.add('today-day');
             }
         })

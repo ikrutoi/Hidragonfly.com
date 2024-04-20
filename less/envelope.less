@@ -75,7 +75,7 @@
 }
 
 .my-adress-label {
-    .envelope-style-label;
+    .style-envelope-label;
     user-select: none;
 }
 
@@ -85,17 +85,14 @@
     text-align: right;
 }
 
-.my-adress-input {
-    .envelope-style-input;
+.envelope-input {
+    .style-envelope-input;
     // font-weight: 300;
     font-style: italic;
 }
 
-.to-adress-input {
-    &:extend(.my-adress-input);
-}
-
-.to-adress-input {
+.envelope-to-input {
+    &:extend(.envelope-input);
     text-align: end;
 }
 

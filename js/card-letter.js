@@ -92,7 +92,7 @@ export function formationLetterArea() {
         } else startNumberRows = startNumberRows + 1;
     }
     
-    setTimeout(startSize, 400);
+    setTimeout(startSize, 300);
     
     buttonSizeMinus.addEventListener('pointerdown', () => minusSize(buttonSizeMinus));
     buttonSizePlus.addEventListener('pointerdown', () => plusSize(buttonSizePlus));
