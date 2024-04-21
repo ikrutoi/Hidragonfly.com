@@ -7,6 +7,8 @@ import { startPressActivation } from "./start-press-activation.js";
 import { addButtonDate } from "./date-create-button-date.js";
 import { addButtonAroma } from "./aroma-create-button-aroma.js";
 import { readEnvelope } from "./envelope.js";
+import { addRows } from "./card-letter-add-rows.js";
+import { delRows } from "./card-letter-add-rows.js";
 
 export function clickButtonActive(el) {
             
@@ -61,9 +63,9 @@ export function clickButtonActive(el) {
             readEnvelope();
         }
 
-//** Block Text */
+//** Block Card Text */
 
-        if(el.classList.contains('button-cardtext')) {
+        if (el.classList.contains('button-cardtext')) {
             formationLetterArea();
         }
 

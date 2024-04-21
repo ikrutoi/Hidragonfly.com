@@ -7,10 +7,10 @@ export function readEnvelope() {
     elemEnvelopeInput.forEach(el => {
         function readText() {
             sessionStorage.setItem(`${this.name}`, `${this.value}`);
+            validationValueSessionStorage();
         }
         
         el.addEventListener('change', readText)
     })
 
-    validationValueSessionStorage();
 }
