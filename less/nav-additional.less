@@ -74,3 +74,43 @@
     color: @color-basis-white;
     cursor: default;
 }
+
+.nav-additional-date-full {
+    animation-name: show-rows;
+    animation-duration: 150ms;
+}
+
+.nav-additional-date-full.active .nav-additional-date {
+    background-color: @color-basis;
+    color: @color-basis-white;
+}
+
+.nav-additional-date:hover {
+    user-select: none;
+    cursor: default;
+}
+
+.additional-date-multi {
+    display: flex;
+    height: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 6px 1rem;
+    border-radius: 20px;
+    user-select: none;
+}
+
+.additional-date-multi span:nth-child(2) {
+    width: 4.8rem;
+}
+
+.additional-date-multi span:nth-child(1) {
+    width: 2.4rem;
+    margin-right: 8px;
+}
+
+.additional-date-multi span:nth-child(3) {
+    width: 1.4rem;
+    margin-left: 8px;
+}
