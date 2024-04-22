@@ -1,6 +1,6 @@
 import { clickButtonActive } from './navigation.js';
 import { startPressActivation } from "./start-press-activation.js";
-import { clearLocalStarage } from './clear-local-storage.js';
+import { clearSessionStarage } from './clear-session-storage.js';
 import { validationValueSessionStorage } from './envelope-valid-ses-stor.js';
 
 const buttonMenuNav = document.querySelectorAll('.nav-button');
@@ -26,4 +26,5 @@ buttonMenuNav.forEach((el) => {
     el.addEventListener('pointerdown', startClassActive);
 });
 
-// setTimeout(clearLocalStarage, 10000);
+const elemLogoImg = document.querySelector('.logo-img');
+elemLogoImg.addEventListener('pointerdown', clearSessionStarage);

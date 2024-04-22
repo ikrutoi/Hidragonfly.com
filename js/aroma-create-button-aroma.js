@@ -1,5 +1,4 @@
 import { newElemHTML } from "./new-element.js";
-import { clearLocalStarage } from "./clear-local-storage.js";
 
 const elemNavAdditionalButtonAroma = document.querySelector('.nav-additional-button-aroma');
 

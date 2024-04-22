@@ -1,4 +1,4 @@
-export function clearLocalStarage() {
+export function clearSessionStarage() {
     sessionStorage.clear();  
 
     const buttonMenuNav = document.querySelectorAll('.nav-button');
