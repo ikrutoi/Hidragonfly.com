@@ -15,8 +15,6 @@ export function formationLetterArea() {
         const lengthText = sessionStorage.getItem('card-letter--text').length;
         const elemCardLetterLegend = document.querySelector('.card-letter-legend');
 
-        console.log(maxLength);
-
         if (!document.querySelector('.card-letter-counter')) {   
             newElemHTML(elemCardLetterLegend, 'beforeend', `<span class="card-letter-counter">${lengthText}</span>`);
             newElemHTML(elemCardLetterLegend, 'beforeend','<span>&nbsp/&nbsp</span>');
@@ -31,6 +29,7 @@ export function formationLetterArea() {
         function onInput(event) {
             const lengthText = event.target.value.length;
             elemTextAreaCounter.textContent = lengthText;
+            console.log(event.target);
         }
         
         elemTextArea.addEventListener('input', onInput);
@@ -53,8 +52,6 @@ export function formationLetterArea() {
 
         elemTextArea.classList.add('created');
         elemTextArea.setAttribute('rows', `${numberRows}`);
-
-        showMaxLength(numberRows);
 
         return lineHeightRow;
     }
@@ -99,7 +96,7 @@ export function formationLetterArea() {
             numberRows = 10;
             lineHeightRow = addRows(numberRows);
             recordNewValueFontSize('start', lineHeightRow);
-            // showMaxLength(numberRows);
+            showMaxLength(numberRows);
         }
 
         setTimeout(startRows, 300);
@@ -108,6 +105,7 @@ export function formationLetterArea() {
         delRows();
         setTimeout(() => lineHeightRow = addRows(numberRows), 300);
         recordNewValueFontSize('restart', lineHeightRow);
+        showMaxLength(numberRows);
     }
     
     function rowsMinus() {
@@ -118,7 +116,7 @@ export function formationLetterArea() {
             delRows();
             lineHeightRow = addRows(numberRows);
             recordNewValueFontSize('start', lineHeightRow);
-            // showMaxLength(numberRows);
+            showMaxLength(numberRows);
         } else numberRows = ++numberRows;
     }
     
@@ -130,7 +128,7 @@ export function formationLetterArea() {
             delRows();
             lineHeightRow = addRows(numberRows);
             recordNewValueFontSize('start', lineHeightRow);
-            // showMaxLength(numberRows);
+            showMaxLength(numberRows);
         } else numberRows = --numberRows;
     }
     

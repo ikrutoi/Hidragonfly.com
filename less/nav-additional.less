@@ -52,8 +52,7 @@
 }
 
 .nav-additional-date.active {
-    background-color: @color-basis;
-    color: @color-basis-white;
+    background-color: @color-basis-transparent;
 }
 
 .nav-additional-aroma {
@@ -61,7 +60,7 @@
 }
 
 .nav-additional-aroma.active {
-    background-color: @color-basis;
+    background-color: @color-basis-transparent;
 }
 
 .nav-additional-button-aroma {
@@ -80,24 +79,21 @@
     animation-duration: 150ms;
 }
 
-.nav-additional-date-full.active .nav-additional-date {
-    background-color: @color-basis;
-    color: @color-basis-white;
-}
-
 .nav-additional-date:hover {
     user-select: none;
     cursor: default;
 }
 
+.nav-additional-date-multi {
+    margin: 2px;
+    padding: 6px 1rem;
+    background-color: @color-basis;
+    color: @color-basis-white;
+}
+
 .additional-date-multi {
     display: flex;
-    height: 1rem;
     justify-content: space-between;
-    align-items: center;
-    // margin: 2px;
-    padding: 6px 1rem;
-    border-radius: 20px;
     user-select: none;
 }
 

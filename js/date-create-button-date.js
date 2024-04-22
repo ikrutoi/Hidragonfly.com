@@ -2,7 +2,6 @@ import { newElem } from "./new-element.js";
 import { newElemHTML } from "./new-element.js";
 
 export function addButtonDate(year, numberMonth, day) {
-    // console.log(year, numberMonth, day);
     const nameMonth = [
         'January', 
         'February', 
@@ -26,7 +25,7 @@ export function addButtonDate(year, numberMonth, day) {
     
     const elemNavAdditionalDate = document.querySelector('.nav-additional-date'); 
 
-    newElem(elemNavAdditionalDate, 'div', ['nav-additional-date-multi']);
+    newElem(elemNavAdditionalDate, 'div', ['nav-additional-button', 'nav-additional-date-multi']);
     
     const newElemNavAdditionalDateMulti = document.querySelector('.nav-additional-date-multi');     
     
