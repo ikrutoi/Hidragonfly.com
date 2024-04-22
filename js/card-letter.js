@@ -1,7 +1,41 @@
 import { newElem } from "./new-element.js";
+import { newElemHTML } from "./new-element.js";
 import { startPressActivation } from "./start-press-activation.js";
 
 export function formationLetterArea() {
+    const elemTextArea = document.querySelector('.card-letter-textarea');
+    let numberRows;
+    let lineHeightRow; 
+    let fontSizeTextArea;
+
+    function showMaxLength(numberRows) {      
+        const sampleMaxLengthRow = [22, 25, 28, 31, 34, 37, 40, 43, 46, 49, 52, 55];
+        const valueRow = numberRows - 7;
+        const maxLength = numberRows * sampleMaxLengthRow[valueRow];
+        const lengthText = sessionStorage.getItem('card-letter--text').length;
+        const elemCardLetterLegend = document.querySelector('.card-letter-legend');
+
+        console.log(maxLength);
+
+        if (!document.querySelector('.card-letter-counter')) {   
+            newElemHTML(elemCardLetterLegend, 'beforeend', `<span class="card-letter-counter">${lengthText}</span>`);
+            newElemHTML(elemCardLetterLegend, 'beforeend','<span>&nbsp/&nbsp</span>');
+            newElemHTML(elemCardLetterLegend, 'beforeend', `<span class="card-letter-maxlength">${maxLength}</span>`);
+        }
+            
+        const elemTextAreaCounter = document.querySelector('.card-letter-counter');
+        const elemTextAreaMaxLength = document.querySelector('.card-letter-maxlength');
+
+        elemTextAreaMaxLength.textContent = maxLength;
+            
+        function onInput(event) {
+            const lengthText = event.target.value.length;
+            elemTextAreaCounter.textContent = lengthText;
+        }
+        
+        elemTextArea.addEventListener('input', onInput);
+    }
+    
     function addRows(numberRows) {
         const elemLetterArea = document.querySelector('.card-letter-area');
         const areaTextHeight = elemLetterArea.getBoundingClientRect().height;
@@ -18,6 +52,9 @@ export function formationLetterArea() {
         }
 
         elemTextArea.classList.add('created');
+        elemTextArea.setAttribute('rows', `${numberRows}`);
+
+        showMaxLength(numberRows);
 
         return lineHeightRow;
     }
@@ -32,11 +69,6 @@ export function formationLetterArea() {
         })
     }
     
-    let numberRows;
-    let lineHeightRow; 
-    let fontSizeTextArea;
-    
-    const elemTextArea = document.querySelector('.card-letter-textarea');
     elemTextArea.addEventListener('change', () => {sessionStorage.setItem('card-letter--text', `${elemTextArea.value}`)});
     
     function recordNewValueFontSize(operator, lineHeightRow) { 
@@ -67,6 +99,7 @@ export function formationLetterArea() {
             numberRows = 10;
             lineHeightRow = addRows(numberRows);
             recordNewValueFontSize('start', lineHeightRow);
+            // showMaxLength(numberRows);
         }
 
         setTimeout(startRows, 300);
@@ -85,7 +118,8 @@ export function formationLetterArea() {
             delRows();
             lineHeightRow = addRows(numberRows);
             recordNewValueFontSize('start', lineHeightRow);
-        }
+            // showMaxLength(numberRows);
+        } else numberRows = ++numberRows;
     }
     
     function rowsPlus() {
@@ -96,7 +130,8 @@ export function formationLetterArea() {
             delRows();
             lineHeightRow = addRows(numberRows);
             recordNewValueFontSize('start', lineHeightRow);
-        }
+            // showMaxLength(numberRows);
+        } else numberRows = --numberRows;
     }
     
     const buttonSizePlus = document.querySelector('.nav-additional-size-plus');  
