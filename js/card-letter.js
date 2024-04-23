@@ -12,7 +12,12 @@ export function formationLetterArea() {
         const sampleMaxLengthRow = [22, 25, 28, 31, 34, 37, 40, 43, 46, 49, 52, 55];
         const valueRow = numberRows - 7;
         const maxLength = numberRows * sampleMaxLengthRow[valueRow];
-        const lengthText = sessionStorage.getItem('card-letter--text').length;
+        let lengthText;
+
+        if (sessionStorage.getItem('card-letter--text')) {
+            lengthText = sessionStorage.getItem('card-letter--text').length;
+        } else lengthText = 0;
+
         const elemCardLetterLegend = document.querySelector('.card-letter-legend');
 
         if (!document.querySelector('.card-letter-counter')) {   
@@ -29,7 +34,7 @@ export function formationLetterArea() {
         function onInput(event) {
             const lengthText = event.target.value.length;
             elemTextAreaCounter.textContent = lengthText;
-            console.log(event.target);
+            sessionStorage.setItem('card-letter--text', `${elemTextArea.value}`)
         }
         
         elemTextArea.addEventListener('input', onInput);
@@ -66,21 +71,22 @@ export function formationLetterArea() {
         })
     }
     
-    elemTextArea.addEventListener('change', () => {sessionStorage.setItem('card-letter--text', `${elemTextArea.value}`)});
-    
     function recordNewValueFontSize(operator, lineHeightRow) { 
         const stylesheet = document.styleSheets[0];
         for (const value of stylesheet.cssRules) {
             if(value.selectorText === '.card-letter-textarea') {
                 switch (operator) {
                     case 'start':   
+                        console.log(lineHeightRow);
                         fontSizeTextArea = (lineHeightRow * 0.8).toFixed(2);
                         value.style.setProperty('line-height', `${lineHeightRow}px`);
                         value.style.setProperty('font-size', `${fontSizeTextArea}px`);
                         sessionStorage.setItem('card-letter--font-size', `${fontSizeTextArea}`);
                         sessionStorage.setItem('card-letter--rows', `${numberRows}`);
+                        sessionStorage.setItem('card-letter--line-height', `${lineHeightRow}`);
                         break;
                     case 'restart':
+                        console.log(lineHeightRow);
                         fontSizeTextArea = sessionStorage.getItem('card-letter--font-size');
                         value.style.setProperty('line-height', `${lineHeightRow}px`);
                         value.style.setProperty('font-size', `${fontSizeTextArea}px`);
@@ -101,9 +107,11 @@ export function formationLetterArea() {
 
         setTimeout(startRows, 300);
     } else {
+        console.log('restart');
         numberRows = Number(sessionStorage.getItem('card-letter--rows'));
+        lineHeightRow = Number(sessionStorage.getItem('card-letter--line-height'));
         delRows();
-        setTimeout(() => lineHeightRow = addRows(numberRows), 300);
+        setTimeout(() => addRows(numberRows), 300);
         recordNewValueFontSize('restart', lineHeightRow);
         showMaxLength(numberRows);
     }

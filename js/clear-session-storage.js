@@ -21,4 +21,7 @@ export function clearSessionStarage() {
             el.classList.remove('day-neighbor');
         }
     })
+
+    const elemCardLetterTextArea = document.querySelector('.card-letter-textarea');
+    elemCardLetterTextArea.value = '';
 }
