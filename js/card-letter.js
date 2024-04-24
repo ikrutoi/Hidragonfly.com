@@ -18,6 +18,7 @@ export function formationLetterArea() {
             lengthText = sessionStorage.getItem('card-letter--text').length;
         } else lengthText = 0;
 
+
         const elemCardLetterLegend = document.querySelector('.card-letter-legend');
 
         if (!document.querySelector('.card-letter-counter')) {   
@@ -30,14 +31,22 @@ export function formationLetterArea() {
         const elemTextAreaMaxLength = document.querySelector('.card-letter-maxlength');
 
         elemTextAreaMaxLength.textContent = maxLength;
-            
+
+        function goKey(event) {
+            if (event.code === 'Enter' && event.keyCode === 13) {
+                console.log('Enter!!!');
+            }
+        }
+        
         function onInput(event) {
-            const lengthText = event.target.value.length;
+            const lengthText = event.target.value.length;  
+            console.log(lengthText); 
             elemTextAreaCounter.textContent = lengthText;
             sessionStorage.setItem('card-letter--text', `${elemTextArea.value}`)
         }
-        
+            
         elemTextArea.addEventListener('input', onInput);
+        elemTextArea.addEventListener('keyup', goKey);
     }
     
     function addRows(numberRows) {
@@ -77,7 +86,6 @@ export function formationLetterArea() {
             if(value.selectorText === '.card-letter-textarea') {
                 switch (operator) {
                     case 'start':   
-                        console.log(lineHeightRow);
                         fontSizeTextArea = (lineHeightRow * 0.8).toFixed(2);
                         value.style.setProperty('line-height', `${lineHeightRow}px`);
                         value.style.setProperty('font-size', `${fontSizeTextArea}px`);
@@ -108,6 +116,7 @@ export function formationLetterArea() {
         setTimeout(startRows, 300);
     } else {
         console.log('restart');
+        console.log(numberRows);
         numberRows = Number(sessionStorage.getItem('card-letter--rows'));
         lineHeightRow = Number(sessionStorage.getItem('card-letter--line-height'));
         delRows();

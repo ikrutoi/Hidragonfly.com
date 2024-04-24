@@ -24,4 +24,12 @@ export function clearSessionStarage() {
 
     const elemCardLetterTextArea = document.querySelector('.card-letter-textarea');
     elemCardLetterTextArea.value = '';
+
+    const elemTextArea = document.querySelector('.card-letter-textarea');
+    elemTextArea.classList.remove('created');
+    const rowTextArea = document.querySelectorAll('.text-area-row');
+
+    rowTextArea.forEach((el) => {
+        el.remove();
+    })
 }
