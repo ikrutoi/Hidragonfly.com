@@ -20,7 +20,7 @@
 .card-letter-area {
     position: relative;
     height: 100%;
-    border: solid 1px blue;
+    // border: solid 1px blue;
     // caret-width: 10px;
 }
 
@@ -37,31 +37,32 @@
     outline: none;
     resize: none;
     border: none;
-    // line-height: 130%;
     caret-color: @color-basis;
-    white-space: pre-wrap;
+    // white-space: pre-wrap;
     overflow: hidden;
     // border: solid 1px blue;
 }
 
 [contenteditable] {
-   outline: 0px solid transparent;
+    outline: 0px solid transparent;
 }
 
 .card-letter-row {
     background-color: @color-basis-white;
     padding: 0;
     width: 100%;
+    font-style: italic;
+    font-family: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+    outline: none;
+    color: @color-basis;
+    letter-spacing: 3px;
+    font-size: 2.2rem;
+    font-weight: 400;
     border-top: none;
     border-right: none;
     border-left: none;
     border-bottom: dotted 2px rgba(0, 0, 0, 0.1);
-    font-size: 2.2rem;
-    color: @color-basis;
-    font-style: italic;
-    letter-spacing: 4px;
-    outline: none;
-//    border: none;
+    //    border: none;
 }
 
 .card-letter-row.row-focus {
