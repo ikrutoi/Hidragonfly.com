@@ -1,12 +1,10 @@
-import { newElem } from "./new-element.js";
+// import { newElem } from "./new-element.js";
 import { newElemHTML } from "./new-element.js";
 import { startPressActivation } from "./start-press-activation.js";
 
 export function formationLetterArea() {
     const elemLetterArea = document.querySelector('.card-letter-area');
     let numberRows;
-    // let lineHeightRow; 
-    // let fontSizeTextArea;
 
     function showMaxLength(numberRows) {  
         const sampleMaxLengthRow = [22, 25, 28, 31, 34, 37, 40, 43, 46, 49, 52, 55];
@@ -36,42 +34,41 @@ export function formationLetterArea() {
 
         const elemCardLetterRow = document.querySelectorAll('.card-letter-row');  
         
-        function goKey(event, el) {
+        function validationKey(event, el) {
             const elemNumberRow = Number(el.getAttribute('data-row'));
             const elemCardLetterRowBlur = document.querySelector(`.letter-row-${elemNumberRow}`);
             const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow + 1}`)
 
             const lengthText = event.target.value.length;  
             elemTextAreaCounter.textContent = lengthText;
-            let cutArray;
-            let restArray;
+            let cutText;
+            let restText;
 
             if (event.code === 'Enter' || event.keyCode === 13) {
-                // el.setSelectionRange(event.target.selectionStart, event.target.value.length);
-                // el.selectionStart = event.target.selectionStart;
-                // el.selectionEnd = event.target.value.length;
-
                 el.setSelectionRange(event.target.selectionStart, event.target.value.length);
-                cutArray = event.target.value.slice(event.target.selectionStart, event.target.value.length);
-                restArray = event.target.value.slice(0, event.target.selectionStart);
-                console.log(event.target.value, restArray, cutArray);
-                event.target.value = restArray;
+                cutText = event.target.value.slice(event.target.selectionStart, event.target.value.length);
+                restText = event.target.value.slice(0, event.target.selectionStart);
+                event.target.value = restText;
+                elemCardLetterRowBlur.classList.remove('row-focus');
+                sessionStorage.setItem(`card-letter-row-${elemNumberRow}-text`, `${restText}`);
+                elemCardLetterRowFocus.classList.add('row-focus');
+                
+                // deleteFromDocument() – удалить содержимое выделения из документа.
 
-                elemCardLetterRowFocus.value = cutArray;
+                elemCardLetterRowFocus.value = cutText;
+                sessionStorage.setItem(`card-letter-row-${elemNumberRow + 1}-text`, `${cutText}`);
+                elemCardLetterRowFocus.setSelectionRange(0, 0);
                 elemCardLetterRowFocus.focus();
-                // el.setSelectionRange(event.target.selectionStart, event.target.value.length);
-                // el.setSelectionRange(event.target.selectionStart, event.target.value.length) = '';
-                // console.log(el.setSelectionRange(event.target.selectionStart, event.target.value.length));
             }
 
-            // if (event.code === 'Enter' || event.keyCode === 13 || event.code === 'ArrowDown' || event.keyCode === 40) {
-            //     const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
-            //     elemCardLetterRowFocus.classList.add('row-focus');
-            //     // elemCardLetterRowFocus.setAttribute('maxlength', '25');
-            //     elemCardLetterRowFocus.focus();
+            if (event.code === 'ArrowDown' || event.keyCode === 40) {
+                const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
+                elemCardLetterRowFocus.classList.add('row-focus');
+                // elemCardLetterRowFocus.setAttribute('maxlength', '25');
+                elemCardLetterRowFocus.focus();
 
-            //     elemCardLetterRowBlur.classList.remove('row-focus');
-            // }
+                elemCardLetterRowBlur.classList.remove('row-focus');
+            }
             
             if (event.code === 'ArrowUp' || event.keyCode === 38) {
                 const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow - 1}`);
@@ -81,11 +78,13 @@ export function formationLetterArea() {
 
                 elemCardLetterRowBlur.classList.remove('row-focus');
             }
-        }
 
-        function goSelection(el) {
-            el.selectionStart = 3;
-            el.selectionEnd = 6;
+            if (event.code === 'Backspace' || event.keyCode === 8) {
+                console.log('Backspace');
+                if (event.target.selectionStart == 0) {
+                    console.log('Backspace!!');
+                }
+            }
         }
 
         function goRowFocus(el) {
@@ -104,8 +103,8 @@ export function formationLetterArea() {
             elemTextAreaCounter.textContent = lengthText;
 
             const numberRow = Number(el.getAttribute('data-row'));
+            sessionStorage.setItem(`card-letter-row-${numberRow}-text`, `${el.value}`);
             // const elemNumberRowPointerDown = document.querySelector(`.letter-row-${numberRowPointerDown}`);
-            sessionStorage.setItem(`card-letter-row-${numberRow}-text`, `${el.value}`)
         }
        
         elemCardLetterRow.forEach(el => {
@@ -114,10 +113,9 @@ export function formationLetterArea() {
                 el.classList.add('row-focus');
             }
 
-            el.addEventListener('keydown', (event) => goKey(event, el));
+            el.addEventListener('keydown', (event) => validationKey(event, el));
             el.addEventListener('pointerdown', () => goRowFocus(el));
-            // el.addEventListener('pointerup', () => goSelection(el));
-            // el.addEventListener('input', (event) => goInput(event, el));
+            el.addEventListener('input', (event) => goInput(event, el));
         })
     }
     
@@ -169,4 +167,4 @@ export function formationLetterArea() {
             }         
         }
     }
-          
+}
