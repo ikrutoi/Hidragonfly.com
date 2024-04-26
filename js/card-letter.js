@@ -31,19 +31,22 @@ export function formationLetterArea() {
         const elemTextAreaCounter = document.querySelector('.card-letter-counter');
         const elemTextAreaMaxLength = document.querySelector('.card-letter-maxlength');
         elemTextAreaMaxLength.textContent = maxLength;
-
+        
+        const elemFirstCardLetterRow = document.querySelector('.card-letter-row');
+        const maxLengthRow = elemFirstCardLetterRow.getAttribute('maxlength');
         const elemCardLetterRow = document.querySelectorAll('.card-letter-row');  
         
         function validationKey(event, el) {
             const elemNumberRow = Number(el.getAttribute('data-row'));
-            const maxLengthRow = el.getAttribute('maxlength');
-            const elemCardLetterRowBlur = document.querySelector(`.letter-row-${elemNumberRow}`);
+            let elemCardLetterRowBlur = document.querySelector(`.letter-row-${elemNumberRow}`);
             const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow + 1}`)
 
             const lengthText = event.target.value.length;  
             elemTextAreaCounter.textContent = lengthText;
             let cutText;
             let restText;
+
+            // console.log(event.target.value);
 
             if (event.code === 'Enter' || event.keyCode === 13) {
                 el.setSelectionRange(event.target.selectionStart, event.target.value.length);
@@ -62,11 +65,46 @@ export function formationLetterArea() {
                 elemCardLetterRowFocus.focus();
             }
 
+            // console.log(event.target.value, maxLengthRow);
+
+            // if (event.target.value.length >= maxLengthRow - 1) {
+            //     elemCardLetterRowBlur.classList.remove('row-focus');
+            //     const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
+            //     elemCardLetterRowFocus.classList.add('row-focus');
+            //     elemCardLetterRowFocus.focus();
+            // }
+
+            if (event.target.value.length >= maxLengthRow) {
+                const transitionLetter = event.target.value[maxLengthRow - 1];
+
+                const newCardLetterRowBlur = event.target.value.slice(0, maxLengthRow - 2);
+                elemCardLetterRowBlur = newCardLetterRowBlur;
+
+                const tempCardLetterRowFocus = elemCardLetterRowFocus.value;
+                elemCardLetterRowFocus.value = transitionLetter + tempCardLetterRowFocus;
+                // console.log(transitionLetter);
+
+
+                // if (elemCardLetterRowFocus.value[0]) {      
+                //     // console.log(elemCardLetterRowFocus)              
+                //     for(let i = maxLengthRow - 1; i = 0; i--) {
+                //         if (elemCardLetterRowFocus.value[i]) {
+                //             elemCardLetterRowFocus.value[i + 1] = elemCardLetterRowFocus.value[i];
+                //         }
+                //     }
+                //     elemCardLetterRowFocus.value[0] = transitionLetter;
+                // } else {elemCardLetterRowFocus.value[0] = transitionLetter;}
+                
+                // console.log(event.target.value)
+                // event.target.value[maxLengthRow - 1] = '';
+            }
+
             if (event.code === 'ArrowDown' || event.keyCode === 40) {
                 elemCardLetterRowBlur.classList.remove('row-focus');
                 const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
                 elemCardLetterRowFocus.classList.add('row-focus');
                 elemCardLetterRowFocus.focus();
+                // setTimeout(() => elemCardLetterRowFocus.focus(), 0);
             }
             
             if (event.code === 'ArrowUp' || event.keyCode === 38) {
@@ -109,8 +147,7 @@ export function formationLetterArea() {
                         textRemaining = elemCardLetterRowBlur.value;
                     }
 
-                    if (foundNumberPos == -1) {
-                        console.log('-1');        
+                    if (foundNumberPos == -1) {       
                         textToWrap = elemCardLetterRowBlur.value;
                         textRemaining = '';
                     } else if (foundNumberPos === undefined) {
@@ -128,6 +165,7 @@ export function formationLetterArea() {
                     setTimeout(() => elemCardLetterRowFocus.focus(), 0);
                 }
             }
+            
         }
 
         function goRowFocus(el) {
@@ -142,6 +180,18 @@ export function formationLetterArea() {
         }
 
         function goInput(event, el) {
+            // const elemNumberRow = Number(el.getAttribute('data-row'));
+            // const elemCardLetterRowBlur = document.querySelector(`.letter-row-${elemNumberRow}`);
+            // const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow + 1}`)
+
+            // if (event.target.value == maxLengthRow) {
+            //     elemCardLetterRowBlur.classList.remove('row-focus');
+            //     const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
+            //     elemCardLetterRowFocus.classList.add('row-focus');
+            //     elemCardLetterRowFocus.focus();
+            // }
+
+            // console.log(event.target.value);
             const lengthText = event.target.value.length;  
             elemTextAreaCounter.textContent = lengthText;
 
@@ -171,7 +221,7 @@ export function formationLetterArea() {
             newElemHTML(
                 elemLetterArea, 
                 'beforeend', 
-                `<input class="card-letter-row letter-row-${i}" type="text" data-row="${i}" maxlength="25" style="height: ${heightRow}px;">`
+                `<input class="card-letter-row letter-row-${i}" type="text" data-row="${i}" maxlength="11" style="height: ${heightRow}px;">`
             );
         }
 
