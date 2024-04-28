@@ -46,8 +46,6 @@ export function formationLetterArea() {
             let cutText;
             let restText;
 
-            // console.log(event.target.value);
-
             if (event.code === 'Enter' || event.keyCode === 13) {
                 el.setSelectionRange(event.target.selectionStart, event.target.value.length);
                 cutText = event.target.value.slice(event.target.selectionStart, event.target.value.length);
@@ -66,54 +64,36 @@ export function formationLetterArea() {
             }
 
             if (event.target.value.length == maxLengthRow) {  
-                let transitionLetter;
+                console.log('maxLength!');
                 let startFocus = event.target.selectionStart;
-                let elemRowNext = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
 
-                if (event.target.selectionStart < maxLengthRow) {
-                    transitionLetter = event.target.value[maxLengthRow - 1];
-                    console.log(event.target.value.slice(0, maxLengthRow - 1));
-                    event.target.value = event.target.value.slice(0, maxLengthRow - 1);
-                    event.target.selectionStart = startFocus;
-                    event.target.selectionEnd = startFocus;
-                    elemRowNext.value = transitionLetter + elemRowNext.value;
-                } else if (event.target.selectionStart = maxLengthRow) {
-                    elemRowNext.setSelectionRange(0, 0);
-                    elemRowNext.focus();
+                for (let i = elemNumberRow; i < numberRows; i++) {
+                    let elemRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`);
+                    let elemRowNext = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
+                    let transitionLetterRowCurrent = elemRowCurrent.value[maxLengthRow - 1];
+                    let transitionLetterRowNext = elemRowNext.value[maxLengthRow - 1];
+
+                    console.log('eventStart: ', event.target.selectionStart,'rowCurrentStart: ', elemRowCurrent.selectionStart, 'maxLengthRow:', maxLengthRow)
+                    if (event.target.selectionStart == maxLengthRow) {
+                        console.log('rowNext!!!');
+                        elemRowCurrent.value = elemRowCurrent.value.slice(0, maxLengthRow);
+                        elemRowNext.selectionStart = 0;
+                        elemRowNext.selectionEnd = 0;
+                        elemRowNext.focus();
+                        break;
+                    } else {
+                        elemRowCurrent.value = elemRowCurrent.value.slice(0, maxLengthRow - 1);
+                        elemRowCurrent.selectionStart = startFocus;
+                        elemRowCurrent.selectionEnd = startFocus;
+                    }
+                    
+                    if (transitionLetterRowNext) {
+                        elemRowNext.value = transitionLetterRowCurrent + elemRowNext.value.slice(0, maxLengthRow);
+                    } else {
+                        elemRowNext.value = transitionLetterRowCurrent + elemRowNext.value;
+                        break;
+                    }
                 }
-
-                // elemRowNext.value = transitionLetter + elemRowNext.value;
-
-
-                // console.log(event.target.value[5]);
-                
-                // for (let i = elemNumberRow; i < numberRows; i++) {
-                //     // let transitionLetter;
-                //     let elemRowCurrent = document.querySelector(`.letter-row-${i}`);
-                //     let elemRowNext = document.querySelector(`.letter-row-${i + 1}`);
-                //     // const transitionLetterCurrent = elemRowCurrent.value[maxLengthRow - 1];
-                //     // console.log(transitionLetterCurrent);
-                //     elemRowCurrent.value = elemRowCurrent.value.slice(0, maxLengthRow - 1);
-                //     elemRowNext.value = transitionLetter + elemRowNext.value;
-                //     break;
-                    // console.log(event.target.selectionStart);
-
-                    // if (event.target.selectionStart < maxLengthRow) {
-                    //     // transitionLetter = elemRowCurrent.value[maxLengthRow - 1];
-                    //     if (elemRowCurrent.value[maxLengthRow - 1] + elemRowNext < maxLengthRow) {
-                    //         elemRowNext = elemRowCurrent.value[maxLengthRow - 1] + elemRowNext;
-                    //     } else continue
-                    // }
-
-
-                    // console.log(elemRowNext.value.length);
-                    // if (!(elemRowNext.value.length == maxLengthRow)) {
-                    //     // elemRowNext.value = transitionLetterCurrent + elemRowNext.value; 
-                    //     elemRowNext.setSelectionRange(0, 0);
-                    //     elemRowNext.focus();
-                    //     break;
-                    // } else continue;
-                // }
             }
 
             if (event.code === 'ArrowDown' || event.keyCode === 40) {
