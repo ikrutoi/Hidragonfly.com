@@ -43,7 +43,6 @@ export function formationLetterArea() {
             })
 
             numberRowFocus = Number(el.getAttribute('data-row'));
-            console.log('row-focus: ', numberRowFocus);
             const elemNumberRowFocus = document.querySelector(`.letter-row-${numberRowFocus}`);
 
             elemNumberRowFocus.classList.add('row-focus');
@@ -79,12 +78,15 @@ export function formationLetterArea() {
 
             if (event.target.value.length == maxLengthRow && 
                 !(
+                    event.code === 'Backspace' || event.keyCode === 8 ||
                     event.code === 'ArrowLeft' || event.keyCode === 37 ||
                     event.code === 'ArrowUp' || event.keyCode === 38 || 
                     event.code === 'ArrowRight' || event.keyCode === 39 || 
                     event.code === 'ArrowDown' || event.keyCode === 40 ||
                     event.code === 'Tab' || event.keyCode === 9
                 )) { 
+
+                console.log('maxLength!!!')
 
                 let startFocus = event.target.selectionStart;
                 let transitionLetter;
@@ -111,10 +113,8 @@ export function formationLetterArea() {
                     }
 
                     if (elemRowNext.value[maxLengthRow - 1]) {
-                        console.log('++');
                         transitionLetter = transitionLetterRowCurrent;
                     } else {
-                        console.log('--');
                         elemRowNext.value = transitionLetterRowCurrent + elemRowNext.value;
                         break;
                     }
@@ -136,6 +136,28 @@ export function formationLetterArea() {
                 elemCardLetterRowFocus.focus();
             }
 
+            if (event.code === 'ArrowLeft' || event.keyCode === 37) {
+                if (event.target.selectionStart == 0) {
+                    elemCardLetterRowBlur.classList.remove('row-focus');
+                    const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow - 1}`);
+                    elemCardLetterRowFocus.classList.add('row-focus');
+                    elemCardLetterRowFocus.selectionStart = elemCardLetterRowFocus.value.length;
+                    elemCardLetterRowFocus.selectionEnd = elemCardLetterRowFocus.value.length;
+                    setTimeout(() => elemCardLetterRowFocus.focus(), 0);
+                }
+            }
+
+            if (event.code === 'ArrowRight' || event.keyCode === 39) {
+                if (event.target.selectionEnd == elemCardLetterRowBlur.value.length) {
+                    elemCardLetterRowBlur.classList.remove('row-focus');
+                    const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
+                    elemCardLetterRowFocus.classList.add('row-focus');
+                    elemCardLetterRowFocus.selectionStart = 0;
+                    elemCardLetterRowFocus.selectionEnd = 0;
+                    setTimeout(() => elemCardLetterRowFocus.focus(), 0);
+                }
+            }
+
             if (event.code === 'Backspace' || event.keyCode === 8) {
                 if (event.target.selectionStart == 0) {
                     elemCardLetterRowBlur.classList.remove('row-focus');
@@ -153,14 +175,11 @@ export function formationLetterArea() {
                         if (elemCardLetterRowBlur.value.length > freePlaceRowFocus && elemCardLetterRowBlur.value.indexOf(' ') == -1) break;  
                         let temporaryFoundNumberPos = elemCardLetterRowBlur.value.indexOf(' ', pos);
                         if (temporaryFoundNumberPos >= freePlaceRowFocus) break;  
-                        console.log('1', foundNumberPos);
                         foundNumberPos = temporaryFoundNumberPos;   
                         if (temporaryFoundNumberPos == -1) break;
-                        console.log('2', foundNumberPos);
                         pos = temporaryFoundNumberPos + 1;
                     }
                     
-                    console.log('3', foundNumberPos);
                     let textToWrap;
                     let textRemaining;
 
