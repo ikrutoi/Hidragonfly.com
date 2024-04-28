@@ -35,9 +35,23 @@ export function formationLetterArea() {
         const elemFirstCardLetterRow = document.querySelector('.card-letter-row');
         const maxLengthRow = elemFirstCardLetterRow.getAttribute('maxlength');
         const elemCardLetterRow = document.querySelectorAll('.card-letter-row');  
+        let numberRowFocus;
         
+        function goRowFocus(el) {
+            elemCardLetterRow.forEach(el => {
+                if (el.classList.contains('row-focus')) el.classList.remove('row-focus');
+            })
+
+            numberRowFocus = Number(el.getAttribute('data-row'));
+            console.log('row-focus: ', numberRowFocus);
+            const elemNumberRowFocus = document.querySelector(`.letter-row-${numberRowFocus}`);
+
+            elemNumberRowFocus.classList.add('row-focus');
+        }
+
         function validationKey(event, el) {
-            const elemNumberRow = Number(el.getAttribute('data-row'));
+            // const elemNumberRow = Number(el.getAttribute('data-row'));
+            const elemNumberRow = numberRowFocus;
             let elemCardLetterRowBlur = document.querySelector(`.letter-row-${elemNumberRow}`);
             const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow + 1}`)
 
@@ -63,33 +77,44 @@ export function formationLetterArea() {
                 elemCardLetterRowFocus.focus();
             }
 
-            if (event.target.value.length == maxLengthRow) {  
-                console.log('maxLength!');
+            if (event.target.value.length == maxLengthRow && 
+                !(
+                    event.code === 'ArrowLeft' || event.keyCode === 37 ||
+                    event.code === 'ArrowUp' || event.keyCode === 38 || 
+                    event.code === 'ArrowRight' || event.keyCode === 39 || 
+                    event.code === 'ArrowDown' || event.keyCode === 40 ||
+                    event.code === 'Tab' || event.keyCode === 9
+                )) { 
+
                 let startFocus = event.target.selectionStart;
+                let transitionLetter;
 
                 for (let i = elemNumberRow; i < numberRows; i++) {
-                    let elemRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`);
-                    let elemRowNext = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
-                    let transitionLetterRowCurrent = elemRowCurrent.value[maxLengthRow - 1];
-                    let transitionLetterRowNext = elemRowNext.value[maxLengthRow - 1];
+                    const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
+                    const elemRowNext = document.querySelector(`.letter-row-${i + 1}`);
+                    const transitionLetterRowCurrent = elemRowCurrent.value[maxLengthRow - 1];
 
-                    console.log('eventStart: ', event.target.selectionStart,'rowCurrentStart: ', elemRowCurrent.selectionStart, 'maxLengthRow:', maxLengthRow)
                     if (event.target.selectionStart == maxLengthRow) {
-                        console.log('rowNext!!!');
                         elemRowCurrent.value = elemRowCurrent.value.slice(0, maxLengthRow);
                         elemRowNext.selectionStart = 0;
                         elemRowNext.selectionEnd = 0;
                         elemRowNext.focus();
                         break;
+                    } 
+
+                    if (transitionLetter) {
+                        elemRowCurrent.value = transitionLetter + elemRowCurrent.value.slice(0, maxLengthRow - 1);
                     } else {
                         elemRowCurrent.value = elemRowCurrent.value.slice(0, maxLengthRow - 1);
                         elemRowCurrent.selectionStart = startFocus;
                         elemRowCurrent.selectionEnd = startFocus;
                     }
-                    
-                    if (transitionLetterRowNext) {
-                        elemRowNext.value = transitionLetterRowCurrent + elemRowNext.value.slice(0, maxLengthRow);
+
+                    if (elemRowNext.value[maxLengthRow - 1]) {
+                        console.log('++');
+                        transitionLetter = transitionLetterRowCurrent;
                     } else {
+                        console.log('--');
                         elemRowNext.value = transitionLetterRowCurrent + elemRowNext.value;
                         break;
                     }
@@ -100,8 +125,8 @@ export function formationLetterArea() {
                 elemCardLetterRowBlur.classList.remove('row-focus');
                 const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
                 elemCardLetterRowFocus.classList.add('row-focus');
-                elemCardLetterRowFocus.focus();
-                // setTimeout(() => elemCardLetterRowFocus.focus(), 0);
+                // elemCardLetterRowFocus.focus();
+                setTimeout(() => elemCardLetterRowFocus.focus(), 0);
             }
             
             if (event.code === 'ArrowUp' || event.keyCode === 38) {
@@ -165,16 +190,17 @@ export function formationLetterArea() {
             
         }
 
-        function goRowFocus(el) {
-            elemCardLetterRow.forEach(el => {
-                if (el.classList.contains('row-focus')) el.classList.remove('row-focus');
-            })
+        // function goRowFocus(el) {
+        //     elemCardLetterRow.forEach(el => {
+        //         if (el.classList.contains('row-focus')) el.classList.remove('row-focus');
+        //     })
 
-            const numberRowPointerDown = Number(el.getAttribute('data-row'));
-            const elemNumberRowPointerDown = document.querySelector(`.letter-row-${numberRowPointerDown}`);
+        //     numberRowFocus = Number(el.getAttribute('data-row'));
+        //     // console.log('focus!!:', numberRowFocus);
+        //     const elemNumberRowFocus = document.querySelector(`.letter-row-${numberRowFocus}`);
 
-            elemNumberRowPointerDown.classList.add('row-focus');
-        }
+        //     elemNumberRowFocus.classList.add('row-focus');
+        // }
 
         function goInput(event, el) {
             // const elemNumberRow = Number(el.getAttribute('data-row'));
@@ -196,6 +222,10 @@ export function formationLetterArea() {
             // sessionStorage.setItem(`card-letter-row-${numberRow}-text`, `${el.value}`);
             // const elemNumberRowPointerDown = document.querySelector(`.letter-row-${numberRowPointerDown}`);
         }
+
+        // function goFocus(el) {
+        //     console.log('focus!!', el.getAttribute('data-row'));
+        // }
        
         elemCardLetterRow.forEach(el => {
             if (el.classList.contains('letter-row-0')) {
@@ -203,9 +233,19 @@ export function formationLetterArea() {
                 el.classList.add('row-focus');
             }
 
+            // input.onfocus = function() {
+            //     if (this.classList.contains('invalid')) {
+            //       // удаляем индикатор ошибки, т.к. пользователь хочет ввести данные заново
+            //       this.classList.remove('invalid');
+            //       error.innerHTML = "";
+            //     }
+            //   };
+
             el.addEventListener('keydown', (event) => validationKey(event, el));
-            el.addEventListener('pointerdown', () => goRowFocus(el));
+            // el.addEventListener('pointerdown', () => goRowFocus(el));
+            el.addEventListener('focus', () => goRowFocus(el));
             el.addEventListener('input', (event) => goInput(event, el));
+            // el.addEventListener('focus', (el) => goFocus(el));
         })
     }
     
