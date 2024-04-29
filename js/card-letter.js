@@ -63,28 +63,68 @@ export function formationLetterArea() {
                 restText = event.target.value.slice(0, event.target.selectionStart);
                 cutText = event.target.value.slice(event.target.selectionStart, event.target.value.length);
                 let transitionTextFirst;
-                let transitionTextSecond;
+                let transitionTextRest;
+                let transitionTextCut;
 
                 for (let i = elemNumberRow; i <= numberRows; i++) {
                     const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
                     const elemRowNext = document.querySelector(`.letter-row-${i + 1}`);
 
                     if (i == elemNumberRow) {
-                        transitionTextFirst = cutText;
                         elemRowCurrent.value = restText;
+                        transitionTextFirst = cutText;
                         elemRowCurrent.classList.remove('row-focus');
                         elemRowNext.classList.add('row-focus');
-                        elemRowNext.setSelectionRange(0, 0);
-                        elemRowNext.focus();
                     }  else {
-                        transitionTextSecond = elemRowCurrent.value;
-                        elemRowCurrent.value = transitionTextFirst;
-                        transitionTextFirst = transitionTextSecond;
+                        const arrayTransitionTextSecond = elemRowCurrent.value.split(' ');
+                        let transitionText;
 
-                        if (i == elemNumberRow + 1) {
-                            elemRowCurrent.setSelectionRange(0, 0);
-                            elemRowCurrent.focus();
+                        if (elemRowCurrent.value.length == 0) {
+                            console.log('--------');
+                            // transitionTextFirst = '';
                         }
+
+                        for (let key of arrayTransitionTextSecond) {
+                            if (transitionText === undefined) {
+                                transitionText = key;
+                                if (key.length <= (maxLengthRow - (transitionTextFirst.length + transitionText.length))) {
+                                    transitionTextRest = key;
+                                    continue;
+                                } else {
+                                    transitionTextRest = null;
+                                    transitionTextCut = elemRowCurrent.value;
+                                    break;
+                                }
+                            } else {
+                                transitionText = transitionText + ' ' + key;
+                                if (key.length < (maxLengthRow - (transitionTextFirst.length + transitionText.length))) {
+                                    transitionTextRest = transitionTextRest + ' ' + key;
+                                    continue;
+                                } else {
+                                    if (transitionTextCut === undefined || transitionTextCut === null) {
+                                        transitionTextCut = key;
+                                    } else {
+                                        transitionTextCut = transitionTextCut + ' ' + key;
+                                    }
+                                }
+                            }
+                        }                            
+                        
+                        
+                        if (transitionTextRest === null) {
+                            elemRowCurrent.value = transitionTextFirst;
+                        } else {
+                            elemRowCurrent.value = transitionTextFirst + ' ' + transitionTextRest;
+                            transitionTextRest = null;
+                        }
+                        
+                        transitionTextFirst = transitionTextCut;
+                        transitionTextCut = null;
+                    }
+                    
+                    if (i == elemNumberRow + 1) {
+                        elemRowCurrent.setSelectionRange(0, 0);
+                        elemRowCurrent.focus();
                     }
                 }
             }
@@ -98,8 +138,6 @@ export function formationLetterArea() {
                     event.code === 'ArrowDown' || event.keyCode === 40 ||
                     event.code === 'Tab' || event.keyCode === 9
                 )) { 
-
-                console.log('maxLength!!!')
 
                 let startFocus = event.target.selectionStart;
                 let transitionLetter;
@@ -138,7 +176,6 @@ export function formationLetterArea() {
                 elemCardLetterRowBlur.classList.remove('row-focus');
                 const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
                 elemCardLetterRowFocus.classList.add('row-focus');
-                // elemCardLetterRowFocus.focus();
                 setTimeout(() => elemCardLetterRowFocus.focus(), 0);
             }
             
@@ -254,24 +291,12 @@ export function formationLetterArea() {
             // sessionStorage.setItem(`card-letter-row-${numberRow}-text`, `${el.value}`);
             // const elemNumberRowPointerDown = document.querySelector(`.letter-row-${numberRowPointerDown}`);
         }
-
-        // function goFocus(el) {
-        //     console.log('focus!!', el.getAttribute('data-row'));
-        // }
        
         elemCardLetterRow.forEach(el => {
             if (el.classList.contains('letter-row-0')) {
                 el.focus();
                 el.classList.add('row-focus');
             }
-
-            // input.onfocus = function() {
-            //     if (this.classList.contains('invalid')) {
-            //       // удаляем индикатор ошибки, т.к. пользователь хочет ввести данные заново
-            //       this.classList.remove('invalid');
-            //       error.innerHTML = "";
-            //     }
-            //   };
 
             el.addEventListener('keydown', (event) => validationKey(event, el));
             // el.addEventListener('pointerdown', () => goRowFocus(el));
@@ -290,7 +315,7 @@ export function formationLetterArea() {
             newElemHTML(
                 elemLetterArea, 
                 'beforeend', 
-                `<input class="card-letter-row letter-row-${i}" type="text" data-row="${i}" maxlength="10" style="height: ${heightRow}px;">`
+                `<input class="card-letter-row letter-row-${i}" type="text" data-row="${i}" maxlength="20" style="height: ${heightRow}px;">`
             );
         }
 
