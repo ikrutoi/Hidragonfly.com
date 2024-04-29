@@ -49,7 +49,6 @@ export function formationLetterArea() {
         }
 
         function validationKey(event, el) {
-            // const elemNumberRow = Number(el.getAttribute('data-row'));
             const elemNumberRow = numberRowFocus;
             let elemCardLetterRowBlur = document.querySelector(`.letter-row-${elemNumberRow}`);
             const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow + 1}`)
@@ -61,19 +60,33 @@ export function formationLetterArea() {
 
             if (event.code === 'Enter' || event.keyCode === 13) {
                 el.setSelectionRange(event.target.selectionStart, event.target.value.length);
-                cutText = event.target.value.slice(event.target.selectionStart, event.target.value.length);
                 restText = event.target.value.slice(0, event.target.selectionStart);
-                event.target.value = restText;
-                elemCardLetterRowBlur.classList.remove('row-focus');
-                // sessionStorage.setItem(`card-letter-row-${elemNumberRow}-text`, `${restText}`);
-                elemCardLetterRowFocus.classList.add('row-focus');
-                
-                // deleteFromDocument() – удалить содержимое выделения из документа.
+                cutText = event.target.value.slice(event.target.selectionStart, event.target.value.length);
+                let transitionTextFirst;
+                let transitionTextSecond;
 
-                elemCardLetterRowFocus.value = cutText;
-                sessionStorage.setItem(`card-letter-row-${elemNumberRow + 1}-text`, `${cutText}`);
-                elemCardLetterRowFocus.setSelectionRange(0, 0);
-                elemCardLetterRowFocus.focus();
+                for (let i = elemNumberRow; i <= numberRows; i++) {
+                    const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
+                    const elemRowNext = document.querySelector(`.letter-row-${i + 1}`);
+
+                    if (i == elemNumberRow) {
+                        transitionTextFirst = cutText;
+                        elemRowCurrent.value = restText;
+                        elemRowCurrent.classList.remove('row-focus');
+                        elemRowNext.classList.add('row-focus');
+                        elemRowNext.setSelectionRange(0, 0);
+                        elemRowNext.focus();
+                    }  else {
+                        transitionTextSecond = elemRowCurrent.value;
+                        elemRowCurrent.value = transitionTextFirst;
+                        transitionTextFirst = transitionTextSecond;
+
+                        if (i == elemNumberRow + 1) {
+                            elemRowCurrent.setSelectionRange(0, 0);
+                            elemRowCurrent.focus();
+                        }
+                    }
+                }
             }
 
             if (event.target.value.length == maxLengthRow && 
