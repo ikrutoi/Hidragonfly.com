@@ -70,24 +70,32 @@ export function formationLetterArea() {
                     const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
                     const elemRowNext = document.querySelector(`.letter-row-${i + 1}`);
 
+                    if (transitionTextFirst === null & elemRowCurrent.value.length == 0) {
+                        continue;
+                    }
+
                     if (i == elemNumberRow) {
                         elemRowCurrent.value = restText;
                         transitionTextFirst = cutText;
                         elemRowCurrent.classList.remove('row-focus');
                         elemRowNext.classList.add('row-focus');
                     }  else {
+
                         const arrayTransitionTextSecond = elemRowCurrent.value.split(' ');
                         let transitionText;
-
-                        if (elemRowCurrent.value.length == 0) {
-                            console.log('--------');
-                            // transitionTextFirst = '';
-                        }
-
+                        
                         for (let key of arrayTransitionTextSecond) {
                             if (transitionText === undefined) {
                                 transitionText = key;
-                                if (key.length <= (maxLengthRow - (transitionTextFirst.length + transitionText.length))) {
+
+                                if (key.length == 0) {
+                                    transitionText = '';
+                                }
+                                if (key.length == null) {
+                                    console.log('key.length = null');
+                                }
+
+                                if (transitionTextFirst.length + transitionText.length <= maxLengthRow) {
                                     transitionTextRest = key;
                                     continue;
                                 } else {
@@ -97,7 +105,7 @@ export function formationLetterArea() {
                                 }
                             } else {
                                 transitionText = transitionText + ' ' + key;
-                                if (key.length < (maxLengthRow - (transitionTextFirst.length + transitionText.length))) {
+                                if (transitionTextFirst.length + transitionText.length <= maxLengthRow) {
                                     transitionTextRest = transitionTextRest + ' ' + key;
                                     continue;
                                 } else {
