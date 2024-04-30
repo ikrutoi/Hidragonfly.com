@@ -70,7 +70,7 @@ export function formationLetterArea() {
                     const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
                     const elemRowNext = document.querySelector(`.letter-row-${i + 1}`);
 
-                    if (transitionTextFirst === null & elemRowCurrent.value.length == 0) {
+                    if (transitionTextFirst === null && elemRowCurrent.value.length == 0) {
                         continue;
                     }
 
@@ -87,14 +87,6 @@ export function formationLetterArea() {
                         for (let key of arrayTransitionTextSecond) {
                             if (transitionText === undefined) {
                                 transitionText = key;
-
-                                if (key.length == 0) {
-                                    transitionText = '';
-                                }
-                                if (key.length == null) {
-                                    console.log('key.length = null');
-                                }
-
                                 if (transitionTextFirst.length + transitionText.length <= maxLengthRow) {
                                     transitionTextRest = key;
                                     continue;
@@ -147,13 +139,12 @@ export function formationLetterArea() {
                     event.code === 'Tab' || event.keyCode === 9
                 )) { 
 
-                let startFocus = event.target.selectionStart;
-                let transitionLetter;
-
+                    let transitionTextCut;
                 for (let i = elemNumberRow; i < numberRows; i++) {
+
                     const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
                     const elemRowNext = document.querySelector(`.letter-row-${i + 1}`);
-                    const transitionLetterRowCurrent = elemRowCurrent.value[maxLengthRow - 1];
+                    // const transitionLetterRowCurrent = elemRowCurrent.value[maxLengthRow - 1];
 
                     if (event.target.selectionStart == maxLengthRow) {
                         elemRowCurrent.value = elemRowCurrent.value.slice(0, maxLengthRow);
@@ -163,21 +154,64 @@ export function formationLetterArea() {
                         break;
                     } 
 
-                    if (transitionLetter) {
-                        elemRowCurrent.value = transitionLetter + elemRowCurrent.value.slice(0, maxLengthRow - 1);
-                    } else {
-                        elemRowCurrent.value = elemRowCurrent.value.slice(0, maxLengthRow - 1);
-                        elemRowCurrent.selectionStart = startFocus;
-                        elemRowCurrent.selectionEnd = startFocus;
+                    // const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
+                    let arrayRowCurrent = elemRowCurrent.value.split(' ');
+                    // let transitionText;
+                    let arrayTransitionTextRest;
+                    let transitionTextRest;
+                    
+                    console.log('row: ', i);
+                    console.log('1', elemRowCurrent.value)
+                    console.log('2', transitionTextCut);
+                    
+                    if (transitionTextCut) {
+                        elemRowCurrent.value = transitionTextCut + ' ' + elemRowCurrent.value;
                     }
+                                           
+                    console.log('3', elemRowCurrent.value)
+                    for (let i = arrayRowCurrent.length; i > 0; i--) {
+                        
+                        if (elemRowCurrent.value.length >= maxLengthRow) {
+                            transitionTextCut = arrayRowCurrent.pop();
+                            elemRowCurrent.value = arrayRowCurrent.join(' ');
+                            break;
+                        } else transitionTextCut = null;
+                    }
+                    console.log('4', transitionTextCut);
+                    
+                }    
 
-                    if (elemRowNext.value[maxLengthRow - 1]) {
-                        transitionLetter = transitionLetterRowCurrent;
-                    } else {
-                        elemRowNext.value = transitionLetterRowCurrent + elemRowNext.value;
-                        break;
-                    }
-                }
+                let startFocus = event.target.selectionStart;
+                let transitionLetter;
+
+                // for (let i = elemNumberRow; i <= numberRows; i++) {
+                    // const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
+                    // const elemRowNext = document.querySelector(`.letter-row-${i + 1}`);
+                    // // const transitionLetterRowCurrent = elemRowCurrent.value[maxLengthRow - 1];
+
+                    // if (event.target.selectionStart == maxLengthRow) {
+                    //     elemRowCurrent.value = elemRowCurrent.value.slice(0, maxLengthRow);
+                    //     elemRowNext.selectionStart = 0;
+                    //     elemRowNext.selectionEnd = 0;
+                    //     elemRowNext.focus();
+                    //     break;
+                    // } 
+
+                    // if (transitionLetter) {
+                    //     elemRowCurrent.value = transitionLetter + elemRowCurrent.value.slice(0, maxLengthRow - 1);
+                    // } else {
+                    //     elemRowCurrent.value = elemRowCurrent.value.slice(0, maxLengthRow - 1);
+                    //     elemRowCurrent.selectionStart = startFocus;
+                    //     elemRowCurrent.selectionEnd = startFocus;
+                    // }
+
+                    // if (elemRowNext.value[maxLengthRow - 1]) {
+                    //     transitionLetter = transitionLetterRowCurrent;
+                    // } else {
+                    //     elemRowNext.value = transitionLetterRowCurrent + elemRowNext.value;
+                    //     break;
+                    // }
+                // }
             }
 
             if (event.code === 'ArrowDown' || event.keyCode === 40) {
