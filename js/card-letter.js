@@ -183,6 +183,30 @@ export function formationLetterArea() {
                         }
                     }
 
+                    if (event.target.value.length >= maxLengthRow) {    
+                        for (let ind = arrayRowCurrent.length; ind > 0; ind--) { 
+                            transitionTextCut = arrayRowCurrent.pop();
+                            
+                            if (event.target.selectionStart <= arrayRowCurrent.join(' ').length) {
+                                temporaryPointFocus = event.target.selectionStart;
+                                changeFocus = i;
+                            } else {
+                                changeFocus = i + 1;
+                                
+                                if (event.target.selectionStart == maxLengthRow) {
+                                    temporaryPointFocus = transitionTextCut.length;
+                                } else {
+                                    temporaryPointFocus = event.target.selectionStart - arrayRowCurrent.join(' ').length - 1;
+                                }
+                            }
+                            
+                            console.log('2. event.target.selectionStart: ', event.target.selectionStart)
+                            elemRowCurrent.value = arrayRowCurrent.join(' ');
+
+                            break;
+                        }
+                    } 
+
                     if (i == changeFocus) {
                         elemRowCurrent.selectionStart = temporaryPointFocus;
                         elemRowCurrent.selectionEnd = temporaryPointFocus;
@@ -190,27 +214,6 @@ export function formationLetterArea() {
                         changeFocus = null;
                         temporaryPointFocus = null;
                     }
-
-                    if (event.target.value.length >= maxLengthRow) {    
-                        for (let ind = arrayRowCurrent.length; ind > 0; ind--) { 
-                            transitionTextCut = arrayRowCurrent.pop();
-                            
-                            if (event.target.selectionStart <= arrayRowCurrent.join(' ').length) {
-                            } else {
-                                changeFocus = i + 1;
-
-                                if (event.target.selectionStart == maxLengthRow) {
-                                    temporaryPointFocus = transitionTextCut.length;
-                                } else {
-                                    console.log('2. focus cgange!!!');
-                                    temporaryPointFocus = event.target.selectionStart - arrayRowCurrent.join(' ').length - 1;
-                                }
-                            }
-                            
-                            elemRowCurrent.value = arrayRowCurrent.join(' ');
-                            break;
-                        }
-                    } 
                 }    
             }
 
