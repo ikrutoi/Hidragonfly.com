@@ -145,52 +145,45 @@ export function formationLetterArea() {
                 
                 for (let i = elemNumberRow; i < numberRows; i++) {
                     const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
-                    
                     arrayRowCurrent = elemRowCurrent.value.split(' ');
+                    let interimWord;
                     console.log('row: ', i);
-                    console.log('1. transitonTextCut: ', transitionTextCut);
                     
                     if (transitionTextCut) {
                         
                         interimText = transitionTextCut + ' ' + elemRowCurrent.value;
-
-                        console.log('2. elemRowCurrent: ', elemRowCurrent.value);
                         
                         if (interimText.length >= maxLengthRow) {
                             const arrayIterimText = interimText.split(' ');
-                            console.log('2.1 arrayIterimText: ', arrayIterimText);
                             
                             for (let i = arrayIterimText.length; i > 0; i--) {  
                                 
-                                if (i == arrayIterimText.length) {
-                                    transitionTextCut = arrayIterimText.pop();
-                                    console.log('3.1 transitionTextCurrent: ', transitionTextCut)
+                                if (!interimWord) {
+                                    interimWord = arrayIterimText.pop();
                                 } else {
-                                    transitionTextCut = transitionTextCut + ' ' + arrayIterim.pop();
-                                    console.log('3.2 transitionTextCurrent: ', transitionTextCut)
+                                    interimWord = arrayIterimText.pop() + ' ' + interimWord;
                                 }
-                                
+
                                 if (arrayIterimText.join(' ').length >= maxLengthRow) {
                                     continue;
                                 } else {
                                     elemRowCurrent.value = arrayIterimText.join(' ');
-                                    console.log('3.3 transitionTextCurrent: ', transitionTextCut)
-                                    console.log('3.4 elemRowCurrent: ', elemRowCurrent.value);
+                                    transitionTextCut = interimWord;
+                                    interimWord = null;
                                     break;
                                 }
                             }
                             
                         } else {
                             elemRowCurrent.value = interimText;
-                            console.log('4. elemRowCurrent: ', elemRowCurrent.value);
                             transitionTextCut = null;
                         }
                     }
 
                     if (i == elemNumberRow + 1) {
-                        console.log('*********');
-                        elemRowCurrent.selectionStart = transitionTextCut.length;
-                        elemRowCurrent.selectionEnd = transitionTextCut.length;
+                        arrayRowCurrent = elemRowCurrent.value.split(' ');
+                        elemRowCurrent.selectionStart = arrayRowCurrent[0].length;
+                        elemRowCurrent.selectionEnd = arrayRowCurrent[0].length;
                         elemRowCurrent.focus();
                     }
 
