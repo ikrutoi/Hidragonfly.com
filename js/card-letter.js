@@ -144,7 +144,12 @@ export function formationLetterArea() {
                 let transitionTextCut;
                 let arrayRowCurrent;
                 let interimText;
+                let interimLetter;
                 let changeFocus;
+
+                if (event.target.classList.contains('transfer-one-letter')) {
+                    interimLetter = 1;
+                }
                 
                 for (let i = elemNumberRow; i < numberRows; i++) {
                     const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
@@ -153,8 +158,22 @@ export function formationLetterArea() {
                     console.log('row: ', i);
                     
                     if (transitionTextCut) {
+                        console.log('1', interimLetter);
                         
-                        interimText = transitionTextCut + ' ' + elemRowCurrent.value;
+                        if (transitionTextCut.length == 1) {
+                            if (interimLetter == 1) {
+                                console.log('+-+-+-+-');
+                                interimText = transitionTextCut + elemRowCurrent.value;
+                            } else {
+                                console.log('-----');
+                                interimText = transitionTextCut + ' ' + elemRowCurrent.value;
+                                interimLetter = 1;
+                            }
+                        } else {
+                            interimText = transitionTextCut + ' ' + elemRowCurrent.value;
+                        }
+                        
+                        console.log('2', interimLetter);
                         
                         if (interimText.length > maxLengthRow) {
                             const arrayIterimText = interimText.split(' ');
@@ -183,9 +202,18 @@ export function formationLetterArea() {
                         }
                     }
 
-                    if (event.target.value.length >= maxLengthRow) {    
+                    if (event.target.value.length >= maxLengthRow && event.target.getAttribute('data-row') == i) {    
                         for (let ind = arrayRowCurrent.length; ind > 0; ind--) { 
                             transitionTextCut = arrayRowCurrent.pop();
+
+                            if (arrayRowCurrent.length == 0) {
+                                temporaryPointFocus = event.target.selectionStart;
+                                transitionTextCut = elemRowCurrent.value.at(-1);
+                                elemRowCurrent.value = elemRowCurrent.value.slice(0, maxLengthRow - 1);
+                                changeFocus = i;
+                                elemRowCurrent.classList.add('transfer-one-letter');
+                                break;
+                            }
                             
                             if (event.target.selectionStart <= arrayRowCurrent.join(' ').length) {
                                 temporaryPointFocus = event.target.selectionStart;
@@ -199,10 +227,8 @@ export function formationLetterArea() {
                                     temporaryPointFocus = event.target.selectionStart - arrayRowCurrent.join(' ').length - 1;
                                 }
                             }
-                            
-                            console.log('2. event.target.selectionStart: ', event.target.selectionStart)
-                            elemRowCurrent.value = arrayRowCurrent.join(' ');
 
+                            elemRowCurrent.value = arrayRowCurrent.join(' ');
                             break;
                         }
                     } 
