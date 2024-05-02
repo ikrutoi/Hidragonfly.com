@@ -139,9 +139,12 @@ export function formationLetterArea() {
                     event.code === 'Tab' || event.keyCode === 9
                 )) { 
 
+                const pointFocus = event.target.selectionStart; 
+                let temporaryPointFocus;
                 let transitionTextCut;
                 let arrayRowCurrent;
                 let interimText;
+                let changeFocus;
                 
                 for (let i = elemNumberRow; i < numberRows; i++) {
                     const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
@@ -153,7 +156,7 @@ export function formationLetterArea() {
                         
                         interimText = transitionTextCut + ' ' + elemRowCurrent.value;
                         
-                        if (interimText.length >= maxLengthRow) {
+                        if (interimText.length > maxLengthRow) {
                             const arrayIterimText = interimText.split(' ');
                             
                             for (let i = arrayIterimText.length; i > 0; i--) {  
@@ -164,7 +167,7 @@ export function formationLetterArea() {
                                     interimWord = arrayIterimText.pop() + ' ' + interimWord;
                                 }
 
-                                if (arrayIterimText.join(' ').length >= maxLengthRow) {
+                                if (arrayIterimText.join(' ').length > maxLengthRow) {
                                     continue;
                                 } else {
                                     elemRowCurrent.value = arrayIterimText.join(' ');
@@ -180,54 +183,35 @@ export function formationLetterArea() {
                         }
                     }
 
-                    if (i == elemNumberRow + 1) {
-                        arrayRowCurrent = elemRowCurrent.value.split(' ');
-                        elemRowCurrent.selectionStart = arrayRowCurrent[0].length;
-                        elemRowCurrent.selectionEnd = arrayRowCurrent[0].length;
+                    if (i == changeFocus) {
+                        elemRowCurrent.selectionStart = temporaryPointFocus;
+                        elemRowCurrent.selectionEnd = temporaryPointFocus;
                         elemRowCurrent.focus();
+                        changeFocus = null;
+                        temporaryPointFocus = null;
                     }
 
-                    if (!(event.code === 'Space' || event.keyCode === 32) && event.target.value.length >= maxLengthRow) {
-                        for (let i = arrayRowCurrent.length; i > 0; i--) {          
+                    if (event.target.value.length >= maxLengthRow) {    
+                        for (let ind = arrayRowCurrent.length; ind > 0; ind--) { 
                             transitionTextCut = arrayRowCurrent.pop();
+                            
+                            if (event.target.selectionStart <= arrayRowCurrent.join(' ').length) {
+                            } else {
+                                changeFocus = i + 1;
+
+                                if (event.target.selectionStart == maxLengthRow) {
+                                    temporaryPointFocus = transitionTextCut.length;
+                                } else {
+                                    console.log('2. focus cgange!!!');
+                                    temporaryPointFocus = event.target.selectionStart - arrayRowCurrent.join(' ').length - 1;
+                                }
+                            }
+                            
                             elemRowCurrent.value = arrayRowCurrent.join(' ');
-                            console.log('5. transitionTextCut: ', transitionTextCut);
                             break;
                         }
-                    }
+                    } 
                 }    
-
-                // let startFocus = event.target.selectionStart;
-                // let transitionLetter;
-
-                // for (let i = elemNumberRow; i <= numberRows; i++) {
-                    // const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
-                    // const elemRowNext = document.querySelector(`.letter-row-${i + 1}`);
-                    // // const transitionLetterRowCurrent = elemRowCurrent.value[maxLengthRow - 1];
-
-                    // if (event.target.selectionStart == maxLengthRow) {
-                    //     elemRowCurrent.value = elemRowCurrent.value.slice(0, maxLengthRow);
-                    //     elemRowNext.selectionStart = 0;
-                    //     elemRowNext.selectionEnd = 0;
-                    //     elemRowNext.focus();
-                    //     break;
-                    // } 
-
-                    // if (transitionLetter) {
-                    //     elemRowCurrent.value = transitionLetter + elemRowCurrent.value.slice(0, maxLengthRow - 1);
-                    // } else {
-                    //     elemRowCurrent.value = elemRowCurrent.value.slice(0, maxLengthRow - 1);
-                    //     elemRowCurrent.selectionStart = startFocus;
-                    //     elemRowCurrent.selectionEnd = startFocus;
-                    // }
-
-                    // if (elemRowNext.value[maxLengthRow - 1]) {
-                    //     transitionLetter = transitionLetterRowCurrent;
-                    // } else {
-                    //     elemRowNext.value = transitionLetterRowCurrent + elemRowNext.value;
-                    //     break;
-                    // }
-                // }
             }
 
             if (event.code === 'ArrowDown' || event.keyCode === 40) {
