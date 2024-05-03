@@ -1,4 +1,3 @@
-// import { newElem } from "./new-element.js";
 import { newElemHTML } from "./new-element.js";
 import { startPressActivation } from "./start-press-activation.js";
 
@@ -129,6 +128,61 @@ export function formationLetterArea() {
                 }
             }
 
+            if (event.code === 'NumpadDecimal' || event.keyCode === 46) {
+                const pointFocus = event.target.selectionStart;
+
+                let arrayRowCurrent;
+                let arrayRowNext;
+                let transitionTextCut;
+                // let interimText;
+                let restText;
+                let tailRow;
+                
+                function changeTailRow(elemNumberRow) {
+                    const elemRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`);
+                    const elemRowNext = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
+                    
+                    arrayRowCurrent = elemRowCurrent.value.split(' ');
+                    arrayRowNext = elemRowNext.value.split(' ');
+                    tailRow = maxLengthRow - elemRowCurrent.value.length;
+
+                    if (!(arrayRowNext.length == 0)) {
+                        for (let i = 0; i <= arrayRowNext.length; i++) {
+                            if (!transitionTextCut) {
+                                transitionTextCut = arrayRowNext[i];
+                                restText = arrayRowNext.slice(i + 1, arrayRowNext.length);
+
+                                if (transitionTextCut.length < tailRow) {
+                                    continue;
+                                } else break;
+                            } else {
+                                if (transitionTextCut.length < tailRow) {
+                                    transitionTextCut = transitionTextCut + ' ' + arrayRowNext[i];
+                                    restText = arrayRowNext.slice(i + 1, arrayRowNext.length);
+                                    continue;
+                                } else break;
+                            }
+                        }
+
+                        if (transitionTextCut) {
+                            elemRowCurrent.value = elemRowCurrent.value + ' ' + transitionTextCut;
+                            elemRowNext.value = restText.join(' ');
+                            elemRowCurrent.selectionStart = pointFocus;
+                            elemRowCurrent.selectionEnd = pointFocus;
+                            elemRowCurrent.focus();
+                            transitionTextCut = null;
+                            restText = null;
+                        }
+                    } else {
+                        for (let i = elemNumberRow + 1; i <= numberRows; i++) {
+                            changeTailRow(i);
+                        }
+                    }
+                }
+
+                changeTailRow(elemNumberRow);
+            }
+
             if (event.target.value.length >= maxLengthRow && 
                 !(
                     event.code === 'Backspace' || event.keyCode === 8 ||
@@ -139,7 +193,7 @@ export function formationLetterArea() {
                     event.code === 'Tab' || event.keyCode === 9
                 )) { 
 
-                const pointFocus = event.target.selectionStart; 
+                // const pointFocus = event.target.selectionStart; 
                 let temporaryPointFocus;
                 let transitionTextCut;
                 let arrayRowCurrent;
@@ -155,25 +209,19 @@ export function formationLetterArea() {
                     const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
                     arrayRowCurrent = elemRowCurrent.value.split(' ');
                     let interimWord;
-                    console.log('row: ', i);
                     
                     if (transitionTextCut) {
-                        console.log('1', interimLetter);
                         
                         if (transitionTextCut.length == 1) {
                             if (interimLetter == 1) {
-                                console.log('+-+-+-+-');
                                 interimText = transitionTextCut + elemRowCurrent.value;
                             } else {
-                                console.log('-----');
                                 interimText = transitionTextCut + ' ' + elemRowCurrent.value;
                                 interimLetter = 1;
                             }
                         } else {
                             interimText = transitionTextCut + ' ' + elemRowCurrent.value;
                         }
-                        
-                        console.log('2', interimLetter);
                         
                         if (interimText.length > maxLengthRow) {
                             const arrayIterimText = interimText.split(' ');
