@@ -58,70 +58,51 @@ export function formationLetterArea() {
             let restText;
 
             if (event.code === 'Enter' || event.keyCode === 13) {
-                el.setSelectionRange(event.target.selectionStart, event.target.value.length);
-                restText = event.target.value.slice(0, event.target.selectionStart);
-                cutText = event.target.value.slice(event.target.selectionStart, event.target.value.length);
-                let transitionTextFirst;
-                let transitionTextRest;
+                const pointFocus = event.target.selectionStart;
                 let transitionTextCut;
 
                 for (let i = elemNumberRow; i <= numberRows; i++) {
                     const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
-                    const elemRowNext = document.querySelector(`.letter-row-${i + 1}`);
 
-                    if (transitionTextFirst === null && elemRowCurrent.value.length == 0) {
-                        continue;
-                    }
-
+                    console.log('row: ', i, 'poinerFocus: ', pointFocus);
+                    console.log('1. transitionTextCut: ', transitionTextCut);
+                    
                     if (i == elemNumberRow) {
-                        elemRowCurrent.value = restText;
-                        transitionTextFirst = cutText;
+                        transitionTextCut = elemRowCurrent.value.slice(pointFocus, elemRowCurrent.value.length);
+                        elemRowCurrent.value = elemRowCurrent.value.slice(0, pointFocus);
                         elemRowCurrent.classList.remove('row-focus');
-                        elemRowNext.classList.add('row-focus');
                     }  else {
-
-                        const arrayTransitionTextSecond = elemRowCurrent.value.split(' ');
-                        let transitionText;
-                        
-                        for (let key of arrayTransitionTextSecond) {
-                            if (transitionText === undefined) {
-                                transitionText = key;
-                                if (transitionTextFirst.length + transitionText.length <= maxLengthRow) {
-                                    transitionTextRest = key;
-                                    continue;
-                                } else {
-                                    transitionTextRest = null;
-                                    transitionTextCut = elemRowCurrent.value;
-                                    break;
-                                }
-                            } else {
-                                transitionText = transitionText + ' ' + key;
-                                if (transitionTextFirst.length + transitionText.length <= maxLengthRow) {
-                                    transitionTextRest = transitionTextRest + ' ' + key;
-                                    continue;
-                                } else {
-                                    if (transitionTextCut === undefined || transitionTextCut === null) {
-                                        transitionTextCut = key;
+                        if (transitionTextCut) {
+                            if (elemRowCurrent.value) {
+                                const arrayRowCurrent = elemRowCurrent.value.split(' ');      
+                                for (let i = 0; i < arrayRowCurrent.length; i++) {
+                                    if (transitionTextCut.length + arrayRowCurrent[i].length <= maxLengthRow) {
+                                        transitionTextCut = transitionTextCut + ' ' + arrayRowCurrent[i];
+                                        if (arrayRowCurrent.length == 1) {
+                                            elemRowCurrent.value = transitionTextCut;
+                                            transitionTextCut = '';
+                                            break;
+                                        } else continue;
                                     } else {
-                                        transitionTextCut = transitionTextCut + ' ' + key;
+                                        elemRowCurrent.value = transitionTextCut;
+                                        transitionTextCut = arrayRowCurrent.slice(i, arrayRowCurrent.length).join(' ');
+                                        break;
                                     }
                                 }
+                            } else {
+                                elemRowCurrent.value = transitionTextCut;
+                                transitionTextCut = '';
                             }
-                        }                            
-                        
-                        
-                        if (transitionTextRest === null) {
-                            elemRowCurrent.value = transitionTextFirst;
+
                         } else {
-                            elemRowCurrent.value = transitionTextFirst + ' ' + transitionTextRest;
-                            transitionTextRest = null;
-                        }
-                        
-                        transitionTextFirst = transitionTextCut;
-                        transitionTextCut = null;
+                            transitionTextCut = elemRowCurrent.value;
+                            elemRowCurrent.value = '';
+                            continue;
+                        }                          
                     }
-                    
+
                     if (i == elemNumberRow + 1) {
+                        elemRowCurrent.classList.add('row-focus');
                         elemRowCurrent.setSelectionRange(0, 0);
                         elemRowCurrent.focus();
                     }
@@ -132,7 +113,6 @@ export function formationLetterArea() {
                 event.code === 'NumpadDecimal' || event.keyCode === 46 
             ) {
                 const pointFocus = event.target.selectionStart;
-
                 let arrayRowCurrent;
                 let arrayRowNext;
                 let transitionTextCut;
@@ -140,8 +120,6 @@ export function formationLetterArea() {
                 let tailRow;
 
                 for (let i = elemNumberRow; i < numberRows; i++) {
-                    console.log('row: ', i);
-
                     const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
                     const elemRowNext = document.querySelector(`.letter-row-${i + 1}`);
                     
@@ -150,15 +128,10 @@ export function formationLetterArea() {
                     tailRow = maxLengthRow - elemRowCurrent.value.length;
                     
                     if (!(elemRowNext.value == 0)) {
-
-                        console.log('0. elemRowCurrent.value: ', elemRowCurrent.value, 'elemRowNext.value: ', elemRowNext.value)
-                        console.log('1. transitionTextCut: ', transitionTextCut, 'restText: ', restText);
-
                         for (let i = 0; i < arrayRowNext.length; i++) {
                             if (!transitionTextCut) {
                                 transitionTextCut = arrayRowNext[i];
                                 restText = arrayRowNext.slice(i + 1, arrayRowNext.length);    
-                                console.log('2. transitionTextCut: ', transitionTextCut, 'restText: ', restText);
                                 if (transitionTextCut.length <= tailRow) {
                                     continue;
                                 } else break;
@@ -166,7 +139,6 @@ export function formationLetterArea() {
                                 transitionTextCut = transitionTextCut + ' ' + arrayRowNext[i];
                                 if (transitionTextCut.length <= tailRow) {
                                     restText = arrayRowNext.slice(i + 1, arrayRowNext.length);
-                                    console.log('3. transitionTextCut: ', transitionTextCut, 'restText: ', restText);
                                     continue;
                                 } else {
                                     let temporaryTransitionTextCut = transitionTextCut.split(' ');
@@ -174,7 +146,6 @@ export function formationLetterArea() {
                                     transitionTextCut = temporaryTransitionTextCut.join(' ');
                                     restText = arrayRowNext.slice(i, arrayRowNext.length);
                                     temporaryTransitionTextCut = null;
-                                    console.log('4. transitionTextCut: ', transitionTextCut, 'restText: ', restText);
                                     break;
                                 };
                             }
@@ -194,11 +165,6 @@ export function formationLetterArea() {
                         transitionTextCut = null;
                         restText = null;
                     } else continue;
-                        // elemRowCurrent.value = elemRowCurrent.value + ' ' + transitionTextCut;
-                        // elemRowNext.value = restText.join(' ');
-                        // transitionTextCut = null;
-                        // restText = null;
-                    
                 }
             }
 
@@ -212,7 +178,6 @@ export function formationLetterArea() {
                     event.code === 'Tab' || event.keyCode === 9
                 )) { 
 
-                // const pointFocus = event.target.selectionStart; 
                 let temporaryPointFocus;
                 let transitionTextCut;
                 let arrayRowCurrent;
@@ -311,21 +276,25 @@ export function formationLetterArea() {
             }
 
             if (event.code === 'ArrowDown' || event.keyCode === 40) {
-                elemCardLetterRowBlur.classList.remove('row-focus');
-                const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
-                elemCardLetterRowFocus.classList.add('row-focus');
-                setTimeout(() => elemCardLetterRowFocus.focus(), 0);
+                if (!(elemNumberRow == numberRows)) {
+                    elemCardLetterRowBlur.classList.remove('row-focus');
+                    const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
+                    elemCardLetterRowFocus.classList.add('row-focus');
+                    setTimeout(() => elemCardLetterRowFocus.focus(), 0);
+                }
             }
             
             if (event.code === 'ArrowUp' || event.keyCode === 38) {
-                elemCardLetterRowBlur.classList.remove('row-focus');
-                const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow - 1}`);
-                elemCardLetterRowFocus.classList.add('row-focus');
-                elemCardLetterRowFocus.focus();
+                if (!(elemNumberRow == 1)) {
+                    elemCardLetterRowBlur.classList.remove('row-focus');
+                    const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow - 1}`);
+                    elemCardLetterRowFocus.classList.add('row-focus');
+                    elemCardLetterRowFocus.focus();
+                }
             }
 
             if (event.code === 'ArrowLeft' || event.keyCode === 37) {
-                if (event.target.selectionStart == 0) {
+                if (event.target.selectionStart == 0 && !(elemNumberRow == 1)) {
                     elemCardLetterRowBlur.classList.remove('row-focus');
                     const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow - 1}`);
                     elemCardLetterRowFocus.classList.add('row-focus');
@@ -336,7 +305,7 @@ export function formationLetterArea() {
             }
 
             if (event.code === 'ArrowRight' || event.keyCode === 39) {
-                if (event.target.selectionEnd == elemCardLetterRowBlur.value.length) {
+                if (event.target.selectionEnd == elemCardLetterRowBlur.value.length && !(elemNumberRow == numberRows)) {
                     elemCardLetterRowBlur.classList.remove('row-focus');
                     const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
                     elemCardLetterRowFocus.classList.add('row-focus');
@@ -347,7 +316,7 @@ export function formationLetterArea() {
             }
 
             if (event.code === 'Backspace' || event.keyCode === 8) {
-                if (event.target.selectionStart == 0) {
+                if (event.target.selectionStart == 0 && !(elemNumberRow == 1)) {
                     elemCardLetterRowBlur.classList.remove('row-focus');
                     restText = event.target.value.slice(0, event.target.selectionStart);
                     const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow - 1}`);
