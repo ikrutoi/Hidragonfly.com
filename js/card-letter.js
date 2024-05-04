@@ -128,59 +128,78 @@ export function formationLetterArea() {
                 }
             }
 
-            if (event.code === 'NumpadDecimal' || event.keyCode === 46) {
+            if (
+                event.code === 'NumpadDecimal' || event.keyCode === 46 
+            ) {
                 const pointFocus = event.target.selectionStart;
 
                 let arrayRowCurrent;
                 let arrayRowNext;
                 let transitionTextCut;
-                // let interimText;
                 let restText;
                 let tailRow;
-                
-                function changeTailRow(elemNumberRow) {
-                    const elemRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`);
-                    const elemRowNext = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
+
+                for (let i = elemNumberRow; i < numberRows; i++) {
+                    console.log('row: ', i);
+
+                    const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
+                    const elemRowNext = document.querySelector(`.letter-row-${i + 1}`);
                     
                     arrayRowCurrent = elemRowCurrent.value.split(' ');
                     arrayRowNext = elemRowNext.value.split(' ');
                     tailRow = maxLengthRow - elemRowCurrent.value.length;
+                    
+                    if (!(elemRowNext.value == 0)) {
 
-                    if (!(arrayRowNext.length == 0)) {
-                        for (let i = 0; i <= arrayRowNext.length; i++) {
+                        console.log('0. elemRowCurrent.value: ', elemRowCurrent.value, 'elemRowNext.value: ', elemRowNext.value)
+                        console.log('1. transitionTextCut: ', transitionTextCut, 'restText: ', restText);
+
+                        for (let i = 0; i < arrayRowNext.length; i++) {
                             if (!transitionTextCut) {
                                 transitionTextCut = arrayRowNext[i];
-                                restText = arrayRowNext.slice(i + 1, arrayRowNext.length);
-
-                                if (transitionTextCut.length < tailRow) {
+                                restText = arrayRowNext.slice(i + 1, arrayRowNext.length);    
+                                console.log('2. transitionTextCut: ', transitionTextCut, 'restText: ', restText);
+                                if (transitionTextCut.length <= tailRow) {
                                     continue;
                                 } else break;
                             } else {
-                                if (transitionTextCut.length < tailRow) {
-                                    transitionTextCut = transitionTextCut + ' ' + arrayRowNext[i];
+                                transitionTextCut = transitionTextCut + ' ' + arrayRowNext[i];
+                                if (transitionTextCut.length <= tailRow) {
                                     restText = arrayRowNext.slice(i + 1, arrayRowNext.length);
+                                    console.log('3. transitionTextCut: ', transitionTextCut, 'restText: ', restText);
                                     continue;
-                                } else break;
+                                } else {
+                                    let temporaryTransitionTextCut = transitionTextCut.split(' ');
+                                    temporaryTransitionTextCut = temporaryTransitionTextCut.slice(0, temporaryTransitionTextCut.length - 1);
+                                    transitionTextCut = temporaryTransitionTextCut.join(' ');
+                                    restText = arrayRowNext.slice(i, arrayRowNext.length);
+                                    temporaryTransitionTextCut = null;
+                                    console.log('4. transitionTextCut: ', transitionTextCut, 'restText: ', restText);
+                                    break;
+                                };
                             }
                         }
-
-                        if (transitionTextCut) {
+                        
+                        if (transitionTextCut && i == elemNumberRow) {
                             elemRowCurrent.value = elemRowCurrent.value + ' ' + transitionTextCut;
                             elemRowNext.value = restText.join(' ');
                             elemRowCurrent.selectionStart = pointFocus;
                             elemRowCurrent.selectionEnd = pointFocus;
                             elemRowCurrent.focus();
-                            transitionTextCut = null;
-                            restText = null;
+                        } else {
+                            elemRowCurrent.value = elemRowCurrent.value + ' ' + transitionTextCut;
+                            elemRowNext.value = restText.join(' ');
                         }
-                    } else {
-                        for (let i = elemNumberRow + 1; i <= numberRows; i++) {
-                            changeTailRow(i);
-                        }
-                    }
-                }
 
-                changeTailRow(elemNumberRow);
+                        transitionTextCut = null;
+                        restText = null;
+                    } else continue;
+                        // elemRowCurrent.value = elemRowCurrent.value + ' ' + transitionTextCut;
+                        // elemRowNext.value = restText.join(' ');
+                        // transitionTextCut = null;
+                        // restText = null;
+                    
+                }
             }
 
             if (event.target.value.length >= maxLengthRow && 
