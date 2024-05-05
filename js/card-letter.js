@@ -60,51 +60,128 @@ export function formationLetterArea() {
             if (event.code === 'Enter' || event.keyCode === 13) {
                 const pointFocus = event.target.selectionStart;
                 let transitionTextCut;
+                console.log('New Enter!!!');
 
                 for (let i = elemNumberRow; i <= numberRows; i++) {
                     const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
-
-                    console.log('row: ', i, 'poinerFocus: ', pointFocus);
-                    console.log('1. transitionTextCut: ', transitionTextCut);
+                    console.log('row: ', i, 'pointFocus: ', pointFocus);
+                    console.log('1.0 transitionTextCut: ', transitionTextCut);
                     
                     if (i == elemNumberRow) {
                         transitionTextCut = elemRowCurrent.value.slice(pointFocus, elemRowCurrent.value.length);
                         elemRowCurrent.value = elemRowCurrent.value.slice(0, pointFocus);
                         elemRowCurrent.classList.remove('row-focus');
+                        console.log('1.01 transitionTextCut: ', transitionTextCut);
                     }  else {
-                        if (transitionTextCut) {
-                            if (elemRowCurrent.value) {
+                        console.log('1.1 transitionTextCut: ', transitionTextCut);
+                        console.log('1.2 transitionTextCut.length: ', transitionTextCut.length);
+
+
+                        
+                        // if (transitionTextCut) {
+                            // console.log('2. elemRowCurrent.value: ', elemRowCurrent.value, 'transitionTextCut: ', transitionTextCut);
+                            // if (elemRowCurrent.value) {
                                 const arrayRowCurrent = elemRowCurrent.value.split(' ');      
+
+                                let temporaryText;
+
                                 for (let i = 0; i < arrayRowCurrent.length; i++) {
-                                    if (transitionTextCut.length + arrayRowCurrent[i].length <= maxLengthRow) {
-                                        transitionTextCut = transitionTextCut + ' ' + arrayRowCurrent[i];
+                                    if (arrayRowCurrent[0].length <= maxLengthRow - transitionTextCut.length) {
                                         if (arrayRowCurrent.length == 1) {
                                             elemRowCurrent.value = transitionTextCut;
                                             transitionTextCut = '';
-                                            break;
-                                        } else continue;
-                                    } else {
-                                        elemRowCurrent.value = transitionTextCut;
-                                        transitionTextCut = arrayRowCurrent.slice(i, arrayRowCurrent.length).join(' ');
-                                        break;
-                                    }
+                                        } else temporaryText = arrayRowCurrent[i];
+                                    } else { 
+                                        if (arrayRowCurrent.length == 1) {
+                                            elemRowCurrent.value = transitionTextCut;
+                                            transitionTextCut = arrayRowCurrent.join(' ');
+                                        } else {                                            
+                                            if((temporaryText + ' ' + arrayRowCurrent[i]).length < maxLengthRow - transitionTextCut.length) {
+                                                temporaryText = temporaryText + ' ' + arrayRowCurrent[i];
+                                                if (i == arrayRowCurrent.length - 1) {
+                                                    elemRowCurrent.value = transitionTextCut + ' ' + temporaryText + ' ' + arrayRowCurrent[i];
+                                                    transitionTextCut = '';
+                                                } else temporaryText = temporaryText + ' ' + arrayRowCurrent[i];
+                                            } else {
+                                                elemRowCurrent.value = transitionTextCut + ' ' + temporaryText;
+                                                transitionTextCut = arrayRowCurrent.slice(i, arrayRowCurrent.length).join(' ');
+                                            }
+                                        }
+                                    }    
                                 }
-                            } else {
-                                elemRowCurrent.value = transitionTextCut;
-                                transitionTextCut = '';
-                            }
+                            // } else {
+                            //     elemRowCurrent.value = transitionTextCut;
+                            //     transitionTextCut = '';
+                            // }
+                                                                        // else {
+                                            //     elemRowCurrent.value = transitionTextCut;
+                                            //     transitionTextCut = '';
+                                            //     console.log('4. transitionTextCut: ', transitionTextCut);
+                                
+                                // let temporaryText = arrayRowCurrent.reduce((temporaryText, el, i) => {
+                                //     // console.log('1.3 transitionTextCut: ', transitionTextCut);
+                                //     // console.log('1.4 transitionTextCut.length: ', transitionTextCut.length);
+                                //     // console.log('1.5 maxLengthRow - transitionTextCut.length: ', maxLengthRow - transitionTextCut.length);
+                                //     // console.log('1.6 temporaryText: ', temporaryText, ': ', temporaryText.length);
 
-                        } else {
-                            transitionTextCut = elemRowCurrent.value;
-                            elemRowCurrent.value = '';
-                            continue;
-                        }                          
-                    }
+                                //     if (i == 0) {
+                                //         if (temporaryText.length <= maxLengthRow - transitionTextCut.length) {
+                                //             return temporaryText = temporaryText + ' ' + el;
+                                //         } else return '';
+                                //     } else {
+                                //         if (temporaryText.length <= maxLengthRow - transitionTextCut.length) {
+                                //             return temporaryText = temporaryText + ' ' + el;
+                                //         } else return tem
+                                //     }
 
-                    if (i == elemNumberRow + 1) {
-                        elemRowCurrent.classList.add('row-focus');
-                        elemRowCurrent.setSelectionRange(0, 0);
-                        elemRowCurrent.focus();
+
+
+
+                                //     if (temporaryText.length <= maxLengthRow - transitionTextCut.length) {
+                                //         temporaryText = temporaryText + ' ' + el;
+                                //         return temporaryText;
+                                //     } else 
+                                // });
+                                
+                                // console .log('2. temporaryText: ', temporaryText);
+                                
+                                // elemRowCurrent.value = transitionTextCut + ' ' + temporaryText;
+                                
+                                // transitionTextCut = arrayRowCurrent.slice(temporaryText.split[' '].length - 1, arrayRowCurrent.length);
+                                
+                                // console.log('3. transitionTextCut: ', transitionTextCut);
+                                // for (let i = 0; i < arrayRowCurrent.length; i++) {
+                                    //     let temporaryTransitionText = transitionTextCut + ' ' + arrayRowCurrent[i];
+                                    //     if (temporaryTransitionText.length <= maxLengthRow) {
+                                        //         transitionTextCut = temporaryTransitionText;
+                                        //     } else {
+                                            //         elemRowCurrent.value = transitionTextCut;
+                                            //         transitionTextCut = arrayRowCurrent.slice(i, arrayRowCurrent.length).join(' ');
+                                            //         break;
+                                            //     }
+                                            // if (transitionTextCut.length + arrayRowCurrent[i].length <= maxLengthRow) {
+                                                //     transitionTextCut = transitionTextCut + ' ' + arrayRowCurrent[i];
+                                                //     if (arrayRowCurrent.length == 1) {
+                                                    //         elemRowCurrent.value = transitionTextCut;
+                                                    //         transitionTextCut = '';
+                                                    //         break;
+                                            //     } else continue;
+                                            // } else {
+                                                //     elemRowCurrent.value = transitionTextCut;
+                                                //     transitionTextCut = arrayRowCurrent.slice(i, arrayRowCurrent.length).join(' ');
+                                                //     break;
+                                                // }
+                                            // }
+                                            // else {
+                                            //     elemRowCurrent.value = transitionTextCut;
+                                            //     transitionTextCut = '';
+                                            //     console.log('4. transitionTextCut: ', transitionTextCut);
+
+                            if (i == elemNumberRow + 1) {
+                                elemRowCurrent.classList.add('row-focus');
+                                elemRowCurrent.setSelectionRange(0, 0);
+                                elemRowCurrent.focus();
+                            }                       
                     }
                 }
             }
