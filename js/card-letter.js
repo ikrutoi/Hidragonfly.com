@@ -63,6 +63,7 @@ export function formationLetterArea() {
                 
                 for (let i = elemNumberRow; i <= numberRows; i++) {
                     const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
+                    console.log('row: ', i);
                     
                     if (i == elemNumberRow) {
                         transitionTextCut = elemRowCurrent.value.slice(pointFocus, elemRowCurrent.value.length);
@@ -70,18 +71,34 @@ export function formationLetterArea() {
                         elemRowCurrent.classList.remove('row-focus');
                     }  else {
                         const arrayRowCurrent = elemRowCurrent.value.split(' '); 
-    
+                        console.log('0. transitionTextCut: ', transitionTextCut);
+                        console.log('01. arrayRowCurrent: ', arrayRowCurrent);
+                        
                         for (let i = 0; i < arrayRowCurrent.length; i++) {
+                            console.log('index: ', i);
+                            console.log('02. transitionTextCut: ', transitionTextCut);
                             if ((transitionTextCut + ' ' + arrayRowCurrent[i]).length <= maxLengthRow) {
                                 if ( i == arrayRowCurrent.length - 1) {
-                                    elemRowCurrent.value = transitionTextCut + ' ' + arrayRowCurrent[i];
-                                    transitionTextCut = '';
+                                    if (transitionTextCut == '') {
+                                        elemRowCurrent.value = arrayRowCurrent[i];
+                                    } else {
+                                        elemRowCurrent.value = transitionTextCut + ' ' + arrayRowCurrent[i];
+                                        transitionTextCut = '';
+                                    } 
                                 } else {
-                                    transitionTextCut = transitionTextCut + ' ' + arrayRowCurrent[i];
+                                    if (transitionTextCut == '') {
+                                        transitionTextCut = arrayRowCurrent[i];
+                                    } else {
+                                        transitionTextCut = transitionTextCut + ' ' + arrayRowCurrent[i];
+                                        console.log('1. transitionTextCut: ', transitionTextCut);
+                                    }
                                 }
                             } else {
+                                console.log('20. transitionTextCut: ', transitionTextCut);
                                 elemRowCurrent.value = transitionTextCut;
                                 transitionTextCut = arrayRowCurrent.slice(i, arrayRowCurrent.length).join(' ');
+                                console.log('21. transitionTextCut: ', transitionTextCut);
+                                break;
                             }                                      
                         }
 
