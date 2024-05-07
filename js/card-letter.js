@@ -64,9 +64,6 @@ export function formationLetterArea() {
                 
                 for (let i = elemNumberRow; i <= numberRows; i++) {
                     const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
-
-                    console.log('row: ', i);
-                    console.log('transitionTextCut: ', transitionTextCut);
                     
                     if (i == elemNumberRow) {
                         if (pointFocus == elemRowCurrent.value.length) {
@@ -94,7 +91,6 @@ export function formationLetterArea() {
                         }
 
                         const arrayRowCurrent = elemRowCurrent.value.split(' '); 
-                        console.log('elemRowCurrent.value: ', elemRowCurrent.value, 'arrayRowCurrent: ', arrayRowCurrent);
                         
                         for (let i = 0; i < arrayRowCurrent.length; i++) {
                             if ((transitionTextCut + ' ' + arrayRowCurrent[i]).length <= maxLengthRow) {
@@ -115,6 +111,7 @@ export function formationLetterArea() {
                                 } else {
                                     transitionTextCut = transitionTextCut + ' ' + arrayRowCurrent[i];
                                 }
+
                             } else {
                                 elemRowCurrent.value = transitionTextCut;
                                 transitionTextCut = arrayRowCurrent.slice(i, arrayRowCurrent.length).join(' ');
@@ -302,6 +299,8 @@ export function formationLetterArea() {
                     elemCardLetterRowBlur.classList.remove('row-focus');
                     const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
                     elemCardLetterRowFocus.classList.add('row-focus');
+                    elemCardLetterRowFocus.selectionStart = elemCardLetterRowFocus.value.length;
+                    elemCardLetterRowFocus.selectionEnd = elemCardLetterRowFocus.value.length;
                     setTimeout(() => elemCardLetterRowFocus.focus(), 0);
                 }
             }
@@ -311,7 +310,9 @@ export function formationLetterArea() {
                     elemCardLetterRowBlur.classList.remove('row-focus');
                     const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow - 1}`);
                     elemCardLetterRowFocus.classList.add('row-focus');
-                    elemCardLetterRowFocus.focus();
+                    elemCardLetterRowFocus.selectionStart = elemCardLetterRowFocus.value.length;
+                    elemCardLetterRowFocus.selectionEnd = elemCardLetterRowFocus.value.length;
+                    setTimeout(() => elemCardLetterRowFocus.focus(), 0);
                 }
             }
 
@@ -338,53 +339,182 @@ export function formationLetterArea() {
             }
 
             if (event.code === 'Backspace' || event.keyCode === 8) {
-                if (event.target.selectionStart == 0 && !(elemNumberRow == 1)) {
-                    elemCardLetterRowBlur.classList.remove('row-focus');
-                    restText = event.target.value.slice(0, event.target.selectionStart);
-                    const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow - 1}`);
-                    elemCardLetterRowFocus.classList.add('row-focus');
-                    const numberFocus = elemCardLetterRowFocus.value.length;
-                    const freePlaceRowFocus = maxLengthRow - elemCardLetterRowFocus.value.length;
-                    console.log(freePlaceRowFocus);
 
-                    let foundNumberPos;
-                    let pos = 0;
-                    
-                    while (true) {
-                        if (elemCardLetterRowBlur.value.length > freePlaceRowFocus && elemCardLetterRowBlur.value.indexOf(' ') == -1) break;  
-                        let temporaryFoundNumberPos = elemCardLetterRowBlur.value.indexOf(' ', pos);
-                        if (temporaryFoundNumberPos >= freePlaceRowFocus) break;  
-                        foundNumberPos = temporaryFoundNumberPos;   
-                        if (temporaryFoundNumberPos == -1) break;
-                        pos = temporaryFoundNumberPos + 1;
-                    }
-                    
-                    let textToWrap;
-                    let textRemaining;
+                const elemRowCurrent = event.target;
+                    // const pointFocus = event.target.selectionStart;
+                    // let transitionTextCut;
+                    // let rowEmpty;
 
-                    if (foundNumberPos === undefined) {
-                        textToWrap = '';
-                        textRemaining = elemCardLetterRowBlur.value;
-                    }
-
-                    if (foundNumberPos == -1) {       
-                        textToWrap = elemCardLetterRowBlur.value;
-                        textRemaining = '';
-                    } else if (foundNumberPos === undefined) {
-                            textToWrap = '';
-                            textRemaining = elemCardLetterRowBlur.value;
-                        } else {     
-                            textToWrap = elemCardLetterRowBlur.value.slice(0, foundNumberPos + 1);
-                            textRemaining = elemCardLetterRowBlur.value.slice(foundNumberPos, elemCardLetterRowBlur.value.length);
+                    // if (event.target.selectionStart == 0 && !(elemNumberRow == 1)) {
+                console.log('backspace', elemRowCurrent.value);
+                
+                for (let i = elemNumberRow + 1; i <= numberRows; i++) {
+                    const elemRowNext = document.querySelector(`.letter-row-${i}`);
+                    console.log('backspace-row, row: ', i, elemRowNext.value);
+                    const arrayRowNext = elemRowNext.value.split(' ')
+                    for (let i = 0; i < arrayRowNext.length; i++) {
+                        if (maxLengthRow - elemRowCurrent.value.length > arrayRowNext[i]) {
+                            elemRowCurrent.value = elemRowCurrent.value + ' ' + arrayRowNext[i];
                         }
-
-                    elemCardLetterRowFocus.value = elemCardLetterRowFocus.value + textToWrap;
-                    elemCardLetterRowBlur.value = textRemaining;
-                    elemCardLetterRowFocus.selectionStart = numberFocus;
-                    elemCardLetterRowFocus.selectionEnd = numberFocus;
-                    setTimeout(() => elemCardLetterRowFocus.focus(), 0);
-                }
+                    }
+                    
+                    if (event.target.selectionStart == 0 && !(elemNumberRow == 1)) {
+                        console.log('change of focus!');
+                        elemRowCurrent.classList.remove('row-focus');
+                        elemRowNext.classList.add('row-focus');
+                        elemRowNext.selectionStart = elemRowNext.value.length;
+                        elemRowNext = elemRowNext.value.length;
+                        setTimeout(() => elemCardLetterRowFocus.focus(), 0);
+                    }
+                }             
             }
+
+                            // function correctRowNext(ind) {
+                            //     const elemRowNext = document.querySelector(`.letter-row-${ind - 1}`);
+                            //     // elemRowNext.classList.add('row-focus');
+                            //     // elemRowNext.selectionStart = elemRowNext.value.length;
+                            //     // elemRowNext.selectionEnd = elemRowNext.value.length;
+                            //     // setTimeout(() => elemRowNext.focus(), 0);
+                            //     const arrayTransitionTextCut = transitionTextCut.split(' ');
+                            //     let temporaryText;
+
+                            //     for (let i = 0; i < arrayTransitionTextCut.length; i++) {
+                            //         if (maxLengthRow - elemRowNext.value.length >= arrayTransitionTextCut[i]) {
+                            //             if (i == 0) {
+                            //                 temporaryText = arrayTransitionTextCut[i];
+                            //                 if (i == arrayTransitionTextCut.length - 1) {
+
+                            //                 }
+                            //             } else if (i == arrayTransitionTextCut.length - 1) {
+                            //                 elemRowNext.value = transitionTextCut;
+                            //                 temporaryText = null;
+                            //                 transitionTextCut = null;
+                            //             }
+                            //         } else {
+
+                            //         }
+
+                            //     }
+
+
+                            // }
+
+                            // correctRowNext(i);
+                            
+                    // }
+
+                    // {  
+                    //     if (i == elemNumberRow) {
+                    //         if (pointFocus == elemRowCurrent.value.length) {
+                    //             rowEmpty = true;
+                    //         }
+                    //         transitionTextCut = elemRowCurrent.value.slice(pointFocus, elemRowCurrent.value.length);
+                    //         elemRowCurrent.value = elemRowCurrent.value.slice(0, pointFocus);
+                    //         elemRowCurrent.classList.remove('row-focus');
+                    //     }  else {
+                            
+                    //         if (rowEmpty) {
+                    //             transitionTextCut = elemRowCurrent.value;
+                    //             elemRowCurrent.value = '';
+                    //             elemRowCurrent.classList.add('row-focus');
+                    //             elemRowCurrent.setSelectionRange(0, 0);
+                    //             elemRowCurrent.focus();
+                    //             rowEmpty = null;
+                    //             // continue;
+                    //         } 
+    
+                    //         if (transitionTextCut == '') {
+                    //             transitionTextCut = elemRowCurrent.value;
+                    //             elemRowCurrent.value = '';
+                    //             // continue;
+                    //         }
+    
+                    //         const arrayRowCurrent = elemRowCurrent.value.split(' '); 
+                            
+                    //         for (let i = 0; i < arrayRowCurrent.length; i++) {
+                    //             if ((transitionTextCut + ' ' + arrayRowCurrent[i]).length <= maxLengthRow) {
+                    //                 if (i == arrayRowCurrent.length - 1 && arrayRowCurrent[i] == '') {
+                    //                     elemRowCurrent.value = transitionTextCut;
+                    //                     transitionTextCut = '';
+                    //                     break;
+                    //                 }
+    
+                    //                 if (transitionTextCut == '' && !(i == 0)) {
+                    //                     transitionTextCut = arrayRowCurrent[i];
+                    //                     continue;
+                    //                 }
+    
+                    //                 if (i == arrayRowCurrent.length - 1) {
+                    //                     elemRowCurrent.value = transitionTextCut + ' ' + arrayRowCurrent[i];
+                    //                     transitionTextCut = '';
+                    //                 } else {
+                    //                     transitionTextCut = transitionTextCut + ' ' + arrayRowCurrent[i];
+                    //                 }
+    
+                    //             } else {
+                    //                 elemRowCurrent.value = transitionTextCut;
+                    //                 transitionTextCut = arrayRowCurrent.slice(i, arrayRowCurrent.length).join(' ');
+                    //                 break;
+                    //             }                                      
+                    //         }
+    
+                    //         if (i == elemNumberRow + 1) {
+                    //             elemRowCurrent.classList.add('row-focus');
+                    //             elemRowCurrent.setSelectionRange(0, 0);
+                    //             elemRowCurrent.focus();
+                    //         }                       
+                    //     }
+                    // }
+
+
+
+
+
+                // if (event.target.selectionStart == 0 && !(elemNumberRow == 1)) {
+                //     elemCardLetterRowBlur.classList.remove('row-focus');
+                //     restText = event.target.value.slice(0, event.target.selectionStart);
+                //     const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow - 1}`);
+                //     elemCardLetterRowFocus.classList.add('row-focus');
+                //     const numberFocus = elemCardLetterRowFocus.value.length;
+                //     const freePlaceRowFocus = maxLengthRow - elemCardLetterRowFocus.value.length;
+
+                //     let foundNumberPos;
+                //     let pos = 0;
+                    
+                //     while (true) {
+                //         if (elemCardLetterRowBlur.value.length > freePlaceRowFocus && elemCardLetterRowBlur.value.indexOf(' ') == -1) break;  
+                //         let temporaryFoundNumberPos = elemCardLetterRowBlur.value.indexOf(' ', pos);
+                //         if (temporaryFoundNumberPos >= freePlaceRowFocus) break;  
+                //         foundNumberPos = temporaryFoundNumberPos;   
+                //         if (temporaryFoundNumberPos == -1) break;
+                //         pos = temporaryFoundNumberPos + 1;
+                //     }
+                    
+                //     let textToWrap;
+                //     let textRemaining;
+
+                //     if (foundNumberPos === undefined) {
+                //         textToWrap = '';
+                //         textRemaining = elemCardLetterRowBlur.value;
+                //     }
+
+                //     if (foundNumberPos == -1) {       
+                //         textToWrap = elemCardLetterRowBlur.value;
+                //         textRemaining = '';
+                //     } else if (foundNumberPos === undefined) {
+                //             textToWrap = '';
+                //             textRemaining = elemCardLetterRowBlur.value;
+                //         } else {     
+                //             textToWrap = elemCardLetterRowBlur.value.slice(0, foundNumberPos + 1);
+                //             textRemaining = elemCardLetterRowBlur.value.slice(foundNumberPos, elemCardLetterRowBlur.value.length);
+                //         }
+
+                //     elemCardLetterRowFocus.value = elemCardLetterRowFocus.value + textToWrap;
+                //     elemCardLetterRowBlur.value = textRemaining;
+                //     elemCardLetterRowFocus.selectionStart = numberFocus;
+                //     elemCardLetterRowFocus.selectionEnd = numberFocus;
+                //     setTimeout(() => elemCardLetterRowFocus.focus(), 0);
+                // }
             
         }
 
