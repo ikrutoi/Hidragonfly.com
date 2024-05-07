@@ -64,11 +64,13 @@ export function formationLetterArea() {
                 
                 for (let i = elemNumberRow; i <= numberRows; i++) {
                     const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
+
+                    console.log('row: ', i);
+                    console.log('transitionTextCut: ', transitionTextCut);
                     
                     if (i == elemNumberRow) {
                         if (pointFocus == elemRowCurrent.value.length) {
                             rowEmpty = true;
-                            console.log('enter empty!!');
                         }
                         transitionTextCut = elemRowCurrent.value.slice(pointFocus, elemRowCurrent.value.length);
                         elemRowCurrent.value = elemRowCurrent.value.slice(0, pointFocus);
@@ -82,7 +84,6 @@ export function formationLetterArea() {
                             elemRowCurrent.setSelectionRange(0, 0);
                             elemRowCurrent.focus();
                             rowEmpty = null;
-                            console.log('row empty!!');
                             continue;
                         } 
 
@@ -93,22 +94,26 @@ export function formationLetterArea() {
                         }
 
                         const arrayRowCurrent = elemRowCurrent.value.split(' '); 
+                        console.log('elemRowCurrent.value: ', elemRowCurrent.value, 'arrayRowCurrent: ', arrayRowCurrent);
                         
                         for (let i = 0; i < arrayRowCurrent.length; i++) {
                             if ((transitionTextCut + ' ' + arrayRowCurrent[i]).length <= maxLengthRow) {
-                                if ( i == arrayRowCurrent.length - 1) {
-                                    // if (transitionTextCut == '') {
-                                    //     elemRowCurrent.value = arrayRowCurrent[i];
-                                    // } else {
-                                        elemRowCurrent.value = transitionTextCut + ' ' + arrayRowCurrent[i];
-                                        transitionTextCut = '';
-                                    // } 
+                                if (i == arrayRowCurrent.length - 1 && arrayRowCurrent[i] == '') {
+                                    elemRowCurrent.value = transitionTextCut;
+                                    transitionTextCut = '';
+                                    break;
+                                }
+
+                                if (transitionTextCut == '' && !(i == 0)) {
+                                    transitionTextCut = arrayRowCurrent[i];
+                                    continue;
+                                }
+
+                                if (i == arrayRowCurrent.length - 1) {
+                                    elemRowCurrent.value = transitionTextCut + ' ' + arrayRowCurrent[i];
+                                    transitionTextCut = '';
                                 } else {
-                                    // if (transitionTextCut == '') {
-                                        // transitionTextCut = arrayRowCurrent[i];
-                                    // } else {
-                                        transitionTextCut = transitionTextCut + ' ' + arrayRowCurrent[i];
-                                    // }
+                                    transitionTextCut = transitionTextCut + ' ' + arrayRowCurrent[i];
                                 }
                             } else {
                                 elemRowCurrent.value = transitionTextCut;
@@ -116,28 +121,6 @@ export function formationLetterArea() {
                                 break;
                             }                                      
                         }
-                        // for (let i = 0; i < arrayRowCurrent.length; i++) {
-                        //     if ((transitionTextCut + ' ' + arrayRowCurrent[i]).length <= maxLengthRow) {
-                        //         if ( i == arrayRowCurrent.length - 1) {
-                        //             if (transitionTextCut == '') {
-                        //                 elemRowCurrent.value = arrayRowCurrent[i];
-                        //             } else {
-                        //                 elemRowCurrent.value = transitionTextCut + ' ' + arrayRowCurrent[i];
-                        //                 transitionTextCut = '';
-                        //             } 
-                        //         } else {
-                        //             if (transitionTextCut == '') {
-                        //                 transitionTextCut = arrayRowCurrent[i];
-                        //             } else {
-                        //                 transitionTextCut = transitionTextCut + ' ' + arrayRowCurrent[i];
-                        //             }
-                        //         }
-                        //     } else {
-                        //         elemRowCurrent.value = transitionTextCut;
-                        //         transitionTextCut = arrayRowCurrent.slice(i, arrayRowCurrent.length).join(' ');
-                        //         break;
-                        //     }                                      
-                        // }
 
                         if (i == elemNumberRow + 1) {
                             elemRowCurrent.classList.add('row-focus');
