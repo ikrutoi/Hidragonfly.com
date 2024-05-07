@@ -60,47 +60,84 @@ export function formationLetterArea() {
             if (event.code === 'Enter' || event.keyCode === 13) {
                 const pointFocus = event.target.selectionStart;
                 let transitionTextCut;
+                let rowEmpty;
                 
                 for (let i = elemNumberRow; i <= numberRows; i++) {
                     const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
-                    console.log('row: ', i);
                     
                     if (i == elemNumberRow) {
+                        if (pointFocus == elemRowCurrent.value.length) {
+                            rowEmpty = true;
+                            console.log('enter empty!!');
+                        }
                         transitionTextCut = elemRowCurrent.value.slice(pointFocus, elemRowCurrent.value.length);
                         elemRowCurrent.value = elemRowCurrent.value.slice(0, pointFocus);
                         elemRowCurrent.classList.remove('row-focus');
                     }  else {
+                        
+                        if (rowEmpty) {
+                            transitionTextCut = elemRowCurrent.value;
+                            elemRowCurrent.value = '';
+                            elemRowCurrent.classList.add('row-focus');
+                            elemRowCurrent.setSelectionRange(0, 0);
+                            elemRowCurrent.focus();
+                            rowEmpty = null;
+                            console.log('row empty!!');
+                            continue;
+                        } 
+
+                        if (transitionTextCut == '') {
+                            transitionTextCut = elemRowCurrent.value;
+                            elemRowCurrent.value = '';
+                            continue;
+                        }
+
                         const arrayRowCurrent = elemRowCurrent.value.split(' '); 
-                        console.log('0. transitionTextCut: ', transitionTextCut);
-                        console.log('01. arrayRowCurrent: ', arrayRowCurrent);
                         
                         for (let i = 0; i < arrayRowCurrent.length; i++) {
-                            console.log('index: ', i);
-                            console.log('02. transitionTextCut: ', transitionTextCut);
                             if ((transitionTextCut + ' ' + arrayRowCurrent[i]).length <= maxLengthRow) {
                                 if ( i == arrayRowCurrent.length - 1) {
-                                    if (transitionTextCut == '') {
-                                        elemRowCurrent.value = arrayRowCurrent[i];
-                                    } else {
+                                    // if (transitionTextCut == '') {
+                                    //     elemRowCurrent.value = arrayRowCurrent[i];
+                                    // } else {
                                         elemRowCurrent.value = transitionTextCut + ' ' + arrayRowCurrent[i];
                                         transitionTextCut = '';
-                                    } 
+                                    // } 
                                 } else {
-                                    if (transitionTextCut == '') {
-                                        transitionTextCut = arrayRowCurrent[i];
-                                    } else {
+                                    // if (transitionTextCut == '') {
+                                        // transitionTextCut = arrayRowCurrent[i];
+                                    // } else {
                                         transitionTextCut = transitionTextCut + ' ' + arrayRowCurrent[i];
-                                        console.log('1. transitionTextCut: ', transitionTextCut);
-                                    }
+                                    // }
                                 }
                             } else {
-                                console.log('20. transitionTextCut: ', transitionTextCut);
                                 elemRowCurrent.value = transitionTextCut;
                                 transitionTextCut = arrayRowCurrent.slice(i, arrayRowCurrent.length).join(' ');
-                                console.log('21. transitionTextCut: ', transitionTextCut);
                                 break;
                             }                                      
                         }
+                        // for (let i = 0; i < arrayRowCurrent.length; i++) {
+                        //     if ((transitionTextCut + ' ' + arrayRowCurrent[i]).length <= maxLengthRow) {
+                        //         if ( i == arrayRowCurrent.length - 1) {
+                        //             if (transitionTextCut == '') {
+                        //                 elemRowCurrent.value = arrayRowCurrent[i];
+                        //             } else {
+                        //                 elemRowCurrent.value = transitionTextCut + ' ' + arrayRowCurrent[i];
+                        //                 transitionTextCut = '';
+                        //             } 
+                        //         } else {
+                        //             if (transitionTextCut == '') {
+                        //                 transitionTextCut = arrayRowCurrent[i];
+                        //             } else {
+                        //                 transitionTextCut = transitionTextCut + ' ' + arrayRowCurrent[i];
+                        //             }
+                        //         }
+                        //     } else {
+                        //         elemRowCurrent.value = transitionTextCut;
+                        //         transitionTextCut = arrayRowCurrent.slice(i, arrayRowCurrent.length).join(' ');
+                        //         break;
+                        //     }                                      
+                        // }
 
                         if (i == elemNumberRow + 1) {
                             elemRowCurrent.classList.add('row-focus');
