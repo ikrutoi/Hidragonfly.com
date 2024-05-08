@@ -66,17 +66,21 @@ export function formationLetterArea() {
                     const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
                     
                     if (i == elemNumberRow) {
+                        console.log('pointFocus: ', pointFocus, 'elemRowCurrent.value.length: ', elemRowCurrent.value.length);
                         if (pointFocus == elemRowCurrent.value.length) {
                             rowEmpty = true;
                         }
-                        transitionTextCut = elemRowCurrent.value.slice(pointFocus, elemRowCurrent.value.length);
+                        transitionTextCut = elemRowCurrent.value.slice(pointFocus, elemRowCurrent.value.length + 1);
+                        console.log('1 transitionTextCut: ', transitionTextCut);
+                        console.log('1.1 elemRowCurrent.value.slice(0, pointFocus + 1): ', elemRowCurrent.value.slice(0, pointFocus + 1));
                         elemRowCurrent.value = elemRowCurrent.value.slice(0, pointFocus);
                         elemRowCurrent.classList.remove('row-focus');
                     }  else {
+
+                        console.log('row: ', i, 'transitionTextCut: ', transitionTextCut);
                         
                         if (rowEmpty) {
-                            transitionTextCut = elemRowCurrent.value;
-                            elemRowCurrent.value = '';
+
                             elemRowCurrent.classList.add('row-focus');
                             elemRowCurrent.setSelectionRange(0, 0);
                             elemRowCurrent.focus();
@@ -299,8 +303,8 @@ export function formationLetterArea() {
                     elemCardLetterRowBlur.classList.remove('row-focus');
                     const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
                     elemCardLetterRowFocus.classList.add('row-focus');
-                    elemCardLetterRowFocus.selectionStart = elemCardLetterRowFocus.value.length;
-                    elemCardLetterRowFocus.selectionEnd = elemCardLetterRowFocus.value.length;
+                    elemCardLetterRowFocus.selectionStart = event.target.selectionStart;
+                    elemCardLetterRowFocus.selectionEnd = event.target.selectionStart;
                     setTimeout(() => elemCardLetterRowFocus.focus(), 0);
                 }
             }
@@ -310,8 +314,8 @@ export function formationLetterArea() {
                     elemCardLetterRowBlur.classList.remove('row-focus');
                     const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow - 1}`);
                     elemCardLetterRowFocus.classList.add('row-focus');
-                    elemCardLetterRowFocus.selectionStart = elemCardLetterRowFocus.value.length;
-                    elemCardLetterRowFocus.selectionEnd = elemCardLetterRowFocus.value.length;
+                    elemCardLetterRowFocus.selectionStart = event.target.selectionStart;
+                    elemCardLetterRowFocus.selectionEnd = event.target.selectionStart;
                     setTimeout(() => elemCardLetterRowFocus.focus(), 0);
                 }
             }
@@ -340,33 +344,79 @@ export function formationLetterArea() {
 
             if (event.code === 'Backspace' || event.keyCode === 8) {
 
-                const elemRowCurrent = event.target;
-                    // const pointFocus = event.target.selectionStart;
-                    // let transitionTextCut;
-                    // let rowEmpty;
+                // const elemRowCurrent = event.target;
+                    const pointFocus = event.target.selectionStart;
+                    let transitionTextCut;
+                    let sizeRest;
 
                     // if (event.target.selectionStart == 0 && !(elemNumberRow == 1)) {
-                console.log('backspace', elemRowCurrent.value);
-                
-                for (let i = elemNumberRow + 1; i <= numberRows; i++) {
-                    const elemRowNext = document.querySelector(`.letter-row-${i}`);
-                    console.log('backspace-row, row: ', i, elemRowNext.value);
-                    const arrayRowNext = elemRowNext.value.split(' ')
-                    for (let i = 0; i < arrayRowNext.length; i++) {
-                        if (maxLengthRow - elemRowCurrent.value.length > arrayRowNext[i]) {
-                            elemRowCurrent.value = elemRowCurrent.value + ' ' + arrayRowNext[i];
+                // console.log('backspace', elemRowCurrent.value);
+
+                function addText() {   
+                        
+                    for (let i = elemNumberRow; i < numberRows; i++) {
+                        console.log('row: ', i);
+                        console.log('0 transitionTextCut: ', transitionTextCut);
+
+                        const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
+                        
+
+                        if (transitionTextCut) {
+
+                            if (elemRowCurrent.value == '') {
+                                elemRowCurrent.value = transitionTextCut;
+                                console.log('1');
+                            } else {
+                                elemRowCurrent.value = elemRowCurrent.value + ' ' + transitionTextCut;
+                            }
+
+                            console.log('5');
+                            elemRowCurrent.selectionStart = pointFocus;
+                            elemRowCurrent.selectionEnd = pointFocus;
+                            setTimeout(() => elemRowCurrent.focus(), 0);
+                            transitionTextCut = null;
+                        }
+                        
+                        if (i == elemNumberRow && pointFocus == 0 && elemNumberRow > 1) {
+                            console.log('6');
+                            const elemRowPrevious = document.querySelector(`.letter-row-${i - 1}`);
+                            elemRowCurrent.classList.remove('row-focus');
+                            elemRowPrevious.classList.add('row-focus');
+                            elemRowPrevious.selectionStart = elemRowPrevious.value.length;
+                            elemRowPrevious.selectionEnd = elemRowPrevious.value.length;
+                            setTimeout(() => elemRowPrevious.focus(), 0);
+                            // addText();
+                        }
+                        
+                        if (i == elemNumberRow) {
+                            sizeRest = maxLengthRow - elemRowCurrent.value.length;
+                            continue;
+                        } else {
+                            const arrayRowCurrent = elemRowCurrent.value.split(' ');
+
+                            for (let i = 0; i < arrayRowCurrent.length; i++) {
+                                console.log('7 ', arrayRowCurrent, arrayRowCurrent[i], arrayRowCurrent[i].length);
+                                if (arrayRowCurrent[i].length <= sizeRest && !(arrayRowCurrent[i] == (arrayRowCurrent.length - 1))) {
+                                    transitionTextCut = arrayRowCurrent[i];
+                                    elemRowCurrent.value = arrayRowCurrent.slice(i + 1, arrayRowCurrent.length).join(' ');
+                                    console.log('8 transtionTextCut: ', transitionTextCut, 'elemRowCurrent.value: ', elemRowCurrent.value);
+                                    addText();
+                                } else break;
+                            }
+                        }
+
+                        if (event.target.selectionStart == 0 && !(elemNumberRow == 1)) {
+                            const elemRowNextFocus = document.querySelector(`.letter-row-${elemNumberRow - 1}`);
+                            elemRowCurrent.classList.remove('row-focus');
+                            elemRowNextFocus.classList.add('row-focus');
+                            elemRowNextFocus.selectionStart = elemRowNextFocus.value.length;
+                            elemRowNextFocus.selectionEnd = elemRowNextFocus.value.length;
+                            setTimeout(() => elemRowNextFocus.focus(), 0);
                         }
                     }
-                    
-                    if (event.target.selectionStart == 0 && !(elemNumberRow == 1)) {
-                        console.log('change of focus!');
-                        elemRowCurrent.classList.remove('row-focus');
-                        elemRowNext.classList.add('row-focus');
-                        elemRowNext.selectionStart = elemRowNext.value.length;
-                        elemRowNext = elemRowNext.value.length;
-                        setTimeout(() => elemCardLetterRowFocus.focus(), 0);
-                    }
-                }             
+                }  
+                
+                addText();
             }
 
                             // function correctRowNext(ind) {
