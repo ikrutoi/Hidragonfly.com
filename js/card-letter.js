@@ -346,73 +346,142 @@ export function formationLetterArea() {
 
                 // const elemRowCurrent = event.target;
                     const pointFocus = event.target.selectionStart;
-                    let transitionTextCut;
-                    let sizeRest;
 
+                    let rowEmpty;
+                    
                     // if (event.target.selectionStart == 0 && !(elemNumberRow == 1)) {
-                // console.log('backspace', elemRowCurrent.value);
+                        // console.log('backspace', elemRowCurrent.value);
+                        
 
                 function addText() {   
                         
                     for (let i = elemNumberRow; i < numberRows; i++) {
                         console.log('row: ', i);
-                        console.log('0 transitionTextCut: ', transitionTextCut);
-
-                        const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
+                        // const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
                         
+                        // if (transitionTextCut) {
+                        //     if (elemRowCurrent.value == '') {
+                        //         elemRowCurrent.value = transitionTextCut;
+                        //     } else {
+                        //         elemRowCurrent.value = elemRowCurrent.value + ' ' + transitionTextCut;
+                        //     }
 
-                        if (transitionTextCut) {
-
-                            if (elemRowCurrent.value == '') {
-                                elemRowCurrent.value = transitionTextCut;
-                                console.log('1');
-                            } else {
-                                elemRowCurrent.value = elemRowCurrent.value + ' ' + transitionTextCut;
-                            }
-
-                            console.log('5');
-                            elemRowCurrent.selectionStart = pointFocus;
-                            elemRowCurrent.selectionEnd = pointFocus;
-                            setTimeout(() => elemRowCurrent.focus(), 0);
-                            transitionTextCut = null;
-                        }
+                        //     elemRowCurrent.selectionStart = pointFocus;
+                        //     elemRowCurrent.selectionEnd = pointFocus;
+                        //     setTimeout(() => elemRowCurrent.focus(), 0);
+                        //     transitionTextCut = null;
+                        // }
+                        const elemRowPrevious = document.querySelector(`.letter-row-${i - 1}`);
+                        const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
+                        let transitionTextCut;
+                        let sizeRest;
                         
                         if (i == elemNumberRow && pointFocus == 0 && elemNumberRow > 1) {
-                            console.log('6');
-                            const elemRowPrevious = document.querySelector(`.letter-row-${i - 1}`);
                             elemRowCurrent.classList.remove('row-focus');
-                            elemRowPrevious.classList.add('row-focus');
-                            elemRowPrevious.selectionStart = elemRowPrevious.value.length;
-                            elemRowPrevious.selectionEnd = elemRowPrevious.value.length;
-                            setTimeout(() => elemRowPrevious.focus(), 0);
-                            // addText();
-                        }
-                        
-                        if (i == elemNumberRow) {
-                            sizeRest = maxLengthRow - elemRowCurrent.value.length;
-                            continue;
-                        } else {
-                            const arrayRowCurrent = elemRowCurrent.value.split(' ');
+                            
+                            if (elemRowPrevious.value != '') {
+                                console.log('value != empty')
 
-                            for (let i = 0; i < arrayRowCurrent.length; i++) {
-                                console.log('7 ', arrayRowCurrent, arrayRowCurrent[i], arrayRowCurrent[i].length);
-                                if (arrayRowCurrent[i].length <= sizeRest && !(arrayRowCurrent[i] == (arrayRowCurrent.length - 1))) {
-                                    transitionTextCut = arrayRowCurrent[i];
-                                    elemRowCurrent.value = arrayRowCurrent.slice(i + 1, arrayRowCurrent.length).join(' ');
-                                    console.log('8 transtionTextCut: ', transitionTextCut, 'elemRowCurrent.value: ', elemRowCurrent.value);
-                                    addText();
-                                } else break;
+                                if (elemRowCurrent.value != '') {
+                                    const arrayRowCurrent = elemRowCurrent.value.split(' ');
+                                    
+                                    for (let i = 0; i < arrayRowCurrent.length; i++) {
+                                        if (arrayRowCurrent[i] <= maxLengthRow - elemRowPrevious.value.length) {
+                                            transitionTextCut = arrayRowCurrent[i];
+                                            elemRowCurrent.value = arrayRowCurrent.slice(i + 1, arrayRowCurrent.length).join(' ');
+                                        }
+                                    }
+                                }
+                                document.querySelector(`.letter-row-${i - 1}`).value = document.querySelector(`.letter-row-${i - 1}`).value + ' ' + transitionTextCut;
+
+                                // if (transitionTextCut) {
+                                //     for (let i = elemNumberRow; i < numberRows; i++) {
+                                //     }
+                                // }
                             }
+
+                            if (elemRowPrevious.value == '') {
+                                console.log('value == empty')
+                                for (let i = elemNumberRow; i < numberRows; i++) {                                
+                                    document.querySelector(`.letter-row-${i - 1}`).value = document.querySelector(`.letter-row-${i}`).value;
+                                }
+                                
+                                elemRowPrevious.selectionStart = 0;
+                                elemRowPrevious.selectionEnd = 0;
+                            }
+                            
+                            elemRowPrevious.classList.add('row-focus');
+                            elemRowPrevious.focus();
+                            
+
+                            
+                            // else {
+
+                            //     function changeSizeFree() {
+
+                            //         let sizeRest = maxLengthRow - elemRowPrevious.value.length;
+                            //         const arrayRowCurrent = document.querySelector(`.letter-row-${i}`).value.split(' ');
+                                    
+                            //         for (let i = 0; i < arrayRowCurrent.length; i++) {
+                            //             if (arrayRowCurrent[i].length <= sizeRest) {
+                            //                 transitionTextCut = arrayRowCurrent[i];
+                            //                 elemRowCurrent.value = arrayRowCurrent.slice(i + 1, arrayRowCurrent.length).join(' ');
+                            //             }
+                            //         }
+                            //     }
+
+                            //     changeSizeFree();
+                            // }
                         }
 
-                        if (event.target.selectionStart == 0 && !(elemNumberRow == 1)) {
-                            const elemRowNextFocus = document.querySelector(`.letter-row-${elemNumberRow - 1}`);
-                            elemRowCurrent.classList.remove('row-focus');
-                            elemRowNextFocus.classList.add('row-focus');
-                            elemRowNextFocus.selectionStart = elemRowNextFocus.value.length;
-                            elemRowNextFocus.selectionEnd = elemRowNextFocus.value.length;
-                            setTimeout(() => elemRowNextFocus.focus(), 0);
-                        }
+
+
+                            // sizeRest = maxLengthRow - elemRowPrevious.value.length;
+
+                            
+
+                                // else { 
+                                    // for (let i = 0; i < arrayRowCurrent.length; i++) {
+                                    //     if (arrayRowCurrent[i].length <= sizeRest && arrayRowCurrent[i] !== (arrayRowCurrent.length - 1)) {
+                                    //         transitionTextCut = arrayRowCurrent[i];
+                                    //         elemRowCurrent.value = arrayRowCurrent.slice(i + 1, arrayRowCurrent.length).join(' ');
+                                    //         addText();
+                                    //         break;
+                                    //     } else break;
+                                    // }
+                                // }
+                            // if (elemRowCurrent.value == '') {
+
+                                    // if (document.querySelector(`.letter-row-${i + 1}`).value !== 0) {
+                                    //     const arrayRowCurrent
+                                    // }
+                            // } 
+
+                            // break;
+                        
+                        // if (i == elemNumberRow) {
+                        //     sizeRest = maxLengthRow - elemRowCurrent.value.length;
+                        //     continue;
+                        // } else {
+                            // const arrayRowCurrent = elemRowCurrent.value.split(' ');
+
+                        //     for (let i = 0; i < arrayRowCurrent.length; i++) {
+                        //         if (arrayRowCurrent[i].length <= sizeRest && arrayRowCurrent[i] !== (arrayRowCurrent.length - 1)) {
+                        //             transitionTextCut = arrayRowCurrent[i];
+                        //             elemRowCurrent.value = arrayRowCurrent.slice(i + 1, arrayRowCurrent.length).join(' ');
+                        //             addText();
+                        //         } else break;
+                        //     }
+                        // }
+
+                        // if (event.target.selectionStart == 0 && !(elemNumberRow == 1)) {
+                        //     const elemRowNextFocus = document.querySelector(`.letter-row-${elemNumberRow - 1}`);
+                        //     elemRowCurrent.classList.remove('row-focus');
+                        //     elemRowNextFocus.classList.add('row-focus');
+                        //     elemRowNextFocus.selectionStart = elemRowNextFocus.value.length;
+                        //     elemRowNextFocus.selectionEnd = elemRowNextFocus.value.length;
+                        //     setTimeout(() => elemRowNextFocus.focus(), 0);
+                        // }
                     }
                 }  
                 
