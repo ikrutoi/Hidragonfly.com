@@ -54,83 +54,6 @@ export function formationLetterArea() {
 
             const lengthText = event.target.value.length;  
             elemTextAreaCounter.textContent = lengthText;
-            let cutText;
-            let restText;
-
-            if (event.code === 'Enter' || event.keyCode === 13) {
-                const pointFocus = event.target.selectionStart;
-                let transitionTextCut;
-                let rowEmpty;
-                
-                for (let i = elemNumberRow; i <= numberRows; i++) {
-                    const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
-                    
-                    if (i == elemNumberRow) {
-                        console.log('pointFocus: ', pointFocus, 'elemRowCurrent.value.length: ', elemRowCurrent.value.length);
-                        if (pointFocus == elemRowCurrent.value.length) {
-                            rowEmpty = true;
-                        }
-                        transitionTextCut = elemRowCurrent.value.slice(pointFocus, elemRowCurrent.value.length + 1);
-                        console.log('1 transitionTextCut: ', transitionTextCut);
-                        console.log('1.1 elemRowCurrent.value.slice(0, pointFocus + 1): ', elemRowCurrent.value.slice(0, pointFocus + 1));
-                        elemRowCurrent.value = elemRowCurrent.value.slice(0, pointFocus);
-                        elemRowCurrent.classList.remove('row-focus');
-                    }  else {
-
-                        console.log('row: ', i, 'transitionTextCut: ', transitionTextCut);
-                        
-                        if (rowEmpty) {
-
-                            elemRowCurrent.classList.add('row-focus');
-                            elemRowCurrent.setSelectionRange(0, 0);
-                            elemRowCurrent.focus();
-                            rowEmpty = null;
-                            continue;
-                        } 
-
-                        if (transitionTextCut == '') {
-                            transitionTextCut = elemRowCurrent.value;
-                            elemRowCurrent.value = '';
-                            continue;
-                        }
-
-                        const arrayRowCurrent = elemRowCurrent.value.split(' '); 
-                        
-                        for (let i = 0; i < arrayRowCurrent.length; i++) {
-                            if ((transitionTextCut + ' ' + arrayRowCurrent[i]).length <= maxLengthRow) {
-                                if (i == arrayRowCurrent.length - 1 && arrayRowCurrent[i] == '') {
-                                    elemRowCurrent.value = transitionTextCut;
-                                    transitionTextCut = '';
-                                    break;
-                                }
-
-                                if (transitionTextCut == '' && !(i == 0)) {
-                                    transitionTextCut = arrayRowCurrent[i];
-                                    continue;
-                                }
-
-                                if (i == arrayRowCurrent.length - 1) {
-                                    elemRowCurrent.value = transitionTextCut + ' ' + arrayRowCurrent[i];
-                                    transitionTextCut = '';
-                                } else {
-                                    transitionTextCut = transitionTextCut + ' ' + arrayRowCurrent[i];
-                                }
-
-                            } else {
-                                elemRowCurrent.value = transitionTextCut;
-                                transitionTextCut = arrayRowCurrent.slice(i, arrayRowCurrent.length).join(' ');
-                                break;
-                            }                                      
-                        }
-
-                        if (i == elemNumberRow + 1) {
-                            elemRowCurrent.classList.add('row-focus');
-                            elemRowCurrent.setSelectionRange(0, 0);
-                            elemRowCurrent.focus();
-                        }                       
-                    }
-                }
-            }
 
             if (
                 event.code === 'NumpadDecimal' || event.keyCode === 46 
@@ -342,299 +265,96 @@ export function formationLetterArea() {
                 }
             }
 
-            if (event.code === 'Backspace' || event.keyCode === 8) {
+            if (event.code === 'Enter' || event.keyCode === 13) {
+                const pointFocus = event.target.selectionStart; 
+                const elemRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`);
+                const valueRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`).value;
+                elemRowCurrent.classList.remove('row-focus');
 
-                // const elemRowCurrent = event.target;
-                    const pointFocus = event.target.selectionStart;
-
-                    let rowEmpty;
-                    
-                    // if (event.target.selectionStart == 0 && !(elemNumberRow == 1)) {
-                        // console.log('backspace', elemRowCurrent.value);
-                        
-
-                function addText() {   
-                        
-                    for (let i = elemNumberRow; i < numberRows; i++) {
-                        console.log('row: ', i);
-                        // const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
-                        
-                        // if (transitionTextCut) {
-                        //     if (elemRowCurrent.value == '') {
-                        //         elemRowCurrent.value = transitionTextCut;
-                        //     } else {
-                        //         elemRowCurrent.value = elemRowCurrent.value + ' ' + transitionTextCut;
-                        //     }
-
-                        //     elemRowCurrent.selectionStart = pointFocus;
-                        //     elemRowCurrent.selectionEnd = pointFocus;
-                        //     setTimeout(() => elemRowCurrent.focus(), 0);
-                        //     transitionTextCut = null;
-                        // }
-                        const elemRowPrevious = document.querySelector(`.letter-row-${i - 1}`);
-                        const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
-                        let transitionTextCut;
-                        let sizeRest;
-                        
-                        if (i == elemNumberRow && pointFocus == 0 && elemNumberRow > 1) {
-                            elemRowCurrent.classList.remove('row-focus');
-                            
-                            if (elemRowPrevious.value != '') {
-                                console.log('value != empty')
-
-                                if (elemRowCurrent.value != '') {
-                                    const arrayRowCurrent = elemRowCurrent.value.split(' ');
-                                    
-                                    for (let i = 0; i < arrayRowCurrent.length; i++) {
-                                        if (arrayRowCurrent[i] <= maxLengthRow - elemRowPrevious.value.length) {
-                                            transitionTextCut = arrayRowCurrent[i];
-                                            elemRowCurrent.value = arrayRowCurrent.slice(i + 1, arrayRowCurrent.length).join(' ');
-                                        }
-                                    }
-                                }
-                                document.querySelector(`.letter-row-${i - 1}`).value = document.querySelector(`.letter-row-${i - 1}`).value + ' ' + transitionTextCut;
-
-                                // if (transitionTextCut) {
-                                //     for (let i = elemNumberRow; i < numberRows; i++) {
-                                //     }
-                                // }
-                            }
-
-                            if (elemRowPrevious.value == '') {
-                                console.log('value == empty')
-                                for (let i = elemNumberRow; i < numberRows; i++) {                                
-                                    document.querySelector(`.letter-row-${i - 1}`).value = document.querySelector(`.letter-row-${i}`).value;
-                                }
-                                
-                                elemRowPrevious.selectionStart = 0;
-                                elemRowPrevious.selectionEnd = 0;
-                            }
-                            
-                            elemRowPrevious.classList.add('row-focus');
-                            elemRowPrevious.focus();
-                            
-
-                            
-                            // else {
-
-                            //     function changeSizeFree() {
-
-                            //         let sizeRest = maxLengthRow - elemRowPrevious.value.length;
-                            //         const arrayRowCurrent = document.querySelector(`.letter-row-${i}`).value.split(' ');
-                                    
-                            //         for (let i = 0; i < arrayRowCurrent.length; i++) {
-                            //             if (arrayRowCurrent[i].length <= sizeRest) {
-                            //                 transitionTextCut = arrayRowCurrent[i];
-                            //                 elemRowCurrent.value = arrayRowCurrent.slice(i + 1, arrayRowCurrent.length).join(' ');
-                            //             }
-                            //         }
-                            //     }
-
-                            //     changeSizeFree();
-                            // }
+                if (pointFocus == event.target.value.length) {
+                    for (let i = numberRows; i > elemNumberRow; i--) {                      
+                        if (i == numberRows && Boolean(document.querySelector(`.letter-row-${i}`).value)) {
+                            break;
+                        } else {
+                            document.querySelector(`.letter-row-${i}`).value = document.querySelector(`.letter-row-${i - 1}`).value;           
                         }
-
-
-
-                            // sizeRest = maxLengthRow - elemRowPrevious.value.length;
-
-                            
-
-                                // else { 
-                                    // for (let i = 0; i < arrayRowCurrent.length; i++) {
-                                    //     if (arrayRowCurrent[i].length <= sizeRest && arrayRowCurrent[i] !== (arrayRowCurrent.length - 1)) {
-                                    //         transitionTextCut = arrayRowCurrent[i];
-                                    //         elemRowCurrent.value = arrayRowCurrent.slice(i + 1, arrayRowCurrent.length).join(' ');
-                                    //         addText();
-                                    //         break;
-                                    //     } else break;
-                                    // }
-                                // }
-                            // if (elemRowCurrent.value == '') {
-
-                                    // if (document.querySelector(`.letter-row-${i + 1}`).value !== 0) {
-                                    //     const arrayRowCurrent
-                                    // }
-                            // } 
-
-                            // break;
-                        
-                        // if (i == elemNumberRow) {
-                        //     sizeRest = maxLengthRow - elemRowCurrent.value.length;
-                        //     continue;
-                        // } else {
-                            // const arrayRowCurrent = elemRowCurrent.value.split(' ');
-
-                        //     for (let i = 0; i < arrayRowCurrent.length; i++) {
-                        //         if (arrayRowCurrent[i].length <= sizeRest && arrayRowCurrent[i] !== (arrayRowCurrent.length - 1)) {
-                        //             transitionTextCut = arrayRowCurrent[i];
-                        //             elemRowCurrent.value = arrayRowCurrent.slice(i + 1, arrayRowCurrent.length).join(' ');
-                        //             addText();
-                        //         } else break;
-                        //     }
-                        // }
-
-                        // if (event.target.selectionStart == 0 && !(elemNumberRow == 1)) {
-                        //     const elemRowNextFocus = document.querySelector(`.letter-row-${elemNumberRow - 1}`);
-                        //     elemRowCurrent.classList.remove('row-focus');
-                        //     elemRowNextFocus.classList.add('row-focus');
-                        //     elemRowNextFocus.selectionStart = elemRowNextFocus.value.length;
-                        //     elemRowNextFocus.selectionEnd = elemRowNextFocus.value.length;
-                        //     setTimeout(() => elemRowNextFocus.focus(), 0);
-                        // }
                     }
-                }  
+                } else {
+                    for (let i = numberRows; i > elemNumberRow + 2; i--) { 
+                        if (i == numberRows && Boolean(document.querySelector(`.letter-row-${i}`).value)) {
+                            break;
+                        } else {
+                            document.querySelector(`.letter-row-${elemNumberRow}`).value = valueRowCurrent.slice(0, pointFocus);           
+                            document.querySelector(`.letter-row-${elemNumberRow + 1}`).value = valueRowCurrent.slice(pointFocus, valueRowCurrent.length + 1);   
+                            document.querySelector(`.letter-row-${i}`).value = document.querySelector(`.letter-row-${i - 1}`).value;           
+                        }
+                    }
+                }
                 
-                addText();
+                const elemRowNext = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
+                elemRowNext.selectionStart = 0;
+                elemRowNext.selectionEnd = 0;
+                elemRowNext.classList.add('row-focus');
+                elemRowNext.focus();
             }
 
-                            // function correctRowNext(ind) {
-                            //     const elemRowNext = document.querySelector(`.letter-row-${ind - 1}`);
-                            //     // elemRowNext.classList.add('row-focus');
-                            //     // elemRowNext.selectionStart = elemRowNext.value.length;
-                            //     // elemRowNext.selectionEnd = elemRowNext.value.length;
-                            //     // setTimeout(() => elemRowNext.focus(), 0);
-                            //     const arrayTransitionTextCut = transitionTextCut.split(' ');
-                            //     let temporaryText;
-
-                            //     for (let i = 0; i < arrayTransitionTextCut.length; i++) {
-                            //         if (maxLengthRow - elemRowNext.value.length >= arrayTransitionTextCut[i]) {
-                            //             if (i == 0) {
-                            //                 temporaryText = arrayTransitionTextCut[i];
-                            //                 if (i == arrayTransitionTextCut.length - 1) {
-
-                            //                 }
-                            //             } else if (i == arrayTransitionTextCut.length - 1) {
-                            //                 elemRowNext.value = transitionTextCut;
-                            //                 temporaryText = null;
-                            //                 transitionTextCut = null;
-                            //             }
-                            //         } else {
-
-                            //         }
-
-                            //     }
-
-
-                            // }
-
-                            // correctRowNext(i);
-                            
-                    // }
-
-                    // {  
-                    //     if (i == elemNumberRow) {
-                    //         if (pointFocus == elemRowCurrent.value.length) {
-                    //             rowEmpty = true;
-                    //         }
-                    //         transitionTextCut = elemRowCurrent.value.slice(pointFocus, elemRowCurrent.value.length);
-                    //         elemRowCurrent.value = elemRowCurrent.value.slice(0, pointFocus);
-                    //         elemRowCurrent.classList.remove('row-focus');
-                    //     }  else {
-                            
-                    //         if (rowEmpty) {
-                    //             transitionTextCut = elemRowCurrent.value;
-                    //             elemRowCurrent.value = '';
-                    //             elemRowCurrent.classList.add('row-focus');
-                    //             elemRowCurrent.setSelectionRange(0, 0);
-                    //             elemRowCurrent.focus();
-                    //             rowEmpty = null;
-                    //             // continue;
-                    //         } 
-    
-                    //         if (transitionTextCut == '') {
-                    //             transitionTextCut = elemRowCurrent.value;
-                    //             elemRowCurrent.value = '';
-                    //             // continue;
-                    //         }
-    
-                    //         const arrayRowCurrent = elemRowCurrent.value.split(' '); 
-                            
-                    //         for (let i = 0; i < arrayRowCurrent.length; i++) {
-                    //             if ((transitionTextCut + ' ' + arrayRowCurrent[i]).length <= maxLengthRow) {
-                    //                 if (i == arrayRowCurrent.length - 1 && arrayRowCurrent[i] == '') {
-                    //                     elemRowCurrent.value = transitionTextCut;
-                    //                     transitionTextCut = '';
-                    //                     break;
-                    //                 }
-    
-                    //                 if (transitionTextCut == '' && !(i == 0)) {
-                    //                     transitionTextCut = arrayRowCurrent[i];
-                    //                     continue;
-                    //                 }
-    
-                    //                 if (i == arrayRowCurrent.length - 1) {
-                    //                     elemRowCurrent.value = transitionTextCut + ' ' + arrayRowCurrent[i];
-                    //                     transitionTextCut = '';
-                    //                 } else {
-                    //                     transitionTextCut = transitionTextCut + ' ' + arrayRowCurrent[i];
-                    //                 }
-    
-                    //             } else {
-                    //                 elemRowCurrent.value = transitionTextCut;
-                    //                 transitionTextCut = arrayRowCurrent.slice(i, arrayRowCurrent.length).join(' ');
-                    //                 break;
-                    //             }                                      
-                    //         }
-    
-                    //         if (i == elemNumberRow + 1) {
-                    //             elemRowCurrent.classList.add('row-focus');
-                    //             elemRowCurrent.setSelectionRange(0, 0);
-                    //             elemRowCurrent.focus();
-                    //         }                       
-                    //     }
-                    // }
-
-
-
-
-
-                // if (event.target.selectionStart == 0 && !(elemNumberRow == 1)) {
-                //     elemCardLetterRowBlur.classList.remove('row-focus');
-                //     restText = event.target.value.slice(0, event.target.selectionStart);
-                //     const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow - 1}`);
-                //     elemCardLetterRowFocus.classList.add('row-focus');
-                //     const numberFocus = elemCardLetterRowFocus.value.length;
-                //     const freePlaceRowFocus = maxLengthRow - elemCardLetterRowFocus.value.length;
-
-                //     let foundNumberPos;
-                //     let pos = 0;
+            if (event.code === 'Backspace' || event.keyCode === 8) {
+                const pointFocus = event.target.selectionStart; 
                     
-                //     while (true) {
-                //         if (elemCardLetterRowBlur.value.length > freePlaceRowFocus && elemCardLetterRowBlur.value.indexOf(' ') == -1) break;  
-                //         let temporaryFoundNumberPos = elemCardLetterRowBlur.value.indexOf(' ', pos);
-                //         if (temporaryFoundNumberPos >= freePlaceRowFocus) break;  
-                //         foundNumberPos = temporaryFoundNumberPos;   
-                //         if (temporaryFoundNumberPos == -1) break;
-                //         pos = temporaryFoundNumberPos + 1;
-                //     }
+                for (let i = elemNumberRow; i <= numberRows; i++) {
+                    const elemRowPrevious = document.querySelector(`.letter-row-${i - 1}`);
+                    const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
                     
-                //     let textToWrap;
-                //     let textRemaining;
-
-                //     if (foundNumberPos === undefined) {
-                //         textToWrap = '';
-                //         textRemaining = elemCardLetterRowBlur.value;
-                //     }
-
-                //     if (foundNumberPos == -1) {       
-                //         textToWrap = elemCardLetterRowBlur.value;
-                //         textRemaining = '';
-                //     } else if (foundNumberPos === undefined) {
-                //             textToWrap = '';
-                //             textRemaining = elemCardLetterRowBlur.value;
-                //         } else {     
-                //             textToWrap = elemCardLetterRowBlur.value.slice(0, foundNumberPos + 1);
-                //             textRemaining = elemCardLetterRowBlur.value.slice(foundNumberPos, elemCardLetterRowBlur.value.length);
-                //         }
-
-                //     elemCardLetterRowFocus.value = elemCardLetterRowFocus.value + textToWrap;
-                //     elemCardLetterRowBlur.value = textRemaining;
-                //     elemCardLetterRowFocus.selectionStart = numberFocus;
-                //     elemCardLetterRowFocus.selectionEnd = numberFocus;
-                //     setTimeout(() => elemCardLetterRowFocus.focus(), 0);
-                // }
-            
+                    if (i == elemNumberRow && pointFocus == 0 && elemNumberRow > 1) {
+                        elemRowCurrent.classList.remove('row-focus');
+                        
+                        if (elemRowPrevious.value != '') {
+                            if (elemRowCurrent.value != '') {
+                                const arrayRowCurrent = elemRowCurrent.value.split(' '); 
+                                let elemRowPreviousFocus = document.querySelector(`.letter-row-${i - 1}`).value.length;
+                                for (let index = 0; index < arrayRowCurrent.length; index++) {
+                                    if (arrayRowCurrent[index].length <= maxLengthRow - document.querySelector(`.letter-row-${i - 1}`).value.length) {
+                                        document.querySelector(`.letter-row-${i - 1}`).value = document.querySelector(`.letter-row-${i - 1}`).value + ' ' + arrayRowCurrent[index];
+                                        elemRowPrevious.selectionStart = elemRowPreviousFocus + 1;
+                                        elemRowPrevious.selectionEnd = elemRowPreviousFocus + 1;
+                                        document.querySelector(`.letter-row-${i}`).value = arrayRowCurrent.slice(index + 1, arrayRowCurrent.length).join(' ');
+                                        if (index == arrayRowCurrent.length - 1) {
+                                            for (let i = elemNumberRow; i < numberRows; i++) {                                
+                                                document.querySelector(`.letter-row-${i}`).value = document.querySelector(`.letter-row-${i + 1}`).value;
+                                            }   
+                                        }
+                                    } else {
+                                        document.querySelector(`.letter-row-${i - 1}`).value = document.querySelector(`.letter-row-${i - 1}`).value + ' ';
+                                    }
+                                }                                  
+                            } else {
+                                for (let i = elemNumberRow; i <= numberRows; i++) {   
+                                    if (i == elemNumberRow) {
+                                        document.querySelector(`.letter-row-${i - 1}`).value = document.querySelector(`.letter-row-${i - 1}`).value + ' ';
+                                    } else {
+                                        document.querySelector(`.letter-row-${i - 1}`).value = document.querySelector(`.letter-row-${i}`).value;
+                                    }                           
+                                }
+                            }
+                            
+                        }
+                        
+                        if (elemRowPrevious.value == '') {
+                            for (let i = elemNumberRow; i <= numberRows; i++) {      
+                                document.querySelector(`.letter-row-${i - 1}`).value = document.querySelector(`.letter-row-${i}`).value;
+                                if (i == numberRows) {
+                                    document.querySelector(`.letter-row-${i}`).value = '';
+                                }                          
+                            }                          
+                            elemRowPrevious.selectionStart = 0;
+                            elemRowPrevious.selectionEnd = 0;
+                        }
+                        
+                        elemRowPrevious.classList.add('row-focus');
+                        elemRowPrevious.focus();
+                    }
+                }
+            }
         }
 
         // function goRowFocus(el) {
