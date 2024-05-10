@@ -268,34 +268,33 @@ export function formationLetterArea() {
             if (event.code === 'Enter' || event.keyCode === 13) {
                 const pointFocus = event.target.selectionStart; 
                 const elemRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`);
+                const elemRowNext = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
                 const valueRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`).value;
                 elemRowCurrent.classList.remove('row-focus');
 
-                if (pointFocus == event.target.value.length) {
-                    for (let i = numberRows; i > elemNumberRow; i--) {                      
-                        if (i == numberRows && Boolean(document.querySelector(`.letter-row-${i}`).value)) {
-                            break;
-                        } else {
-                            document.querySelector(`.letter-row-${i}`).value = document.querySelector(`.letter-row-${i - 1}`).value;           
+                for (let i = numberRows; i >= elemNumberRow; i--) { 
+                    console.log('row: ', i)
+                    if (i == numberRows && Boolean(document.querySelector(`.letter-row-${i}`).value)) {
+                        elemRowCurrent.classList.add('row-focus');
+                        break;
+                    } else {
+                        if (i == elemNumberRow + 1) {
+                            document.querySelector(`.letter-row-${i}`).value = valueRowCurrent.slice(pointFocus);   
                         }
-                    }
-                } else {
-                    for (let i = numberRows; i > elemNumberRow + 2; i--) { 
-                        if (i == numberRows && Boolean(document.querySelector(`.letter-row-${i}`).value)) {
-                            break;
-                        } else {
+                        
+                        if (i == elemNumberRow) {
                             document.querySelector(`.letter-row-${elemNumberRow}`).value = valueRowCurrent.slice(0, pointFocus);           
-                            document.querySelector(`.letter-row-${elemNumberRow + 1}`).value = valueRowCurrent.slice(pointFocus, valueRowCurrent.length + 1);   
-                            document.querySelector(`.letter-row-${i}`).value = document.querySelector(`.letter-row-${i - 1}`).value;           
                         }
+                        
+                        if (i > elemNumberRow + 1) {
+                            document.querySelector(`.letter-row-${i}`).value = document.querySelector(`.letter-row-${i - 1}`).value;  
+                        }
+                        elemRowNext.selectionStart = 0;
+                        elemRowNext.selectionEnd = 0;
+                        elemRowNext.classList.add('row-focus');
+                        elemRowNext.focus();
                     }
                 }
-                
-                const elemRowNext = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
-                elemRowNext.selectionStart = 0;
-                elemRowNext.selectionEnd = 0;
-                elemRowNext.classList.add('row-focus');
-                elemRowNext.focus();
             }
 
             if (event.code === 'Backspace' || event.keyCode === 8) {
