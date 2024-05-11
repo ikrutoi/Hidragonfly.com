@@ -55,64 +55,62 @@ export function formationLetterArea() {
             const lengthText = event.target.value.length;  
             elemTextAreaCounter.textContent = lengthText;
 
-            if (
-                event.code === 'NumpadDecimal' || event.keyCode === 46 
-            ) {
-                const pointFocus = event.target.selectionStart;
-                let arrayRowCurrent;
-                let arrayRowNext;
-                let transitionTextCut;
-                let restText;
-                let tailRow;
+            // if (event.code === 'NumpadDecimal' || event.keyCode === 46) {
+            //     const pointFocus = event.target.selectionStart;
+            //     let arrayRowCurrent;
+            //     let arrayRowNext;
+            //     let transitionTextCut;
+            //     let restText;
+            //     let tailRow;
 
-                for (let i = elemNumberRow; i < numberRows; i++) {
-                    const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
-                    const elemRowNext = document.querySelector(`.letter-row-${i + 1}`);
+            //     for (let i = elemNumberRow; i < numberRows; i++) {
+            //         const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
+            //         const elemRowNext = document.querySelector(`.letter-row-${i + 1}`);
                     
-                    arrayRowCurrent = elemRowCurrent.value.split(' ');
-                    arrayRowNext = elemRowNext.value.split(' ');
-                    tailRow = maxLengthRow - elemRowCurrent.value.length;
+            //         arrayRowCurrent = elemRowCurrent.value.split(' ');
+            //         arrayRowNext = elemRowNext.value.split(' ');
+            //         tailRow = maxLengthRow - elemRowCurrent.value.length;
                     
-                    if (!(elemRowNext.value == 0)) {
-                        for (let i = 0; i < arrayRowNext.length; i++) {
-                            if (!transitionTextCut) {
-                                transitionTextCut = arrayRowNext[i];
-                                restText = arrayRowNext.slice(i + 1, arrayRowNext.length);    
-                                if (transitionTextCut.length <= tailRow) {
-                                    continue;
-                                } else break;
-                            } else {
-                                transitionTextCut = transitionTextCut + ' ' + arrayRowNext[i];
-                                if (transitionTextCut.length <= tailRow) {
-                                    restText = arrayRowNext.slice(i + 1, arrayRowNext.length);
-                                    continue;
-                                } else {
-                                    let temporaryTransitionTextCut = transitionTextCut.split(' ');
-                                    temporaryTransitionTextCut = temporaryTransitionTextCut.slice(0, temporaryTransitionTextCut.length - 1);
-                                    transitionTextCut = temporaryTransitionTextCut.join(' ');
-                                    restText = arrayRowNext.slice(i, arrayRowNext.length);
-                                    temporaryTransitionTextCut = null;
-                                    break;
-                                };
-                            }
-                        }
+            //         if (elemRowNext.value != 0) {
+            //             for (let i = 0; i < arrayRowNext.length; i++) {
+            //                 if (!transitionTextCut) {
+            //                     transitionTextCut = arrayRowNext[i];
+            //                     restText = arrayRowNext.slice(i + 1, arrayRowNext.length);    
+            //                     if (transitionTextCut.length <= tailRow) {
+            //                         continue;
+            //                     } else break;
+            //                 } else {
+            //                     transitionTextCut = transitionTextCut + ' ' + arrayRowNext[i];
+            //                     if (transitionTextCut.length <= tailRow) {
+            //                         restText = arrayRowNext.slice(i + 1, arrayRowNext.length);
+            //                         continue;
+            //                     } else {
+            //                         let temporaryTransitionTextCut = transitionTextCut.split(' ');
+            //                         temporaryTransitionTextCut = temporaryTransitionTextCut.slice(0, temporaryTransitionTextCut.length - 1);
+            //                         transitionTextCut = temporaryTransitionTextCut.join(' ');
+            //                         restText = arrayRowNext.slice(i, arrayRowNext.length);
+            //                         temporaryTransitionTextCut = null;
+            //                         break;
+            //                     };
+            //                 }
+            //             }
                         
-                        if (transitionTextCut && i == elemNumberRow) {
-                            elemRowCurrent.value = elemRowCurrent.value + ' ' + transitionTextCut;
-                            elemRowNext.value = restText.join(' ');
-                            elemRowCurrent.selectionStart = pointFocus;
-                            elemRowCurrent.selectionEnd = pointFocus;
-                            elemRowCurrent.focus();
-                        } else {
-                            elemRowCurrent.value = elemRowCurrent.value + ' ' + transitionTextCut;
-                            elemRowNext.value = restText.join(' ');
-                        }
+            //             if (transitionTextCut && i == elemNumberRow) {
+            //                 elemRowCurrent.value = elemRowCurrent.value + ' ' + transitionTextCut;
+            //                 elemRowNext.value = restText.join(' ');
+            //                 elemRowCurrent.selectionStart = pointFocus;
+            //                 elemRowCurrent.selectionEnd = pointFocus;
+            //                 elemRowCurrent.focus();
+            //             } else {
+            //                 elemRowCurrent.value = elemRowCurrent.value + ' ' + transitionTextCut;
+            //                 elemRowNext.value = restText.join(' ');
+            //             }
 
-                        transitionTextCut = null;
-                        restText = null;
-                    } else continue;
-                }
-            }
+            //             transitionTextCut = null;
+            //             restText = null;
+            //         } else continue;
+            //     }
+            // }
 
             if (event.target.value.length >= maxLengthRow && 
                 !(
@@ -354,6 +352,104 @@ export function formationLetterArea() {
                     }
                 }
             }
+
+            if (
+                event.code === 'NumpadDecimal' || 
+                event.keyCode === 46 &&
+                event.target.selectionStart == event.target.value.length
+                ) {
+                const pointFocus = event.target.selectionStart;
+
+                for (let i = elemNumberRow; i < numberRows; i++) {                    
+                    if (i == elemNumberRow) {
+                        const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
+                        const elemRowNext = document.querySelector(`.letter-row-${i + 1}`);
+                        const arrayRowNext = elemRowNext.value.split(' ');
+                        let textCut;
+
+                        for (let index = 0; index < arrayRowNext.length; index++) {
+
+                            if (index == 0) {
+                                if (maxLengthRow >= pointFocus + arrayRowNext[index].length) {
+                                    if (arrayRowNext.length == 1) {
+                                        elemRowCurrent.value = elemRowCurrent.value + ' ' + arrayRowNext[index];
+                                    } else {
+                                        textCut = arrayRowNext[index];
+                                    }
+                                } else {
+                                    elemRowCurrent.value = elemRowCurrent.value + ' ' + arrayRowNext[index][0];
+                                    elemRowNext.value = elemRowNext.value.slice(1); 
+                                    break;
+                                }
+                            } else {
+                                if (maxLengthRow >= pointFocus + ' ' + textCut.length + ' ' + arrayRowNext[index].length) {
+                                    textCut = textCut + ' ' + arrayRowNext[index];
+                                } else {
+                                    elemRowCurrent.value = elemRowCurrent.value + ' ' + textCut;
+                                    elemRowNext.value = elemRowNext.value.slice(index); 
+                                    break; 
+                                }
+                            }
+
+                        }
+
+                        elemRowCurrent.selectionStart = pointFocus;
+                        elemRowCurrent.selectionEnd = pointFocus;
+                        elemRowCurrent.focus();
+                    } else {
+                        document.querySelector(`.letter-row-${i}`).value = document.querySelector(`.letter-row-${i + 1}`).value;
+                        if (i == numberRows - 1) {
+                            document.querySelector(`.letter-row-${i + 1}`).value = '';
+                        } 
+                    }
+                }
+                    
+
+
+
+
+
+
+                    //     if (elemRowNext.value != 0) {
+                    //     for (let i = 0; i < arrayRowNext.length; i++) {
+                    //         if (!transitionTextCut) {
+                    //             transitionTextCut = arrayRowNext[i];
+                    //             restText = arrayRowNext.slice(i + 1, arrayRowNext.length);    
+                    //             if (transitionTextCut.length <= tailRow) {
+                    //                 continue;
+                    //             } else break;
+                    //         } else {
+                    //             transitionTextCut = transitionTextCut + ' ' + arrayRowNext[i];
+                    //             if (transitionTextCut.length <= tailRow) {
+                    //                 restText = arrayRowNext.slice(i + 1, arrayRowNext.length);
+                    //                 continue;
+                    //             } else {
+                    //                 let temporaryTransitionTextCut = transitionTextCut.split(' ');
+                    //                 temporaryTransitionTextCut = temporaryTransitionTextCut.slice(0, temporaryTransitionTextCut.length - 1);
+                    //                 transitionTextCut = temporaryTransitionTextCut.join(' ');
+                    //                 restText = arrayRowNext.slice(i, arrayRowNext.length);
+                    //                 temporaryTransitionTextCut = null;
+                    //                 break;
+                    //             };
+                    //         }
+                    //     }
+                        
+                    //     if (transitionTextCut && i == elemNumberRow) {
+                    //         elemRowCurrent.value = elemRowCurrent.value + ' ' + transitionTextCut;
+                    //         elemRowNext.value = restText.join(' ');
+                    //         elemRowCurrent.selectionStart = pointFocus;
+                    //         elemRowCurrent.selectionEnd = pointFocus;
+                    //         elemRowCurrent.focus();
+                    //     } else {
+                    //         elemRowCurrent.value = elemRowCurrent.value + ' ' + transitionTextCut;
+                    //         elemRowNext.value = restText.join(' ');
+                    //     }
+
+                    //     transitionTextCut = null;
+                    //     restText = null;
+                    // } else continue;
+            }
+
         }
 
         // function goRowFocus(el) {
