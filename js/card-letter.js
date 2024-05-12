@@ -5,11 +5,12 @@ export function formationLetterArea() {
     const elemLetterArea = document.querySelector('.card-letter-area');
     let numberRows;
     let fontSize;
+    let maxLength;
 
     function showMaxLength(numberRows) {  
         const sampleMaxLengthRow = [22, 25, 28, 31, 34, 37, 40, 43, 46, 49, 52, 55];
         const valueRow = numberRows - 7;
-        const maxLength = numberRows * sampleMaxLengthRow[valueRow];
+        const maxLengthFull = numberRows * sampleMaxLengthRow[valueRow];
         let lengthText;
         
         if (sessionStorage.getItem('card-letter--text')) {
@@ -23,14 +24,14 @@ export function formationLetterArea() {
         if (!document.querySelector('.card-letter-counter')) {   
             newElemHTML(elemCardLetterLegend, 'beforeend', `<span class="card-letter-counter">${lengthText}</span>`);
             newElemHTML(elemCardLetterLegend, 'beforeend','<span>&nbsp/&nbsp</span>');
-            newElemHTML(elemCardLetterLegend, 'beforeend', `<span class="card-letter-maxlength">${maxLength}</span>`);
+            newElemHTML(elemCardLetterLegend, 'beforeend', `<span class="card-letter-maxlength">${maxLengthFull}</span>`);
             newElemHTML(elemCardLetterLegend, 'beforeend','<span>&nbsp/&nbsp</span>');
             newElemHTML(elemCardLetterLegend, 'beforeend', `<span class="card-letter-counter-row">${letterRow}</span>`);
         }
         
         const elemTextAreaCounter = document.querySelector('.card-letter-counter');
         const elemTextAreaMaxLength = document.querySelector('.card-letter-maxlength');
-        elemTextAreaMaxLength.textContent = maxLength;
+        elemTextAreaMaxLength.textContent = maxLengthFull;
         
         const elemFirstCardLetterRow = document.querySelector('.card-letter-row');
         const maxLengthRow = elemFirstCardLetterRow.getAttribute('maxlength');
@@ -48,59 +49,82 @@ export function formationLetterArea() {
             elemNumberRowFocus.classList.add('row-focus');
         }
 
+
+        let arrayLetterText = [];
+
         function optimizationText() {
             let sizeFree;
 
             for (let i = 1; i < numberRows; i++) {
                 const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
-                const elemRowNext = document.querySelector(`.letter-row-${i + 1}`);
+                let elemRowNext;
+                if (i < numberRows - 1) {
+                    elemRowNext = document.querySelector(`.letter-row-${i + 1}`);
+                }
                 const arrayRowNext = elemRowNext.value.split(' ');
-                sizeFree = maxLengthRow - elemRowCurrent.value.length - 1;
                 let temporaryText;
-                console.log('row: ', i);
-                console.log('0 arrayRowNext: ', arrayRowNext);
+                sizeFree = maxLengthRow - elemRowCurrent.value.length - 1;
                 
                 for (let index = 0; index < arrayRowNext.length; index++) {
-                    console.log('*', arrayRowNext[index].length, ':', sizeFree);
                     if (arrayRowNext[index].length <= sizeFree) {
-                        console.log('**');
                         if (index == 0) {
                             if (index == arrayRowNext.length - 1) {
-                                console.log('***');
-                                console.log('1. temporaryText: ', temporaryText);
                                 if (elemRowCurrent.value == '') {
                                     elemRowCurrent.value = arrayRowNext[index];
                                 } else {
-                                    elemRowCurrent.value = elemRowCurrent.value + ' ' + arrayRowNext[index];
+                                    if (arrayRowNext[index] == '') {
+                                        break;
+                                    } else {
+                                        elemRowCurrent.value = elemRowCurrent.value + ' ' + arrayRowNext[index];
+                                    }
                                 }
                                 elemRowNext.value = '';
                                 temporaryText = null;
                             } else {
-                                console.log('****');
                                 temporaryText = arrayRowNext[index];
-                                console.log('2. temporaryText: ', temporaryText);
                             }
                         } else {
                             if (index == arrayRowNext.length - 1) {
-                                console.log('*****');
-                                console.log('3. temporaryText: ', temporaryText);
-                                elemRowCurrent.value = elemRowCurrent.value + ' ' + temporaryText;
+                                temporaryText = temporaryText + ' ' + arrayRowNext[index]; 
+                                if (elemRowCurrent.value == '') {
+                                    elemRowCurrent.value = temporaryText;
+                                } else {
+                                    elemRowCurrent.value = elemRowCurrent.value + ' ' + temporaryText;
+                                }
                                 elemRowNext.value = '';
                                 temporaryText = null;
                             } else {
-                                console.log('******');
-                                console.log('4. temporaryText: ', temporaryText);
                                 temporaryText = temporaryText + ' ' + arrayRowNext[index]; 
                             }
                         }
                     } else {
-                        console.log('*******');
-                        elemRowCurrent.value = elemRowCurrent.value + ' ' + temporaryText;
+                        if (elemRowCurrent.value == '') {
+                            elemRowCurrent.value = temporaryText;
+                        } else {
+                            elemRowCurrent.value = elemRowCurrent.value + ' ' + temporaryText;
+                        }
                         elemRowNext.value = arrayRowNext.slice(index).join(' ');
                         temporaryText = null;
                         break;
                     }
                 }
+
+                let temporaryArrayLetterText = [];
+                for (let i = 1; i <= numberRows; i++) {
+                    const elemRowCurrent = document.querySelector(`.letter-row-${i}`); 
+                    temporaryArrayLetterText.push(elemRowCurrent.value);
+                }
+
+                for (let i = 0; i < numberRows; i++) {
+                    if (temporaryArrayLetterText[i] !== arrayLetterText[i]) {
+                        optimizationText();
+                    } else {
+                        break;
+                    }
+                }
+
+                console.log('arrayLetterText: ', arrayLetterText);
+                console.log('temporaryArrayLetterText: ', temporaryArrayLetterText);
 
             }
         }
@@ -316,7 +340,7 @@ export function formationLetterArea() {
 
             if (Number(el.getAttribute('data-row')) == numberRows && event.target.selectionStart == maxLengthRow) {
                 console.log('last row!!');
-                let arrayLetterText = [];
+                // let arrayLetterText = [];
 
                 for (let i = 1; i <= numberRows; i++) {
                     const elemRowCurrent = document.querySelector(`.letter-row-${i}`); 
@@ -326,10 +350,11 @@ export function formationLetterArea() {
                 const elemRow = document.querySelector('.card-letter-row');
                 delRows();
                 numberRows = ++numberRows;
-                console.log('font-size: ', elemRow.getAttribute("style"));
                 fontSize = fontSize*0.92;
-                setTimeout(() => startRows(numberRows, fontSize.toFixed(2)), 0);
+                maxLength = parseInt(maxLength*1.1);
+                setTimeout(() => startRows(numberRows, fontSize.toFixed(2), maxLength), 0);
                 setTimeout(() => addText(arrayLetterText), 0);
+                setTimeout(() => optimizationText(), 0);
             }
 
             if (event.code === 'Backspace' || event.keyCode === 8) {
@@ -478,7 +503,7 @@ export function formationLetterArea() {
         })
     }
     
-    function addRows(numberRows, fontSize) {
+    function addRows(numberRows, fontSize, maxLength) {
         const areaTextHeight = elemLetterArea.getBoundingClientRect().height;
         const heightRow = ((areaTextHeight - numberRows * 2) / numberRows).toFixed(2);
 
@@ -486,7 +511,7 @@ export function formationLetterArea() {
             newElemHTML(
                 elemLetterArea, 
                 'beforeend', 
-                `<input class="card-letter-row letter-row-${i}" type="text" data-row="${i}" maxlength="20" style="height: ${heightRow}px; font-size: ${fontSize}rem;">`
+                `<input class="card-letter-row letter-row-${i}" type="text" data-row="${i}" maxlength="${maxLength}" style="height: ${heightRow}px; font-size: ${fontSize}rem;">`
             );
         }
 
@@ -503,17 +528,18 @@ export function formationLetterArea() {
         })
     }
 
-    function startRows(rows, size) {
+    function startRows(rows, size, max) {
         if (elemLetterArea.classList.contains('created')) {
             console.log('restart');
         } else {
             console.log('start');
+            maxLength = max;
             numberRows = rows;
             fontSize = size;
-            addRows(numberRows, fontSize);
+            addRows(numberRows, fontSize, maxLength);
             showMaxLength(numberRows);
         }
     }
 
-    setTimeout(() => startRows(10, 2.2), 200);
+    setTimeout(() => startRows(10, 2.2, 26), 200);
 }
