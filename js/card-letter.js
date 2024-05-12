@@ -48,11 +48,73 @@ export function formationLetterArea() {
             elemNumberRowFocus.classList.add('row-focus');
         }
 
+        function optimizationText() {
+            let sizeFree;
+
+            for (let i = 1; i < numberRows; i++) {
+                const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
+                const elemRowNext = document.querySelector(`.letter-row-${i + 1}`);
+                const arrayRowNext = elemRowNext.value.split(' ');
+                sizeFree = maxLengthRow - elemRowCurrent.value.length - 1;
+                let temporaryText;
+                console.log('row: ', i);
+                console.log('0 arrayRowNext: ', arrayRowNext);
+                
+                for (let index = 0; index < arrayRowNext.length; index++) {
+                    console.log('*', arrayRowNext[index].length, ':', sizeFree);
+                    if (arrayRowNext[index].length <= sizeFree) {
+                        console.log('**');
+                        if (index == 0) {
+                            if (index == arrayRowNext.length - 1) {
+                                console.log('***');
+                                console.log('1. temporaryText: ', temporaryText);
+                                if (elemRowCurrent.value == '') {
+                                    elemRowCurrent.value = arrayRowNext[index];
+                                } else {
+                                    elemRowCurrent.value = elemRowCurrent.value + ' ' + arrayRowNext[index];
+                                }
+                                elemRowNext.value = '';
+                                temporaryText = null;
+                            } else {
+                                console.log('****');
+                                temporaryText = arrayRowNext[index];
+                                console.log('2. temporaryText: ', temporaryText);
+                            }
+                        } else {
+                            if (index == arrayRowNext.length - 1) {
+                                console.log('*****');
+                                console.log('3. temporaryText: ', temporaryText);
+                                elemRowCurrent.value = elemRowCurrent.value + ' ' + temporaryText;
+                                elemRowNext.value = '';
+                                temporaryText = null;
+                            } else {
+                                console.log('******');
+                                console.log('4. temporaryText: ', temporaryText);
+                                temporaryText = temporaryText + ' ' + arrayRowNext[index]; 
+                            }
+                        }
+                    } else {
+                        console.log('*******');
+                        elemRowCurrent.value = elemRowCurrent.value + ' ' + temporaryText;
+                        elemRowNext.value = arrayRowNext.slice(index).join(' ');
+                        temporaryText = null;
+                        break;
+                    }
+                }
+
+            }
+        }
+
         function validationKey(event, el) {
             const elemNumberRow = numberRowFocus;
             let elemCardLetterRowBlur = document.querySelector(`.letter-row-${elemNumberRow}`);
             const lengthText = event.target.value.length;  
             elemTextAreaCounter.textContent = lengthText;
+
+            if (event.code === 'Escape' || event.keyCode === 27) {
+                console.log('escape!');
+                optimizationText();
+            }
 
             if (event.target.value.length >= maxLengthRow && 
                 !(
@@ -252,8 +314,6 @@ export function formationLetterArea() {
                 }
             }
 
-            console.log('numberRows: ', numberRows);
-
             if (Number(el.getAttribute('data-row')) == numberRows && event.target.selectionStart == maxLengthRow) {
                 console.log('last row!!');
                 let arrayLetterText = [];
@@ -383,18 +443,6 @@ export function formationLetterArea() {
             }
         }
 
-        // function goRowFocus(el) {
-        //     elemCardLetterRow.forEach(el => {
-        //         if (el.classList.contains('row-focus')) el.classList.remove('row-focus');
-        //     })
-
-        //     numberRowFocus = Number(el.getAttribute('data-row'));
-        //     // console.log('focus!!:', numberRowFocus);
-        //     const elemNumberRowFocus = document.querySelector(`.letter-row-${numberRowFocus}`);
-
-        //     elemNumberRowFocus.classList.add('row-focus');
-        // }
-
         function goInput(event, el) {
             // const elemNumberRow = Number(el.getAttribute('data-row'));
             // const elemCardLetterRowBlur = document.querySelector(`.letter-row-${elemNumberRow}`);
@@ -433,7 +481,6 @@ export function formationLetterArea() {
     function addRows(numberRows, fontSize) {
         const areaTextHeight = elemLetterArea.getBoundingClientRect().height;
         const heightRow = ((areaTextHeight - numberRows * 2) / numberRows).toFixed(2);
-        // const lineHeightRow = (areaTextHeight / numberRows).toFixed(2);
 
         for (let i = 1; i <= numberRows; i++) {
             newElemHTML(
@@ -464,19 +511,9 @@ export function formationLetterArea() {
             numberRows = rows;
             fontSize = size;
             addRows(numberRows, fontSize);
-            // recordNewValueFontSize();
             showMaxLength(numberRows);
         }
     }
 
     setTimeout(() => startRows(10, 2.2), 200);
-    
-    // function recordNewValueFontSize() { 
-    //     const stylesheet = document.styleSheets[0];
-    //     for (const value of stylesheet.cssRules) {
-    //         if(value.selectorText === '.card-letter-area') {
-    //             sessionStorage.setItem('card-letter--rows', `${numberRows}`);
-    //         }         
-    //     }
-    // }
 }
