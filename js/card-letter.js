@@ -53,79 +53,66 @@ export function formationLetterArea() {
         let arrayLetterText = [];
 
         function optimizationText() {
-            let sizeFree;
 
-            for (let i = 1; i < numberRows; i++) {
-                const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
-                let elemRowNext;
-                if (i < numberRows - 1) {
-                    elemRowNext = document.querySelector(`.letter-row-${i + 1}`);
-                }
-                const arrayRowNext = elemRowNext.value.split(' ');
-                let temporaryText;
-                sizeFree = maxLengthRow - elemRowCurrent.value.length - 1;
-                
-                for (let index = 0; index < arrayRowNext.length; index++) {
-                    if (arrayRowNext[index].length <= sizeFree) {
-                        if (index == 0) {
-                            if (index == arrayRowNext.length - 1) {
-                                if (elemRowCurrent.value == '') {
-                                    elemRowCurrent.value = arrayRowNext[index];
-                                } else {
-                                    if (arrayRowNext[index] == '') {
-                                        break;
+            for (let i = 1; i <= numberRows; i++) {
+                console.log('row: ', i);
+                let temporaryText;              
+                if (i > 1) {
+                    const elemRowPrevious = document.querySelector(`.letter-row-${i - 1}`);
+                    const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
+                    const arrayRowCurrent = elemRowCurrent.value.split(' ');
+                    for (let index = 0; index < arrayRowCurrent.length; index++) {
+                        if (arrayRowCurrent[index].length <= maxLengthRow - elemRowPrevious.value.length - 1) {
+                            if (index == 0) {
+                                if (index == arrayRowCurrent.length - 1) {
+                                    if (elemRowPrevious.value == '') {
+                                        elemRowPrevious.value = arrayRowCurrent[index];
                                     } else {
-                                        elemRowCurrent.value = elemRowCurrent.value + ' ' + arrayRowNext[index];
+                                        if (arrayRowCurrent[index] == '') {
+                                            break;
+                                        } else {
+                                            elemRowPrevious.value = elemRowPrevious.value + ' ' + arrayRowCurrent[index];
+                                        }
                                     }
-                                }
-                                elemRowNext.value = '';
-                                temporaryText = null;
-                            } else {
-                                temporaryText = arrayRowNext[index];
-                            }
-                        } else {
-                            if (index == arrayRowNext.length - 1) {
-                                temporaryText = temporaryText + ' ' + arrayRowNext[index]; 
-                                if (elemRowCurrent.value == '') {
-                                    elemRowCurrent.value = temporaryText;
+                                    elemRowCurrent.value = '';
+                                    temporaryText = null;
                                 } else {
-                                    elemRowCurrent.value = elemRowCurrent.value + ' ' + temporaryText;
+                                    temporaryText = arrayRowCurrent[index];
                                 }
-                                elemRowNext.value = '';
-                                temporaryText = null;
                             } else {
-                                temporaryText = temporaryText + ' ' + arrayRowNext[index]; 
+                                if (index == arrayRowCurrent.length - 1) {
+                                    temporaryText = temporaryText + ' ' + arrayRowCurrent[index]; 
+                                    if (elemRowPrevious.value == '') {
+                                        elemRowPrevious.value = temporaryText;
+                                    } else {
+                                        elemRowPrevious.value = elemRowPrevious.value + ' ' + temporaryText;
+                                    }
+                                    elemRowCurrent.value = '';
+                                    temporaryText = null;
+                                } else {
+                                    temporaryText = temporaryText + ' ' + arrayRowCurrent[index]; 
+                                }
                             }
-                        }
-                    } else {
-                        if (elemRowCurrent.value == '') {
-                            elemRowCurrent.value = temporaryText;
                         } else {
-                            elemRowCurrent.value = elemRowCurrent.value + ' ' + temporaryText;
+                            if (elemRowPrevious.value == '') {
+                                if (temporaryText) {
+                                    elemRowPrevious.value = temporaryText;
+                                } else {
+                                    break;
+                                }
+                            } else {
+                                if (temporaryText) {
+                                    elemRowPrevious.value = elemRowPrevious.value + ' ' + temporaryText;
+                                } else {
+                                    break;
+                                }
+                            }
+                            elemRowCurrent.value = arrayRowCurrent.slice(index).join(' ');
+                            temporaryText = null;
+                            break;
                         }
-                        elemRowNext.value = arrayRowNext.slice(index).join(' ');
-                        temporaryText = null;
-                        break;
                     }
                 }
-
-                let temporaryArrayLetterText = [];
-                for (let i = 1; i <= numberRows; i++) {
-                    const elemRowCurrent = document.querySelector(`.letter-row-${i}`); 
-                    temporaryArrayLetterText.push(elemRowCurrent.value);
-                }
-
-                for (let i = 0; i < numberRows; i++) {
-                    if (temporaryArrayLetterText[i] !== arrayLetterText[i]) {
-                        optimizationText();
-                    } else {
-                        break;
-                    }
-                }
-
-                console.log('arrayLetterText: ', arrayLetterText);
-                console.log('temporaryArrayLetterText: ', temporaryArrayLetterText);
-
             }
         }
 
@@ -136,8 +123,25 @@ export function formationLetterArea() {
             elemTextAreaCounter.textContent = lengthText;
 
             if (event.code === 'Escape' || event.keyCode === 27) {
-                console.log('escape!');
+                console.log('optimization!');
                 optimizationText();
+            }
+            
+            if (Number(el.getAttribute('data-row')) == numberRows && event.target.selectionStart == maxLengthRow) {
+
+                for (let i = 1; i <= numberRows; i++) {
+                    const elemRowCurrent = document.querySelector(`.letter-row-${i}`); 
+                    arrayLetterText.push(elemRowCurrent.value);
+                }
+                
+                const elemRow = document.querySelector('.card-letter-row');
+                delRows();
+                numberRows = ++numberRows;
+                fontSize = fontSize*0.92;
+                maxLength = parseInt(maxLength*1.4);
+                setTimeout(() => startRows(numberRows, fontSize.toFixed(2), maxLength), 0);
+                setTimeout(() => addText(arrayLetterText), 0);
+                setTimeout(() => optimizationText(), 0);
             }
 
             if (event.target.value.length >= maxLengthRow && 
@@ -338,25 +342,6 @@ export function formationLetterArea() {
                 }
             }
 
-            if (Number(el.getAttribute('data-row')) == numberRows && event.target.selectionStart == maxLengthRow) {
-                console.log('last row!!');
-                // let arrayLetterText = [];
-
-                for (let i = 1; i <= numberRows; i++) {
-                    const elemRowCurrent = document.querySelector(`.letter-row-${i}`); 
-                    arrayLetterText.push(elemRowCurrent.value);
-                }
-                
-                const elemRow = document.querySelector('.card-letter-row');
-                delRows();
-                numberRows = ++numberRows;
-                fontSize = fontSize*0.92;
-                maxLength = parseInt(maxLength*1.1);
-                setTimeout(() => startRows(numberRows, fontSize.toFixed(2), maxLength), 0);
-                setTimeout(() => addText(arrayLetterText), 0);
-                setTimeout(() => optimizationText(), 0);
-            }
-
             if (event.code === 'Backspace' || event.keyCode === 8) {
                 const pointFocus = event.target.selectionStart; 
                     
@@ -541,5 +526,5 @@ export function formationLetterArea() {
         }
     }
 
-    setTimeout(() => startRows(10, 2.2, 26), 200);
+    setTimeout(() => startRows(10, 2.2, 18), 200);
 }
