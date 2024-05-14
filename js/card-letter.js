@@ -55,7 +55,6 @@ export function formationLetterArea() {
         function optimizationText() {
 
             for (let i = 1; i <= numberRows; i++) {
-                console.log('row: ', i);
                 let temporaryText;              
                 if (i > 1) {
                     const elemRowPrevious = document.querySelector(`.letter-row-${i - 1}`);
@@ -138,7 +137,7 @@ export function formationLetterArea() {
                 delRows();
                 numberRows = ++numberRows;
                 fontSize = fontSize*0.92;
-                maxLength = parseInt(maxLength*1.4);
+                maxLength = parseInt(maxLength*1.2);
                 setTimeout(() => startRows(numberRows, fontSize.toFixed(2), maxLength), 0);
                 setTimeout(() => addText(arrayLetterText), 0);
                 setTimeout(() => optimizationText(), 0);
@@ -165,7 +164,7 @@ export function formationLetterArea() {
                     interimLetter = 1;
                 }
                 
-                for (let i = elemNumberRow; i < numberRows; i++) {
+                for (let i = elemNumberRow; i <= numberRows; i++) {
                     const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
                     arrayRowCurrent = elemRowCurrent.value.split(' ');
                     let interimWord;
@@ -328,7 +327,6 @@ export function formationLetterArea() {
 
             function addText(arrayLetterText) {   
                 for (let i = 1; 1 <= numberRows; i++) {
-                    console.log('numberRows: ', numberRows);
                     const elemRowCurrent = document.querySelector(`.letter-row-${i}`); 
                     if (i == numberRows) {
                         elemRowCurrent.selectionStart = 0;
@@ -342,62 +340,115 @@ export function formationLetterArea() {
                 }
             }
 
-            if (event.code === 'Backspace' || event.keyCode === 8) {
+            if ((event.code === 'Backspace' || event.keyCode === 8) && event.target.selectionStart == 0) {
                 const pointFocus = event.target.selectionStart; 
-                    
                 for (let i = elemNumberRow; i <= numberRows; i++) {
-                    const elemRowPrevious = document.querySelector(`.letter-row-${i - 1}`);
-                    const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
-                    
-                    if (i == elemNumberRow && pointFocus == 0 && elemNumberRow > 1) {
-                        elemRowCurrent.classList.remove('row-focus');
-                        
-                        if (elemRowPrevious.value != '') {
-                            if (elemRowCurrent.value != '') {
-                                const arrayRowCurrent = elemRowCurrent.value.split(' '); 
-                                let elemRowPreviousFocus = document.querySelector(`.letter-row-${i - 1}`).value.length;
-                                for (let index = 0; index < arrayRowCurrent.length; index++) {
-                                    if (arrayRowCurrent[index].length <= maxLengthRow - document.querySelector(`.letter-row-${i - 1}`).value.length) {
-                                        document.querySelector(`.letter-row-${i - 1}`).value = document.querySelector(`.letter-row-${i - 1}`).value + ' ' + arrayRowCurrent[index];
-                                        elemRowPrevious.selectionStart = elemRowPreviousFocus + 1;
-                                        elemRowPrevious.selectionEnd = elemRowPreviousFocus + 1;
-                                        document.querySelector(`.letter-row-${i}`).value = arrayRowCurrent.slice(index + 1, arrayRowCurrent.length).join(' ');
-                                        if (index == arrayRowCurrent.length - 1) {
-                                            for (let i = elemNumberRow; i < numberRows; i++) {                                
-                                                document.querySelector(`.letter-row-${i}`).value = document.querySelector(`.letter-row-${i + 1}`).value;
-                                            }   
-                                        }
+                    console.log('row: ', i);
+                    const elemRowPrevious = document.querySelector(`.letter-row-${elemNumberRow - 1}`);
+                    const elemRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`);
+                    const arrayRowCurrent = elemRowCurrent.value.split(' ');
+                    const newPointFocus = elemRowPrevious.value.length;
+                    let temporaryText;
+                    console.log('elemRowPrevious.value: ', elemRowPrevious.value)
+                    for (let index = 0; index < arrayRowCurrent.length; index++) {
+                        // if (pointFocus <= arrayRowCurrent[0].length) {
+                            if (index == 0) {
+                                if (arrayRowCurrent[index].length <= maxLengthRow - elemRowPrevious.value.length) {
+                                    if (index == arrayRowCurrent.length - 1) {
+                                        elemRowPrevious.value = elemRowPrevious.value + arrayRowCurrent[index];
+                                        elemRowCurrent.value = '';
                                     } else {
-                                        document.querySelector(`.letter-row-${i - 1}`).value = document.querySelector(`.letter-row-${i - 1}`).value + ' ';
+                                        temporaryText = arrayRowCurrent[index];
                                     }
-                                }                                  
-                            } else {
-                                for (let i = elemNumberRow; i <= numberRows; i++) {   
-                                    if (i == elemNumberRow) {
-                                        document.querySelector(`.letter-row-${i - 1}`).value = document.querySelector(`.letter-row-${i - 1}`).value + ' ';
-                                    } else {
-                                        document.querySelector(`.letter-row-${i - 1}`).value = document.querySelector(`.letter-row-${i}`).value;
-                                    }                           
+                                } else {
+                                    break;
                                 }
+                            } else {
+                                if (temporaryText.length + arrayRowCurrent[index].length < maxLengthRow - elemRowPrevious.value.length) {
+                                    if (index == arrayRowCurrent.length - 1) {
+                                        elemRowPrevious.value = elemRowPrevious.value + temporaryText + ' ' + arrayRowCurrent[index];
+                                        elemRowCurrent.value = '';
+                                        temporaryText = null;
+                                    } else {
+                                        temporaryText = temporaryText + ' ' + arrayRowCurrent[index];
+                                    }
+                                } else { 
+                                    if (temporaryText) {
+                                        elemRowPrevious.value = elemRowPrevious.value + temporaryText;
+                                        elemRowCurrent.value = arrayRowCurrent.slice(index).join(' ');
+                                        temporaryText = null;
+                                    } else {
+                                        break;
+                                    }
+                                } 
                             }
-                            
-                        }
-                        
-                        if (elemRowPrevious.value == '') {
-                            for (let i = elemNumberRow; i <= numberRows; i++) {      
-                                document.querySelector(`.letter-row-${i - 1}`).value = document.querySelector(`.letter-row-${i}`).value;
-                                if (i == numberRows) {
-                                    document.querySelector(`.letter-row-${i}`).value = '';
-                                }                          
-                            }                          
-                            elemRowPrevious.selectionStart = 0;
-                            elemRowPrevious.selectionEnd = 0;
-                        }
-                        
-                        elemRowPrevious.classList.add('row-focus');
-                        elemRowPrevious.focus();
+                            elemRowPrevious.selectionStart = newPointFocus;
+                            elemRowPrevious.selectionEnd = newPointFocus;
+                            // elemRowPrevious.focus();
+                            setTimeout(() => elemRowPrevious.focus(), 0);
+                        // }
                     }
                 }
+                    // } else {
+                        // if (pointFocus == 0) {
+                        //     elemRowPrevious.value = elemRowCurrent.value;
+                        //     elemRowCurrent.value = '';
+
+                        //     elemRowPrevious.selectionStart = newPointFocus;
+                        //     elemRowPrevious.selectionEnd = newPointFocus;
+                        //     elemRowPrevious.focus();
+                        // }
+                    // }
+                    
+                    // if (i == elemNumberRow && pointFocus == 0 && elemNumberRow > 1) {
+                    //     elemRowCurrent.classList.remove('row-focus');
+                        
+                    //     if (elemRowPrevious.value != '') {
+                    //         if (elemRowCurrent.value != '') {
+                    //             const arrayRowCurrent = elemRowCurrent.value.split(' '); 
+                    //             let elemRowPreviousFocus = document.querySelector(`.letter-row-${i - 1}`).value.length;
+                    //             for (let index = 0; index < arrayRowCurrent.length; index++) {
+                    //                 if (arrayRowCurrent[index].length <= maxLengthRow - document.querySelector(`.letter-row-${i - 1}`).value.length) {
+                    //                     document.querySelector(`.letter-row-${i - 1}`).value = document.querySelector(`.letter-row-${i - 1}`).value + ' ' + arrayRowCurrent[index];
+                    //                     elemRowPrevious.selectionStart = elemRowPreviousFocus + 1;
+                    //                     elemRowPrevious.selectionEnd = elemRowPreviousFocus + 1;
+                    //                     document.querySelector(`.letter-row-${i}`).value = arrayRowCurrent.slice(index + 1, arrayRowCurrent.length).join(' ');
+                    //                     if (index == arrayRowCurrent.length - 1) {
+                    //                         for (let i = elemNumberRow; i < numberRows; i++) {                                
+                    //                             document.querySelector(`.letter-row-${i}`).value = document.querySelector(`.letter-row-${i + 1}`).value;
+                    //                         }   
+                    //                     }
+                    //                 } else {
+                    //                     document.querySelector(`.letter-row-${i - 1}`).value = document.querySelector(`.letter-row-${i - 1}`).value + ' ';
+                    //                 }
+                    //             }                                  
+                    //         } else {
+                    //             for (let i = elemNumberRow; i <= numberRows; i++) {   
+                    //                 if (i == elemNumberRow) {
+                    //                     document.querySelector(`.letter-row-${i - 1}`).value = document.querySelector(`.letter-row-${i - 1}`).value + ' ';
+                    //                 } else {
+                    //                     document.querySelector(`.letter-row-${i - 1}`).value = document.querySelector(`.letter-row-${i}`).value;
+                    //                 }                           
+                    //             }
+                    //         }
+                            
+                    //     }
+                        
+                    //     if (elemRowPrevious.value == '') {
+                    //         for (let i = elemNumberRow; i <= numberRows; i++) {      
+                    //             document.querySelector(`.letter-row-${i - 1}`).value = document.querySelector(`.letter-row-${i}`).value;
+                    //             if (i == numberRows) {
+                    //                 document.querySelector(`.letter-row-${i}`).value = '';
+                    //             }                          
+                    //         }                          
+                    //         elemRowPrevious.selectionStart = 0;
+                    //         elemRowPrevious.selectionEnd = 0;
+                    //     }
+                        
+                    //     elemRowPrevious.classList.add('row-focus');
+                    //     elemRowPrevious.focus();
+                    // }
+                // }
             }
 
             if (
@@ -526,5 +577,5 @@ export function formationLetterArea() {
         }
     }
 
-    setTimeout(() => startRows(10, 2.2, 18), 200);
+    setTimeout(() => startRows(10, 2.2, 22), 200);
 }
