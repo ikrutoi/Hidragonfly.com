@@ -52,9 +52,9 @@ export function formationLetterArea() {
 
         let arrayLetterText = [];
 
-        function optimizationText() {
+        function optimizationText(startRow) {
 
-            for (let i = 1; i <= numberRows; i++) {
+            for (let i = startRow; i <= numberRows; i++) {
                 let temporaryText;              
                 if (i > 1) {
                     const elemRowPrevious = document.querySelector(`.letter-row-${i - 1}`);
@@ -341,7 +341,6 @@ export function formationLetterArea() {
             }
 
             if ((event.code === 'Backspace' || event.keyCode === 8) && event.target.selectionStart == 0) {
-                const pointFocus = event.target.selectionStart; 
                 for (let i = elemNumberRow; i <= numberRows; i++) {
                     console.log('row: ', i);
                     const elemRowPrevious = document.querySelector(`.letter-row-${elemNumberRow - 1}`);
@@ -349,9 +348,8 @@ export function formationLetterArea() {
                     const arrayRowCurrent = elemRowCurrent.value.split(' ');
                     const newPointFocus = elemRowPrevious.value.length;
                     let temporaryText;
-                    console.log('elemRowPrevious.value: ', elemRowPrevious.value)
-                    for (let index = 0; index < arrayRowCurrent.length; index++) {
-                        // if (pointFocus <= arrayRowCurrent[0].length) {
+                    if (i == elemNumberRow) {
+                        for (let index = 0; index < arrayRowCurrent.length; index++) {
                             if (index == 0) {
                                 if (arrayRowCurrent[index].length <= maxLengthRow - elemRowPrevious.value.length) {
                                     if (index == arrayRowCurrent.length - 1) {
@@ -366,7 +364,7 @@ export function formationLetterArea() {
                             } else {
                                 if (temporaryText.length + arrayRowCurrent[index].length < maxLengthRow - elemRowPrevious.value.length) {
                                     if (index == arrayRowCurrent.length - 1) {
-                                        elemRowPrevious.value = elemRowPrevious.value + temporaryText + ' ' + arrayRowCurrent[index];
+                                        elemRowPrevious.value = elemRowPrevious.value + elemRowCurrent.value;
                                         elemRowCurrent.value = '';
                                         temporaryText = null;
                                     } else {
@@ -377,78 +375,19 @@ export function formationLetterArea() {
                                         elemRowPrevious.value = elemRowPrevious.value + temporaryText;
                                         elemRowCurrent.value = arrayRowCurrent.slice(index).join(' ');
                                         temporaryText = null;
+                                        break;
                                     } else {
                                         break;
                                     }
                                 } 
                             }
-                            elemRowPrevious.selectionStart = newPointFocus;
-                            elemRowPrevious.selectionEnd = newPointFocus;
-                            // elemRowPrevious.focus();
-                            setTimeout(() => elemRowPrevious.focus(), 0);
-                        // }
+                        }
+                        console.log('newPointFocus: ', newPointFocus);
+                        elemRowPrevious.selectionStart = newPointFocus;
+                        elemRowPrevious.selectionEnd = newPointFocus;
+                        setTimeout(() => elemRowPrevious.focus(), 0);
                     }
                 }
-                    // } else {
-                        // if (pointFocus == 0) {
-                        //     elemRowPrevious.value = elemRowCurrent.value;
-                        //     elemRowCurrent.value = '';
-
-                        //     elemRowPrevious.selectionStart = newPointFocus;
-                        //     elemRowPrevious.selectionEnd = newPointFocus;
-                        //     elemRowPrevious.focus();
-                        // }
-                    // }
-                    
-                    // if (i == elemNumberRow && pointFocus == 0 && elemNumberRow > 1) {
-                    //     elemRowCurrent.classList.remove('row-focus');
-                        
-                    //     if (elemRowPrevious.value != '') {
-                    //         if (elemRowCurrent.value != '') {
-                    //             const arrayRowCurrent = elemRowCurrent.value.split(' '); 
-                    //             let elemRowPreviousFocus = document.querySelector(`.letter-row-${i - 1}`).value.length;
-                    //             for (let index = 0; index < arrayRowCurrent.length; index++) {
-                    //                 if (arrayRowCurrent[index].length <= maxLengthRow - document.querySelector(`.letter-row-${i - 1}`).value.length) {
-                    //                     document.querySelector(`.letter-row-${i - 1}`).value = document.querySelector(`.letter-row-${i - 1}`).value + ' ' + arrayRowCurrent[index];
-                    //                     elemRowPrevious.selectionStart = elemRowPreviousFocus + 1;
-                    //                     elemRowPrevious.selectionEnd = elemRowPreviousFocus + 1;
-                    //                     document.querySelector(`.letter-row-${i}`).value = arrayRowCurrent.slice(index + 1, arrayRowCurrent.length).join(' ');
-                    //                     if (index == arrayRowCurrent.length - 1) {
-                    //                         for (let i = elemNumberRow; i < numberRows; i++) {                                
-                    //                             document.querySelector(`.letter-row-${i}`).value = document.querySelector(`.letter-row-${i + 1}`).value;
-                    //                         }   
-                    //                     }
-                    //                 } else {
-                    //                     document.querySelector(`.letter-row-${i - 1}`).value = document.querySelector(`.letter-row-${i - 1}`).value + ' ';
-                    //                 }
-                    //             }                                  
-                    //         } else {
-                    //             for (let i = elemNumberRow; i <= numberRows; i++) {   
-                    //                 if (i == elemNumberRow) {
-                    //                     document.querySelector(`.letter-row-${i - 1}`).value = document.querySelector(`.letter-row-${i - 1}`).value + ' ';
-                    //                 } else {
-                    //                     document.querySelector(`.letter-row-${i - 1}`).value = document.querySelector(`.letter-row-${i}`).value;
-                    //                 }                           
-                    //             }
-                    //         }
-                            
-                    //     }
-                        
-                    //     if (elemRowPrevious.value == '') {
-                    //         for (let i = elemNumberRow; i <= numberRows; i++) {      
-                    //             document.querySelector(`.letter-row-${i - 1}`).value = document.querySelector(`.letter-row-${i}`).value;
-                    //             if (i == numberRows) {
-                    //                 document.querySelector(`.letter-row-${i}`).value = '';
-                    //             }                          
-                    //         }                          
-                    //         elemRowPrevious.selectionStart = 0;
-                    //         elemRowPrevious.selectionEnd = 0;
-                    //     }
-                        
-                    //     elemRowPrevious.classList.add('row-focus');
-                    //     elemRowPrevious.focus();
-                    // }
-                // }
             }
 
             if (
