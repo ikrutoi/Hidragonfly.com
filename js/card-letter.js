@@ -126,24 +126,9 @@ export function formationLetterArea() {
                 optimizationText();
             }
             
-            if (Number(el.getAttribute('data-row')) == numberRows && event.target.selectionStart == maxLengthRow) {
-
-                for (let i = 1; i <= numberRows; i++) {
-                    const elemRowCurrent = document.querySelector(`.letter-row-${i}`); 
-                    arrayLetterText.push(elemRowCurrent.value);
-                }
-                
-                const elemRow = document.querySelector('.card-letter-row');
-                delRows();
-                numberRows = ++numberRows;
-                fontSize = fontSize*0.92;
-                maxLength = parseInt(maxLength*1.2);
-                setTimeout(() => startRows(numberRows, fontSize.toFixed(2), maxLength), 0);
-                setTimeout(() => addText(arrayLetterText), 0);
-                setTimeout(() => optimizationText(), 0);
-            }
-
-            if (event.target.value.length >= maxLengthRow && 
+            if (
+                elemNumberRow == numberRows && 
+                event.target.selectionStart == maxLengthRow && 
                 !(
                     event.code === 'Backspace' || event.keyCode === 8 ||
                     event.code === 'ArrowLeft' || event.keyCode === 37 ||
@@ -151,103 +136,148 @@ export function formationLetterArea() {
                     event.code === 'ArrowRight' || event.keyCode === 39 || 
                     event.code === 'ArrowDown' || event.keyCode === 40 ||
                     event.code === 'Tab' || event.keyCode === 9
-                )) { 
-
-                let temporaryPointFocus;
-                let transitionTextCut;
-                let arrayRowCurrent;
-                let interimText;
-                let interimLetter;
-                let changeFocus;
-
-                if (event.target.classList.contains('transfer-one-letter')) {
-                    interimLetter = 1;
+                )
+            ) {
+                for (let i = 1; i <= numberRows; i++) {
+                    const elemRowCurrent = document.querySelector(`.letter-row-${i}`); 
+                    arrayLetterText.push(elemRowCurrent.value);
                 }
                 
-                for (let i = elemNumberRow; i <= numberRows; i++) {
-                    const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
-                    arrayRowCurrent = elemRowCurrent.value.split(' ');
-                    let interimWord;
+                // const elemRow = document.querySelector('.card-letter-row');
+                delRows();
+                // numberRows = ++numberRows;
+                fontSize = fontSize*0.92;
+                maxLength = parseInt(maxLength*1.2);
+                setTimeout(() => startRows(++numberRows, fontSize.toFixed(2), maxLength), 0);
+                setTimeout(() => addText(arrayLetterText), 0);
+                // setTimeout(() => optimizationText(1), 0);
+            }
+
+            if (event.target.value.length == maxLengthRow &&
+                elemNumberRow < numberRows &&
+                !(
+                    event.code === 'Backspace' || event.keyCode === 8 ||
+                    event.code === 'ArrowLeft' || event.keyCode === 37 ||
+                    event.code === 'ArrowUp' || event.keyCode === 38 || 
+                    event.code === 'ArrowRight' || event.keyCode === 39 || 
+                    event.code === 'ArrowDown' || event.keyCode === 40 ||
+                    event.code === 'Tab' || event.keyCode === 9
+                )
+            ) { 
+
+                console.log ('new row!');
+                const elemRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`) 
+                const elemRowNext = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
+                const arrayRowCurrent = elemRowCurrent.value.split(' ');
+                let temporaryText;
+                if (arrayRowCurrent.length > 1) {
+                    temporaryText = arrayRowCurrent.pop();
+                    elemRowCurrent.value = arrayRowCurrent.join(' ');
+                    if (temporaryText.length < maxLengthRow - elemRowNext.value.length) {
+                        elemRowNext.value = temporaryText + ' ' + elemRowNext.value;
+                        elemRowNext.selectionStart = temporaryText.length;
+                        elemRowNext.selectionEnd = temporaryText.length;
+                    }
+                }
+
+                elemRowNext.focus();
+                // setTimeout(() => elemRowNext.focus(), 0);
+
+                // let temporaryPointFocus;
+                // let transitionTextCut;
+                // let arrayRowCurrent;
+                // let interimText;
+                // let interimLetter;
+                // let changeFocus;
+
+                // if (event.target.classList.contains('transfer-one-letter')) {
+                //     interimLetter = 1;
+                // }
+                
+                // for (let i = elemNumberRow; i <= numberRows; i++) {
+                //     const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
+                //     arrayRowCurrent = elemRowCurrent.value.split(' ');
+                //     let interimWord;
                     
-                    if (transitionTextCut) {
+                //     if (transitionTextCut) {
                         
-                        if (transitionTextCut.length == 1) {
-                            if (interimLetter == 1) {
-                                interimText = transitionTextCut + elemRowCurrent.value;
-                            } else {
-                                interimText = transitionTextCut + ' ' + elemRowCurrent.value;
-                                interimLetter = 1;
-                            }
-                        } else {
-                            interimText = transitionTextCut + ' ' + elemRowCurrent.value;
-                        }
+                //         if (transitionTextCut.length == 1) {
+                //             if (interimLetter == 1) {
+                //                 interimText = transitionTextCut + elemRowCurrent.value;
+                //             } else {
+                //                 interimText = transitionTextCut + ' ' + elemRowCurrent.value;
+                //                 interimLetter = 1;
+                //             }
+                //         } else {
+                //             interimText = transitionTextCut + ' ' + elemRowCurrent.value;
+                //         }
                         
-                        if (interimText.length > maxLengthRow) {
-                            const arrayIterimText = interimText.split(' ');
+                //         if (interimText.length > maxLengthRow) {
+                //             const arrayIterimText = interimText.split(' ');
                             
-                            for (let i = arrayIterimText.length; i > 0; i--) {  
+                //             for (let i = arrayIterimText.length; i > 0; i--) {  
                                 
-                                if (!interimWord) {
-                                    interimWord = arrayIterimText.pop();
-                                } else {
-                                    interimWord = arrayIterimText.pop() + ' ' + interimWord;
-                                }
+                //                 if (!interimWord) {
+                //                     interimWord = arrayIterimText.pop();
+                //                 } else {
+                //                     interimWord = arrayIterimText.pop() + ' ' + interimWord;
+                //                 }
 
-                                if (arrayIterimText.join(' ').length > maxLengthRow) {
-                                    continue;
-                                } else {
-                                    elemRowCurrent.value = arrayIterimText.join(' ');
-                                    transitionTextCut = interimWord;
-                                    interimWord = null;
-                                    break;
-                                }
-                            }
+                //                 if (arrayIterimText.join(' ').length > maxLengthRow) {
+                //                     continue;
+                //                 } else {
+                //                     elemRowCurrent.value = arrayIterimText.join(' ');
+                //                     transitionTextCut = interimWord;
+                //                     interimWord = null;
+                //                     break;
+                //                 }
+                //             }
                             
-                        } else {
-                            elemRowCurrent.value = interimText;
-                            transitionTextCut = null;
-                        }
-                    }
+                //         } else {
+                //             elemRowCurrent.value = interimText;
+                //             transitionTextCut = null;
+                //         }
+                //     }
 
-                    if (event.target.value.length >= maxLengthRow && event.target.getAttribute('data-row') == i) {    
-                        for (let ind = arrayRowCurrent.length; ind > 0; ind--) { 
-                            transitionTextCut = arrayRowCurrent.pop();
+                //     if (event.target.value.length >= maxLengthRow && event.target.getAttribute('data-row') == i) {    
+                //         for (let ind = arrayRowCurrent.length; ind > 0; ind--) { 
+                //             transitionTextCut = arrayRowCurrent.pop();
 
-                            if (arrayRowCurrent.length == 0) {
-                                temporaryPointFocus = event.target.selectionStart;
-                                transitionTextCut = elemRowCurrent.value.at(-1);
-                                elemRowCurrent.value = elemRowCurrent.value.slice(0, maxLengthRow - 1);
-                                changeFocus = i;
-                                elemRowCurrent.classList.add('transfer-one-letter');
-                                break;
-                            }
+                //             if (arrayRowCurrent.length == 0) {
+                //                 temporaryPointFocus = event.target.selectionStart;
+                //                 transitionTextCut = elemRowCurrent.value.at(-1);
+                //                 elemRowCurrent.value = elemRowCurrent.value.slice(0, maxLengthRow - 1);
+                //                 changeFocus = i;
+                //                 elemRowCurrent.classList.add('transfer-one-letter');
+                //                 break;
+                //             }
                             
-                            if (event.target.selectionStart <= arrayRowCurrent.join(' ').length) {
-                                temporaryPointFocus = event.target.selectionStart;
-                                changeFocus = i;
-                            } else {
-                                changeFocus = i + 1;
+                //             if (event.target.selectionStart <= arrayRowCurrent.join(' ').length) {
+                //                 temporaryPointFocus = event.target.selectionStart;
+                //                 changeFocus = i;
+                //             } else {
+                //                 changeFocus = i + 1;
                                 
-                                if (event.target.selectionStart == maxLengthRow) {
-                                    temporaryPointFocus = transitionTextCut.length;
-                                } else {
-                                    temporaryPointFocus = event.target.selectionStart - arrayRowCurrent.join(' ').length - 1;
-                                }
-                            }
+                //                 if (event.target.selectionStart == maxLengthRow) {
+                //                     temporaryPointFocus = transitionTextCut.length;
+                //                 } else {
+                //                     temporaryPointFocus = event.target.selectionStart - arrayRowCurrent.join(' ').length - 1;
+                //                 }
+                //             }
 
-                            elemRowCurrent.value = arrayRowCurrent.join(' ');
-                            break;
-                        }
-                    } 
+                //             elemRowCurrent.value = arrayRowCurrent.join(' ');
+                //             break;
+                //         }
+                //     } 
 
-                    if (i == changeFocus) {
-                        elemRowCurrent.selectionStart = temporaryPointFocus;
-                        elemRowCurrent.selectionEnd = temporaryPointFocus;
-                        elemRowCurrent.focus();
-                        changeFocus = null;
-                        temporaryPointFocus = null;
-                    }
-                }    
+                //     if (i == changeFocus) {
+                //         elemRowCurrent.selectionStart = temporaryPointFocus;
+                //         elemRowCurrent.selectionEnd = temporaryPointFocus;
+                //         elemRowCurrent.focus();
+                //         changeFocus = null;
+                //         temporaryPointFocus = null;
+                //     }
+                // }    
             }
 
             if (event.code === 'ArrowDown' || event.keyCode === 40) {
@@ -326,25 +356,29 @@ export function formationLetterArea() {
             }
 
             function addText(arrayLetterText) {   
-                for (let i = 1; 1 <= numberRows; i++) {
-                    const elemRowCurrent = document.querySelector(`.letter-row-${i}`); 
-                    if (i == numberRows) {
-                        elemRowCurrent.selectionStart = 0;
-                        elemRowCurrent.selectionEnd = 0;
+                for (let index = 1; index < numberRows; index++) {
+                    console.log('row: ', index);
+                    // console.log('numberRows: ', numberRows);
+                    // console.log('arrayLetterText.length: ', arrayLetterText.length);
+                    // console.log('arrayLetterText[index - 1]: ', arrayLetterText[index - 1]);
+                    // console.log('arrayLetterText[index - 1].length: ', arrayLetterText[index - 1].length);
+                    const elemRowCurrent = document.querySelector(`.letter-row-${index}`); 
+                    elemRowCurrent.value = arrayLetterText[index - 1];
+                    if (index == arrayLetterText.length) {
+                        elemRowCurrent.selectionStart = arrayLetterText[index - 1].length;
+                        elemRowCurrent.selectionEnd = arrayLetterText[index - 1].length;
                         elemRowCurrent.classList.add('row-focus');
                         elemRowCurrent.focus();
-                        break;
-                    } else {
-                        elemRowCurrent.value = arrayLetterText[i - 1];
+                        // setTimeout(() => elemRowCurrent.focus(), 0);
+                        // break;
                     }
                 }
             }
 
             if ((event.code === 'Backspace' || event.keyCode === 8) && event.target.selectionStart == 0) {
+                const elemRowPrevious = document.querySelector(`.letter-row-${elemNumberRow - 1}`);
+                const elemRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`);
                 for (let i = elemNumberRow; i <= numberRows; i++) {
-                    console.log('row: ', i);
-                    const elemRowPrevious = document.querySelector(`.letter-row-${elemNumberRow - 1}`);
-                    const elemRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`);
                     const arrayRowCurrent = elemRowCurrent.value.split(' ');
                     const newPointFocus = elemRowPrevious.value.length;
                     let temporaryText;
@@ -382,11 +416,13 @@ export function formationLetterArea() {
                                 } 
                             }
                         }
-                        console.log('newPointFocus: ', newPointFocus);
                         elemRowPrevious.selectionStart = newPointFocus;
                         elemRowPrevious.selectionEnd = newPointFocus;
                         setTimeout(() => elemRowPrevious.focus(), 0);
                     }
+                }
+                if (elemRowCurrent.value == '') {
+                    optimizationText(elemNumberRow);
                 }
             }
 
