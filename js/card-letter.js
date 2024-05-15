@@ -8,33 +8,33 @@ export function formationLetterArea() {
     let maxLength;
 
     function showMaxLength(numberRows) {  
-        const sampleMaxLengthRow = [22, 25, 28, 31, 34, 37, 40, 43, 46, 49, 52, 55];
-        const valueRow = numberRows - 7;
-        const maxLengthFull = numberRows * sampleMaxLengthRow[valueRow];
+        const elemFirstCardLetterRow = document.querySelector('.card-letter-row');
+        const maxLengthRow = elemFirstCardLetterRow.getAttribute('maxlength');
+        // const sampleMaxLengthRow = [22, 25, 28, 31, 34, 37, 40, 43, 46, 49, 52, 55];
+        // const valueRow = numberRows - 7;
+        // const maxLengthFull = numberRows * sampleMaxLengthRow[valueRow];
         let lengthText;
         
         if (sessionStorage.getItem('card-letter--text')) {
             lengthText = sessionStorage.getItem('card-letter--text').length;
         } else lengthText = 0;
 
-        let letterRow = 0;     
+        // let letterRow = 0;     
         
         const elemCardLetterLegend = document.querySelector('.card-letter-legend');
         
         if (!document.querySelector('.card-letter-counter')) {   
             newElemHTML(elemCardLetterLegend, 'beforeend', `<span class="card-letter-counter">${lengthText}</span>`);
             newElemHTML(elemCardLetterLegend, 'beforeend','<span>&nbsp/&nbsp</span>');
-            newElemHTML(elemCardLetterLegend, 'beforeend', `<span class="card-letter-maxlength">${maxLengthFull}</span>`);
-            newElemHTML(elemCardLetterLegend, 'beforeend','<span>&nbsp/&nbsp</span>');
-            newElemHTML(elemCardLetterLegend, 'beforeend', `<span class="card-letter-counter-row">${letterRow}</span>`);
+            newElemHTML(elemCardLetterLegend, 'beforeend', `<span class="card-letter-maxlength">${maxLengthRow}</span>`);
+            // newElemHTML(elemCardLetterLegend, 'beforeend','<span>&nbsp/&nbsp</span>');
+            // newElemHTML(elemCardLetterLegend, 'beforeend', `<span class="card-letter-counter-row">${letterRow}</span>`);
         }
         
         const elemTextAreaCounter = document.querySelector('.card-letter-counter');
         const elemTextAreaMaxLength = document.querySelector('.card-letter-maxlength');
-        elemTextAreaMaxLength.textContent = maxLengthFull;
+        elemTextAreaMaxLength.textContent = maxLengthRow;
         
-        const elemFirstCardLetterRow = document.querySelector('.card-letter-row');
-        const maxLengthRow = elemFirstCardLetterRow.getAttribute('maxlength');
         const elemCardLetterRow = document.querySelectorAll('.card-letter-row');  
         let numberRowFocus;
         
@@ -116,7 +116,7 @@ export function formationLetterArea() {
         }
 
         function validationKey(event, el) {
-            const elemNumberRow = numberRowFocus;
+            let elemNumberRow = Number(event.target.getAttribute('data-row'));
             let elemCardLetterRowBlur = document.querySelector(`.letter-row-${elemNumberRow}`);
             const lengthText = event.target.value.length;  
             elemTextAreaCounter.textContent = lengthText;
@@ -142,8 +142,7 @@ export function formationLetterArea() {
                     const elemRowCurrent = document.querySelector(`.letter-row-${i}`); 
                     arrayLetterText.push(elemRowCurrent.value);
                 }
-                
-                // const elemRow = document.querySelector('.card-letter-row');
+                console.log('new row!');
                 delRows();
                 // numberRows = ++numberRows;
                 fontSize = fontSize*0.92;
@@ -155,18 +154,27 @@ export function formationLetterArea() {
 
             if (event.target.value.length == maxLengthRow &&
                 elemNumberRow < numberRows &&
+                (event.code === 'Space' || event.keyCode === 32)
+            ) {
+                const elemRowNext = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
+                elemRowNext.selectionStart = 0;
+                elemRowNext.selectionEnd = 0;
+                setTimeout(() => elemRowNext.focus(), 0);
+            }
+
+            if (event.target.value.length == maxLengthRow &&
+                elemNumberRow < numberRows &&
                 !(
                     event.code === 'Backspace' || event.keyCode === 8 ||
                     event.code === 'ArrowLeft' || event.keyCode === 37 ||
                     event.code === 'ArrowUp' || event.keyCode === 38 || 
                     event.code === 'ArrowRight' || event.keyCode === 39 || 
                     event.code === 'ArrowDown' || event.keyCode === 40 ||
-                    event.code === 'Tab' || event.keyCode === 9
+                    event.code === 'Tab' || event.keyCode === 9 ||
+                    event.code === 'Space' || event.keyCode === 32
                 )
             ) { 
-
-                console.log ('new row!');
-                const elemRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`) 
+                const elemRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`);
                 const elemRowNext = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
                 const arrayRowCurrent = elemRowCurrent.value.split(' ');
                 let temporaryText;
@@ -174,110 +182,16 @@ export function formationLetterArea() {
                     temporaryText = arrayRowCurrent.pop();
                     elemRowCurrent.value = arrayRowCurrent.join(' ');
                     if (temporaryText.length < maxLengthRow - elemRowNext.value.length) {
-                        elemRowNext.value = temporaryText + ' ' + elemRowNext.value;
+                        if (elemRowNext.value == '') {
+                            elemRowNext.value = temporaryText;
+                        } else {
+                            elemRowNext.value = temporaryText + ' ' + elemRowNext.value;
+                        }
                         elemRowNext.selectionStart = temporaryText.length;
                         elemRowNext.selectionEnd = temporaryText.length;
                     }
                 }
-
-                elemRowNext.focus();
-                // setTimeout(() => elemRowNext.focus(), 0);
-
-                // let temporaryPointFocus;
-                // let transitionTextCut;
-                // let arrayRowCurrent;
-                // let interimText;
-                // let interimLetter;
-                // let changeFocus;
-
-                // if (event.target.classList.contains('transfer-one-letter')) {
-                //     interimLetter = 1;
-                // }
-                
-                // for (let i = elemNumberRow; i <= numberRows; i++) {
-                //     const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
-                //     arrayRowCurrent = elemRowCurrent.value.split(' ');
-                //     let interimWord;
-                    
-                //     if (transitionTextCut) {
-                        
-                //         if (transitionTextCut.length == 1) {
-                //             if (interimLetter == 1) {
-                //                 interimText = transitionTextCut + elemRowCurrent.value;
-                //             } else {
-                //                 interimText = transitionTextCut + ' ' + elemRowCurrent.value;
-                //                 interimLetter = 1;
-                //             }
-                //         } else {
-                //             interimText = transitionTextCut + ' ' + elemRowCurrent.value;
-                //         }
-                        
-                //         if (interimText.length > maxLengthRow) {
-                //             const arrayIterimText = interimText.split(' ');
-                            
-                //             for (let i = arrayIterimText.length; i > 0; i--) {  
-                                
-                //                 if (!interimWord) {
-                //                     interimWord = arrayIterimText.pop();
-                //                 } else {
-                //                     interimWord = arrayIterimText.pop() + ' ' + interimWord;
-                //                 }
-
-                //                 if (arrayIterimText.join(' ').length > maxLengthRow) {
-                //                     continue;
-                //                 } else {
-                //                     elemRowCurrent.value = arrayIterimText.join(' ');
-                //                     transitionTextCut = interimWord;
-                //                     interimWord = null;
-                //                     break;
-                //                 }
-                //             }
-                            
-                //         } else {
-                //             elemRowCurrent.value = interimText;
-                //             transitionTextCut = null;
-                //         }
-                //     }
-
-                //     if (event.target.value.length >= maxLengthRow && event.target.getAttribute('data-row') == i) {    
-                //         for (let ind = arrayRowCurrent.length; ind > 0; ind--) { 
-                //             transitionTextCut = arrayRowCurrent.pop();
-
-                //             if (arrayRowCurrent.length == 0) {
-                //                 temporaryPointFocus = event.target.selectionStart;
-                //                 transitionTextCut = elemRowCurrent.value.at(-1);
-                //                 elemRowCurrent.value = elemRowCurrent.value.slice(0, maxLengthRow - 1);
-                //                 changeFocus = i;
-                //                 elemRowCurrent.classList.add('transfer-one-letter');
-                //                 break;
-                //             }
-                            
-                //             if (event.target.selectionStart <= arrayRowCurrent.join(' ').length) {
-                //                 temporaryPointFocus = event.target.selectionStart;
-                //                 changeFocus = i;
-                //             } else {
-                //                 changeFocus = i + 1;
-                                
-                //                 if (event.target.selectionStart == maxLengthRow) {
-                //                     temporaryPointFocus = transitionTextCut.length;
-                //                 } else {
-                //                     temporaryPointFocus = event.target.selectionStart - arrayRowCurrent.join(' ').length - 1;
-                //                 }
-                //             }
-
-                //             elemRowCurrent.value = arrayRowCurrent.join(' ');
-                //             break;
-                //         }
-                //     } 
-
-                //     if (i == changeFocus) {
-                //         elemRowCurrent.selectionStart = temporaryPointFocus;
-                //         elemRowCurrent.selectionEnd = temporaryPointFocus;
-                //         elemRowCurrent.focus();
-                //         changeFocus = null;
-                //         temporaryPointFocus = null;
-                //     }
-                // }    
+                elemRowNext.focus(); 
             }
 
             if (event.code === 'ArrowDown' || event.keyCode === 40) {
@@ -357,11 +271,6 @@ export function formationLetterArea() {
 
             function addText(arrayLetterText) {   
                 for (let index = 1; index < numberRows; index++) {
-                    console.log('row: ', index);
-                    // console.log('numberRows: ', numberRows);
-                    // console.log('arrayLetterText.length: ', arrayLetterText.length);
-                    // console.log('arrayLetterText[index - 1]: ', arrayLetterText[index - 1]);
-                    // console.log('arrayLetterText[index - 1].length: ', arrayLetterText[index - 1].length);
                     const elemRowCurrent = document.querySelector(`.letter-row-${index}`); 
                     elemRowCurrent.value = arrayLetterText[index - 1];
                     if (index == arrayLetterText.length) {
@@ -369,8 +278,6 @@ export function formationLetterArea() {
                         elemRowCurrent.selectionEnd = arrayLetterText[index - 1].length;
                         elemRowCurrent.classList.add('row-focus');
                         elemRowCurrent.focus();
-                        // setTimeout(() => elemRowCurrent.focus(), 0);
-                        // break;
                     }
                 }
             }
@@ -427,54 +334,68 @@ export function formationLetterArea() {
             }
 
             if (
-                event.code === 'NumpadDecimal' || 
-                event.keyCode === 46 &&
+                (event.code === 'NumpadDecimal' || event.keyCode === 46) &&
                 event.target.selectionStart == event.target.value.length
                 ) {
-                const pointFocus = event.target.selectionStart;
-
+                const elemRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`);
+                const elemRowNext = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
                 for (let i = elemNumberRow; i < numberRows; i++) {                    
+                    const arrayRowNext = elemRowNext.value.split(' ');
+                    const newPointFocus = elemRowCurrent.value.length;
                     if (i == elemNumberRow) {
-                        const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
-                        const elemRowNext = document.querySelector(`.letter-row-${i + 1}`);
-                        const arrayRowNext = elemRowNext.value.split(' ');
-                        let textCut;
-
+                        let temporaryText;
                         for (let index = 0; index < arrayRowNext.length; index++) {
-
                             if (index == 0) {
-                                if (maxLengthRow >= pointFocus + arrayRowNext[index].length) {
-                                    if (arrayRowNext.length == 1) {
-                                        elemRowCurrent.value = elemRowCurrent.value + ' ' + arrayRowNext[index];
+                                console.log('*');
+                                if (maxLengthRow - newPointFocus >= arrayRowNext[index].length) {
+                                    if (index == arrayRowNext.length - 1) {
+                                        elemRowCurrent.value = elemRowCurrent.value + ' ' + elemRowNext.value;
+                                        elemRowNext.value = '';
                                     } else {
-                                        textCut = arrayRowNext[index];
+                                        console.log('*-*');
+                                        temporaryText = arrayRowNext[index];
                                     }
                                 } else {
-                                    elemRowCurrent.value = elemRowCurrent.value + ' ' + arrayRowNext[index][0];
-                                    elemRowNext.value = elemRowNext.value.slice(1); 
+                                    console.log('*break*');
                                     break;
                                 }
                             } else {
-                                if (maxLengthRow >= pointFocus + ' ' + textCut.length + ' ' + arrayRowNext[index].length) {
-                                    textCut = textCut + ' ' + arrayRowNext[index];
-                                } else {
-                                    elemRowCurrent.value = elemRowCurrent.value + ' ' + textCut;
-                                    elemRowNext.value = elemRowNext.value.slice(index); 
-                                    break; 
-                                }
+                                console.log('**-**');
+                                if (maxLengthRow - newPointFocus > temporaryText.length + arrayRowNext[index].length) {
+                                    console.log('**');
+                                    if (index == arrayRowNext.length - 1) {
+                                        console.log('***');
+                                        elemRowCurrent.value = elemRowCurrent.value + ' ' + elemRowNext.value;
+                                        elemRowNext.value = '';
+                                        temporaryText = null;
+                                    } else {
+                                        temporaryText = temporaryText + ' ' + arrayRowNext[index];
+                                    }
+                                } else { 
+                                    if (temporaryText) {
+                                        elemRowCurrent.value = elemRowCurrent.value + ' ' + temporaryText;
+                                        elemRowNext.value = arrayRowNext.slice(index).join(' ');
+                                        temporaryText = null;
+                                        break;
+                                    } else {
+                                        break;
+                                    }
+                                } 
                             }
-
                         }
-
-                        elemRowCurrent.selectionStart = pointFocus;
-                        elemRowCurrent.selectionEnd = pointFocus;
+                        elemRowCurrent.selectionStart = newPointFocus;
+                        elemRowCurrent.selectionEnd = newPointFocus;
                         elemRowCurrent.focus();
-                    } else {
-                        document.querySelector(`.letter-row-${i}`).value = document.querySelector(`.letter-row-${i + 1}`).value;
-                        if (i == numberRows - 1) {
-                            document.querySelector(`.letter-row-${i + 1}`).value = '';
-                        } 
-                    }
+                    } 
+                    // else {
+                    //     document.querySelector(`.letter-row-${i}`).value = document.querySelector(`.letter-row-${i + 1}`).value;
+                    //     if (i == numberRows - 1) {
+                    //         document.querySelector(`.letter-row-${i + 1}`).value = '';
+                    //     } 
+                    // }
+                }
+                if (elemRowNext.value == '') {
+                    optimizationText(elemNumberRow + 1);
                 }
             }
         }
