@@ -7,10 +7,11 @@ export function formationLetterArea() {
     let fontSize;
     let maxLength;
     let maxLengthFull;
+    let maxLengthRow;
 
     function showMaxLength(numberRows) {  
-        const elemFirstCardLetterRow = document.querySelector('.card-letter-row');
-        const maxLengthRow = elemFirstCardLetterRow.getAttribute('maxlength');
+        // const elemFirstCardLetterRow = document.querySelector('.card-letter-row');
+        // const maxLengthRow = elemFirstCardLetterRow.getAttribute('maxlength');
         // const sampleMaxLengthRow = [22, 25, 28, 31, 34, 37, 40, 43, 46, 49, 52, 55];
         // const valueRow = numberRows - 10;
         maxLengthFull = numberRows * maxLengthRow;
@@ -123,40 +124,7 @@ export function formationLetterArea() {
                 console.log('optimization!');
                 optimizationText();
             }
-            
-            if (
-                elemNumberRow == numberRows && 
-                event.target.selectionStart == maxLengthRow && 
-                !(
-                    event.code === 'Backspace' || event.keyCode === 8 ||
-                    event.code === 'ArrowLeft' || event.keyCode === 37 ||
-                    event.code === 'ArrowUp' || event.keyCode === 38 || 
-                    event.code === 'ArrowRight' || event.keyCode === 39 || 
-                    event.code === 'ArrowDown' || event.keyCode === 40 ||
-                    event.code === 'Tab' || event.keyCode === 9
-                )
-            ) {
-                for (let i = 1; i <= numberRows; i++) {
-                    const elemRowCurrent = document.querySelector(`.letter-row-${i}`); 
-                    arrayLetterText.push(elemRowCurrent.value);
-                }
-                console.log('new row!');
-                delRows();
-                // numberRows = ++numberRows;
-                fontSize = fontSize*0.92;
-                maxLength = parseInt(maxLength*1.2);
-                setTimeout(() => startRows(++numberRows, fontSize.toFixed(2), maxLength), 0);
-                setTimeout(() => addText(arrayLetterText, event.key), 0);
-                // const elemCounterMaxLengthFull = document.querySelector('.card-letter-maxlengthfull');
-                const maxLengthFull1 = numberRows * maxLength;
-                console.log('***', maxLengthFull1);
-                document.querySelector('.card-letter-maxlengthfull').textContent = `${maxLengthFull}`;
-                // console.dir(elemCounterMaxLengthFull);
-                // console.log(elemCounterMaxLengthFull.value);
-                // elemCounterMaxLengthFull.value = 11;
-                // setTimeout(() => optimizationText(1), 0);
-            }
-
+                   
             if (event.target.value.length == maxLengthRow &&
                 elemNumberRow < numberRows &&
                 (event.code === 'Space' || event.keyCode === 32)
@@ -243,7 +211,8 @@ export function formationLetterArea() {
                 }
             }
 
-            if (event.code === 'Enter' || event.keyCode === 13) {
+            if ((event.code === 'Enter' || event.keyCode === 13) && elemNumberRow < numberRows) {
+                console.log('enter1!!!')
                 const pointFocus = event.target.selectionStart; 
                 const elemRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`);
                 const elemRowNext = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
@@ -272,6 +241,57 @@ export function formationLetterArea() {
                         elemRowNext.focus();
                     }
                 }
+            }
+
+            if (
+                (elemNumberRow == numberRows && 
+                event.target.selectionStart == maxLengthRow && 
+                !(
+                    event.code === 'Backspace' || event.keyCode === 8 ||
+                    event.code === 'ArrowLeft' || event.keyCode === 37 ||
+                    event.code === 'ArrowUp' || event.keyCode === 38 || 
+                    event.code === 'ArrowRight' || event.keyCode === 39 || 
+                    event.code === 'ArrowDown' || event.keyCode === 40 ||
+                    event.code === 'Tab' || event.keyCode === 9
+                )) || 
+                ((event.code === 'Enter' || event.keyCode === 13) && 
+                elemNumberRow == numberRows &&
+                !(
+                    event.code === 'Backspace' || event.keyCode === 8 ||
+                    event.code === 'ArrowLeft' || event.keyCode === 37 ||
+                    event.code === 'ArrowUp' || event.keyCode === 38 || 
+                    event.code === 'ArrowRight' || event.keyCode === 39 || 
+                    event.code === 'ArrowDown' || event.keyCode === 40 ||
+                    event.code === 'Tab' || event.keyCode === 9
+                ))
+            ) {
+                for (let i = 1; i <= numberRows; i++) {
+                    const elemRowCurrent = document.querySelector(`.letter-row-${i}`); 
+                    arrayLetterText.push(elemRowCurrent.value);
+                }
+                console.log('new row!');
+                delRows();
+                numberRows = ++numberRows;
+                fontSize = fontSize*0.92;
+                maxLengthRow = parseInt(maxLengthRow*1.2);
+                startRows(numberRows, fontSize.toFixed(2), maxLengthRow);
+                if (event.code === 'Enter' || event.keyCode === 13) {
+                    addText(arrayLetterText, '');
+                    const elemRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`);
+                    console.log('enter2!!!');
+                    elemRowCurrent.classList.remove('row-focus');
+                    const elemRowNext = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
+                    elemRowNext.classList.add('row-focus');
+                    elemRowNext.selectionStart = 0;
+                    elemRowNext.selectionEnd = 0;
+                    elemRowNext.focus();
+                } else {
+                    addText(arrayLetterText, event.key);
+                }
+                document.querySelector('.card-letter-maxlengthfull').textContent = String(numberRows * maxLengthRow);
+                // console.log(elemCounterMaxLengthFull.value);
+                // elemCounterMaxLengthFull.value = 11;
+                // setTimeout(() => optimizationText(1), 0);
             }
 
             function addText(arrayLetterText, eventKey) {   
@@ -466,10 +486,10 @@ export function formationLetterArea() {
             console.log('restart');
         } else {
             console.log('start');
-            maxLength = max;
+            maxLengthRow = max;
             numberRows = rows;
             fontSize = size;
-            addRows(numberRows, fontSize, maxLength);
+            addRows(numberRows, fontSize, maxLengthRow);
             showMaxLength(numberRows);
         }
     }
