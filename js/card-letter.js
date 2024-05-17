@@ -63,6 +63,7 @@ export function formationLetterArea() {
                         if (elemRowPrevious.value == '') {
                             elemRowPrevious.value = elemRowCurrent.value;
                             elemRowCurrent.value = '';
+                            optimizationText(i + 1);
                             // console.log('2. max: ', maxLengthRow, 'elemRowPrevious.value: ', elemRowPrevious.value, 'elemRowCurrent.value: ', elemRowCurrent.value);
                             continue;
                         } else {
