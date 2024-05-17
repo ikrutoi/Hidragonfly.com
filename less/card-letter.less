@@ -10,11 +10,16 @@
 }
 
 .card-letter-legend {
+    position: relative;
     margin-left: 1rem;
+    width: 80px;
     padding: 0 0.5rem;
     display: flex;
     align-items: center;
     height: 1.2rem;
+    // border: solid 1px green;
+    // border-radius: 8px;
+    background-color: @color-basis-transparent;
 }
 
 .card-letter-area {
@@ -63,13 +68,34 @@
 }
 
 .card-letter-legend span {
+    position: absolute;
     font-size: 0.8rem;
     font-weight: 100;
     font-style: italic;
     user-select: none;
+}
+
+
+.card-letter-legend span:nth-child(1) {
+    margin-left: 0;
     color: @color-basis;
 }
 
+.card-letter-legend span:nth-child(2) {
+    margin-left: 16px;
+}
+
+.card-letter-legend span:nth-child(3) {
+    margin-left: 29px;
+}
+
+.card-letter-legend span:nth-child(4) {
+    margin-left: 46px;
+}
+
+.card-letter-legend span:nth-child(5) {
+    margin-left: 60px;
+}
 // .card-letter-frame {
 //     // .card-size-mixin;
 //     width: 100%;

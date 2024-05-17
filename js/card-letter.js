@@ -5,7 +5,6 @@ export function formationLetterArea() {
     const elemLetterArea = document.querySelector('.card-letter-area');
     let numberRows;
     let fontSize;
-    let maxLength;
     let maxLengthFull;
     let maxLengthRow;
 
@@ -22,6 +21,9 @@ export function formationLetterArea() {
         } else lengthText = 0;
         
         const elemCardLetterLegend = document.querySelector('.card-letter-legend');
+        elemCardLetterLegend.onmousedown = elemCardLetterLegend.onselectstart = function() {
+            return false;
+        };
         
         if (!document.querySelector('.card-letter-counter')) {   
             newElemHTML(elemCardLetterLegend, 'beforeend', `<span class="card-letter-counter">${lengthText}</span>`);
@@ -32,9 +34,6 @@ export function formationLetterArea() {
         }
         
         const elemTextAreaCounter = document.querySelector('.card-letter-counter');
-        const elemTextAreaMaxLength = document.querySelector('.card-letter-maxlength');
-        elemTextAreaMaxLength.textContent = maxLengthRow;
-        
         const elemCardLetterRow = document.querySelectorAll('.card-letter-row');  
         let numberRowFocus;
         
@@ -52,65 +51,49 @@ export function formationLetterArea() {
         let arrayLetterText = [];
 
         function optimizationText(startRow) {
-
             for (let i = startRow; i <= numberRows; i++) {
                 let temporaryText;              
                 if (i > 1) {
+                    console.log('row: ', i);
                     const elemRowPrevious = document.querySelector(`.letter-row-${i - 1}`);
                     const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
+                    // console.log('1. max: ', maxLengthRow, 'elemRowPrevious.value: ', elemRowPrevious.value, 'elemRowCurrent.value: ', elemRowCurrent.value);
                     const arrayRowCurrent = elemRowCurrent.value.split(' ');
-                    for (let index = 0; index < arrayRowCurrent.length; index++) {
-                        if (arrayRowCurrent[index].length <= maxLengthRow - elemRowPrevious.value.length - 1) {
-                            if (index == 0) {
-                                if (index == arrayRowCurrent.length - 1) {
-                                    if (elemRowPrevious.value == '') {
-                                        elemRowPrevious.value = arrayRowCurrent[index];
-                                    } else {
-                                        if (arrayRowCurrent[index] == '') {
-                                            break;
-                                        } else {
-                                            elemRowPrevious.value = elemRowPrevious.value + ' ' + arrayRowCurrent[index];
-                                        }
-                                    }
-                                    elemRowCurrent.value = '';
-                                    temporaryText = null;
-                                } else {
-                                    temporaryText = arrayRowCurrent[index];
-                                }
-                            } else {
-                                if (index == arrayRowCurrent.length - 1) {
-                                    temporaryText = temporaryText + ' ' + arrayRowCurrent[index]; 
-                                    if (elemRowPrevious.value == '') {
-                                        elemRowPrevious.value = temporaryText;
-                                    } else {
-                                        elemRowPrevious.value = elemRowPrevious.value + ' ' + temporaryText;
-                                    }
-                                    elemRowCurrent.value = '';
-                                    temporaryText = null;
-                                } else {
-                                    temporaryText = temporaryText + ' ' + arrayRowCurrent[index]; 
-                                }
-                            }
+                    if (elemRowCurrent.value.length < maxLengthRow - elemRowPrevious.value.length) {
+                        if (elemRowPrevious.value == '') {
+                            elemRowPrevious.value = elemRowCurrent.value;
+                            elemRowCurrent.value = '';
+                            // console.log('2. max: ', maxLengthRow, 'elemRowPrevious.value: ', elemRowPrevious.value, 'elemRowCurrent.value: ', elemRowCurrent.value);
+                            continue;
                         } else {
-                            if (elemRowPrevious.value == '') {
-                                if (temporaryText) {
-                                    elemRowPrevious.value = temporaryText;
+                            if (elemRowCurrent.value == '') {
+                                continue;
+                            } else {
+                                elemRowPrevious.value = elemRowPrevious.value + ' ' + elemRowCurrent.value;
+                                // console.log('3. max: ', maxLengthRow, 'elemRowPrevious.value: ', elemRowPrevious.value, 'elemRowCurrent.value: ', elemRowCurrent.value);
+                            }
+                        }
+                    } else {
+                        for (let index = 0; index < arrayRowCurrent.length; index++) {
+                            if (index == 0) {
+                                if (arrayRowCurrent[index].length < maxLengthRow - elemRowPrevious.value.length) {
+                                    temporaryText = arrayRowCurrent[index];
                                 } else {
                                     break;
                                 }
                             } else {
-                                if (temporaryText) {
-                                    elemRowPrevious.value = elemRowPrevious.value + ' ' + temporaryText;
+                                if (temporaryText.length + arrayRowCurrent[index].length < maxLengthRow - elemRowPrevious.value.length) {
+                                    temporaryText = temporaryText + ' ' + temporaryText[index];
                                 } else {
+                                    elemRowPrevious.value = elemRowPrevious.value + ' ' + temporaryText;
+                                    elemRowCurrent.value = arrayRowCurrent.slice(index).join(' ');
+                                    temporaryText = null;
                                     break;
                                 }
                             }
-                            elemRowCurrent.value = arrayRowCurrent.slice(index).join(' ');
-                            temporaryText = null;
-                            break;
                         }
                     }
-                }
+                } else continue;
             }
         }
 
@@ -212,7 +195,6 @@ export function formationLetterArea() {
             }
 
             if ((event.code === 'Enter' || event.keyCode === 13) && elemNumberRow < numberRows) {
-                console.log('enter1!!!')
                 const pointFocus = event.target.selectionStart; 
                 const elemRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`);
                 const elemRowNext = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
@@ -269,7 +251,7 @@ export function formationLetterArea() {
                     const elemRowCurrent = document.querySelector(`.letter-row-${i}`); 
                     arrayLetterText.push(elemRowCurrent.value);
                 }
-                console.log('new row!');
+
                 delRows();
                 numberRows = ++numberRows;
                 fontSize = fontSize*0.92;
@@ -278,20 +260,19 @@ export function formationLetterArea() {
                 if (event.code === 'Enter' || event.keyCode === 13) {
                     addText(arrayLetterText, '');
                     const elemRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`);
-                    console.log('enter2!!!');
-                    elemRowCurrent.classList.remove('row-focus');
-                    const elemRowNext = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
-                    elemRowNext.classList.add('row-focus');
-                    elemRowNext.selectionStart = 0;
-                    elemRowNext.selectionEnd = 0;
-                    elemRowNext.focus();
+                    // elemRowCurrent.classList.remove('row-focus');
+                    // const elemRowNext = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
+                    elemRowCurrent.classList.add('row-focus');
+                    elemRowCurrent.selectionStart = 0;
+                    elemRowCurrent.selectionEnd = 0;
+                    // elemRowCurrent.focus();
+                    setTimeout(() => elemRowCurrent.focus(), 0);
                 } else {
                     addText(arrayLetterText, event.key);
                 }
                 document.querySelector('.card-letter-maxlengthfull').textContent = String(numberRows * maxLengthRow);
-                // console.log(elemCounterMaxLengthFull.value);
-                // elemCounterMaxLengthFull.value = 11;
-                // setTimeout(() => optimizationText(1), 0);
+                setTimeout(() => optimizationText(1), 0);
+                // optimizationText(1);
             }
 
             function addText(arrayLetterText, eventKey) {   
@@ -309,7 +290,11 @@ export function formationLetterArea() {
                 }
             }
 
-            if ((event.code === 'Backspace' || event.keyCode === 8) && event.target.selectionStart == 0) {
+            if (
+                (event.code === 'Backspace' || event.keyCode === 8) && 
+                event.target.selectionStart == 0 && 
+                elemNumberRow > 1
+            ) {
                 const elemRowPrevious = document.querySelector(`.letter-row-${elemNumberRow - 1}`);
                 const elemRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`);
                 for (let i = elemNumberRow; i <= numberRows; i++) {
