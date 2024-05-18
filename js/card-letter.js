@@ -29,8 +29,8 @@ export function formationLetterArea() {
             newElemHTML(elemCardLetterLegend, 'beforeend', `<span class="card-letter-counter">${lengthText}</span>`);
             newElemHTML(elemCardLetterLegend, 'beforeend','<span>&nbsp/&nbsp</span>');
             newElemHTML(elemCardLetterLegend, 'beforeend', `<span class="card-letter-maxlength">${maxLengthRow}</span>`);
-            newElemHTML(elemCardLetterLegend, 'beforeend','<span>&nbsp/&nbsp</span>');
-            newElemHTML(elemCardLetterLegend, 'beforeend', `<span class="card-letter-maxlengthfull">${maxLengthFull}</span>`);
+            // newElemHTML(elemCardLetterLegend, 'beforeend','<span>&nbsp/&nbsp</span>');
+            // newElemHTML(elemCardLetterLegend, 'beforeend', `<span class="card-letter-maxlengthfull">${maxLengthFull}</span>`);
         }
         
         const elemTextAreaCounter = document.querySelector('.card-letter-counter');
@@ -271,7 +271,8 @@ export function formationLetterArea() {
                 } else {
                     addText(arrayLetterText, event.key);
                 }
-                document.querySelector('.card-letter-maxlengthfull').textContent = String(numberRows * maxLengthRow);
+                document.querySelector('.card-letter-maxlength').textContent = String(maxLengthRow);
+                // document.querySelector('.card-letter-maxlengthfull').textContent = String(numberRows * maxLengthRow);
                 setTimeout(() => optimizationText(1), 0);
                 // optimizationText(1);
             }
@@ -359,25 +360,19 @@ export function formationLetterArea() {
                         let temporaryText;
                         for (let index = 0; index < arrayRowNext.length; index++) {
                             if (index == 0) {
-                                console.log('*');
                                 if (maxLengthRow - newPointFocus >= arrayRowNext[index].length) {
                                     if (index == arrayRowNext.length - 1) {
                                         elemRowCurrent.value = elemRowCurrent.value + ' ' + elemRowNext.value;
                                         elemRowNext.value = '';
                                     } else {
-                                        console.log('*-*');
                                         temporaryText = arrayRowNext[index];
                                     }
                                 } else {
-                                    console.log('*break*');
                                     break;
                                 }
                             } else {
-                                console.log('**-**');
                                 if (maxLengthRow - newPointFocus > temporaryText.length + arrayRowNext[index].length) {
-                                    console.log('**');
                                     if (index == arrayRowNext.length - 1) {
-                                        console.log('***');
                                         elemRowCurrent.value = elemRowCurrent.value + ' ' + elemRowNext.value;
                                         elemRowNext.value = '';
                                         temporaryText = null;
@@ -407,6 +402,10 @@ export function formationLetterArea() {
             }
         }
 
+        function selectText(event) {
+            console.log(event.target);
+        }
+
         function goInput(event, el) {
             // const elemNumberRow = Number(el.getAttribute('data-row'));
             // const elemCardLetterRowBlur = document.querySelector(`.letter-row-${elemNumberRow}`);
@@ -434,6 +433,7 @@ export function formationLetterArea() {
                 el.classList.add('row-focus');
             }
 
+            el.addEventListener('mousedown', (event) => selectText(event));
             el.addEventListener('keydown', (event) => validationKey(event, el));
             // el.addEventListener('pointerdown', () => goRowFocus(el));
             el.addEventListener('focus', () => goRowFocus(el));
