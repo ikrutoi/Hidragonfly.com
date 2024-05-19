@@ -347,6 +347,23 @@ export function formationLetterArea() {
                 }
             }
 
+            // if (event.code == 'KeyZ' || event.keyCode == 90) {
+            //     let range = new Range();
+            //     console.log('**', el);
+            //     console.log('**1', el.selectionStart);
+            //     console.log('**2', el.selectionEnd);
+            //     // el.select();
+            //     // el.setSelectionRange(1, 5);
+            //     // range.setStart(el, 1);
+            //     // range.setEnd(el, 2);
+            //     // range.selectNodeContents(el);
+            //     // document.getSelection().removeAllRanges();
+            //     // document.getSelection().addRange(range);
+
+            // }
+
+            // el.
+
             if (
                 (event.code === 'NumpadDecimal' || event.keyCode === 46) &&
                 event.target.selectionStart == event.target.value.length
@@ -402,9 +419,13 @@ export function formationLetterArea() {
             }
         }
 
-        function selectText(event) {
-            console.log(event.target);
-        }
+        // function selectText(event, el) {
+        //     console.log(event.clientX, ': ', event.clientY);
+        //     // console.log(el.selectionStart, ': ', el.selectionEnd);
+
+        // }
+
+
 
         function goInput(event, el) {
             // const elemNumberRow = Number(el.getAttribute('data-row'));
@@ -433,7 +454,49 @@ export function formationLetterArea() {
                 el.classList.add('row-focus');
             }
 
-            el.addEventListener('mousedown', (event) => selectText(event));
+            // el.onselect = function() {
+            //     console.log('1** ', el.selectionStart, ': ', el.selectionEnd);
+            // }
+            el.onselectstart = function() {
+                console.log('select');
+            }
+
+            let pointStart;
+
+            el.onmousedown = function(event) {
+                let target = event.target;
+                pointStart = target.selectionStart;
+            }
+
+            el.onmouseover = function(event) {
+                // console.log('2** ', event.target);
+                let target = event.target;
+                target.style.background = 'pink';
+                console.log('start1:', pointStart);
+                // target.onmousedown = function() {
+                //     // pointStart = target.selectionStart;
+                // }
+                // target.onmouseup = function() {
+                //     console.log('end1:', target.selectionEnd);
+                // }
+                // setTimeout(() => {
+                //     target.selectionStart = 4;
+                //     target.selectionEnd = 12;
+                // })
+            } 
+            
+            el.onmouseout = function(event) {
+                // console.log('3** ', event.target);
+                console.log('start2:', pointStart);
+                let target = event.target;
+                // setTimeout(() => {
+                // target.selectionStart = pointStart;
+                // target.selectionEnd = target.value.length;
+                // })
+                target.style.background = '';
+            } 
+
+            // el.addEventListener('mousedown', (event, el) => selectText(event, el));
             el.addEventListener('keydown', (event) => validationKey(event, el));
             // el.addEventListener('pointerdown', () => goRowFocus(el));
             el.addEventListener('focus', () => goRowFocus(el));
