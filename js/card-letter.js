@@ -454,49 +454,104 @@ export function formationLetterArea() {
                 el.classList.add('row-focus');
             }
 
-            // el.onselect = function() {
-            //     console.log('1** ', el.selectionStart, ': ', el.selectionEnd);
-            // }
-            el.onselectstart = function() {
-                console.log('select');
-            }
-
-            let pointStart;
-
-            el.onmousedown = function(event) {
-                let target = event.target;
-                pointStart = target.selectionStart;
-            }
-
-            el.onmouseover = function(event) {
-                // console.log('2** ', event.target);
-                let target = event.target;
-                target.style.background = 'pink';
-                console.log('start1:', pointStart);
-                // target.onmousedown = function() {
-                //     // pointStart = target.selectionStart;
-                // }
-                // target.onmouseup = function() {
-                //     console.log('end1:', target.selectionEnd);
-                // }
-                // setTimeout(() => {
-                //     target.selectionStart = 4;
-                //     target.selectionEnd = 12;
-                // })
-            } 
+            let pointerDown;
+            let elemMouseDown; 
+            let numberRowMouseDown;  
+            let numberRowMouseNext;
             
-            el.onmouseout = function(event) {
-                // console.log('3** ', event.target);
-                console.log('start2:', pointStart);
-                let target = event.target;
-                // setTimeout(() => {
-                // target.selectionStart = pointStart;
-                // target.selectionEnd = target.value.length;
-                // })
-                target.style.background = '';
-            } 
+            function onMouseMove(event, eventMouse) {
+                // console.log('onmousemove: ', document.elementFromPoint(event.clientX, event.clientY));
+                // const elemRow = document.elementFromPoint(event.clientX, event.clientY);
+                // event.preventDefault();
+                // function cancelMove() {
+                // }
+                // setTimeout(cancelMove, 300);
+                if (eventMouse) {
+                    console.log('preventdefault!!');
+                    event.preventDefault();
+                }
+                // if (!elemRow) return;               
+                // console.log(elemRow);    
+            }
+            
+            console.log('elemMouseDown1: ', elemMouseDown);
+            function onMouseDown(event) {
+                elemMouseDown = event.target;
+                numberRowMouseDown = event.target.getAttribute('data-row');
+                console.log('mouseDown event: ', event);
+                console.log('elemMouseDown2: ', elemMouseDown);
+                console.log('selectionStart: ', event.target.selectionStart);
+                // console.log(pointerDown);
+                // const numberRow = event.target.getAttribute('data-row');
+                // console.log('onmousedown: ', document.elementFromPoint(event.clientX, event.clientY));
+                // const elemRowLast = document.querySelector(`.letter-row-${numberRow - 1}`);
+                document.elementFromPoint(event.clientX, event.clientY);
+            }
+            
+            function onMouseUp(event) {
+                elemMouseDown = null;
+                // console.log('elemMouseDown3: ', elemMouseDown);
+                // console.log('onmouseup: ', document.elementFromPoint(event.clientX, event.clientY));
+                // console.log('onmouseup-selectionend: ', event.target.selectionEnd);
+                // const elemRow = document.elementFromPoint(event.clientX, event.clientY);
+                // if (!elemRow) return;               
+                // console.log(elemRow);    
+            }
+            
+            let textLeft;
+            let textRight;
+            
+            if (elemMouseDown) {
+                // console.log('elemMouseDown: ', elemMouseDown);
+            }
 
-            // el.addEventListener('mousedown', (event, el) => selectText(event, el));
+            function onMouseOver(event) {
+                // console.log('elemMouseDown4: ', elemMouseDown);
+
+                // console.log('onmouseover: ', document.elementFromPoint(event.clientX, event.clientY));
+
+                const elemRowNext = document.elementFromPoint(event.clientX, event.clientY);
+                numberRowMouseNext = event.target.getAttribute('data-row');
+                elemRowNext.focus();
+                // textLeft = event.target.value.slice(0, )
+                // if (!elemRow) return;               
+                // console.log(elemRow);    
+            }
+            
+            function onMouseOut(event) {
+                // console.log('onmouseout: ', document.elementFromPoint(event.clientX, event.clientY));
+                // onMouseDown(event, true);
+                // onMouseMove(event);
+                // if ()
+                // el.setSelectionRange(pointerDown, el.value.length);
+                // const elemRow = document.elementFromPoint(event.clientX, event.clientY);
+                // if (!elemRow) return;               
+                // console.log(elemRow);    
+            }
+            
+            function onSelect(event) {
+                console.log('select event: ', event);
+                pointerDown = event.target.selectionStart;
+                console.log('start: ', event.target.selectionStart);
+                console.log('end: ', event.target.selectionEnd);
+            }
+
+            if (numberRowMouseDown) {
+                // console.log('654dcfsdf564');
+                // if (numberRowMouseNext > numberRowMouseDown) {
+                //     elemMouseDown.setSelectionRange(pointerDown, el.value.length);
+                // } else {
+                //     elemMouseDown.setSelectionRange(0, pointerDown);
+                // }
+            }
+
+            el.addEventListener('mousemove', onMouseMove);
+            el.addEventListener('mousedown', onMouseDown);
+            el.addEventListener('mouseup', onMouseUp);
+            el.addEventListener('mouseover', onMouseOver);           
+            el.addEventListener('mouseout', onMouseOut);
+            el.addEventListener('select', onSelect);
+
             el.addEventListener('keydown', (event) => validationKey(event, el));
             // el.addEventListener('pointerdown', () => goRowFocus(el));
             el.addEventListener('focus', () => goRowFocus(el));
