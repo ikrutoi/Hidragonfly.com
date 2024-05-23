@@ -60,16 +60,20 @@ export function formationLetterArea() {
                     for (let i = startRow; i <= numberRows; i++) {
                         console.log('row-2: ', i);
                         const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
-                        const arrayRowCurrent = elemRowCurrent.value.split(' ');
                         if (i == startRow) {
                             if (elemRowCurrent.value != '' && elemRowCurrent[elemRowCurrent.length - 1] != ' ') {
+                                // elemRowCurrent.value = elemRowCurrent.value;
                                 elemRowCurrent.value = elemRowCurrent.value + ' ';
                                 temporaryRow = elemRowCurrent.value;
+                                console.log('**')
                             } else {
                                 temporaryRow = elemRowCurrent.value;
+                                console.log('**-**')
                             }
                         } else {
                             const elemRowPrevious = document.querySelector(`.letter-row-${i - 1}`);
+                            const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
+                            const arrayRowCurrent = elemRowCurrent.value.split(' ');
                             let temporaryText;
                             for (let index = 0; index < arrayRowCurrent.length; index++) {
                                 if (index == 0) {
@@ -77,6 +81,7 @@ export function formationLetterArea() {
                                         if (index == arrayRowCurrent.length - 1) {
                                             elemRowPrevious.value = elemRowPrevious.value + elemRowCurrent.value;
                                             elemRowCurrent.value = '';
+                                            temporaryRow = elemRowCurrent.value;
                                         } else {
                                             temporaryText = arrayRowCurrent[index];
                                         }
@@ -85,7 +90,7 @@ export function formationLetterArea() {
                                         break;
                                     }
                                 } else {
-                                    if (temporaryText.length + arrayRowCurrent[index] < maxLengthRow - temporaryRow.length) {
+                                    if (temporaryText.length + arrayRowCurrent[index].length < maxLengthRow - temporaryRow.length) {
                                         if (index == arrayRowCurrent.length - 1) {
                                             elemRowPrevious.value = elemRowPrevious.value + elemRowCurrent.value;
                                             elemRowCurrent.value = '';
