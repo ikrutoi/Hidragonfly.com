@@ -50,20 +50,20 @@ export function formationLetterArea() {
 
         let arrayLetterText = [];
 
+        function onFocus(row, numberFocus) {
+            console.log('onFocus: ', row, ': ', numberFocus);
+            row.selectionStart = numberFocus;
+            row.selectionEnd = numberFocus;
+            setTimeout(() => row.focus(), 0);
+        }
+
         function optimizationLetter(startRow, pointFocus) {
             const firstStartRow = startRow;
-            function onFocus(row, valueFocus) {
-                row.selectionStart = valueFocus;
-                row.selectionEnd = valueFocus;
-                // row.focus();
-                setTimeout(() => row.focus(), 0);
-            }
 
             for (let i = startRow; i <= numberRows; i++) {             
                 function optimizationRow(startRow, pointFocus) {
                     let temporaryRow;
                     for (let i = startRow; i <= numberRows; i++) {
-                        console.log('row-2: ', i);
                         const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
                         if (elemRowCurrent.value == '') {
                             temporaryRow = '';
@@ -125,7 +125,6 @@ export function formationLetterArea() {
                         }
                     }
                 }  
-
                 optimizationRow(i, pointFocus);
             }          
         }
@@ -138,19 +137,44 @@ export function formationLetterArea() {
 
             if (event.code === 'Backspace' || event.keyCode === 8) {
                 const elemRowPrevious = document.querySelector(`.letter-row-${elemNumberRow - 1}`);
+                const elemRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`);
                 const pointFocusPrevious = elemRowPrevious.value.length;
                 const pointFocusCurrent = event.target.selectionStart;
-    
-                if (event.target.selectionStart == 0 && elemNumberRow > 1) {                   
-                    optimizationLetter(elemNumberRow - 1, pointFocusPrevious);
-                } else {
+
+                if (event.target.selectionStart != 0) { 
+                    console.log('**-**')           
                     optimizationLetter(elemNumberRow, pointFocusCurrent);
                 }
-            }
 
-            if (event.code === 'KeyZ' || event.keyCode === 90) {
-                console.log('optimization!');
-                optimizationLetter(elemNumberRow);
+                if (
+                    event.target.selectionStart ==  0 && 
+                    elemRowCurrent.value == '' &&
+                    elemNumberRow > 1
+                ) {
+                    let transferRow;
+                    let temporaryRow;
+                    for (let i = numberRows; i >= elemNumberRow; i--) {
+                        const elemRowCurrent = document.querySelector(`.letter-row-${i}`)
+                        if (i == numberRows) {
+                            transferRow = elemRowCurrent.value;
+                            elemRowCurrent.value = '';
+                        } else {
+                            temporaryRow = elemRowCurrent.value;
+                            elemRowCurrent.value = transferRow;
+                            transferRow = temporaryRow;
+                        }
+                    }
+                    onFocus(elemRowPrevious, elemRowPrevious.value.length);
+                }
+    
+                if (
+                    event.target.selectionStart == 0 &&
+                    elemRowCurrent.value != '' &&
+                    elemNumberRow > 1
+                ) {        
+                    console.log('**')           
+                    optimizationLetter(elemNumberRow - 1, pointFocusPrevious);
+                } 
             }
                    
             if (event.target.value.length == maxLengthRow &&
