@@ -50,12 +50,17 @@ export function formationLetterArea() {
 
         let arrayLetterText = [];
 
-        function optimizationLetter(startRow) {
+        function optimizationLetter(startRow, pointFocus) {
+            const firstStartRow = startRow;
+            function onFocus(row, valueFocus) {
+                row.selectionStart = valueFocus;
+                row.selectionEnd = valueFocus;
+                // row.focus();
+                setTimeout(() => row.focus(), 0);
+            }
 
-            for (let i = startRow; i <= numberRows; i++) {    
-                console.log('row-1: ', i);
-                
-                function optimizationRow(startRow) {
+            for (let i = startRow; i <= numberRows; i++) {             
+                function optimizationRow(startRow, pointFocus) {
                     let temporaryRow;
                     for (let i = startRow; i <= numberRows; i++) {
                         console.log('row-2: ', i);
@@ -68,13 +73,16 @@ export function formationLetterArea() {
                         if (temporaryRow == '') {
                             continue;
                         }
-
+                        
                         if (i == startRow) {
                             if (elemRowCurrent.value != '' && elemRowCurrent.value[elemRowCurrent.value.length - 1] != ' ') {
                                 elemRowCurrent.value = elemRowCurrent.value + ' ';
                                 temporaryRow = elemRowCurrent.value;
                             } else {
                                 temporaryRow = elemRowCurrent.value;
+                            }
+                            if (i == firstStartRow) {
+                                onFocus(elemRowCurrent, pointFocus);
                             }
                         } else {
                             const elemRowPrevious = document.querySelector(`.letter-row-${i - 1}`);
@@ -86,6 +94,7 @@ export function formationLetterArea() {
                                     if (arrayRowCurrent[index].length <= maxLengthRow - temporaryRow.length) {
                                         if (index == arrayRowCurrent.length - 1) {
                                             elemRowPrevious.value = elemRowPrevious.value + elemRowCurrent.value;
+                                            onFocus(elemRowPrevious, pointFocus);
                                             elemRowCurrent.value = '';
                                             temporaryRow = elemRowCurrent.value;
                                         } else {
@@ -99,12 +108,14 @@ export function formationLetterArea() {
                                     if (temporaryText.length + arrayRowCurrent[index].length < maxLengthRow - temporaryRow.length) {
                                         if (index == arrayRowCurrent.length - 1) {
                                             elemRowPrevious.value = elemRowPrevious.value + elemRowCurrent.value;
+                                            onFocus(elemRowPrevious, pointFocus);
                                             elemRowCurrent.value = '';
                                         } else {
                                             temporaryText = temporaryText + ' ' + arrayRowCurrent[index];
                                         } 
                                     } else {
                                         elemRowPrevious.value = elemRowPrevious.value + temporaryText;
+                                        onFocus(elemRowPrevious, pointFocus);
                                         elemRowCurrent.value = arrayRowCurrent.slice(index).join(' ');
                                         temporaryRow = elemRowCurrent.value;
                                         break;
@@ -115,7 +126,7 @@ export function formationLetterArea() {
                     }
                 }  
 
-                optimizationRow(i);
+                optimizationRow(i, pointFocus);
             }          
         }
 
@@ -126,38 +137,16 @@ export function formationLetterArea() {
             elemTextAreaCounter.textContent = lengthText;
 
             if (event.code === 'Backspace' || event.keyCode === 8) {
-                // const pointFocus = event.target.selectionStart;
                 const elemRowPrevious = document.querySelector(`.letter-row-${elemNumberRow - 1}`);
-                const pointFocus = elemRowPrevious.value.length;
-                const elemRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`);
-                // const arrayRowCurrent = elemRowCurrent.value.split(' ');
+                const pointFocusPrevious = elemRowPrevious.value.length;
+                const pointFocusCurrent = event.target.selectionStart;
     
-                if (event.target.selectionStart == 0 && elemNumberRow > 1) {
-                    let portableRow;
-                    let temporaryRow;
-                    for (let i = numberRows; i >= elemNumberRow; i--) {
-                        const elemRowCurrent = document.querySelector(`.letter-row-${i}`)
-                        if(i == numberRows) {
-                            portableRow = elemRowCurrent.value;
-                        } else {
-                            temporaryRow = elemRowCurrent.value;
-                            elemRowCurrent.value = portableRow;
-                            portableRow = temporaryRow;
-                        }
-                    }
-                    elemRowPrevious.value = portableRow;
-                    elemRowPrevious.selectionStart = pointFocus;
-                    elemRowPrevious.selectionEnd = pointFocus;
-                    elemRowPrevious.focus();
+                if (event.target.selectionStart == 0 && elemNumberRow > 1) {                   
+                    optimizationLetter(elemNumberRow - 1, pointFocusPrevious);
                 } else {
-                    // optimizationText()
+                    optimizationLetter(elemNumberRow, pointFocusCurrent);
                 }
             }
-
-            // if (event.code === 'Escape' || event.keyCode === 27) {
-            //     console.log('optimization!');
-            //     optimizationText();
-            // }
 
             if (event.code === 'KeyZ' || event.keyCode === 90) {
                 console.log('optimization!');
