@@ -60,15 +60,21 @@ export function formationLetterArea() {
                     for (let i = startRow; i <= numberRows; i++) {
                         console.log('row-2: ', i);
                         const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
+                        if (elemRowCurrent.value == '') {
+                            temporaryRow = '';
+                            continue;
+                        }
+
+                        if (temporaryRow == '') {
+                            continue;
+                        }
+
                         if (i == startRow) {
-                            if (elemRowCurrent.value != '' && elemRowCurrent[elemRowCurrent.length - 1] != ' ') {
-                                // elemRowCurrent.value = elemRowCurrent.value;
+                            if (elemRowCurrent.value != '' && elemRowCurrent.value[elemRowCurrent.value.length - 1] != ' ') {
                                 elemRowCurrent.value = elemRowCurrent.value + ' ';
                                 temporaryRow = elemRowCurrent.value;
-                                console.log('**')
                             } else {
                                 temporaryRow = elemRowCurrent.value;
-                                console.log('**-**')
                             }
                         } else {
                             const elemRowPrevious = document.querySelector(`.letter-row-${i - 1}`);
