@@ -14,11 +14,11 @@ export function formationLetterArea() {
         // const sampleMaxLengthRow = [22, 25, 28, 31, 34, 37, 40, 43, 46, 49, 52, 55];
         // const valueRow = numberRows - 10;
         maxLengthFull = numberRows * maxLengthRow;
-        let lengthText;
+        // let lengthText;
         
-        if (sessionStorage.getItem('card-letter--text')) {
-            lengthText = sessionStorage.getItem('card-letter--text').length;
-        } else lengthText = 0;
+        // if (sessionStorage.getItem('card-letter--text')) {
+        //     lengthText = sessionStorage.getItem('card-letter--text').length;
+        // } else lengthText = 0;
         
         const elemCardLetterLegend = document.querySelector('.card-letter-legend');
         elemCardLetterLegend.onmousedown = elemCardLetterLegend.onselectstart = function() {
@@ -26,7 +26,7 @@ export function formationLetterArea() {
         };
         
         if (!document.querySelector('.card-letter-counter')) {   
-            newElemHTML(elemCardLetterLegend, 'beforeend', `<span class="card-letter-counter">${lengthText}</span>`);
+            newElemHTML(elemCardLetterLegend, 'beforeend', `<span class="card-letter-counter">0</span>`);
             newElemHTML(elemCardLetterLegend, 'beforeend','<span>&nbsp/&nbsp</span>');
             newElemHTML(elemCardLetterLegend, 'beforeend', `<span class="card-letter-maxlength">${maxLengthRow}</span>`);
             // newElemHTML(elemCardLetterLegend, 'beforeend','<span>&nbsp/&nbsp</span>');
@@ -53,6 +53,7 @@ export function formationLetterArea() {
         function onFocus(row, numberFocus) {
             row.selectionStart = numberFocus;
             row.selectionEnd = numberFocus;
+            // row.focus();
             setTimeout(() => row.focus(), 0);
         }
 
@@ -102,6 +103,7 @@ export function formationLetterArea() {
         }
 
         function optimizationLetter(startRow, pointFocus) {
+            console.log('pointFocus: ', pointFocus);
             const firstStartRow = startRow;
 
             for (let i = startRow; i <= numberRows; i++) {             
@@ -190,11 +192,20 @@ export function formationLetterArea() {
             }
         }
 
+        function updateCounter() {   
+            elemCardLetterRow.forEach((el) => {
+                if (el.classList.contains('row-focus')) {
+                    setTimeout(() => elemTextAreaCounter.textContent = el.value.length, 0)
+                    // elemTextAreaCounter.textContent = el.value.length;
+                }
+            })
+        }
+
         function validationKey(event, el) {
             let elemNumberRow = Number(event.target.getAttribute('data-row'));
             let elemCardLetterRowBlur = document.querySelector(`.letter-row-${elemNumberRow}`);
-            const lengthText = event.target.value.length;  
-            elemTextAreaCounter.textContent = lengthText;
+            // const lengthText = event.target.value.length;  
+            // elemTextAreaCounter.textContent = lengthText;
 
             if (event.code === 'Backspace' || event.keyCode === 8) {
                 const elemRowPrevious = document.querySelector(`.letter-row-${elemNumberRow - 1}`);
@@ -202,9 +213,9 @@ export function formationLetterArea() {
                 const pointFocusPrevious = elemRowPrevious.value.length;
                 const pointFocusCurrent = event.target.selectionStart;
 
-                if (event.target.selectionStart != 0) {          
-                    optimizationLetter(elemNumberRow, pointFocusCurrent);
-                }
+                // if (event.target.selectionStart != 0) {          
+                //     optimizationLetter(elemNumberRow, pointFocusCurrent);
+                // }
 
                 if (
                     event.target.selectionStart ==  0 && 
@@ -274,48 +285,44 @@ export function formationLetterArea() {
                 elemRowNext.focus(); 
             }
 
-            if (event.code === 'ArrowDown' || event.keyCode === 40) {
-                if (!(elemNumberRow == numberRows)) {
-                    elemCardLetterRowBlur.classList.remove('row-focus');
-                    const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
-                    elemCardLetterRowFocus.classList.add('row-focus');
-                    elemCardLetterRowFocus.selectionStart = event.target.selectionStart;
-                    elemCardLetterRowFocus.selectionEnd = event.target.selectionStart;
-                    setTimeout(() => elemCardLetterRowFocus.focus(), 0);
-                }
+            if ((event.code === 'ArrowDown' || event.keyCode === 40) &&
+                elemNumberRow != numberRows
+            ) {
+                elemCardLetterRowBlur.classList.remove('row-focus');
+                const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
+                elemCardLetterRowFocus.classList.add('row-focus');
+                onFocus(elemCardLetterRowFocus, event.target.selectionStart);
             }
             
-            if (event.code === 'ArrowUp' || event.keyCode === 38) {
-                if (!(elemNumberRow == 1)) {
-                    elemCardLetterRowBlur.classList.remove('row-focus');
-                    const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow - 1}`);
-                    elemCardLetterRowFocus.classList.add('row-focus');
-                    elemCardLetterRowFocus.selectionStart = event.target.selectionStart;
-                    elemCardLetterRowFocus.selectionEnd = event.target.selectionStart;
-                    setTimeout(() => elemCardLetterRowFocus.focus(), 0);
-                }
+            if ((event.code === 'ArrowUp' || event.keyCode === 38) && 
+                elemNumberRow != 1
+            ) {
+                elemCardLetterRowBlur.classList.remove('row-focus');
+                const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow - 1}`);
+                elemCardLetterRowFocus.classList.add('row-focus');
+                onFocus(elemCardLetterRowFocus, event.target.selectionStart);
             }
 
-            if (event.code === 'ArrowLeft' || event.keyCode === 37) {
-                if (event.target.selectionStart == 0 && !(elemNumberRow == 1)) {
-                    elemCardLetterRowBlur.classList.remove('row-focus');
-                    const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow - 1}`);
-                    elemCardLetterRowFocus.classList.add('row-focus');
-                    elemCardLetterRowFocus.selectionStart = elemCardLetterRowFocus.value.length;
-                    elemCardLetterRowFocus.selectionEnd = elemCardLetterRowFocus.value.length;
-                    setTimeout(() => elemCardLetterRowFocus.focus(), 0);
-                }
+            if (
+                (event.code === 'ArrowLeft' || event.keyCode === 37) &&
+                event.target.selectionStart == 0 &&
+                elemNumberRow != 1
+            ) {
+                elemCardLetterRowBlur.classList.remove('row-focus');
+                const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow - 1}`);
+                elemCardLetterRowFocus.classList.add('row-focus');
+                onFocus(elemCardLetterRowFocus, elemCardLetterRowFocus.value.length);
             }
 
-            if (event.code === 'ArrowRight' || event.keyCode === 39) {
-                if (event.target.selectionEnd == elemCardLetterRowBlur.value.length && !(elemNumberRow == numberRows)) {
-                    elemCardLetterRowBlur.classList.remove('row-focus');
-                    const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
-                    elemCardLetterRowFocus.classList.add('row-focus');
-                    elemCardLetterRowFocus.selectionStart = 0;
-                    elemCardLetterRowFocus.selectionEnd = 0;
-                    setTimeout(() => elemCardLetterRowFocus.focus(), 0);
-                }
+            if (
+                (event.code === 'ArrowRight' || event.keyCode === 39) &&
+                event.target.selectionStart == event.target.value.length &&
+                elemNumberRow != numberRows
+            ) {
+                elemCardLetterRowBlur.classList.remove('row-focus');
+                const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
+                elemCardLetterRowFocus.classList.add('row-focus');
+                onFocus(elemCardLetterRowFocus, 0);
             }
 
             if (event.code === 'Enter' || event.keyCode === 13) {
@@ -373,55 +380,102 @@ export function formationLetterArea() {
                 newLetter(arrayLetterText, event.key, numberRows + 1, 0);
             }
 
-            if (
-                (event.code === 'NumpadDecimal' || event.keyCode === 46) &&
-                event.target.selectionStart == event.target.value.length
-                ) {
-                const elemRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`);
-                const elemRowNext = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
-                for (let i = elemNumberRow; i < numberRows; i++) {                    
-                    const arrayRowNext = elemRowNext.value.split(' ');
-                    const newPointFocus = elemRowCurrent.value.length;
-                    if (i == elemNumberRow) {
-                        let temporaryText;
-                        for (let index = 0; index < arrayRowNext.length; index++) {
-                            if (index == 0) {
-                                if (maxLengthRow - newPointFocus >= arrayRowNext[index].length) {
-                                    if (index == arrayRowNext.length - 1) {
-                                        elemRowCurrent.value = elemRowCurrent.value + ' ' + elemRowNext.value;
-                                        elemRowNext.value = '';
-                                    } else {
-                                        temporaryText = arrayRowNext[index];
-                                    }
+            if (event.code === 'NumpadDecimal' || event.keyCode === 46) {
+                const pointFocus = event.target.selectionStart;
+                if (event.target.selectionStart == event.target.value.length) {
+                    console.log('delete');
+                    // for (let i = elemNumberRow; i < numberRows; i++) {
+                        // const elemRowCurrent = document.querySelector(`.letter-row-${i}`)
+                        if (
+                            document.querySelector(`.letter-row-${elemNumberRow}`).value == '' ||
+                            document.querySelector(`.letter-row-${elemNumberRow + 1}`).value == ''
+                        ) {
+                            console.log('delete2');
+                            let transferRow;
+                            let temporaryRow;
+                            for (let i = numberRows; i >= elemNumberRow; i--) {
+                                const elemRowCurrent = document.querySelector(`.letter-row-${i}`)
+                                if (i == numberRows) {
+                                    transferRow = elemRowCurrent.value;
+                                    elemRowCurrent.value = '';
                                 } else {
-                                    break;
+                                    temporaryRow = elemRowCurrent.value;
+                                    elemRowCurrent.value = transferRow;
+                                    transferRow = temporaryRow;
                                 }
-                            } else {
-                                if (maxLengthRow - newPointFocus > temporaryText.length + arrayRowNext[index].length) {
-                                    if (index == arrayRowNext.length - 1) {
-                                        elemRowCurrent.value = elemRowCurrent.value + ' ' + elemRowNext.value;
-                                        elemRowNext.value = '';
-                                        temporaryText = null;
-                                    } else {
-                                        temporaryText = temporaryText + ' ' + arrayRowNext[index];
-                                    }
-                                } else { 
-                                    if (temporaryText) {
-                                        elemRowCurrent.value = elemRowCurrent.value + ' ' + temporaryText;
-                                        elemRowNext.value = arrayRowNext.slice(index).join(' ');
-                                        temporaryText = null;
-                                        break;
-                                    } else {
-                                        break;
-                                    }
-                                } 
+                                if (i == elemNumberRow) {
+                                    elemRowCurrent.value = ' ' + elemRowCurrent.value;
+                                    onFocus(elemRowCurrent, pointFocus);
+                                }
                             }
+                        } else {
+                            console.log('start opti..');
+                            optimizationLetter(elemNumberRow, pointFocus);
                         }
-                        elemRowCurrent.selectionStart = newPointFocus;
-                        elemRowCurrent.selectionEnd = newPointFocus;
-                        elemRowCurrent.focus();
-                    } 
+                    // }
+                    // const elemRowCurrent = event.target;
+                    // const arrayRowCurrent = event.target.value.split(' ');
+
+                    // let transferRow;
+                    // let temporaryRow;
+                    // for (let i = numberRows; i >= elemNumberRow - 1; i--) {
+                    //     const elemRowCurrent = document.querySelector(`.letter-row-${i}`)
+                    //     if (i == numberRows) {
+                    //         transferRow = elemRowCurrent.value;
+                    //         elemRowCurrent.value = '';
+                    //     } else {
+                    //         temporaryRow = elemRowCurrent.value;
+                    //         elemRowCurrent.value = transferRow;
+                    //         transferRow = temporaryRow;
+                    //     }
+                    // }
                 }
+                // }
+                // const elemRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`);
+                // const elemRowNext = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
+                // for (let i = elemNumberRow; i < numberRows; i++) {                    
+                //     const arrayRowNext = elemRowNext.value.split(' ');
+                //     const newPointFocus = elemRowCurrent.value.length;
+                //     if (i == elemNumberRow) {
+                //         let temporaryText;
+                //         for (let index = 0; index < arrayRowNext.length; index++) {
+                //             if (index == 0) {
+                //                 if (maxLengthRow - newPointFocus >= arrayRowNext[index].length) {
+                //                     if (index == arrayRowNext.length - 1) {
+                //                         elemRowCurrent.value = elemRowCurrent.value + ' ' + elemRowNext.value;
+                //                         elemRowNext.value = '';
+                //                     } else {
+                //                         temporaryText = arrayRowNext[index];
+                //                     }
+                //                 } else {
+                //                     break;
+                //                 }
+                //             } else {
+                //                 if (maxLengthRow - newPointFocus > temporaryText.length + arrayRowNext[index].length) {
+                //                     if (index == arrayRowNext.length - 1) {
+                //                         elemRowCurrent.value = elemRowCurrent.value + ' ' + elemRowNext.value;
+                //                         elemRowNext.value = '';
+                //                         temporaryText = null;
+                //                     } else {
+                //                         temporaryText = temporaryText + ' ' + arrayRowNext[index];
+                //                     }
+                //                 } else { 
+                //                     if (temporaryText) {
+                //                         elemRowCurrent.value = elemRowCurrent.value + ' ' + temporaryText;
+                //                         elemRowNext.value = arrayRowNext.slice(index).join(' ');
+                //                         temporaryText = null;
+                //                         break;
+                //                     } else {
+                //                         break;
+                //                     }
+                //                 } 
+                //             }
+                //         }
+                //         elemRowCurrent.selectionStart = newPointFocus;
+                //         elemRowCurrent.selectionEnd = newPointFocus;
+                //         elemRowCurrent.focus();
+                //     } 
+                // }
             }
         }
        
@@ -529,6 +583,7 @@ export function formationLetterArea() {
             // el.addEventListener('select', onSelect);
 
             el.addEventListener('keydown', (event) => validationKey(event, el));
+            el.addEventListener('keydown', updateCounter);
             el.addEventListener('focus', () => goRowFocus(el));
         })
     }
@@ -544,7 +599,6 @@ export function formationLetterArea() {
                 `<input class="card-letter-row letter-row-${i}" type="text" data-row="${i}" maxlength="${maxLength}" style="height: ${heightRow}px; font-size: ${fontSize}rem;">`
             );
         }
-
         elemLetterArea.classList.add('created');
     }
 
