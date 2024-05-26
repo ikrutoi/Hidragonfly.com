@@ -48,12 +48,9 @@ export function formationLetterArea() {
             elemNumberRowFocus.classList.add('row-focus');
         }
 
-        // let arrayLetterText = [];
-
         function onFocus(row, numberFocus) {
             row.selectionStart = numberFocus;
             row.selectionEnd = numberFocus;
-            // row.focus();
             setTimeout(() => row.focus(), 0);
         }
 
@@ -77,7 +74,6 @@ export function formationLetterArea() {
             const elemRowCurrent = document.querySelector(`.letter-row-${rowFocus}`);
             elemRowCurrent.classList.add('row-focus');
             onFocus(elemRowCurrent, pointFocus);
-            // setTimeout(() => optimizationLetter(rowFocus, pointFocus));
             document.querySelector('.card-letter-maxlength').textContent = String(maxLengthRow);
         }
 
@@ -176,7 +172,6 @@ export function formationLetterArea() {
         }
 
         function optimizationLetterIncrease(startRow, rightText) {
-            // let rightText;
             for (let i = startRow; i <= numberRows; i++) {
                 const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
                 if (rightText.length < maxLengthRow - elemRowCurrent.value.length) {
@@ -196,7 +191,6 @@ export function formationLetterArea() {
             elemCardLetterRow.forEach((el) => {
                 if (el.classList.contains('row-focus')) {
                     setTimeout(() => elemTextAreaCounter.textContent = el.value.length, 0)
-                    // elemTextAreaCounter.textContent = el.value.length;
                 }
             })
         }
@@ -204,18 +198,12 @@ export function formationLetterArea() {
         function validationKey(event, el) {
             let elemNumberRow = Number(event.target.getAttribute('data-row'));
             let elemCardLetterRowBlur = document.querySelector(`.letter-row-${elemNumberRow}`);
-            // const lengthText = event.target.value.length;  
-            // elemTextAreaCounter.textContent = lengthText;
 
             if (event.code === 'Backspace' || event.keyCode === 8) {
                 const elemRowPrevious = document.querySelector(`.letter-row-${elemNumberRow - 1}`);
                 const elemRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`);
                 const pointFocusPrevious = elemRowPrevious.value.length;
                 const pointFocusCurrent = event.target.selectionStart;
-
-                // if (event.target.selectionStart != 0) {          
-                //     optimizationLetter(elemNumberRow, pointFocusCurrent);
-                // }
 
                 if (
                     event.target.selectionStart ==  0 && 
@@ -265,6 +253,7 @@ export function formationLetterArea() {
                     event.code === 'Space' || event.keyCode === 32
                 )
             ) { 
+                console.log('full stack!')
                 const elemRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`);
                 const elemRowNext = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
                 const arrayRowCurrent = elemRowCurrent.value.split(' ');
@@ -288,10 +277,19 @@ export function formationLetterArea() {
             if ((event.code === 'ArrowDown' || event.keyCode === 40) &&
                 elemNumberRow != numberRows
             ) {
-                elemCardLetterRowBlur.classList.remove('row-focus');
-                const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
-                elemCardLetterRowFocus.classList.add('row-focus');
-                onFocus(elemCardLetterRowFocus, event.target.selectionStart);
+                let lastFullRow;
+                for (let i = numberRows; i > elemNumberRow; i--) {
+                    if (document.querySelector(`.letter-row-${i}`).value != '') {
+                        lastFullRow = i;
+                    }
+                }
+
+                if (elemNumberRow <= lastFullRow) {
+                    elemCardLetterRowBlur.classList.remove('row-focus');
+                    const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
+                    elemCardLetterRowFocus.classList.add('row-focus');
+                    onFocus(elemCardLetterRowFocus, event.target.selectionStart);
+                }
             }
             
             if ((event.code === 'ArrowUp' || event.keyCode === 38) && 
@@ -337,7 +335,6 @@ export function formationLetterArea() {
                             elemRowCurrent.classList.remove('row-focus');
                             transferRow = elemRowCurrent.value.slice(pointFocus);
                             elemRowCurrent.value = elemRowCurrent.value.slice(0, pointFocus);
-                            onFocus(elemRowCurrent, 0);
                         } else {
                             newLetter()
                         }
@@ -345,6 +342,9 @@ export function formationLetterArea() {
                         temporaryRow = elemRowCurrent.value;
                         elemRowCurrent.value = transferRow;
                         transferRow = temporaryRow;
+                    }
+                    if (i == elemNumberRow + 1) {
+                        onFocus(elemRowCurrent, 0);
                     }
                 }
             }
@@ -383,99 +383,31 @@ export function formationLetterArea() {
             if (event.code === 'NumpadDecimal' || event.keyCode === 46) {
                 const pointFocus = event.target.selectionStart;
                 if (event.target.selectionStart == event.target.value.length) {
-                    console.log('delete');
-                    // for (let i = elemNumberRow; i < numberRows; i++) {
-                        // const elemRowCurrent = document.querySelector(`.letter-row-${i}`)
-                        if (
-                            document.querySelector(`.letter-row-${elemNumberRow}`).value == '' ||
-                            document.querySelector(`.letter-row-${elemNumberRow + 1}`).value == ''
-                        ) {
-                            console.log('delete2');
-                            let transferRow;
-                            let temporaryRow;
-                            for (let i = numberRows; i >= elemNumberRow; i--) {
-                                const elemRowCurrent = document.querySelector(`.letter-row-${i}`)
-                                if (i == numberRows) {
-                                    transferRow = elemRowCurrent.value;
-                                    elemRowCurrent.value = '';
-                                } else {
-                                    temporaryRow = elemRowCurrent.value;
-                                    elemRowCurrent.value = transferRow;
-                                    transferRow = temporaryRow;
-                                }
-                                if (i == elemNumberRow) {
-                                    elemRowCurrent.value = ' ' + elemRowCurrent.value;
-                                    onFocus(elemRowCurrent, pointFocus);
-                                }
+                    if (
+                        document.querySelector(`.letter-row-${elemNumberRow}`).value == '' ||
+                        document.querySelector(`.letter-row-${elemNumberRow + 1}`).value == ''
+                    ) {
+                        let transferRow;
+                        let temporaryRow;
+                        for (let i = numberRows; i >= elemNumberRow; i--) {
+                            const elemRowCurrent = document.querySelector(`.letter-row-${i}`)
+                            if (i == numberRows) {
+                                transferRow = elemRowCurrent.value;
+                                elemRowCurrent.value = '';
+                            } else {
+                                temporaryRow = elemRowCurrent.value;
+                                elemRowCurrent.value = transferRow;
+                                transferRow = temporaryRow;
                             }
-                        } else {
-                            console.log('start opti..');
-                            optimizationLetter(elemNumberRow, pointFocus);
+                            if (i == elemNumberRow) {
+                                elemRowCurrent.value = ' ' + elemRowCurrent.value;
+                                onFocus(elemRowCurrent, pointFocus);
+                            }
                         }
-                    // }
-                    // const elemRowCurrent = event.target;
-                    // const arrayRowCurrent = event.target.value.split(' ');
-
-                    // let transferRow;
-                    // let temporaryRow;
-                    // for (let i = numberRows; i >= elemNumberRow - 1; i--) {
-                    //     const elemRowCurrent = document.querySelector(`.letter-row-${i}`)
-                    //     if (i == numberRows) {
-                    //         transferRow = elemRowCurrent.value;
-                    //         elemRowCurrent.value = '';
-                    //     } else {
-                    //         temporaryRow = elemRowCurrent.value;
-                    //         elemRowCurrent.value = transferRow;
-                    //         transferRow = temporaryRow;
-                    //     }
-                    // }
+                    } else {
+                        optimizationLetter(elemNumberRow, pointFocus);
+                    }
                 }
-                // }
-                // const elemRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`);
-                // const elemRowNext = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
-                // for (let i = elemNumberRow; i < numberRows; i++) {                    
-                //     const arrayRowNext = elemRowNext.value.split(' ');
-                //     const newPointFocus = elemRowCurrent.value.length;
-                //     if (i == elemNumberRow) {
-                //         let temporaryText;
-                //         for (let index = 0; index < arrayRowNext.length; index++) {
-                //             if (index == 0) {
-                //                 if (maxLengthRow - newPointFocus >= arrayRowNext[index].length) {
-                //                     if (index == arrayRowNext.length - 1) {
-                //                         elemRowCurrent.value = elemRowCurrent.value + ' ' + elemRowNext.value;
-                //                         elemRowNext.value = '';
-                //                     } else {
-                //                         temporaryText = arrayRowNext[index];
-                //                     }
-                //                 } else {
-                //                     break;
-                //                 }
-                //             } else {
-                //                 if (maxLengthRow - newPointFocus > temporaryText.length + arrayRowNext[index].length) {
-                //                     if (index == arrayRowNext.length - 1) {
-                //                         elemRowCurrent.value = elemRowCurrent.value + ' ' + elemRowNext.value;
-                //                         elemRowNext.value = '';
-                //                         temporaryText = null;
-                //                     } else {
-                //                         temporaryText = temporaryText + ' ' + arrayRowNext[index];
-                //                     }
-                //                 } else { 
-                //                     if (temporaryText) {
-                //                         elemRowCurrent.value = elemRowCurrent.value + ' ' + temporaryText;
-                //                         elemRowNext.value = arrayRowNext.slice(index).join(' ');
-                //                         temporaryText = null;
-                //                         break;
-                //                     } else {
-                //                         break;
-                //                     }
-                //                 } 
-                //             }
-                //         }
-                //         elemRowCurrent.selectionStart = newPointFocus;
-                //         elemRowCurrent.selectionEnd = newPointFocus;
-                //         elemRowCurrent.focus();
-                //     } 
-                // }
             }
         }
        
