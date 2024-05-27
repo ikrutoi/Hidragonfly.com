@@ -99,7 +99,6 @@ export function formationLetterArea() {
         }
 
         function optimizationLetter(startRow, pointFocus) {
-            console.log('pointFocus: ', pointFocus);
             const firstStartRow = startRow;
 
             for (let i = startRow; i <= numberRows; i++) {             
@@ -277,19 +276,10 @@ export function formationLetterArea() {
             if ((event.code === 'ArrowDown' || event.keyCode === 40) &&
                 elemNumberRow != numberRows
             ) {
-                let lastFullRow;
-                for (let i = numberRows; i > elemNumberRow; i--) {
-                    if (document.querySelector(`.letter-row-${i}`).value != '') {
-                        lastFullRow = i;
-                    }
-                }
-
-                if (elemNumberRow <= lastFullRow) {
-                    elemCardLetterRowBlur.classList.remove('row-focus');
-                    const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
-                    elemCardLetterRowFocus.classList.add('row-focus');
-                    onFocus(elemCardLetterRowFocus, event.target.selectionStart);
-                }
+                elemCardLetterRowBlur.classList.remove('row-focus');
+                const elemCardLetterRowFocus = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
+                elemCardLetterRowFocus.classList.add('row-focus');
+                onFocus(elemCardLetterRowFocus, event.target.selectionStart);
             }
             
             if ((event.code === 'ArrowUp' || event.keyCode === 38) && 
@@ -380,32 +370,60 @@ export function formationLetterArea() {
                 newLetter(arrayLetterText, event.key, numberRows + 1, 0);
             }
 
-            if (event.code === 'NumpadDecimal' || event.keyCode === 46) {
+            function overkillRows() {
+                let transferRow;
+                let temporaryRow;
+                for (let i = numberRows; i > elemNumberRow; i--) {
+                    const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
+                    if (i == numberRows) {
+                        transferRow = elemRowCurrent.value;
+                        elemRowCurrent.value = '';
+                    } else {
+                        temporaryRow = elemRowCurrent.value;
+                        elemRowCurrent.value = transferRow;
+                        transferRow = temporaryRow;
+                    }
+                }
+            }
+
+            if (
+                (event.code === 'NumpadDecimal' || event.keyCode === 46) && 
+                elemNumberRow < numberRows && 
+                event.target.selectionStart == event.target.value.length
+            ) {
                 const pointFocus = event.target.selectionStart;
-                if (event.target.selectionStart == event.target.value.length) {
-                    if (
-                        document.querySelector(`.letter-row-${elemNumberRow}`).value == '' ||
-                        document.querySelector(`.letter-row-${elemNumberRow + 1}`).value == ''
-                    ) {
-                        let transferRow;
-                        let temporaryRow;
-                        for (let i = numberRows; i >= elemNumberRow; i--) {
-                            const elemRowCurrent = document.querySelector(`.letter-row-${i}`)
-                            if (i == numberRows) {
-                                transferRow = elemRowCurrent.value;
-                                elemRowCurrent.value = '';
-                            } else {
-                                temporaryRow = elemRowCurrent.value;
-                                elemRowCurrent.value = transferRow;
-                                transferRow = temporaryRow;
-                            }
-                            if (i == elemNumberRow) {
-                                elemRowCurrent.value = ' ' + elemRowCurrent.value;
+                const elemRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`);
+                const elemRowNext = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
+                const arrayRowNext = elemRowNext.value.split(' ');
+                let temporaryText;
+
+                for (let index = 0; index < arrayRowNext.length; index++) {
+                    if (index == 0) {
+                        if (arrayRowNext[index].length <= maxLengthRow - elemRowCurrent.value.length) {
+                            if (index == arrayRowNext.length - 1) {
+                                elemRowCurrent.value = elemRowCurrent.value + ' ' + arrayRowNext[index];
                                 onFocus(elemRowCurrent, pointFocus);
+                                overkillRows();
+                            } else {
+                                temporaryText = arrayRowNext[index];
                             }
+                        } else {
+                            break;
                         }
                     } else {
-                        optimizationLetter(elemNumberRow, pointFocus);
+                        if (temporaryText.length + arrayRowNext[index].length < maxLengthRow - elemRowCurrent.value.length) {
+                            if (index == arrayRowNext.length - 1) {
+                                elemRowCurrent.value = elemRowCurrent.value + ' ' + elemRowNext.value;
+                                onFocus(elemRowCurrent, pointFocus);
+                                overkillRows();
+                            } else {
+                                temporaryText = temporaryText + ' ' + arrayRowNext[index];
+                            }
+                        } else {
+                            elemRowCurrent.value = elemRowCurrent.value + ' ' + temporaryText;
+                            elemRowNext.value = arrayRowNext.slice(index).join(' ');
+                            onFocus(elemRowCurrent, pointFocus);
+                        }
                     }
                 }
             }
