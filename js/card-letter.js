@@ -240,6 +240,33 @@ export function formationLetterArea() {
                 setTimeout(() => elemRowNext.focus(), 0);
             }
 
+            function insertText(startRow, pointFocus, transferText) {
+                const elemRowCurrent = document.querySelector(`.letter-row-${startRow}`);
+                if (transferText.length < maxLengthRow - elemRowCurrent.value.length) {
+                    elemRowCurrent.value = transferText + ' ' + elemRowCurrent.value;
+                } else {
+                    let temporaryText;
+                    for (let i = startRow; i <= numberRows; i++) {
+                        const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
+                        const arrayRowCurrent = elemRowCurrent.value.split(' ');
+                        for (let index = arrayRowCurrent.length - 1; i >= 0; i--) {
+                            if (transferText.length < maxLengthRow - (elemRowCurrent.value.length - arrayRowCurrent[index].length)) {
+                                temporaryText = arrayRowCurrent.pop();
+                                elemRowCurrent.value = transferText + ' ' + arrayRowCurrent.join(' ');
+                                if (index == arrayRowCurrent.length - 1) {
+                                    transferText = '';
+                                } else {
+                                    transferText = temporaryText;
+                                }
+                                break;
+                            } else {
+
+                            }
+                        }
+                    }
+                }
+            } 
+
             if (event.target.value.length == maxLengthRow &&
                 elemNumberRow < numberRows &&
                 !(
@@ -256,21 +283,39 @@ export function formationLetterArea() {
                 const elemRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`);
                 const elemRowNext = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
                 const arrayRowCurrent = elemRowCurrent.value.split(' ');
+                let pointFocus;
                 let temporaryText;
+                let transferText;
                 if (arrayRowCurrent.length > 1) {
-                    temporaryText = arrayRowCurrent.pop();
+                    transferText = arrayRowCurrent.pop();
+                    pointFocus = transferText.length;
                     elemRowCurrent.value = arrayRowCurrent.join(' ');
-                    if (temporaryText.length < maxLengthRow - elemRowNext.value.length) {
-                        if (elemRowNext.value == '') {
-                            elemRowNext.value = temporaryText;
-                        } else {
-                            elemRowNext.value = temporaryText + ' ' + elemRowNext.value;
+                    if (transferText.length < maxLengthRow - elemRowNext.value.length) {
+                        elemRowNext.value = transferText + ' ' + elemRowNext.value;
+                    } else {
+                        for (let i = elemNumberRow + 1; i <= numberRows; i++) {
+                            const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
+                            const arrayRowCurrent = elemRowCurrent.value.split(' ');
+                            for (let index = arrayRowCurrent.length - 1; index >= 0; i--) {
+                                if (index != 0) {
+                                    if (transferText.length < maxLengthRow - (elemRowCurrent.value.length - temporaryText.length)) {
+                                        if (index == arrayRowCurrent.length - 1) {
+                                            temporaryText = arrayRowCurrent[index];
+                                        } else {
+                                        }
+                                    }
+                                }
+                                temporaryText = arrayRowCurrent.pop();
+                                    continue;
+                                // }
+                            }
+
                         }
-                        elemRowNext.selectionStart = temporaryText.length;
-                        elemRowNext.selectionEnd = temporaryText.length;
+                        temporaryRow = elemRowNext.value;
+                        elemRowNext.value = temporaryText;
                     }
-                }
-                elemRowNext.focus(); 
+                } 
+                onFocus(elemRowNext, pointFocus);
             }
 
             if ((event.code === 'ArrowDown' || event.keyCode === 40) &&
