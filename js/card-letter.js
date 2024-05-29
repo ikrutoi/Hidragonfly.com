@@ -58,22 +58,29 @@ export function formationLetterArea() {
             }
         }
 
-        function memoryLetter() {
+        function memoryLetter(eventKey, rowFocus, pointFocus) {
+            const elemRowFocus = document.querySelector(`.letter-row-${rowFocus}`);
+            const leftText = elemRowFocus.value.slice(0, pointFocus);
+            const rightText = elemRowFocus.value.slice(pointFocus);
+            elemRowFocus.value = leftText + eventKey + rightText;
             let arrayLetterText = [];
             for (let i = 1; i <= numberRows; i++) {
                 const elemRowCurrent = document.querySelector(`.letter-row-${i}`); 
                 arrayLetterText.push(elemRowCurrent.value);
             }
+            console.log(arrayLetterText);
             return arrayLetterText;
         }
 
-        function newLetter(arrayLetterText, eventKey, rowFocus, pointFocus) {
+        function newLetter(arrayLetterText, rowFocus, pointFocus) {
+        // function newLetter(arrayLetterText, eventKey, rowFocus, pointFocus) {
             delRows();
             numberRows = ++numberRows;
             fontSize = fontSize*0.92;
             maxLengthRow = parseInt(maxLengthRow*1.2);
             startRows(numberRows, fontSize.toFixed(2), maxLengthRow);
-            addText(arrayLetterText, eventKey);
+            addText(arrayLetterText);
+            // addText(arrayLetterText, eventKey);
             optimizationLetter(1, pointFocus);
             const elemRowCurrent = document.querySelector(`.letter-row-${rowFocus}`);
             elemRowCurrent.classList.add('row-focus');
@@ -89,16 +96,10 @@ export function formationLetterArea() {
             })
         }
 
-        function addText(arrayLetterText, eventKey) {   
+        function addText(arrayLetterText) {   
             for (let i = 1; i < numberRows; i++) {
                 const elemRowCurrent = document.querySelector(`.letter-row-${i}`); 
-                if (i == arrayLetterText.length) {
-                    elemRowCurrent.value = arrayLetterText[i - 1] + eventKey;
-                    // elemRowCurrent.classList.add('row-focus');
-                    // onFocus(elemRowCurrent, arrayLetterText[i - 1].length + 1)
-                } else {
-                    elemRowCurrent.value = arrayLetterText[i - 1];
-                }
+                elemRowCurrent.value = arrayLetterText[i - 1];
             }
         }
 
@@ -245,7 +246,7 @@ export function formationLetterArea() {
             }
 
             function insertText(transferText, startRow) {
-                console.log('insertText');
+                console.log('insertText: ', transferText, startRow);
                 const elemRowCurrent = document.querySelector(`.letter-row-${startRow}`);
                 if (transferText.length < maxLengthRow - elemRowCurrent.value.length) {
                     elemRowCurrent.value = transferText + ' ' + elemRowCurrent.value;
@@ -303,6 +304,26 @@ export function formationLetterArea() {
                     }
                 }
             } 
+
+            if (event.target.value.length == maxLengthRow &&
+                !(
+                    event.code === 'Backspace' || event.keyCode === 8 ||
+                    event.code === 'ArrowLeft' || event.keyCode === 37 ||
+                    event.code === 'ArrowUp' || event.keyCode === 38 || 
+                    event.code === 'ArrowRight' || event.keyCode === 39 || 
+                    event.code === 'ArrowDown' || event.keyCode === 40 ||
+                    event.code === 'Tab' || event.keyCode === 9 ||
+                    event.code === 'Space' || event.keyCode === 32
+                )
+            ) { 
+                const elemRowLast = document.querySelector(`.letter-row-${numberRows}`);
+                if (elemRowLast.value != '') {
+                    const pointFocus = event.target.selectionStart;
+                    const arrayLetterText = memoryLetter(event.key, elemNumberRow, pointFocus);
+                    newLetter(arrayLetterText, elemNumberRow, pointFocus + 1);
+                }
+                // optimizationLetter(elemNumberRow - 1, pointFocusPrevious);
+            }
 
             if (event.target.value.length == maxLengthRow &&
                 elemNumberRow < numberRows &&
@@ -430,11 +451,6 @@ export function formationLetterArea() {
                 ))
             ) {
                 const arrayLetterText = memoryLetter();
-                // let arrayLetterText = [];
-                // for (let i = 1; i <= numberRows; i++) {
-                //     const elemRowCurrent = document.querySelector(`.letter-row-${i}`); 
-                //     arrayLetterText.push(elemRowCurrent.value);
-                // }
                 newLetter(arrayLetterText, event.key, numberRows + 1, 0);
             }
 
