@@ -49,6 +49,7 @@ export function formationLetterArea() {
         }
 
         function onFocus(row, numberFocus, setTime) {
+            console.log('onFocus. row, numberFocus, setTime: ', row, numberFocus, setTime);
             row.selectionStart = numberFocus;
             row.selectionEnd = numberFocus;
             if (setTime) {
@@ -68,7 +69,6 @@ export function formationLetterArea() {
                 const elemRowCurrent = document.querySelector(`.letter-row-${i}`); 
                 arrayLetterText.push(elemRowCurrent.value);
             }
-            console.log(arrayLetterText);
             return arrayLetterText;
         }
 
@@ -84,11 +84,10 @@ export function formationLetterArea() {
             optimizationLetter(1, pointFocus);
             const elemRowCurrent = document.querySelector(`.letter-row-${rowFocus}`);
             elemRowCurrent.classList.add('row-focus');
-            onFocus(elemRowCurrent, pointFocus);
+            console.log('*-***');
+            // onFocus(elemRowCurrent, pointFocus);
             document.querySelector('.card-letter-maxlength').textContent = String(maxLengthRow);
         }
-
-        console.log('maxLengthRow: ', maxLengthRow);
 
         function delRows() {
             elemLetterArea.classList.remove('created');
@@ -123,17 +122,9 @@ export function formationLetterArea() {
                         }
                         
                         if (i == startRow) {
-                            // if (
-                            //     elemRowCurrent.value != '' && 
-                            //     elemRowCurrent.value[elemRowCurrent.value.length - 1] != ' '
-                            // ) {
-                            //     elemRowCurrent.value = elemRowCurrent.value + ' ';
-                            //     temporaryRow = elemRowCurrent.value;
-                            // } else {
-                            //     temporaryRow = elemRowCurrent.value;
-                            // }
                             temporaryRow = elemRowCurrent.value;
                             if (i == firstStartRow) {
+                                console.log('0*')
                                 onFocus(elemRowCurrent, pointFocus, false);
                             }
                         } else {
@@ -141,32 +132,39 @@ export function formationLetterArea() {
                             const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
                             const arrayRowCurrent = elemRowCurrent.value.split(' ');
                             let temporaryText;
+                            let counterSpace;
                             for (let index = 0; index < arrayRowCurrent.length; index++) {
                                 if (index == 0) {
                                     if (arrayRowCurrent[index].length < maxLengthRow - temporaryRow.length) {
                                         if (index == arrayRowCurrent.length - 1) {
                                             elemRowPrevious.value = elemRowPrevious.value + ' ' + elemRowCurrent.value;
+                                            console.log('*')
                                             onFocus(elemRowPrevious, pointFocus, false);
                                             elemRowCurrent.value = '';
                                             temporaryRow = elemRowCurrent.value;
                                         } else {
                                             temporaryText = arrayRowCurrent[index];
+                                            counterSpace = 1;
                                         }
                                     } else {
                                         temporaryRow = elemRowCurrent.value;
+                                        onFocus(elemRowCurrent, pointFocus, false);
                                         break;
                                     }
                                 } else {
-                                    if (temporaryText.length + arrayRowCurrent[index].length < maxLengthRow - temporaryRow.length) {
+                                    if (temporaryText.length + arrayRowCurrent[index].length + counterSpace < maxLengthRow - temporaryRow.length) {
                                         if (index == arrayRowCurrent.length - 1) {
                                             elemRowPrevious.value = elemRowPrevious.value + ' ' + elemRowCurrent.value;
+                                            console.log('**')
                                             onFocus(elemRowPrevious, pointFocus, false);
                                             elemRowCurrent.value = '';
                                         } else {
                                             temporaryText = temporaryText + ' ' + arrayRowCurrent[index];
+                                            counterSpace = counterSpace++;
                                         } 
                                     } else {
                                         elemRowPrevious.value = elemRowPrevious.value + ' ' + temporaryText;
+                                        console.log('***')
                                         onFocus(elemRowPrevious, pointFocus, false);
                                         elemRowCurrent.value = arrayRowCurrent.slice(index).join(' ');
                                         temporaryRow = elemRowCurrent.value;
