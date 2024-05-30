@@ -88,6 +88,8 @@ export function formationLetterArea() {
             document.querySelector('.card-letter-maxlength').textContent = String(maxLengthRow);
         }
 
+        console.log('maxLengthRow: ', maxLengthRow);
+
         function delRows() {
             elemLetterArea.classList.remove('created');
             const elemCardLetterRow = document.querySelectorAll('.card-letter-row');
@@ -121,12 +123,16 @@ export function formationLetterArea() {
                         }
                         
                         if (i == startRow) {
-                            if (elemRowCurrent.value != '' && elemRowCurrent.value[elemRowCurrent.value.length - 1] != ' ') {
-                                elemRowCurrent.value = elemRowCurrent.value + ' ';
-                                temporaryRow = elemRowCurrent.value;
-                            } else {
-                                temporaryRow = elemRowCurrent.value;
-                            }
+                            // if (
+                            //     elemRowCurrent.value != '' && 
+                            //     elemRowCurrent.value[elemRowCurrent.value.length - 1] != ' '
+                            // ) {
+                            //     elemRowCurrent.value = elemRowCurrent.value + ' ';
+                            //     temporaryRow = elemRowCurrent.value;
+                            // } else {
+                            //     temporaryRow = elemRowCurrent.value;
+                            // }
+                            temporaryRow = elemRowCurrent.value;
                             if (i == firstStartRow) {
                                 onFocus(elemRowCurrent, pointFocus, false);
                             }
@@ -137,9 +143,9 @@ export function formationLetterArea() {
                             let temporaryText;
                             for (let index = 0; index < arrayRowCurrent.length; index++) {
                                 if (index == 0) {
-                                    if (arrayRowCurrent[index].length <= maxLengthRow - temporaryRow.length) {
+                                    if (arrayRowCurrent[index].length < maxLengthRow - temporaryRow.length) {
                                         if (index == arrayRowCurrent.length - 1) {
-                                            elemRowPrevious.value = elemRowPrevious.value + elemRowCurrent.value;
+                                            elemRowPrevious.value = elemRowPrevious.value + ' ' + elemRowCurrent.value;
                                             onFocus(elemRowPrevious, pointFocus, false);
                                             elemRowCurrent.value = '';
                                             temporaryRow = elemRowCurrent.value;
@@ -153,14 +159,14 @@ export function formationLetterArea() {
                                 } else {
                                     if (temporaryText.length + arrayRowCurrent[index].length < maxLengthRow - temporaryRow.length) {
                                         if (index == arrayRowCurrent.length - 1) {
-                                            elemRowPrevious.value = elemRowPrevious.value + elemRowCurrent.value;
+                                            elemRowPrevious.value = elemRowPrevious.value + ' ' + elemRowCurrent.value;
                                             onFocus(elemRowPrevious, pointFocus, false);
                                             elemRowCurrent.value = '';
                                         } else {
                                             temporaryText = temporaryText + ' ' + arrayRowCurrent[index];
                                         } 
                                     } else {
-                                        elemRowPrevious.value = elemRowPrevious.value + temporaryText;
+                                        elemRowPrevious.value = elemRowPrevious.value + ' ' + temporaryText;
                                         onFocus(elemRowPrevious, pointFocus, false);
                                         elemRowCurrent.value = arrayRowCurrent.slice(index).join(' ');
                                         temporaryRow = elemRowCurrent.value;
