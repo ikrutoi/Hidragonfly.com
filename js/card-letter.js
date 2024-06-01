@@ -29,8 +29,8 @@ export function formationLetterArea() {
             newElemHTML(elemCardLetterLegend, 'beforeend', `<span class="card-letter-counter">0</span>`);
             newElemHTML(elemCardLetterLegend, 'beforeend','<span>&nbsp/&nbsp</span>');
             newElemHTML(elemCardLetterLegend, 'beforeend', `<span class="card-letter-maxlength">${maxLengthRow}</span>`);
-            // newElemHTML(elemCardLetterLegend, 'beforeend','<span>&nbsp/&nbsp</span>');
-            // newElemHTML(elemCardLetterLegend, 'beforeend', `<span class="card-letter-maxlengthfull">${maxLengthFull}</span>`);
+            newElemHTML(elemCardLetterLegend, 'beforeend','<span>&nbsp/&nbsp</span>');
+            newElemHTML(elemCardLetterLegend, 'beforeend', `<span class="card-letter-maxlengthfull">${maxLengthFull}</span>`);
         }
         
         const elemTextAreaCounter = document.querySelector('.card-letter-counter');
@@ -86,6 +86,7 @@ export function formationLetterArea() {
             elemRowCurrent.classList.add('row-focus');
             onFocus(elemRowCurrent, pointFocus, false);
             document.querySelector('.card-letter-maxlength').textContent = String(maxLengthRow);
+            document.querySelector('.card-letter-maxlengthfull').textContent = String(maxLengthFull);
         }
 
         function delRows() {
@@ -203,7 +204,8 @@ export function formationLetterArea() {
             })
         }
 
-        function validationKey(event, el) {
+        function validationKey(event) {
+            console.log('validation!');
             let elemNumberRow = Number(event.target.getAttribute('data-row'));
             let elemCardLetterRowBlur = document.querySelector(`.letter-row-${elemNumberRow}`);
 
@@ -630,7 +632,8 @@ export function formationLetterArea() {
             // el.addEventListener('mouseout', onMouseOut);
             // el.addEventListener('select', onSelect);
 
-            el.addEventListener('keydown', (event) => validationKey(event, el));
+            el.addEventListener('keydown', (event) => validationKey(event));
+            el.addEventListener('mouseup', updateCounter);
             el.addEventListener('keydown', updateCounter);
             el.addEventListener('focus', () => goRowFocus(el));
         })
