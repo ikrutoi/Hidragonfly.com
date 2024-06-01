@@ -84,7 +84,7 @@ export function formationLetterArea() {
             optimizationLetter(1, rowFocus, pointFocus);
             const elemRowCurrent = document.querySelector(`.letter-row-${rowFocus}`);
             elemRowCurrent.classList.add('row-focus');
-            // onFocus(elemRowCurrent, pointFocus);
+            onFocus(elemRowCurrent, pointFocus, false);
             document.querySelector('.card-letter-maxlength').textContent = String(maxLengthRow);
         }
 
@@ -103,35 +103,25 @@ export function formationLetterArea() {
             }
         }
 
-        function optimizationLetter(startRow, rowFocus, pointFocus) {
-            const firstStartRow = startRow;
+        function optimizationLetter(startRow) {
+            console.log('optimization!!')
 
-            for (let i = startRow; i <= numberRows; i++) {        
-                console.log('i: ', i)     
-                function optimizationRow(startRow, pointFocus) {
+            for (let i = startRow; i <= numberRows; i++) {           
+                function optimizationRow(startRow) {
                     let temporaryRow;
                     for (let i = startRow; i <= numberRows; i++) {
                         const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
                         if (elemRowCurrent.value == '') {
                             temporaryRow = '';
-                            if (i == rowFocus) {
-                                onFocus(elemRowCurrent, pointFocus, false);
-                            }
-                            console.log('-*')
                             continue;
                         }
                         
                         if (temporaryRow == '') {
-                            console.log('-**')
                             continue;
                         }
                         
                         if (i == startRow) {
                             temporaryRow = elemRowCurrent.value;
-                            if (i == firstStartRow) {
-                                console.log('--*')
-                                onFocus(elemRowCurrent, pointFocus, false);
-                            }
                         } else {
                             const elemRowPrevious = document.querySelector(`.letter-row-${i - 1}`);
                             const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
@@ -142,9 +132,11 @@ export function formationLetterArea() {
                                 if (index == 0) {
                                     if (arrayRowCurrent[index].length < maxLengthRow - temporaryRow.length) {
                                         if (index == arrayRowCurrent.length - 1) {
-                                            elemRowPrevious.value = elemRowPrevious.value + ' ' + elemRowCurrent.value;
-                                            console.log('--**')
-                                            onFocus(elemRowPrevious, pointFocus, false);
+                                            if (elemRowPrevious.value == '') {
+                                                elemRowPrevious.value = elemRowCurrent.value;
+                                            } else {
+                                                elemRowPrevious.value = elemRowPrevious.value + ' ' + elemRowCurrent.value;
+                                            }
                                             elemRowCurrent.value = '';
                                             temporaryRow = elemRowCurrent.value;
                                         } else {
@@ -153,26 +145,27 @@ export function formationLetterArea() {
                                         }
                                     } else {
                                         temporaryRow = elemRowCurrent.value;
-                                        console.log('--***')
-                                        onFocus(elemRowCurrent, pointFocus, false);
                                         break;
                                     }
                                 } else {
                                     if (temporaryText.length + arrayRowCurrent[index].length + counterSpace < maxLengthRow - temporaryRow.length) {
                                         if (index == arrayRowCurrent.length - 1) {
-                                            elemRowPrevious.value = elemRowPrevious.value + ' ' + elemRowCurrent.value;
-                                            console.log('--****')
-                                            onFocus(elemRowPrevious, pointFocus, false);
+                                            if (elemRowPrevious.value == '') {
+                                                elemRowPrevious.value = elemRowCurrent.value;
+                                            } else {
+                                                elemRowPrevious.value = elemRowPrevious.value + ' ' + elemRowCurrent.value;
+                                            }
                                             elemRowCurrent.value = '';
                                         } else {
                                             temporaryText = temporaryText + ' ' + arrayRowCurrent[index];
                                             counterSpace = counterSpace++;
                                         } 
                                     } else {
-                                        elemRowPrevious.value = elemRowPrevious.value + ' ' + temporaryText;
-                                        console.log('--*****')
-                                        // onFocus(elemRowPrevious, pointFocus, false);
-                                        onFocus(elemRowCurrent, pointFocus, false);
+                                        if (elemRowPrevious.value == '') {
+                                            elemRowPrevious.value = temporaryText;
+                                        } else {
+                                            elemRowPrevious.value = elemRowPrevious.value + ' ' + temporaryText;
+                                        }
                                         elemRowCurrent.value = arrayRowCurrent.slice(index).join(' ');
                                         temporaryRow = elemRowCurrent.value;
                                         break;
@@ -182,7 +175,7 @@ export function formationLetterArea() {
                         }
                     }
                 }  
-                optimizationRow(i, rowFocus, pointFocus);
+                optimizationRow(i);
             }          
         }
 
@@ -219,12 +212,14 @@ export function formationLetterArea() {
                 const elemRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`);
                 const pointFocusPrevious = elemRowPrevious.value.length;
                 const pointFocusCurrent = event.target.selectionStart;
-
+                let verificEmptyLine;     
+                    
                 if (
                     event.target.selectionStart ==  0 && 
                     elemRowPrevious.value == '' &&
                     elemNumberRow > 1
                 ) {
+                    verificEmptyLine = true;
                     let transferRow;
                     let temporaryRow;
                     for (let i = numberRows; i >= elemNumberRow - 1; i--) {
@@ -238,11 +233,16 @@ export function formationLetterArea() {
                             transferRow = temporaryRow;
                         }
                     }
-                    onFocus(elemRowPrevious, pointFocusPrevious);
+                    onFocus(elemRowPrevious, pointFocusPrevious, false);
                 }
-    
-                if (event.target.selectionStart == 0 && elemNumberRow > 1) {                  
-                    optimizationLetter(elemNumberRow - 1, pointFocusPrevious);
+                
+                if (
+                    event.target.selectionStart == 0 && 
+                    elemNumberRow > 1 && 
+                    !Boolean(verificEmptyLine)
+                ) {   
+                    optimizationLetter(elemNumberRow - 1);
+                    onFocus(elemRowPrevious, pointFocusPrevious + 1, false);   
                 } 
             }
                    
