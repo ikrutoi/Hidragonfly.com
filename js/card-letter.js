@@ -80,7 +80,6 @@ export function formationLetterArea() {
             maxLengthRow = parseInt(maxLengthRow*1.2);
             startRows(numberRows, fontSize.toFixed(2), maxLengthRow);
             addText(arrayLetterText);
-            // addText(arrayLetterText, eventKey);
             optimizationLetter(1, rowFocus, pointFocus);
             const elemRowCurrent = document.querySelector(`.letter-row-${rowFocus}`);
             elemRowCurrent.classList.add('row-focus');
@@ -355,10 +354,13 @@ export function formationLetterArea() {
                 console.log('**');
                 const elemRowCurrent = document.querySelector(`.letter-row-${elemNumberRow}`);
                 const elemRowNext = document.querySelector(`.letter-row-${elemNumberRow + 1}`);
+                const elemRowLast = document.querySelector(`.letter-row-${numberRows}`);
                 const arrayRowCurrent = elemRowCurrent.value.split(' ');
                 const pointFocus = event.target.selectionStart;
                 let transferText;
                 let newPointFocus;
+                let transferRow;
+                let temporaryRow;
                 if (arrayRowCurrent.length > 1) {
                     if (pointFocus == maxLengthRow) {
                         transferText = arrayRowCurrent.pop();
@@ -375,7 +377,54 @@ export function formationLetterArea() {
                     } else {
                         onFocus(elemRowCurrent, pointFocus);
                     }
-                } 
+                } else {
+                    for (let i = elemNumberRow; i <= numberRows; i++) {
+                        const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
+                        if (event.target.selectionStart == maxLengthRow) {
+                            console.log('*')
+                            if (i == elemNumberRow) {
+                                if (elemNumberRow != numberRows) {
+                                    elemRowCurrent.classList.remove('row-focus');
+                                } else {
+                                    newLetter();
+                                }
+                            } else {
+                                if (i == elemNumberRow + 1) {
+                                    temporaryRow = elemRowCurrent.value;
+                                    elemRowCurrent.value = event.key;
+                                    transferRow = temporaryRow;
+                                    onFocus(elemRowCurrent, 1, false);
+                                } else {
+                                    temporaryRow = elemRowCurrent.value;
+                                    elemRowCurrent.value = transferRow;
+                                    transferRow = temporaryRow;
+                                }
+                                if (i == numberRows) {
+                                    if (temporaryRow != '') {
+                                        newLetter();
+                                    }
+                                }
+                            }
+                        } else {
+                            console.log('**')
+                            if (elemNumberRow == numberRows || elemRowLast.value != '') {
+                                newLetter();
+                            } else {
+                                if (i == elemNumberRow) {
+                                    transferRow = elemRowCurrent.value[maxLengthRow - 1];
+                                    elemRowCurrent.value = elemRowCurrent.value.slice(0, maxLengthRow - 1);
+                                    onFocus(elemRowCurrent, pointFocus);
+                                    console.log('tr:', transferRow)
+                                } else {
+                                    temporaryRow = elemRowCurrent.value;
+                                    elemRowCurrent.value = transferRow;
+                                    transferRow = temporaryRow;
+                                }
+                            }
+                        }
+
+                    }
+                }
             }
 
             if ((event.code === 'ArrowDown' || event.keyCode === 40) &&
@@ -431,12 +480,17 @@ export function formationLetterArea() {
                             transferRow = elemRowCurrent.value.slice(pointFocus);
                             elemRowCurrent.value = elemRowCurrent.value.slice(0, pointFocus);
                         } else {
-                            newLetter()
+                            newLetter();
                         }
                     } else {
                         temporaryRow = elemRowCurrent.value;
                         elemRowCurrent.value = transferRow;
                         transferRow = temporaryRow;
+                        if (i == numberRows) {
+                            if (temporaryRow != '') {
+                                newLetter();
+                            }
+                        }
                     }
                     if (i == elemNumberRow + 1) {
                         onFocus(elemRowCurrent, 0, false);
