@@ -49,7 +49,6 @@ export function formationLetterArea() {
         }
 
         function onFocus(row, numberFocus, setTime) {
-            console.log('onFocus!');
             row.selectionStart = numberFocus;
             row.selectionEnd = numberFocus;
             if (setTime) {
@@ -72,6 +71,19 @@ export function formationLetterArea() {
             return arrayLetterText;
         }
 
+        function memoryLetterKeyEnter(transferText) {
+            let arrayLetterText = [];
+            for (let i = 1; i <= numberRows + 1; i++) {
+                const elemRowCurrent = document.querySelector(`.letter-row-${i}`); 
+                if (i == numberRows + 1) {
+                    arrayLetterText.push(transferText);
+                } else {
+                    arrayLetterText.push(elemRowCurrent.value);
+                }
+            }
+            return arrayLetterText;
+        }
+
         function newLetter(arrayLetterText, rowFocus, pointFocus) {
         // function newLetter(arrayLetterText, eventKey, rowFocus, pointFocus) {
             delRows();
@@ -80,7 +92,7 @@ export function formationLetterArea() {
             maxLengthRow = parseInt(maxLengthRow*1.2);
             startRows(numberRows, fontSize.toFixed(2), maxLengthRow);
             addText(arrayLetterText);
-            optimizationLetter(1, rowFocus, pointFocus);
+            optimizationLetter(1);
             const elemRowCurrent = document.querySelector(`.letter-row-${rowFocus}`);
             elemRowCurrent.classList.add('row-focus');
             onFocus(elemRowCurrent, pointFocus, false);
@@ -330,9 +342,7 @@ export function formationLetterArea() {
             ) { 
                 const elemRowLast = document.querySelector(`.letter-row-${numberRows}`);
                 if (elemRowLast.value != '') {
-                    console.log('*');
                     const pointFocus = event.target.selectionStart;
-                    console.log('pointFocus: ', elemNumberRow, pointFocus);
                     const arrayLetterText = memoryLetter(event.key, elemNumberRow, pointFocus);
                     newLetter(arrayLetterText, elemNumberRow, pointFocus + 1);
                 }
@@ -381,7 +391,6 @@ export function formationLetterArea() {
                     for (let i = elemNumberRow; i <= numberRows; i++) {
                         const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
                         if (event.target.selectionStart == maxLengthRow) {
-                            console.log('*')
                             if (i == elemNumberRow) {
                                 if (elemNumberRow != numberRows) {
                                     elemRowCurrent.classList.remove('row-focus');
@@ -406,12 +415,13 @@ export function formationLetterArea() {
                                 }
                             }
                         } else {
-                            console.log('**')
+                            let temporaryLetter;
                             if (elemNumberRow == numberRows || elemRowLast.value != '') {
                                 newLetter();
                             } else {
                                 if (i == elemNumberRow) {
                                     transferRow = elemRowCurrent.value[maxLengthRow - 1];
+                                    temporaryLetter = true;
                                     elemRowCurrent.value = elemRowCurrent.value.slice(0, maxLengthRow - 1);
                                     onFocus(elemRowCurrent, pointFocus);
                                     console.log('tr:', transferRow)
@@ -468,31 +478,32 @@ export function formationLetterArea() {
             }
 
             if (event.code === 'Enter' || event.keyCode === 13) {
+                // const memeoryRowLast = document.querySelector(`.letter-row-${numberRows}`).value;
                 const pointFocus = event.target.selectionStart; 
                 let transferRow;
                 let temporaryRow;
 
                 for (let i = elemNumberRow; i <= numberRows; i++) {
-                    const elemRowCurrent = document.querySelector(`.letter-row-${i}`)
+                    const elemRowCurrent = document.querySelector(`.letter-row-${i}`);
                     if (i == elemNumberRow) {
-                        if (elemNumberRow != numberRows) {
-                            elemRowCurrent.classList.remove('row-focus');
-                            transferRow = elemRowCurrent.value.slice(pointFocus);
-                            elemRowCurrent.value = elemRowCurrent.value.slice(0, pointFocus);
-                        } else {
-                            newLetter();
+                        elemRowCurrent.classList.remove('row-focus');
+                        transferRow = elemRowCurrent.value.slice(pointFocus);
+                        elemRowCurrent.value = elemRowCurrent.value.slice(0, pointFocus);
+                        if (i == numberRows) {
+                            const arrayLetterText = memoryLetterKeyEnter(transferRow);
+                            newLetter(arrayLetterText, numberRows + 1, 0);
                         }
                     } else {
                         temporaryRow = elemRowCurrent.value;
                         elemRowCurrent.value = transferRow;
                         transferRow = temporaryRow;
-                        if (i == numberRows) {
-                            if (temporaryRow != '') {
-                                newLetter();
-                            }
+                        if (i == numberRows && transferRow != '') {
+                            const arrayLetterText = memoryLetterKeyEnter(transferRow);
+                            newLetter(arrayLetterText, elemNumberRow + 1, 0);
                         }
                     }
                     if (i == elemNumberRow + 1) {
+                        console.log('focus!!')
                         onFocus(elemRowCurrent, 0, false);
                     }
                 }
