@@ -87,6 +87,9 @@ export function clickButtonActive(el) {
 //** Block Date */
 
         if (el.classList.contains('button-date') && !el.classList.contains('created')) {
+            const elemDateMonthSlider = document.querySelector('.date-month-slider');
+            elemDateMonthSlider.value = new Date().getMonth();
+            console.log('month: ', new Date().getMonth());
 
             if (sessionStorage.getItem('date--year')) {
                 createCalendar(

@@ -2,14 +2,10 @@ import { newElemHTML } from "./new-element.js";
 import { addButtonDate } from "./date-create-button-date.js";
 
 export function createCalendar(newYear, newNumberMonth, day) {
-
     const buttonDate = document.querySelector('.button-date');
-
     buttonDate.classList.add('created');
-
     let year = newYear;
     let numberMonth = newNumberMonth;
-
     const nameMonth = [
         'January', 
         'February', 
@@ -53,8 +49,45 @@ export function createCalendar(newYear, newNumberMonth, day) {
     newElemHTML(blockTable, 'beforeend', '<tbody class="date-table-body"></tbody>');
 
     const tableBody = document.querySelector('.date-table-body');
-
+    
     newElemHTML(tableBody, 'beforeend', '<tr class="date-table-header-row"></tr>');
+
+    const elemDateYearSlider = document.querySelector('.date-year-slider');
+    const elemDateMonthSlider = document.querySelector('.date-month-slider');
+
+    function writePropertiesInputSlider() {
+        elemDateYearSlider.style.width = `${tableBody.clientWidth}px`;
+        elemDateYearSlider.value = year;
+        elemDateMonthSlider.style.width = `${tableBody.clientWidth}px`;
+    }
+    
+    setTimeout(writePropertiesInputSlider, 200);
+
+    function changeMonth() {
+        console.log('**', this.value);
+        if (this.value > numberMonth) {
+            // changeYearMonth(val)
+            console.log('more');
+        } else {
+            console.log('less');
+        }
+    }
+
+    function addActiveInput() {
+        console.log('/*', this);
+        this.classList.add('hover');
+        // elemDateMonthSlider.classList.add('hover');
+    }
+
+    function delActiveInput() {
+        console.log('/*', this);
+        this.classList.remove('hover');
+        // elemDateMonthSlider.classList.remove('hover');
+    }
+
+    elemDateMonthSlider.addEventListener('input', changeMonth);
+    elemDateMonthSlider.addEventListener('mouseover', addActiveInput);
+    elemDateMonthSlider.addEventListener('mouseout', delActiveInput);
 
     const tableHeaderRow = document.querySelector('.date-table-header-row');
     const nameDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -252,6 +285,7 @@ export function createCalendar(newYear, newNumberMonth, day) {
 
         function changeMonth(numberMonth) {
             buttonMonthTitle.textContent = `${nameMonth[numberMonth]}`;
+            elemDateMonthSlider.value = numberMonth;
         }
         
         function changeYear(year) {
