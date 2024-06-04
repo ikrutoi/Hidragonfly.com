@@ -1,5 +1,6 @@
 import { newElemHTML } from "./new-element.js";
 import { addButtonDate } from "./date-create-button-date.js";
+import { startPressActivation } from "./start-press-activation.js";
 
 export function createCalendar(newYear, newNumberMonth, day) {
     const buttonDate = document.querySelector('.button-date');
@@ -27,67 +28,94 @@ export function createCalendar(newYear, newNumberMonth, day) {
     const elemPlus = document.querySelectorAll('.sign-more');
 
     elemMinus.forEach(el => {
-        newElemHTML(el, 'afterbegin', '<p>&lt</p>');
+        newElemHTML(el, 'afterbegin', '<p></p>');
+        // newElemHTML(el, 'afterbegin', '<p>&lt</p>');
     })
 
     elemPlus.forEach(el => {
-        newElemHTML(el, 'afterbegin', '<p>&gt</p>');
+        newElemHTML(el, 'afterbegin', '<p></p>');
+        // newElemHTML(el, 'afterbegin', '<p>&gt</p>');
     })
 
-    const monthTitle = document.querySelector('.date-month-title');
     const yearTitle = document.querySelector('.date-year-title');
-
-    newElemHTML(monthTitle, 'afterbegin', `<p class="date-month-text">${month}</p>`);
+    const monthTitle = document.querySelector('.date-month-title');
+    const dayTitle = document.querySelector('.date-day-title');
+    
     newElemHTML(yearTitle, 'afterbegin', `<p class="date-year-text">${year}</p>`);
-
+    newElemHTML(monthTitle, 'afterbegin', `<p class="date-month-text">${month}</p>`);
+    newElemHTML(dayTitle, 'afterbegin', `<p class="date-month-text">${day}</p>`);
+    
     const areaDateDays = document.querySelector('.date-table-month');
-
+    
     newElemHTML(areaDateDays, 'beforeend', '<table class="date-table"></table>');
-
+    
     const blockTable = document.querySelector('.date-table');
-
+    
     newElemHTML(blockTable, 'beforeend', '<tbody class="date-table-body"></tbody>');
-
+    
     const tableBody = document.querySelector('.date-table-body');
     
     newElemHTML(tableBody, 'beforeend', '<tr class="date-table-header-row"></tr>');
-
+    
+    // const elemDateSlider = document.querySelector('.date-slider');
     const elemDateYearSlider = document.querySelector('.date-year-slider');
-    const elemDateMonthSlider = document.querySelector('.date-month-slider');
+    const dateTitle = document.querySelectorAll('.date-calendar-title');
+    const dateSign = document.querySelectorAll('.date-sign');
+    // const elemDateMonthSlider = document.querySelector('.date-month-slider');
 
     function writePropertiesInputSlider() {
         elemDateYearSlider.style.width = `${tableBody.clientWidth}px`;
         elemDateYearSlider.value = year;
-        elemDateMonthSlider.style.width = `${tableBody.clientWidth}px`;
     }
+
+    function addClassActive(el) {
+        dateTitle.forEach((el) => {el.classList.remove('active')});
+        el.classList.add('active');
+        dateSign.forEach((el) => {el.classList.add('active')})
+        setTimeout(clearClassActive, 12000);
+    }
+    
+    function clearClassActive() {
+        dateTitle.forEach((el) => {el.classList.remove('active')});
+        dateSign.forEach((el) => {el.classList.remove('active')})
+    }
+
+    dateTitle.forEach((el) => {
+        el.addEventListener('pointerdown', () => {startPressActivation(el)});
+        el.addEventListener('pointerdown', () => {addClassActive(el)});
+    })    
     
     setTimeout(writePropertiesInputSlider, 200);
 
-    function changeMonth() {
-        console.log('**', this.value);
-        if (this.value > numberMonth) {
-            // changeYearMonth(val)
-            console.log('more');
-        } else {
-            console.log('less');
-        }
+    function changeYear() {
+        buttonYearTitle.textContent = `${this.value}`;
     }
 
+    // function changeMonth() {
+    //     buttonMonthTitle.textContent = `${nameMonth[this.value]}`;
+    //     // console.log('**', this.value);
+    //     if (this.value > numberMonth) {
+    //         // changeYearMonth(val)
+    //         console.log('more');
+    //     } else {
+    //         console.log('less');
+    //     }
+    // }
+
     function addActiveInput() {
-        console.log('/*', this);
         this.classList.add('hover');
-        // elemDateMonthSlider.classList.add('hover');
     }
 
     function delActiveInput() {
-        console.log('/*', this);
         this.classList.remove('hover');
-        // elemDateMonthSlider.classList.remove('hover');
     }
 
-    elemDateMonthSlider.addEventListener('input', changeMonth);
-    elemDateMonthSlider.addEventListener('mouseover', addActiveInput);
-    elemDateMonthSlider.addEventListener('mouseout', delActiveInput);
+    elemDateYearSlider.addEventListener('input', changeYear);
+    elemDateYearSlider.addEventListener('mouseover', addActiveInput);
+    elemDateYearSlider.addEventListener('mouseout', delActiveInput);
+    // elemDateMonthSlider.addEventListener('input', changeMonth);
+    // elemDateMonthSlider.addEventListener('mouseover', addActiveInput);
+    // elemDateMonthSlider.addEventListener('mouseout', delActiveInput);
 
     const tableHeaderRow = document.querySelector('.date-table-header-row');
     const nameDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];

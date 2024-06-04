@@ -8,13 +8,13 @@
 
 .date-block-additive {
     .size-card-calendar;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr 3fr;
-    grid-template-areas: 
-        // "datetitle"
-        "dateyearmonth"
-        "datedays";
+    // display: grid;
+    // grid-template-columns: 1fr;
+    // grid-template-rows: 3fr 5fr;
+    // grid-template-areas: 
+    //     // "datetitle"
+    //     "dateyearmonth"
+    //     "datedays";
         // border: solid orange 1px;
 }
     
@@ -28,111 +28,134 @@
 //     // border: solid blue 1px;
 // }
     
-.date-year-month {
-    grid-area: dateyearmonth;
+.date-year-month-full {
+    // grid-area: dateyearmonth;
     display: flex;
     justify-content: space-around;
     align-items: center;
     flex-direction: column;
-    height: auto;
+    height: min-content;
     // border: solid palevioletred 1px;
 }
 
-.date-year-full, .date-month-full {
-    position: relative;
+.date-year-month {
     display: flex;
-    align-items: center;
-    flex-direction: column;
-    height: auto;
-    // border: solid green 1px;
+    margin: 1rem 0;
+    border-radius: 20px;
+    // background-color: @color-basis-hover;
+    // background-color: @color-basis-hover;
+    // border: solid blueviolet 1px;
 }
 
-.date-year-slider, .date-month-slider {
-    cursor: pointer;
-    margin-top: 0.5rem;
-}
-
-.date-year-slider, .date-month-slider {
-    // -webkit-appearance: none;
+.date-slider {
+    -webkit-appearance: none;
     appearance: none;
-    // width: 300px;
-    // width: 90%;
-    height: 2px;
-    border-radius: 7.5px;  
+    margin-top: 9px;
+    margin-bottom: 9px;
+    cursor: pointer;
+}
+
+.date-slider:focus {
+    outline: none;
+}
+
+.date-slider::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 5px;  
     background-color: @color-basis-hover;
     outline: none;
-    // opacity: 0.7;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
 }
 
-.date-year-slider.hover, .date-month-slider.hover {
-    // -webkit-appearance: none;
-    // appearance: none;
-    // width: 300px;
-    // width: 90%;
-    // height: 2px;
-    // border-radius: 7.5px;  
-    background-color: @color-basis;
-    // outline: none;
-    // opacity: 0.7;
-    // -webkit-transition: .2s;
-    // transition: opacity .2s;
-}
-
-// .date-year-slider::-webkit-slider-thumb, .date-month-slider::-webkit-slider-thumb {
-//     // -webkit-appearance: none;
-//     appearance: none;
-//     width: 15px;
-//     height: 15px;
-//     border-radius: 50%; 
-//     background-color: @color-basis-active;
-//     transition: background-color 150ms ease-in;
-//     cursor: pointer;
-// }
-
-.date-year-slider::-webkit-slider-thumb.hover, .date-month-slider #thumb {
+.date-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
     appearance: none;
-    width: 15px;
-    height: 15px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%; 
-    // background-color: @color-basis-active;
-    // transition: background-color 150ms ease-in;
-    cursor: pointer;
-    background-color: red;
-    transition: background-color 150ms ease-in;
-}
-.date-year-slider::-webkit-slider-thumb.hover, .date-month-slider.hover #thumb {
-    background-color: green;
+    margin-top: -5px;
+    background-color: @color-basis-grey;
     transition: background-color 150ms ease-in;
 }
 
-// .date-year-slider::-moz-range-thumb, .date-month-slider::-moz-range-thumb {
-//     width: 45px;
-//     height: 25px;
-//     border-radius: 50%;
-//     background: #4CAF50;
-//     cursor: pointer;
-// }
+.hover.date-slider::-webkit-slider-thumb {
+    background-color: @color-basis;
+    transition: background-color 150ms ease-in;
+}
 
-.date-year, .date-month {
+.date-slider:focus::-webkit-slider-thumb {
+    background-color: @color-basis;
+    transition: background-color 150ms ease-in;
+}
+
+.date-calendar-title {
     width: min-content;
-    padding: 0 4px;
     transition: background-color .15s ease-in;
+    margin: 0 4px;
+    border-radius: 20px;
+    padding: 8px;
+    height: 15px;
+    background-color: @color-basis-white;
+    // border: solid 1px red;
+    transition: background-color 150ms ease-in;
 }
 
-.date-year:hover, .date-month:hover {
+.date-calendar-title.active {
+    background-color: @color-basis-hover;
+    cursor: pointer;
+}
+
+.date-calendar-title:hover {
     background-color: @color-basis-hover;
     transition: background-color 150ms ease-in;
+    cursor: pointer;
 }
 
-.date-year-title p, .date-month-title p {
-    margin: 0 6px;
+.date-calendar-title.press-active {
+    background-color: @color-basis-grey;
 }
+
+.date-sign {
+    display: none;
+}
+
+.date-sign:hover.active {
+    background-color: @color-basis-grey;
+    transition: background-color 150ms ease-in;
+}
+
+.date-sign.active {
+    display: flex;
+    background-color: @color-basis-hover;
+    cursor: pointer;
+}
+
+.date-sign {
+    // display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    padding: 8px;
+    width: 15px;
+    height: 15px;
+}
+
+.sign-minus {
+    margin-right: 4px;
+}
+
+.sign-plus {
+    margin-left: 4px;
+}
+
+// .date-year:hover, .date-month:hover, .date-day:hover {
+//     background-color: @color-basis-hover;
+//     transition: background-color 150ms ease-in;
+// }
 
 .date-multi-button {
     .size-nav-additional-button-multi;
     transition: background-color 150ms ease-in;
+    // background-color: @color-basis-hover;
 }
 
 .date-multi {
@@ -140,42 +163,56 @@
     justify-content: center;
     align-items: center;
     border-radius: 20px;
-    padding: 0 8px;
-    height: 28px;
+    padding: 8px;
+    width: 15px;
+    height: 15px;
 }
 
-.date-month-title, .date-year-title {
-    width: 4.4rem;
+.date-month-title, .date-year-title, .date-day-title {
     display: flex;
     justify-content: center;
     user-select: none;
 }
 
-.date-month-plus:hover, .date-year-plus:hover {
+.date-year-title, .date-day-title {
+    width: 4rem;
+}
+
+.date-month-title {
+    width: 4.2rem;
+}
+
+.date-year-minus, .date-year-plus, .date-month-minus, .date-month-plus, .date-day-minus, .date-day-plus {
+    display: none;
+}
+
+// .date-year-minus, .date-day-plus {
+
+// }
+
+.date-year-plus:hover, .date-month-plus:hover, .date-day-plus:hover {
     background-color: @color-basis-active;
     cursor: pointer;
     transition: background-color 150ms ease-in;
 }
 
-.date-month-minus:hover, .date-year-minus:hover {
+.date-year-minus:hover, .date-month-minus:hover, .date-day-minus:hover {
     transition: background-color 150ms ease-in;
 }
 
-.date-month-minus:hover.active, .date-year-minus:hover.active {
+.date-year-minus:hover.active, .date-month-minus:hover.active, .date-day-minus:hover.active {
     background-color: @color-basis-active;
     cursor: pointer;
     transition: background-color 150ms ease-in;
-}
-
-.date-multi:last-child p {
-    padding-bottom: 2px;
 }
 
 .date-table-month {
-    grid-area: datedays;
+    // grid-area: datedays;
+    margin-top: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: auto;
     // border: solid 1px blue;
 }
 
