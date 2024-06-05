@@ -104,7 +104,7 @@
     cursor: pointer;
 }
 
-.date-calendar-title:hover {
+.date-calendar-title.hover {
     background-color: @color-basis-hover;
     transition: background-color 150ms ease-in;
     cursor: pointer;
@@ -118,16 +118,22 @@
     display: none;
 }
 
-.date-sign:hover.active {
-    background-color: @color-basis-grey;
-    transition: background-color 150ms ease-in;
-}
+// .date-sign.hover.active {
+//     background-color: @color-basis-grey;
+//     transition: background-color 150ms ease-in;
+// }
 
-.date-sign.active {
+.date-sign.hover, .date-sign.active {
     display: flex;
     background-color: @color-basis-hover;
+    transition: background-color 150ms ease-in;
     cursor: pointer;
 }
+
+// .date-sign.active {
+//     display: flex;
+//     background-color: @color-basis-hover;
+// }
 
 .date-sign {
     // display: flex;
@@ -168,17 +174,18 @@
     height: 15px;
 }
 
-.date-month-title, .date-year-title, .date-day-title {
+.date-calendar-title {
+    .style-envelope-font;
     display: flex;
     justify-content: center;
     user-select: none;
 }
 
-.date-year-title, .date-day-title {
-    width: 4rem;
+.date-year-full, .date-day-full {
+    width: 3rem;
 }
 
-.date-month-title {
+.date-month-full {
     width: 4.2rem;
 }
 
