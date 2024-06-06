@@ -128,10 +128,15 @@
 // }
 
 .date-sign.hover, .date-sign.active {
+    user-select: none;
     display: flex;
     background-color: @color-basis-hover;
     transition: background-color 150ms ease-in;
     cursor: pointer;
+}
+
+.date-sign.active.press-active {
+    background-color: @color-basis-grey;
 }
 
 // .date-sign.active {
