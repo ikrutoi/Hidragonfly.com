@@ -23,6 +23,8 @@ export function createCalendar(newYear, newNumberMonth, day) {
     ];
 
     let month = nameMonth[numberMonth];
+    // let memorySelectedDate;
+    // console.log('memory0: ', memorySelectedDate);
     const elemMinus = document.querySelectorAll('.sign-less');
     const elemPlus = document.querySelectorAll('.sign-more');
 
@@ -66,9 +68,12 @@ export function createCalendar(newYear, newNumberMonth, day) {
     function addClassActive() {
         dateTitle.forEach((el) => {el.classList.remove('active')});
         this.classList.add('active');
+        // if (numberMonth > new Date().getMonth() && year == new Date().getFullYear()) {
+        //     changeYearMonth('minusMonth');
+        // }
         dateSign.forEach((el) => {el.classList.add('active')})
         dateSlider.classList.add('hover');
-        setTimeout(clearClassActive, 18000);
+        // setTimeout(clearClassActive, 18000);
     }
     
     function recordSelectedDate(year, numberMonth, day) {
@@ -88,24 +93,36 @@ export function createCalendar(newYear, newNumberMonth, day) {
     }
 
     function fillingInput() {
+        let newYear;
+        let newMonth;
+        let newDay;
+        if (sessionStorage.getItem('selection-year')) {
+            newYear = sessionStorage.getItem('selection-year');
+            newMonth = sessionStorage.getItem('selection-month');
+            newDay = sessionStorage.getItem('selection-day');
+        } else {
+            newYear = new Date().getFullYear();
+            newMonth = new Date().getMonth();
+            newDay = new Date().getDate();
+        }
         switch (this.dataset.dateTitle) {
             case 'title-year':
                 dateSlider.min = `${new Date().getFullYear()}`;
                 dateSlider.max = String(new Date().getFullYear() + 100);
-                dateSlider.value = `${new Date().getFullYear()}`;
+                dateSlider.value = `${newYear}`;
                 dateSlider.dataset.dateTitle = 'title-year';
                 break;
             case 'title-month':
                 dateSlider.min = '0';
                 dateSlider.max = '11';
-                dateSlider.value = `${new Date().getMonth()}`;
+                dateSlider.value = `${newMonth}`;
                 dateSlider.dataset.dateTitle = 'title-month';
             break;
             case 'title-day':
                 const counterDaysInMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
                 dateSlider.min = '1';
                 dateSlider.max = `${counterDaysInMonth}`;
-                dateSlider.value = `${new Date().getDate()}`;
+                dateSlider.value = `${newDay}`;
                 dateSlider.dataset.dateTitle = 'title-day';
                 break;
         }
@@ -129,7 +146,7 @@ export function createCalendar(newYear, newNumberMonth, day) {
         el.addEventListener('mouseleave', delClassHover);
     })
     
-    function validationElemTitle() {    
+    function changeFromSign() {    
         let dateSignDirection;
         switch(this.dataset.direction) {
             case 'minus':
@@ -163,6 +180,18 @@ export function createCalendar(newYear, newNumberMonth, day) {
                         }
                     break;
                     case 'title-day':
+                        if (dateSignDirection) {
+                            selectionDay(year, numberMonth, ++day);
+                            validationMemorySelectedDay();
+                            elemTitleDay.textContent = `${day}`;
+                            dateSlider.value = day;
+                        } else {
+                            selectionDay(year, numberMonth, --day);
+                            validationMemorySelectedDay();
+                            validationCancelYearHover();
+                            elemTitleDay.textContent = `${day}`;
+                            dateSlider.value = day;
+                        }
                         break;
                 }
             }
@@ -171,43 +200,111 @@ export function createCalendar(newYear, newNumberMonth, day) {
     
     dateSign.forEach((el) => {
         el.addEventListener('pointerdown', () => {startPressActivation(el)});
-        el.addEventListener('pointerdown', validationElemTitle);
+        el.addEventListener('pointerdown', changeFromSign);
     })
     
     setTimeout(writePropertiesInputSlider, 200);
 
-    function changeValue() {
+    function changeFromSlider() {
         switch (this.dataset.dateTitle) {
             case 'title-year':
-                const elemDateYear = document.querySelector('.date-year-full');
-                elemDateYear.textContent = `${this.value}`
+                console.log('this.value: ', this.value);
+                if (this.value > year) {
+                    newNextYear();
+                    validationMemorySelectedDay();
+                } else {
+                    newLastYear();
+                    validationMemorySelectedDay();
+                    validationCancelYearHover();
+                }
+                elemTitleYear.textContent = `${this.value}`
                 break;
             case 'title-month':
-                const elemDateMonth = document.querySelector('.date-month-full');
-                elemDateMonth.textContent = `${nameMonth[this.value]}`
+                if (this.value > numberMonth) {
+                    newNextMonth();
+                    validationMemorySelectedDay();
+                } else {
+                    newLastMonth();
+                    validationMemorySelectedDay();
+                    validationCancelYearHover();
+                };
+                elemTitleMonth.textContent = `${nameMonth[this.value]}`
                 break;
             case 'title-day':
-                const elemDateDay = document.querySelector('.date-day-full');
-                elemDateDay.textContent = `${this.value}`
+                console.log('selDay!');
+                elemTitleDay.textContent = `${this.value}`
                 break;
         }
     }
 
-    dateSlider.addEventListener('input', changeValue);
+    dateSlider.addEventListener('input', changeFromSlider);
     // dateSlider.addEventListener('pointerup', showNewCalendar);
     // elemDateSlider.addEventListener('mouseover', addActiveInput);
     // elemDateSlider.addEventListener('mouseout', delActiveInput);
 
     const tableHeaderRow = document.querySelector('.date-table-header-row');
     const nameDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    
-    let memorySelectedDate;
+
     let quantityDaysOfMonth;
     let memoryNeighborDayLeft;
     let memoryNeighborDayRight;
 
     for (let i = 0; i < 7; i++) {
         newElemHTML(tableHeaderRow, 'beforeend', `<th>${nameDays[i]}</th>`);
+    }
+
+    function selectionDay(year, numberMonth, day) {
+        const daysMonth = document.querySelectorAll('.date-day-counter');      
+        daysMonth.forEach((el) => {
+            el.classList.remove('active');
+            el.classList.remove('day-neighbor');
+        });
+
+        const selectionDay = document.querySelector(`.day-${day}`);
+        selectionDay.classList.add('active');
+        
+        memoryNeighborDayLeft = null;
+        memoryNeighborDayRight = null;
+
+        const neighborLeft = document.querySelector(`.day-${day - 1}`);
+        const neighborRight = document.querySelector(`.day-${Number(day) + 1}`);
+            
+        function addClassNeighbor() {
+            if (day > 1 && day < quantityDaysOfMonth) {
+                neighborLeft.classList.add('day-neighbor');
+                neighborRight.classList.add('day-neighbor');
+            } else if (day == 1) {
+                neighborRight.classList.add('day-neighbor');
+                
+                if (numberMonth == 0) {
+                    const yearNeighborLeft = --year;
+                    const monthNeighborLeft = 11;
+                    const lastDayMonthNeighborLeft = getQuantityDaysOfMonth(yearNeighborLeft, monthNeighborLeft);
+
+                    memoryNeighborDayLeft = [yearNeighborLeft, monthNeighborLeft, lastDayMonthNeighborLeft];
+                } else {
+                    const monthNeighborLeft = --numberMonth;
+                    const lastDayMonthNeighborLeft = getQuantityDaysOfMonth(year, monthNeighborLeft);
+                    
+                    memoryNeighborDayLeft = [year, monthNeighborLeft, lastDayMonthNeighborLeft];
+                }
+            } else if (day == getQuantityDaysOfMonth(year, numberMonth)) {
+                neighborLeft.classList.add('day-neighbor');
+
+                if (numberMonth == 11) {
+                    const yearNeighborRight = ++year;
+                    const monthNeighborRight = 0;
+
+                    memoryNeighborDayRight = [yearNeighborRight, monthNeighborRight, 1];
+                } else {
+                    const monthNeighborRight = ++numberMonth;
+
+                    memoryNeighborDayRight = [year, monthNeighborRight, 1];
+                }
+            }
+        }  
+
+        setTimeout(addClassNeighbor, 150);
     }
 
     function addRow(year, numberMonth) {   
@@ -298,70 +395,74 @@ export function createCalendar(newYear, newNumberMonth, day) {
 
         addForbiddenAllowedDays();
    
-        function selectionDay(year, numberMonth, day) {
+        // function selectionDay(year, numberMonth, day) {
             
-            daysMonth.forEach(el => {
-                el.classList.remove('active');
-                el.classList.remove('day-neighbor');
-            });
+        //     daysMonth.forEach(el => {
+        //         el.classList.remove('active');
+        //         el.classList.remove('day-neighbor');
+        //     });
 
-            const selectionDay = document.querySelector(`.day-${day}`);
-            selectionDay.classList.add('active');
+        //     const selectionDay = document.querySelector(`.day-${day}`);
+        //     selectionDay.classList.add('active');
             
-            memoryNeighborDayLeft = null;
-            memoryNeighborDayRight = null;
+        //     memoryNeighborDayLeft = null;
+        //     memoryNeighborDayRight = null;
 
-            const neighborLeft = document.querySelector(`.day-${day - 1}`);
-            const neighborRight = document.querySelector(`.day-${Number(day) + 1}`);
+        //     const neighborLeft = document.querySelector(`.day-${day - 1}`);
+        //     const neighborRight = document.querySelector(`.day-${Number(day) + 1}`);
                 
-            function addClassNeighbor() {
-                if (day > 1 && day < quantityDaysOfMonth) {
-                    neighborLeft.classList.add('day-neighbor');
-                    neighborRight.classList.add('day-neighbor');
-                } else if (day == 1) {
-                    neighborRight.classList.add('day-neighbor');
+        //     function addClassNeighbor() {
+        //         if (day > 1 && day < quantityDaysOfMonth) {
+        //             neighborLeft.classList.add('day-neighbor');
+        //             neighborRight.classList.add('day-neighbor');
+        //         } else if (day == 1) {
+        //             neighborRight.classList.add('day-neighbor');
                     
-                    if (numberMonth == 0) {
-                        const yearNeighborLeft = --year;
-                        const monthNeighborLeft = 11;
-                        const lastDayMonthNeighborLeft = getQuantityDaysOfMonth(yearNeighborLeft, monthNeighborLeft);
+        //             if (numberMonth == 0) {
+        //                 const yearNeighborLeft = --year;
+        //                 const monthNeighborLeft = 11;
+        //                 const lastDayMonthNeighborLeft = getQuantityDaysOfMonth(yearNeighborLeft, monthNeighborLeft);
 
-                        memoryNeighborDayLeft = [yearNeighborLeft, monthNeighborLeft, lastDayMonthNeighborLeft];
-                    } else {
-                        const monthNeighborLeft = --numberMonth;
-                        const lastDayMonthNeighborLeft = getQuantityDaysOfMonth(year, monthNeighborLeft);
+        //                 memoryNeighborDayLeft = [yearNeighborLeft, monthNeighborLeft, lastDayMonthNeighborLeft];
+        //             } else {
+        //                 const monthNeighborLeft = --numberMonth;
+        //                 const lastDayMonthNeighborLeft = getQuantityDaysOfMonth(year, monthNeighborLeft);
                         
-                        memoryNeighborDayLeft = [year, monthNeighborLeft, lastDayMonthNeighborLeft];
-                    }
-                } else if (day == getQuantityDaysOfMonth(year, numberMonth)) {
-                    neighborLeft.classList.add('day-neighbor');
+        //                 memoryNeighborDayLeft = [year, monthNeighborLeft, lastDayMonthNeighborLeft];
+        //             }
+        //         } else if (day == getQuantityDaysOfMonth(year, numberMonth)) {
+        //             neighborLeft.classList.add('day-neighbor');
 
-                    if (numberMonth == 11) {
-                        const yearNeighborRight = ++year;
-                        const monthNeighborRight = 0;
+        //             if (numberMonth == 11) {
+        //                 const yearNeighborRight = ++year;
+        //                 const monthNeighborRight = 0;
 
-                        memoryNeighborDayRight = [yearNeighborRight, monthNeighborRight, 1];
-                    } else {
-                        const monthNeighborRight = ++numberMonth;
+        //                 memoryNeighborDayRight = [yearNeighborRight, monthNeighborRight, 1];
+        //             } else {
+        //                 const monthNeighborRight = ++numberMonth;
 
-                        memoryNeighborDayRight = [year, monthNeighborRight, 1];
-                    }
-                }
-            }  
+        //                 memoryNeighborDayRight = [year, monthNeighborRight, 1];
+        //             }
+        //         }
+        //     }  
 
-            setTimeout(addClassNeighbor, 150);
-        }
+        //     setTimeout(addClassNeighbor, 150);
+        // }
   
         daysMonth.forEach(el => {
             function addButtonMemoryDate() {
                 recordSelectedDate(year, numberMonth, Number(el.textContent))
-                addButtonDate(year, numberMonth, Number(el.textContent));
-                memorySelectedDate = [year, numberMonth, Number(el.textContent)];
+                // addButtonDate(year, numberMonth, Number(el.textContent));
+                // memorySelectedDate = [year, numberMonth, Number(el.textContent)];
+                sessionStorage.setItem('selection-year', year);
+                sessionStorage.setItem('selection-month', numberMonth);
+                sessionStorage.setItem('selection-day', Number(el.textContent));
             }
 
             if (el.classList.contains('allowed')) {
                 el.addEventListener('pointerdown', () => selectionDay(year, numberMonth, Number(el.textContent)));
                 el.addEventListener('pointerdown', addButtonMemoryDate);
+                dateSlider.value = Number(el.textContent);
             }            
         })
 
@@ -394,7 +495,6 @@ export function createCalendar(newYear, newNumberMonth, day) {
     function changeYearMonth(val) {
 
         function changeMonth(numberMonth) {
-        console.log('numberMonth: ', numberMonth);
             buttonMonthTitle.textContent = `${nameMonth[numberMonth]}`;
             elemTitleMonth.textContent = `${nameMonth[numberMonth]}`;
             dateSlider.value = numberMonth;
@@ -402,6 +502,7 @@ export function createCalendar(newYear, newNumberMonth, day) {
         
         function changeYear(year) {
             buttonYearTitle.textContent = `${year}`;
+            elemTitleYear.textContent = `${year}`;
             dateSlider.value = year;
         }
 
@@ -565,19 +666,19 @@ export function createCalendar(newYear, newNumberMonth, day) {
         } 
     }
 
-    buttonYearPlus.addEventListener('pointerdown', newNextYear);
-    buttonYearMinus.addEventListener('pointerdown', newLastYear);
-    buttonYearPlus.addEventListener('pointerdown', validationMemorySelectedDay);
-    buttonYearMinus.addEventListener('pointerdown', validationMemorySelectedDay);
-    buttonYearMinus.addEventListener('pointerup', validationCancelYearHover);
-    buttonYearMinus.addEventListener('mouseenter', additionalYearHover);
-    buttonYearMinus.addEventListener('mouseleave', cancelYearHover);
+    // buttonYearPlus.addEventListener('pointerdown', newNextYear);
+    // buttonYearMinus.addEventListener('pointerdown', newLastYear);
+    // buttonYearPlus.addEventListener('pointerdown', validationMemorySelectedDay);
+    // buttonYearMinus.addEventListener('pointerdown', validationMemorySelectedDay);
+    // buttonYearMinus.addEventListener('pointerup', validationCancelYearHover);
+    // buttonYearMinus.addEventListener('mouseenter', additionalYearHover);
+    // buttonYearMinus.addEventListener('mouseleave', cancelYearHover);
     
-    buttonMonthPlus.addEventListener('pointerdown', newNextMonth);
-    buttonMonthMinus.addEventListener('pointerdown', newLastMonth);
-    buttonMonthPlus.addEventListener('pointerdown', validationMemorySelectedDay);
-    buttonMonthMinus.addEventListener('pointerdown', validationMemorySelectedDay);
-    buttonMonthMinus.addEventListener('pointerup', validationCancelMonthHover);
-    buttonMonthMinus.addEventListener('mouseenter', additionalMonthHover);
-    buttonMonthMinus.addEventListener('mouseleave', cancelMonthHover);
+    // buttonMonthPlus.addEventListener('pointerdown', newNextMonth);
+    // buttonMonthMinus.addEventListener('pointerdown', newLastMonth);
+    // buttonMonthPlus.addEventListener('pointerdown', validationMemorySelectedDay);
+    // buttonMonthMinus.addEventListener('pointerdown', validationMemorySelectedDay);
+    // buttonMonthMinus.addEventListener('pointerup', validationCancelMonthHover);
+    // buttonMonthMinus.addEventListener('mouseenter', additionalMonthHover);
+    // buttonMonthMinus.addEventListener('mouseleave', cancelMonthHover);
 }
