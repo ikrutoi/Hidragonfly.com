@@ -55,11 +55,14 @@ export function createCalendar(newYear, newNumberMonth, day) {
     const dateTitle = document.querySelectorAll('.date-calendar-title');
     const dateSign = document.querySelectorAll('.date-sign');
     const elemTitleYear = document.querySelector('.date-year-full');
+    const elemTitleYearMonthDay = document.querySelector('.date-year-month-day');
+    const elemDateSignSelection = document.querySelector('.date-sign-selection');
     const elemTitleMonth = document.querySelector('.date-month-full');
     const elemTitleDay = document.querySelector('.date-day-full');
 
     function writePropertiesInputSlider() {
-        dateSlider.style.width = `${tableBody.clientWidth}px`;
+        dateSlider.style.width = `${tableBody.clientWidth}px`; 
+        elemDateSignSelection.style.width = `${tableBody.clientWidth}px`; 
         dateSlider.min = '0';
         dateSlider.max = '0';
         dateSlider.value = '0';
@@ -130,20 +133,42 @@ export function createCalendar(newYear, newNumberMonth, day) {
 
     function addClassHover() {
         this.classList.add('hover');
-        dateSign.forEach((el) => {el.classList.add('hover')});
+        dateTitle.forEach((el) => {el.classList.add('hover')})
     }
-
+    
     function delClassHover() {
         this.classList.remove('hover');
+        dateTitle.forEach((el) => {el.classList.remove('hover')})
         dateSign.forEach((el) => {el.classList.remove('hover')});
     }
+    
+    function addClassPressActive() {
+        startPressActivation(this);
+        dateTitle.forEach((el) => {startPressActivation(el)});
+    }
+    
+    function addClassGrow() {
+        this.classList.add('grow');
+        dateTitle.forEach((el) => {el.classList.add('grow')});
+        setTimeout(() => {dateSign.forEach((el) => {el.classList.add('active')})}, 150);
+        setTimeout(() => {
+            this.classList.remove('grow');
+            dateTitle.forEach((el) => {el.classList.remove('grow')});
+            dateSign.forEach((el) => {el.classList.remove('active')});
+        }, 18000);
+    }
+
+    elemTitleYearMonthDay.addEventListener('mouseenter', addClassHover);
+    elemTitleYearMonthDay.addEventListener('mouseleave', delClassHover);
+    elemTitleYearMonthDay.addEventListener('pointerdown', addClassPressActive);
+    elemTitleYearMonthDay.addEventListener('pointerup', addClassGrow);
 
     dateTitle.forEach((el) => {
         el.addEventListener('pointerdown', () => {startPressActivation(el)});
-        el.addEventListener('pointerdown', addClassActive);
+        // el.addEventListener('pointerdown', addClassActive);
         el.addEventListener('pointerup', fillingInput);
-        el.addEventListener('mouseenter', addClassHover);
-        el.addEventListener('mouseleave', delClassHover);
+        // el.addEventListener('mouseenter', addClassHover);
+        // el.addEventListener('mouseleave', delClassHover);
     })
     
     function changeFromSign() {    

@@ -38,7 +38,16 @@
     // border: solid palevioletred 1px;
 }
 
-.date-year-month {
+.date-sign-selection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 1px blue;
+    width: auto;
+}
+
+.date-year-month-day {
+    width: min-content;
     display: flex;
     margin: 1rem 0;
     border-radius: 20px;
@@ -94,7 +103,7 @@
 .date-calendar-title {
     width: min-content;
     transition: background-color .15s ease-in;
-    margin: 0 4px;
+    // margin: 0 4px;
     border-radius: 20px;
     padding: 8px;
     height: 15px;
@@ -116,6 +125,7 @@
 
 .date-calendar-title.press-active {
     background-color: @color-basis-grey;
+    transition: background-color 150ms ease-in;
 }
 
 .date-sign {
@@ -139,10 +149,10 @@
     background-color: @color-basis-grey;
 }
 
-// .date-sign.active {
-//     display: flex;
-//     background-color: @color-basis-hover;
-// }
+.date-sign.active {
+    display: flex;
+    background-color: @color-basis-hover;
+}
 
 .date-sign {
     // display: flex;
@@ -183,18 +193,52 @@
     height: 15px;
 }
 
+.date-year-month-day {
+    // background-color: @color-basis-hover;
+    transition: background-color 150ms ease-in;
+}
+
+.date-year-month-day.grow {
+    // background-color: @color-basis-hover;
+    transition: background-color 150ms ease-in;
+}
+
+.date-year-month-day.hover.press-active {
+    background-color: @color-basis-grey;
+    transition: background-color 150ms ease-in;
+}
+
+.date-year-month-day.hover {
+    background-color: @color-basis-hover;
+    transition: background-color 150ms ease-in;
+    cursor: pointer;
+}
+
 .date-calendar-title {
     .style-envelope-font;
     display: flex;
     justify-content: center;
     user-select: none;
+    // background-color: @color-basis-hover;
 }
 
-.date-year-full, .date-day-full {
+.date-calendar-title.hover {
+    background-color: @color-basis-hover;
+    transition: background-color 150ms ease-in;
+}
+
+.date-calendar-title.hover.press-active {
+    background-color: @color-basis-grey;
+    transition: background-color 150ms ease-in;
+}
+
+.date-year-full.grow, .date-day-full.grow {
+    // background-color: @color-basis-hover;
     width: 3rem;
 }
 
-.date-month-full {
+.date-month-full.grow {
+    // background-color: @color-basis-hover;
     width: 4.2rem;
 }
 
@@ -206,21 +250,21 @@
 
 // }
 
-.date-year-plus:hover, .date-month-plus:hover, .date-day-plus:hover {
-    background-color: @color-basis-active;
-    cursor: pointer;
-    transition: background-color 150ms ease-in;
-}
+// .date-year-plus:hover, .date-month-plus:hover, .date-day-plus:hover {
+//     background-color: @color-basis-active;
+//     cursor: pointer;
+//     transition: background-color 150ms ease-in;
+// }
 
-.date-year-minus:hover, .date-month-minus:hover, .date-day-minus:hover {
-    transition: background-color 150ms ease-in;
-}
+// .date-year-minus:hover, .date-month-minus:hover, .date-day-minus:hover {
+//     transition: background-color 150ms ease-in;
+// }
 
-.date-year-minus:hover.active, .date-month-minus:hover.active, .date-day-minus:hover.active {
-    background-color: @color-basis-active;
-    cursor: pointer;
-    transition: background-color 150ms ease-in;
-}
+// .date-year-minus:hover.active, .date-month-minus:hover.active, .date-day-minus:hover.active {
+//     background-color: @color-basis-active;
+//     cursor: pointer;
+//     transition: background-color 150ms ease-in;
+// }
 
 .date-table-month {
     // grid-area: datedays;
