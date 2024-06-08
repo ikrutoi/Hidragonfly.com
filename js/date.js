@@ -37,13 +37,15 @@ export function createCalendar(newYear, newNumberMonth, day) {
         newElemHTML(el, 'afterbegin', '<p></p>');
         // newElemHTML(el, 'afterbegin', '<p>&gt</p>');
     })
+    
+    const elemSelectionDate = document.querySelector('.date-calendar-selection-date'); 
+    newElemHTML(elemSelectionDate, 'beforeend', `<p class="date-selection-year">${year}</p>`);  
+    newElemHTML(elemSelectionDate, 'beforeend', `<p class="date-selection-month">${month}</p>`);  
+    newElemHTML(elemSelectionDate, 'beforeend', `<p class="date-selection-day">${day}</p>`);  
+    const elemSelectionDateYear = document.querySelector('.date-selection-year');
+    const elemSelectionDateMonth = document.querySelector('.date-selection-month');
+    const elemSelectionDateDay = document.querySelector('.date-selection-day');
 
-    const yearTitle = document.querySelector('.date-year-title');
-    const monthTitle = document.querySelector('.date-month-title');
-    const dayTitle = document.querySelector('.date-day-title'); 
-    newElemHTML(yearTitle, 'afterbegin', `<p class="date-year-text">${year}</p>`);
-    newElemHTML(monthTitle, 'afterbegin', `<p class="date-month-text">${month}</p>`);
-    newElemHTML(dayTitle, 'afterbegin', `<p class="date-month-text">${day}</p>`);  
     const areaDateDays = document.querySelector('.date-table-month');
     newElemHTML(areaDateDays, 'beforeend', '<table class="date-table"></table>');  
     const blockTable = document.querySelector('.date-table');
@@ -54,11 +56,11 @@ export function createCalendar(newYear, newNumberMonth, day) {
     const dateSlider = document.querySelector('.date-slider');
     const dateTitle = document.querySelectorAll('.date-calendar-title');
     const dateSign = document.querySelectorAll('.date-sign');
-    const elemTitleYear = document.querySelector('.date-year-full');
-    const elemTitleYearMonthDay = document.querySelector('.date-year-month-day');
+    const elemTitleFull = document.querySelector('.date-calendar-title-full');
     const elemDateSignSelection = document.querySelector('.date-sign-selection');
-    const elemTitleMonth = document.querySelector('.date-month-full');
-    const elemTitleDay = document.querySelector('.date-day-full');
+    const elemTitleYear = document.querySelector('.date-title-year');
+    const elemTitleMonth = document.querySelector('.date-title-month');
+    const elemTitleDay = document.querySelector('.date-title-day');
 
     function writePropertiesInputSlider() {
         dateSlider.style.width = `${tableBody.clientWidth}px`; 
@@ -80,9 +82,11 @@ export function createCalendar(newYear, newNumberMonth, day) {
     }
     
     function recordSelectedDate(year, numberMonth, day) {
+        console.log('record date!', day);
         elemTitleYear.textContent = `${year}`;
         elemTitleMonth.textContent = `${nameMonth[numberMonth]}`;
         elemTitleDay.textContent = `${day}`;
+
     }
 
     function clearClassActive() {
@@ -95,7 +99,7 @@ export function createCalendar(newYear, newNumberMonth, day) {
         dateSlider.value = '0';
     }
 
-    function fillingInput() {
+    function recValueInputStart() {
         let newYear;
         let newMonth;
         let newDay;
@@ -131,6 +135,34 @@ export function createCalendar(newYear, newNumberMonth, day) {
         }
     }
 
+    function recValueTitle(day) {
+        elemSelectionDateDay.textContent = `${day}`;
+    }
+
+    function recValueInput(unit, newValue) {
+        switch (unit) {
+            case 'year':
+                dateSlider.min = `${new Date().getFullYear()}`;
+                dateSlider.max = String(new Date().getFullYear() + 100);
+                dateSlider.value = `${newValue}`;
+                dateSlider.dataset.dateTitle = 'title-year';
+                break;
+            case 'month':
+                dateSlider.min = '0';
+                dateSlider.max = '11';
+                dateSlider.value = `${newValue}`;
+                dateSlider.dataset.dateTitle = 'title-month';
+            break;
+            case 'day':
+                const counterDaysInMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
+                dateSlider.min = '1';
+                dateSlider.max = `${counterDaysInMonth}`;
+                dateSlider.value = `${newValue}`;
+                dateSlider.dataset.dateTitle = 'title-day';
+                break;
+        }
+    }
+
     function addClassHover() {
         this.classList.add('hover');
         dateTitle.forEach((el) => {el.classList.add('hover')})
@@ -147,29 +179,69 @@ export function createCalendar(newYear, newNumberMonth, day) {
         dateTitle.forEach((el) => {startPressActivation(el)});
     }
     
-    function addClassGrow() {
-        this.classList.add('grow');
+    let timerGrow;
+    function addClassGrow() {      
+        // const elemTitleYear = document.querySelector('.date-title-year');
+        // const monthTitle = document.querySelector('.date-month-title');
+        // const dayTitle = document.querySelector('.date-day-title'); 
+        newElemHTML(elemTitleYear, 'afterbegin', `<p class="date-calendar-title-text">${year}</p>`);
+        newElemHTML(elemTitleMonth, 'afterbegin', `<p class="date-calendar-title-text">${month}</p>`);
+        newElemHTML(elemTitleDay, 'afterbegin', `<p class="date-calendar-title-text">${day}</p>`); 
+
+        const elemTitleText = document.querySelectorAll('.date-calendar-title-text');
+        // this.classList.add('grow');
+        elemTitleFull.classList.add('active');
         dateTitle.forEach((el) => {el.classList.add('grow')});
         setTimeout(() => {dateSign.forEach((el) => {el.classList.add('active')})}, 150);
-        setTimeout(() => {
-            this.classList.remove('grow');
-            dateTitle.forEach((el) => {el.classList.remove('grow')});
-            dateSign.forEach((el) => {el.classList.remove('active')});
-        }, 18000);
+        if (timerGrow) {
+            clearTimeout(timerGrow);
+            timerGrow = setTimeout(() => {
+                // this.classList.remove('grow');
+                elemTitleFull.classList.remove('active');
+                elemTitleText.forEach(el => {el.remove()});
+                dateTitle.forEach((el) => {el.classList.remove('grow')});
+                dateTitle.forEach((el) => {el.classList.remove('active')});
+                dateSign.forEach((el) => {el.classList.remove('active')});
+                elemSelectionDate.classList.remove('active');
+            }, 18000);
+        } else {
+            timerGrow = setTimeout(() => {
+                // this.classList.remove('grow');
+                elemTitleFull.classList.remove('active');
+                elemTitleText.forEach(el => {el.remove()});
+                dateTitle.forEach((el) => {el.classList.remove('grow')});
+                dateTitle.forEach((el) => {el.classList.remove('active')});
+                dateSign.forEach((el) => {el.classList.remove('active')});
+                elemSelectionDate.classList.remove('active');
+            }, 12000);
+        }
     }
 
-    elemTitleYearMonthDay.addEventListener('mouseenter', addClassHover);
-    elemTitleYearMonthDay.addEventListener('mouseleave', delClassHover);
-    elemTitleYearMonthDay.addEventListener('pointerdown', addClassPressActive);
-    elemTitleYearMonthDay.addEventListener('pointerup', addClassGrow);
+    // elemTitleFull.addEventListener('mouseenter', addClassHover);
+    // elemTitleFull.addEventListener('mouseleave', delClassHover);
+    // elemTitleFull.addEventListener('pointerdown', addClassPressActive);
+    // elemTitleFull.addEventListener('pointerup', addClassGrow);
 
     dateTitle.forEach((el) => {
         el.addEventListener('pointerdown', () => {startPressActivation(el)});
         // el.addEventListener('pointerdown', addClassActive);
-        el.addEventListener('pointerup', fillingInput);
+        el.addEventListener('pointerup', recValueInput);
         // el.addEventListener('mouseenter', addClassHover);
         // el.addEventListener('mouseleave', delClassHover);
     })
+
+    function addClassActive1() {
+        // this.classList.add ('active');
+        setTimeout(() => {this.classList.add('active')}, 150);
+        setTimeout(() => {dateTitle.forEach(el => {el.classList.add('active')})}, 150);
+        // dateTitle.forEach(el => {el.classList.add('active')})
+    }
+
+    elemSelectionDate.addEventListener('mouseenter', addClassHover);
+    elemSelectionDate.addEventListener('mouseleave', delClassHover);
+    elemSelectionDate.addEventListener('pointerdown', () => {startPressActivation(elemSelectionDate)});
+    elemSelectionDate.addEventListener('pointerdown', addClassActive1);
+    elemSelectionDate.addEventListener('pointerdown', addClassGrow);
     
     function changeFromSign() {    
         let dateSignDirection;
@@ -278,6 +350,22 @@ export function createCalendar(newYear, newNumberMonth, day) {
         newElemHTML(tableHeaderRow, 'beforeend', `<th>${nameDays[i]}</th>`);
     }
 
+    function getQuantityDaysOfMonth(year, numberMonth) {
+        numberMonth = ++numberMonth;
+
+        if (numberMonth == 12) {
+            year = ++year;
+            numberMonth = 0;
+        }
+
+        if (numberMonth == 0) {
+            year = --year;
+            numberMonth = 11;
+        }
+
+        return new Date(year, numberMonth, 0).getDate();
+    }
+
     function selectionDay(year, numberMonth, day) {
         const daysMonth = document.querySelectorAll('.date-day-counter');      
         daysMonth.forEach((el) => {
@@ -287,6 +375,9 @@ export function createCalendar(newYear, newNumberMonth, day) {
 
         const selectionDay = document.querySelector(`.day-${day}`);
         selectionDay.classList.add('active');
+
+        recValueTitle(day);
+        recValueInput('day', day);
         
         memoryNeighborDayLeft = null;
         memoryNeighborDayRight = null;
@@ -342,21 +433,21 @@ export function createCalendar(newYear, newNumberMonth, day) {
         
         let numberFirstDay = getFirstDay(year, numberMonth);
         
-        function getQuantityDaysOfMonth(year, numberMonth) {
-            numberMonth = ++numberMonth;
+        // function getQuantityDaysOfMonth(year, numberMonth) {
+        //     numberMonth = ++numberMonth;
 
-            if (numberMonth == 12) {
-                year = ++year;
-                numberMonth = 0;
-            }
+        //     if (numberMonth == 12) {
+        //         year = ++year;
+        //         numberMonth = 0;
+        //     }
 
-            if (numberMonth == 0) {
-                year = --year;
-                numberMonth = 11;
-            }
+        //     if (numberMonth == 0) {
+        //         year = --year;
+        //         numberMonth = 11;
+        //     }
 
-            return new Date(year, numberMonth, 0).getDate();
-        }
+        //     return new Date(year, numberMonth, 0).getDate();
+        // }
         
         quantityDaysOfMonth = getQuantityDaysOfMonth(year, numberMonth);
 
@@ -419,60 +510,6 @@ export function createCalendar(newYear, newNumberMonth, day) {
         }
 
         addForbiddenAllowedDays();
-   
-        // function selectionDay(year, numberMonth, day) {
-            
-        //     daysMonth.forEach(el => {
-        //         el.classList.remove('active');
-        //         el.classList.remove('day-neighbor');
-        //     });
-
-        //     const selectionDay = document.querySelector(`.day-${day}`);
-        //     selectionDay.classList.add('active');
-            
-        //     memoryNeighborDayLeft = null;
-        //     memoryNeighborDayRight = null;
-
-        //     const neighborLeft = document.querySelector(`.day-${day - 1}`);
-        //     const neighborRight = document.querySelector(`.day-${Number(day) + 1}`);
-                
-        //     function addClassNeighbor() {
-        //         if (day > 1 && day < quantityDaysOfMonth) {
-        //             neighborLeft.classList.add('day-neighbor');
-        //             neighborRight.classList.add('day-neighbor');
-        //         } else if (day == 1) {
-        //             neighborRight.classList.add('day-neighbor');
-                    
-        //             if (numberMonth == 0) {
-        //                 const yearNeighborLeft = --year;
-        //                 const monthNeighborLeft = 11;
-        //                 const lastDayMonthNeighborLeft = getQuantityDaysOfMonth(yearNeighborLeft, monthNeighborLeft);
-
-        //                 memoryNeighborDayLeft = [yearNeighborLeft, monthNeighborLeft, lastDayMonthNeighborLeft];
-        //             } else {
-        //                 const monthNeighborLeft = --numberMonth;
-        //                 const lastDayMonthNeighborLeft = getQuantityDaysOfMonth(year, monthNeighborLeft);
-                        
-        //                 memoryNeighborDayLeft = [year, monthNeighborLeft, lastDayMonthNeighborLeft];
-        //             }
-        //         } else if (day == getQuantityDaysOfMonth(year, numberMonth)) {
-        //             neighborLeft.classList.add('day-neighbor');
-
-        //             if (numberMonth == 11) {
-        //                 const yearNeighborRight = ++year;
-        //                 const monthNeighborRight = 0;
-
-        //                 memoryNeighborDayRight = [yearNeighborRight, monthNeighborRight, 1];
-        //             } else {
-        //                 const monthNeighborRight = ++numberMonth;
-
-        //                 memoryNeighborDayRight = [year, monthNeighborRight, 1];
-        //             }
-        //         }
-        //     }  
-
-        //     setTimeout(addClassNeighbor, 150);
-        // }
   
         daysMonth.forEach(el => {
             function addButtonMemoryDate() {
@@ -487,7 +524,7 @@ export function createCalendar(newYear, newNumberMonth, day) {
             if (el.classList.contains('allowed')) {
                 el.addEventListener('pointerdown', () => selectionDay(year, numberMonth, Number(el.textContent)));
                 el.addEventListener('pointerdown', addButtonMemoryDate);
-                dateSlider.value = Number(el.textContent);
+                // dateSlider.value = Number(el.textContent);
             }            
         })
 
