@@ -51,8 +51,8 @@
     display: flex;
     margin: 1rem 0;
     border-radius: 20px;
-    background-color: @color-basis-hover;
-    transition: background-color 150ms ease-in;
+    // background-color: @color-basis-hover;
+    // transition: background-color 150ms ease-in;
     // border: solid blueviolet 1px;
 }
 
@@ -61,10 +61,10 @@
     transition: background-color 150ms ease-in;
 }
 
-.date-calendar-title-full.active {
-    background-color: @color-basis-white;
-    transition: background-color 150ms ease-in;
-}
+// .date-calendar-title-full.active {
+//     // background-color: @color-basis-white;
+//     // transition: background-color 150ms ease-in;
+// }
 
 .date-calendar-selection-date {
     display: flex;
@@ -77,6 +77,10 @@
     // border: solid 1px orangered;
 }
 
+.date-calendar-selection-date.deactivation {
+    display: none;
+}
+
 .date-calendar-selection-date.hover {
     cursor: pointer;
 }
@@ -84,11 +88,6 @@
 .date-calendar-selection-date.press-active {
     background-color: @color-basis-grey;
     transition: background-color 150ms ease-in;
-}
-
-.date-calendar-selection-date.active {
-    display: none;
-    // border: solid 1px greenyellow;
 }
 
 .date-calendar-selection-date p {
@@ -99,7 +98,7 @@
     display: flex;
     justify-content: flex-end;
     width: 0.5rem;
-    margin-left: 4px
+    margin-left: 4px;
 }
 
 .date-calendar-title {
@@ -108,7 +107,7 @@
     // border: solid 1px red;
 }
 
-.date-calendar-title.active {
+.date-calendar-title.grow {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -122,6 +121,16 @@
     cursor: pointer;
 }
 
+.date-calendar-title.grow.press-active {
+    background-color: @color-basis-grey;
+    transition: background-color 150ms ease-in;
+}
+
+.date-calendar-title.grow.deactivation {
+    background-color: @color-basis-white;
+    transition: background-color 150ms ease-in;
+}
+
 .date-title-year {
     width: 3rem;
 }
@@ -132,18 +141,6 @@
 
 .date-title-day {
     width: 3rem;
-}
-
-.date-calendar-title.hover {
-    border: solid 1px brown;
-    // background-color: @color-basis-hover;
-    // transition: background-color 150ms ease-in;
-    cursor: pointer;
-}
-
-.date-calendar-title.hover.press-active {
-    background-color: @color-basis-grey;
-    transition: background-color 150ms ease-in;
 }
 
 .date-sign {
@@ -190,7 +187,7 @@
     // cursor: pointer;
 }
 
-.date-slider.hover {
+.date-slider.active.hover {
     cursor: pointer;
 }
 
@@ -216,7 +213,7 @@
     transition: background-color 150ms ease-in;
 }
 
-.hover.date-slider::-webkit-slider-thumb {
+.active.date-slider::-webkit-slider-thumb {
     background-color: @color-basis;
     transition: background-color 150ms ease-in;
 }
