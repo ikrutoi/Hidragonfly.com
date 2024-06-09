@@ -8,6 +8,7 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
     let year = newYear;
     let numberMonth = newNumberMonth;
     let day;
+    let selectionDate = [];
     const nameMonth = [
         'January', 
         'February', 
@@ -57,7 +58,6 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
     const dateSlider = document.querySelector('.date-slider');
     const dateTitle = document.querySelectorAll('.date-calendar-title');
     const dateSign = document.querySelectorAll('.date-sign');
-    const elemTitleFull = document.querySelector('.date-calendar-title-full');
     const elemDateSignSelection = document.querySelector('.date-sign-selection');
     const elemTitleYear = document.querySelector('.date-title-year');
     const elemTitleMonth = document.querySelector('.date-title-month');
@@ -124,8 +124,8 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
                 elemTitleTextYear.textContent = `${newValue}`;
                 break;
             case 'title-month':
-                elemSelectionTextMonth.textContent = `${newValue}`;
-                elemTitleTextMonth.textContent = `${newValue}`;
+                elemSelectionTextMonth.textContent = `${nameMonth[newValue]}`;
+                elemTitleTextMonth.textContent = `${nameMonth[newValue]}`;
                 break;
             case 'title-day':
                 elemSelectionTextDay.textContent = `${newValue}`;
@@ -161,6 +161,19 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
         }
     }
 
+    function showSelectionDate(selectionDate) {
+        console.log('showSelectionDate!');
+        delRows();
+        addRow(year, numberMonth);
+        elemSelectionTextYear.textContent = `${selectionDate[0]}`;
+        // elemTitleTextYear.textContent = `${newValue}`;
+        elemSelectionTextMonth.textContent = `${nameMonth[selectionDate[1]]}`;
+        // elemTitleTextMonth.textContent = `${nameMonth[newValue]}`;
+        elemSelectionTextDay.textContent = `${selectionDate[2]}`;
+        // elemTitleTextDay.textContent = `${newValue}`;
+        selectionDay('show', selectionDate[2]);
+    }
+
     function startFromSlider() {
         switch (this.dataset.dateTitle) {
             case 'title-year':
@@ -188,7 +201,6 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
             case 'title-day':
                 elemTitleDay.textContent = `${this.value}`;
                 setTimeout(() => {selectionDay('slider', this.value)}, 100);
-                // selectionDay(this.value);
                 break;
         }
     }
@@ -223,15 +235,17 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
             timerGrow = setTimeout(() => {
                 dateTitle.forEach((el) => {el.classList.remove('grow')});
                 dateSign.forEach((el) => {el.classList.remove('active')});
-                elemSelectionDate.classList.remove('deactivation');
                 clearClassElemTitle();
+                elemSelectionDate.classList.remove('deactivation');
+                showSelectionDate(selectionDate);
             }, 18000);
         } else {
             timerGrow = setTimeout(() => {
                 dateTitle.forEach((el) => {el.classList.remove('grow')});
                 dateSign.forEach((el) => {el.classList.remove('active')});
-                elemSelectionDate.classList.remove('deactivation');
                 clearClassElemTitle();
+                elemSelectionDate.classList.remove('deactivation');
+                showSelectionDate(selectionDate);
             }, 18000);
         }  
     }
@@ -359,43 +373,6 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
     
     setTimeout(writePropertiesInputSlider, 200);
 
-    // function changeFromSlider() {
-    //     switch (this.dataset.dateTitle) {
-    //         case 'title-year':
-    //             console.log('this.value: ', this.value);
-    //             if (this.value > year) {
-    //                 newNextYear();
-    //                 validationMemorySelectedDay();
-    //             } else {
-    //                 newLastYear();
-    //                 validationMemorySelectedDay();
-    //                 validationCancelYearHover();
-    //             }
-    //             elemTitleYear.textContent = `${this.value}`
-    //             break;
-    //         case 'title-month':
-    //             if (this.value > numberMonth) {
-    //                 newNextMonth();
-    //                 validationMemorySelectedDay();
-    //             } else {
-    //                 newLastMonth();
-    //                 validationMemorySelectedDay();
-    //                 validationCancelYearHover();
-    //             };
-    //             elemTitleMonth.textContent = `${nameMonth[this.value]}`
-    //             break;
-    //         case 'title-day':
-    //             console.log('selDay!');
-    //             elemTitleDay.textContent = `${this.value}`
-    //             break;
-    //     }
-    // }
-
-    // dateSlider.addEventListener('input', changeFromSlider);
-    // dateSlider.addEventListener('pointerup', showNewCalendar);
-    // elemDateSlider.addEventListener('mouseover', addActiveInput);
-    // elemDateSlider.addEventListener('mouseout', delActiveInput);
-
     const tableHeaderRow = document.querySelector('.date-table-header-row');
     const nameDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
@@ -424,15 +401,6 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
     }
 
     function selectionDay(fromWitch, day) {
-        console.log('day1: ', day);
-        // if (newDay) {
-        //     day = newDay;
-        //     console.log('day1: ', day)
-        // } else {
-        //     day = Number(this.textContent);
-        //     console.log('day2: ', day)
-        // }
-        //     console.log('day3: ', day)
         const daysMonth = document.querySelectorAll('.date-day-counter');      
         daysMonth.forEach((el) => {
             el.classList.remove('active');
@@ -440,6 +408,7 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
         });
 
         const selectionDay = document.querySelector(`.day-${day}`);
+        selectionDate = [year, numberMonth, day];
         selectionDay.classList.add('active');
 
         recValueTitle('title-day', day);
@@ -628,14 +597,16 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
     function changeYearMonth(val) {
 
         function changeMonth(numberMonth) {
-            buttonMonthTitle.textContent = `${nameMonth[numberMonth]}`;
-            elemTitleMonth.textContent = `${nameMonth[numberMonth]}`;
+            // buttonMonthTitle.textContent = `${nameMonth[numberMonth]}`;
+            recValueTitle('title-month', numberMonth)
+            // elemTitleMonth.textContent = `${nameMonth[numberMonth]}`;
             dateSlider.value = numberMonth;
         }
         
         function changeYear(year) {
-            buttonYearTitle.textContent = `${year}`;
-            elemTitleYear.textContent = `${year}`;
+            // buttonYearTitle.textContent = `${year}`;
+            recValueTitle('title-year', year)
+            // elemTitleYear.textContent = `${year}`;
             dateSlider.value = year;
         }
 
@@ -733,7 +704,8 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
     }
 
     function cancelYearHover() {
-        buttonYearMinus.classList.remove('active');
+        console.log('<<---')
+        // buttonYearMinus.classList.remove('active');
     }
 
     function validationCancelYearHover() {
@@ -746,25 +718,25 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
         }
     }
 
-    function additionalYearHover() {
-        if (year == parseInt(new Date().getFullYear()) + 1 && numberMonth >= new Date().getMonth()) {
-            buttonYearMinus.classList.add('active');
-        }
+    // function additionalYearHover() {
+    //     if (year == parseInt(new Date().getFullYear()) + 1 && numberMonth >= new Date().getMonth()) {
+    //         buttonYearMinus.classList.add('active');
+    //     }
 
-        if (year > parseInt(new Date().getFullYear()) + 1) {
-            buttonYearMinus.classList.add('active');
-        }
-    }
+    //     if (year > parseInt(new Date().getFullYear()) + 1) {
+    //         buttonYearMinus.classList.add('active');
+    //     }
+    // }
 
-    function additionalMonthHover() {
-        if (numberMonth > new Date().getMonth() && year == new Date().getFullYear()) {
-            buttonMonthMinus.classList.add('active');
-        }
+    // function additionalMonthHover() {
+    //     if (numberMonth > new Date().getMonth() && year == new Date().getFullYear()) {
+    //         buttonMonthMinus.classList.add('active');
+    //     }
 
-        if (year > new Date().getFullYear()) {
-            buttonMonthMinus.classList.add('active');
-        }
-    }
+    //     if (year > new Date().getFullYear()) {
+    //         buttonMonthMinus.classList.add('active');
+    //     }
+    // }
 
     function cancelMonthHover() {
         buttonMonthMinus.classList.remove('active');
