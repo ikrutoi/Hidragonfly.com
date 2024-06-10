@@ -2,13 +2,13 @@ import { newElemHTML } from "./new-element.js";
 import { addButtonDate } from "./date-create-button-date.js";
 import { startPressActivation } from "./start-press-activation.js";
 
-export function createCalendar(newYear, newNumberMonth, newDay) {
+export function createCalendar(newYear, newNumberMonth, newDay, selectDay) {
     const buttonDate = document.querySelector('.button-date');
     buttonDate.classList.add('created');
     let year = newYear;
     let numberMonth = newNumberMonth;
     let day;
-    let selectionDate = [];
+    let selectionDate = [newYear, newNumberMonth, newDay, selectDay];
     const nameMonth = [
         'January', 
         'February', 
@@ -162,15 +162,12 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
     }
 
     function showSelectionDate(selectionDate) {
-        console.log('showSelectionDate!');
         delRows();
         addRow(year, numberMonth);
         elemSelectionTextYear.textContent = `${selectionDate[0]}`;
-        // elemTitleTextYear.textContent = `${newValue}`;
         elemSelectionTextMonth.textContent = `${nameMonth[selectionDate[1]]}`;
-        // elemTitleTextMonth.textContent = `${nameMonth[newValue]}`;
         elemSelectionTextDay.textContent = `${selectionDate[2]}`;
-        // elemTitleTextDay.textContent = `${newValue}`;
+        elemSelectionDate.classList.add('selected');
         selectionDay('show', selectionDate[2]);
     }
 
@@ -206,7 +203,9 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
     }
 
     function addClassHover() {
-        this.classList.add('hover');
+        if ((this == dateSlider && dateSlider.classList.contains('active')) || this != dateSlider) {
+            this.classList.add('hover');
+        } 
         dateTitle.forEach((el) => {el.classList.add('hover')})
     }
     
@@ -225,7 +224,7 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
         })
         dateSlider.classList.remove('active');
         dateSlider.min = '0';
-        dateSlider.max = '1';
+        dateSlider.max = '0';
         dateSlider.value = '0';
     }
 
@@ -237,30 +236,40 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
                 dateSign.forEach((el) => {el.classList.remove('active')});
                 clearClassElemTitle();
                 elemSelectionDate.classList.remove('deactivation');
-                showSelectionDate(selectionDate);
-            }, 18000);
+                dateSlider.classList.remove('grow');
+                if (selectionDate[3]) {
+                    showSelectionDate(selectionDate);
+                }
+            }, 12000);
         } else {
             timerGrow = setTimeout(() => {
                 dateTitle.forEach((el) => {el.classList.remove('grow')});
                 dateSign.forEach((el) => {el.classList.remove('active')});
                 clearClassElemTitle();
                 elemSelectionDate.classList.remove('deactivation');
-                showSelectionDate(selectionDate);
-            }, 18000);
+                dateSlider.classList.remove('grow');
+                if (selectionDate[3]) {
+                    showSelectionDate(selectionDate);
+                }
+            }, 12000);
         }  
     }
 
     function changeButtonSelectionDate() {      
         this.classList.add ('deactivation');
         dateTitle.forEach((el) => {el.classList.add('grow')});
-        elemTitleTextYear.textContent = `${year}`;
-        elemTitleTextMonth.textContent = `${month}`;
+        elemTitleTextYear.textContent = `${selectionDate[0]}`;
+        elemTitleTextMonth.textContent = `${nameMonth[1]}`;
         if (day) {
             elemTitleTextDay.textContent = `${day}`;
         } else {
-            elemTitleTextDay.textContent = `${newDay}`;
+            elemTitleTextDay.textContent = `${selectionDate[2]}`;
         }
-        setTimeout(() => {dateSign.forEach((el) => {el.classList.add('active')})}, 300);
+        // dateSlider.classList.add('grow');
+        dateSign.forEach((el) => {el.classList.add('active')});
+        setTimeout(() => {dateSlider.classList.add('grow')}, 300);
+        dateSign.forEach((el) => {el.classList.add('show-opacity')});
+        // setTimeout(() => {dateSign.forEach((el) => {el.classList.add('active')})}, 300);
         startTimerRemoveGrow();
     }
 
@@ -272,10 +281,12 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
             case 'title-year':
                 recValueInput(this.dataset.dateTitle, year);
                 dateSlider.dataset.dateTitle = 'title-year';
+                // dateSign.forEach(() => {dataset.dateTitle = 'title-year'});
                 break;
             case 'title-month':
                 recValueInput(this.dataset.dateTitle, numberMonth);
                 dateSlider.dataset.dateTitle = 'title-month';
+                // dateSign.forEach(() => {dataset.dateTitle = 'title-month'});
                 break;
             case 'title-day':
                 console.log('day0: ', day)
@@ -287,6 +298,7 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
                 recValueInput(this.dataset.dateTitle, day);
                 selectionDay('dateTitle', day);
                 dateSlider.dataset.dateTitle = 'title-day';
+                // dateSign.forEach(() => {dataset.dateTitle = 'title-day'});
                 break;
         }
 
@@ -305,7 +317,6 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
     dateTitle.forEach((el) => {
         el.addEventListener('pointerdown', () => {startPressActivation(el)});
         el.addEventListener('pointerdown', choiceElemTitleActive);
-        // el.addEventListener('pointerup', recValueInput);
         el.addEventListener('mousemove', startTimerRemoveGrow);
     })
 
@@ -408,7 +419,10 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
         });
 
         const selectionDay = document.querySelector(`.day-${day}`);
-        selectionDate = [year, numberMonth, day];
+        selectionDate[0] = year;
+        selectionDate[1] = numberMonth;
+        selectionDate[2] = day;
+        selectionDate[3] = true;
         selectionDay.classList.add('active');
 
         recValueTitle('title-day', day);
@@ -617,6 +631,9 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
                 changeYear(year);
                 delRows();
                 addRow(year, numberMonth);
+                elemSelectionTextYear.textContent = `${selectionDate[0]}`;
+                elemSelectionTextMonth.textContent = `${nameMonth[selectionDate[1]]}`;
+                elemSelectionTextDay.textContent = `${selectionDate[2]}`;
                 break;
             case 'minusYear': 
                 year = --year;

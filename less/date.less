@@ -77,6 +77,13 @@
     // border: solid 1px orangered;
 }
 
+.date-calendar-selection-date.selected {
+    background-color: @color-basis;
+    color: @color-basis-white;
+    transition: background-color 150ms ease-in;
+    // border: solid 1px orangered;
+}
+
 .date-calendar-selection-date.deactivation {
     display: none;
 }
@@ -128,6 +135,7 @@
 
 .date-calendar-title.grow.deactivation {
     background-color: @color-basis-white;
+    // cursor: default;
     transition: background-color 150ms ease-in;
 }
 
@@ -147,12 +155,30 @@
     display: none;
 }
 
-.date-sign.hover, .date-sign.active {
+.date-sign.active {
     display: flex;
     user-select: none;
     background-color: @color-basis-hover;
     transition: background-color 150ms ease-in;
     cursor: pointer;
+    opacity: 0;
+}
+
+.date-sign.active.show-opacity {
+    opacity: 0;
+    animation-name: show-opacity;
+    animation-duration: 150ms;
+    animation-fill-mode: forwards;
+    animation-delay: 300ms;
+}
+
+@keyframes show-opacity {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 .date-sign.active.press-active {
@@ -182,9 +208,15 @@
 .date-slider {
     -webkit-appearance: none;
     appearance: none;
+    opacity: 0;
     margin-top: 9px;
-    margin-bottom: 9px;
-    // cursor: pointer;
+    transition: opacity 150ms ease-in;
+}
+
+.date-slider.grow {
+    opacity: 1;
+    cursor: pointer;
+    transition: opacity 150ms ease-in;
 }
 
 .date-slider.active.hover {

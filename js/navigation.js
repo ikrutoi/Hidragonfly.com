@@ -101,7 +101,8 @@ export function clickButtonActive(el) {
                 createCalendar(
                     new Date().getFullYear(), 
                     new Date().getMonth(), 
-                    new Date().getDate()
+                    new Date().getDate(),
+                    false
                 );
             }
         }   
