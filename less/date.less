@@ -11,28 +11,9 @@
     display: flex;
     justify-content: space-around;
     flex-direction: column;
-    // display: grid;
-    // grid-template-columns: 1fr;
-    // grid-template-rows: 3fr 5fr;
-    // grid-template-areas: 
-    //     // "datetitle"
-    //     "dateyearmonth"
-    //     "datedays";
-        // border: solid orange 1px;
 }
     
-// .date-departure {
-//     grid-area: datetitle;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     height: 50px;
-//     user-select: none;
-//     // border: solid blue 1px;
-// }
-    
 .date-calendar-header {
-    // grid-area: dateyearmonth;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -41,38 +22,16 @@
     // border: solid palevioletred 1px;
 }
 
-// .date-calendar-header--sign-date {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     width: auto;
-//     // border: solid 1px blue;
-// }
-
 .date-calendar-header-selection {
-    // width: min-content;
     display: flex;
-    // flex-direction: column;
-    // justify-content: center;
     align-items: center;
-    // margin: 0.5rem 0;
-    // border-radius: 20px;
-    // background-color: @color-basis-hover;
-    // transition: background-color 150ms ease-in;
-    // border: solid green 1px;
 }
-
-// .date-calendar-title-full.active {
-//     // background-color: @color-basis-white;
-//     // transition: background-color 150ms ease-in;
-// }
 
 .date-selection-full {
     width: min-content;
     display: flex;
     justify-content: center;
     align-items: center;
-    // margin: 0.4rem 0;
     padding: 0 8px;
     border-radius: 20px;
     background-color: @color-basis-hover;
@@ -86,44 +45,15 @@
     transition: background-color 150ms ease-in;
 }
 
-// .date-calendar-selection-full.press-active.active {
-//     background-color: @color-basis-grey;
-//     transition: background-color 150ms ease-in;
-// }
-
 .date-selection-full.active {
-    // padding: 0;
     background-color: @color-basis-white;
     transition: background-color 150ms ease-in;
-    // cursor: default;
     // border: solid 1px blueviolet;
 }
 
 .date-selection-full.active.hover {
     cursor: default;
 }
-
-// .date-calendar-selection-full.selected {
-//     background-color: @color-basis;
-//     color: @color-basis-white;
-//     transition: background-color 150ms ease-in;
-//     // border: solid 1px orangered;
-// }
-
-// .date-calendar-selection-full.selected.active {
-//     background-color: @color-basis-white;
-//     color: @color-basis-black;
-//     transition: background-color 150ms ease-in;
-//     // border: solid 1px orangered;
-// }
-
-// .date-calendar-selection-date.deactivation {
-//     // display: none;
-// }
-
-// .date-calendar-selection-full.hover {
-//     cursor: pointer;
-// }
 
 .date-selection-title {
     display: flex;
@@ -151,8 +81,6 @@
     
 .date-selection-year.wait {
     width: 3rem;
-    // background-color: @color-basis-white;
-    // transition: background-color 150ms ease-in;
 }
 
 .date-selection-year.wait.hover, .date-selection-month.wait.hover {
@@ -164,86 +92,12 @@
 .date-selection-month.wait {
     width: 4.4rem;
     margin: 0 0.2rem;
-    // background-color: @color-basis-white;
-    // transition: background-color 150ms ease-in;
 }
 
 .date-selection-day.wait {
-    // justify-content: flex-end;
     width: 3rem;
     cursor: default;
 }
-
-// .date-calendar-titles {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     margin: 0.4rem 0;
-//     // border: solid 1px chocolate
-// }
-
-// .date-calendar-title {
-//     .style-envelope-font;
-//     // display: none;
-//     // border: solid 1px red;
-// }
-
-// .date-calendar-title {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     user-select: none;
-//     width: 3rem;
-//     border-radius: 20px;
-//     padding: 8px;
-//     height: 15px;
-//     margin: 0 4px;
-//     background-color: @color-basis-white;
-//     transition: background-color 150ms ease-in;
-//     cursor: pointer;
-// }
-
-// .date-calendar-title.hover {
-//     background-color: @color-basis-hover;
-//     transition: background-color 150ms ease-in;
-// }
-
-// .date-calendar-title.grow {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     user-select: none;
-//     border-radius: 20px;
-//     padding: 8px;
-//     height: 15px;
-//     margin: 0 4px;
-//     background-color: @color-basis-hover;
-//     transition: background-color 150ms ease-in;
-//     cursor: pointer;
-// }
-
-// .date-calendar-title.grow.press-active {
-//     background-color: @color-basis-grey;
-//     transition: background-color 150ms ease-in;
-// }
-
-// .date-calendar-title.grow.deactivation {
-//     background-color: @color-basis-white;
-//     // cursor: default;
-//     transition: background-color 150ms ease-in;
-// }
-
-// .date-title-year {
-//     width: 3rem;
-// }
-
-// .date-title-month {
-//     width: 4.2rem;
-// }
-
-// .date-title-day {
-//     width: 3rem;
-// }
 
 .date-sign {
     display: none;
@@ -285,14 +139,6 @@
         opacity: 1;
     }
 }
-
-// .sign-minus {
-//     margin-right: 4px;
-// }
-
-// .sign-plus {
-//     margin-left: 4px;
-// }
 
 .date-slider {
     -webkit-appearance: none;
@@ -362,51 +208,6 @@
 
 // .date-slider:focus::-webkit-slider-thumb {
 //     background-color: @color-basis;
-//     transition: background-color 150ms ease-in;
-// }
-
-// .date-year:hover, .date-month:hover, .date-day:hover {
-//     background-color: @color-basis-hover;
-//     transition: background-color 150ms ease-in;
-// }
-
-// .date-multi-button {
-//     .size-nav-additional-button-multi;
-//     transition: background-color 150ms ease-in;
-//     // background-color: @color-basis-hover;
-// }
-
-// .date-multi {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-//     border-radius: 20px;
-//     padding: 8px;
-//     width: 15px;
-//     height: 15px;
-// }
-
-// .date-year-minus, .date-year-plus, .date-month-minus, .date-month-plus, .date-day-minus, .date-day-plus {
-//     display: none;
-// }
-
-// .date-year-minus, .date-day-plus {
-
-// }
-
-// .date-year-plus:hover, .date-month-plus:hover, .date-day-plus:hover {
-//     background-color: @color-basis-active;
-//     cursor: pointer;
-//     transition: background-color 150ms ease-in;
-// }
-
-// .date-year-minus:hover, .date-month-minus:hover, .date-day-minus:hover {
-//     transition: background-color 150ms ease-in;
-// }
-
-// .date-year-minus:hover.active, .date-month-minus:hover.active, .date-day-minus:hover.active {
-//     background-color: @color-basis-active;
-//     cursor: pointer;
 //     transition: background-color 150ms ease-in;
 // }
 
