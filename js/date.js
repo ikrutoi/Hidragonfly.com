@@ -27,27 +27,17 @@ export function createCalendar(newYear, newNumberMonth, newDay, selectDay) {
     const elemMinus = document.querySelectorAll('.sign-less');
     const elemPlus = document.querySelectorAll('.sign-more');
 
-    elemMinus.forEach(el => {
-        newElemHTML(el, 'afterbegin', '<p></p>');
-        // newElemHTML(el, 'afterbegin', '<p>&lt</p>');
-    })
-
-    elemPlus.forEach(el => {
-        newElemHTML(el, 'afterbegin', '<p></p>');
-        // newElemHTML(el, 'afterbegin', '<p>&gt</p>');
-    })
+    elemMinus.forEach(el => {newElemHTML(el, 'afterbegin', '<p></p>')})
+    elemPlus.forEach(el => {newElemHTML(el, 'afterbegin', '<p></p>')})
     
     const elemSelectionFull = document.querySelector('.date-selection-full'); 
-    // newElemHTML(elemSelectionDate, 'beforeend', `<p class="date-selection-year">${year}</p>`);  
-    // newElemHTML(elemSelectionDate, 'beforeend', `<p class="date-selection-month">${nameMonth[numberMonth]}</p>`);  
-    // newElemHTML(elemSelectionDate, 'beforeend', `<p class="date-selection-day">${newDay}</p>`);  
     const elemSelectionTitle = document.querySelectorAll('.date-selection-title');
-    const elemSelectionTextYear = document.querySelector('.date-selection-year');
-    elemSelectionTextYear.textContent = `${year}`;
-    const elemSelectionTextMonth = document.querySelector('.date-selection-month');
-    elemSelectionTextMonth.textContent = `${nameMonth[newNumberMonth]}`;
-    const elemSelectionTextDay = document.querySelector('.date-selection-day');
-    elemSelectionTextDay.textContent = `${newDay}`;
+    const elemSelectionYear = document.querySelector('.date-selection-year');
+    elemSelectionYear.textContent = `${year}`;
+    const elemSelectionMonth = document.querySelector('.date-selection-month');
+    elemSelectionMonth.textContent = `${nameMonth[newNumberMonth]}`;
+    const elemSelectionDay = document.querySelector('.date-selection-day');
+    elemSelectionDay.textContent = `${newDay}`;
 
     const areaDateDays = document.querySelector('.date-table-month');
     newElemHTML(areaDateDays, 'beforeend', '<table class="date-table"></table>');  
@@ -56,17 +46,13 @@ export function createCalendar(newYear, newNumberMonth, newDay, selectDay) {
     const tableBody = document.querySelector('.date-table-body');
     newElemHTML(tableBody, 'beforeend', '<tr class="date-table-header-row"></tr>');
     
-    // const elemSelectionTitle = document.querySelectorAll('.date-selection-title');
     const dateSlider = document.querySelector('.date-slider');
     const dateTitle = document.querySelectorAll('.date-calendar-title');
     const dateSign = document.querySelectorAll('.date-sign');
-    const elemDateSignSelection = document.querySelector('.date-sign-selection');
+    const elemSignPlus = document.querySelector('.sign-plus');
     const elemTitleYear = document.querySelector('.date-title-year');
     const elemTitleMonth = document.querySelector('.date-title-month');
     const elemTitleDay = document.querySelector('.date-title-day');
-    const elemTitleTextYear = document.querySelector('.date-title-text-year');
-    const elemTitleTextMonth = document.querySelector('.date-title-text-month');
-    const elemTitleTextDay = document.querySelector('.date-title-text-day');
 
 //** class hover */
 
@@ -74,15 +60,11 @@ function addClassHover() {
     if ((this == dateSlider && dateSlider.classList.contains('active')) || this != dateSlider) {
         this.classList.add('hover');
     } 
-
     this.classList.add('hover');
-    // dateTitle.forEach((el) => {el.classList.add('hover')})
 }
 
 function delClassHover() {
     this.classList.remove('hover');
-    // dateTitle.forEach((el) => {el.classList.remove('hover')})
-    // dateSign.forEach((el) => {el.classList.remove('hover')});
 }
 
 //** timer Selection Date */
@@ -90,38 +72,35 @@ function delClassHover() {
     let timerGrow;
 
     function clearClassElemTitle() {
-        // dateTitle.forEach(el => {
-        //     el.classList.remove('active');
-        //     el.classList.remove('deactivation');
-        // })
         elemSelectionTitle.forEach(el => el.classList.remove('wait'));
-        elemSelectionTitle.forEach(el => el.classList.remove('wait'));
+        elemSelectionTitle.forEach(el => el.classList.remove('active'));
         dateSign.forEach((el) => {el.classList.remove('wait')});
+        dateSign.forEach((el) => {el.classList.remove('hover')});
+        dateSign.forEach((el) => {el.classList.remove('active')});
+        dateSign.forEach(el => {delete el.dataset.dateTitle});
         dateSlider.classList.remove('wait');
-        // dateSlider.classList.remove('active');
+        dateSlider.classList.remove('active');
+        delete dateSlider.dataset.dateTitle;
         elemSelectionFull.classList.remove('active');
-        dateSlider.min = '0';
-        dateSlider.max = '0';
-        dateSlider.value = '0';
+        setTimeout(() => {
+            dateSlider.min = '0';
+            dateSlider.max = '0';
+            dateSlider.value = '0';
+        }, 150);
     }
 
     function restartTimerRemoveGrow() {
         if (timerGrow) {
             clearTimeout(timerGrow);
             timerGrow = setTimeout(() => {
-                // dateTitle.forEach((el) => {el.classList.remove('grow')});
                 clearClassElemTitle();
-                // elemSelectionDate.classList.remove('active');
                 if (selectionDate[3]) {
                     showSelectionDate(selectionDate);
                 }
             }, 18000);
         } else {
             timerGrow = setTimeout(() => {
-                // dateTitle.forEach((el) => {el.classList.remove('grow')});
-                // dateSign.forEach((el) => {el.classList.remove('active')});
                 clearClassElemTitle();
-                // dateSlider.classList.remove('grow');
                 if (selectionDate[3]) {
                     showSelectionDate(selectionDate);
                 }
@@ -132,10 +111,9 @@ function delClassHover() {
     function showSelectionDate(selectionDate) {
         delRows();
         addRow(year, numberMonth);
-        elemSelectionTextYear.textContent = `${selectionDate[0]}`;
-        elemSelectionTextMonth.textContent = `${nameMonth[selectionDate[1]]}`;
-        elemSelectionTextDay.textContent = `${selectionDate[2]}`;
-        // elemSelectionDate.classList.add('selected');
+        elemSelectionYear.textContent = `${selectionDate[0]}`;
+        elemSelectionMonth.textContent = `${nameMonth[selectionDate[1]]}`;
+        elemSelectionDay.textContent = `${selectionDate[2]}`;
         selectionDay('show', selectionDate[2]);
     }
 
@@ -148,25 +126,10 @@ function delClassHover() {
 //** elem SelectionDate */
 
 function changeButtonSelectionDate() {    
-    // console.log('day: ', day);  
-    // elemDateSelectionTitle.forEach(el => el.classList.add('active'));
-    // this.classList.add ('active');
     setTimeout(() => this.classList.add('active'), 150);
     setTimeout(() => elemSelectionTitle.forEach(el => el.classList.add('wait')), 300);
     setTimeout(() => dateSign.forEach(el => el.classList.add('wait')), 300);
     setTimeout(() => {dateSlider.classList.add('wait')}, 300);
-    // elemDateSelectionTitle.forEach(el => startPressActivation(el));
-    // dateSign.forEach(el => el.classList.add('active'));
-    // dateTitle.forEach((el) => {el.classList.add('grow')});
-    // elemTitleTextYear.textContent = `${selectionDate[0]}`;
-    // elemTitleTextMonth.textContent = `${nameMonth[1]}`;
-    // if (day) {
-    //     elemTitleTextDay.textContent = `${day}`;
-    // } else {
-    //     elemTitleTextDay.textContent = `${selectionDate[2]}`;
-    // }
-    // dateSign.forEach((el) => {el.classList.add('active')});
-    // dateSign.forEach((el) => {el.classList.add('show-opacity')});
     restartTimerRemoveGrow();
 }
   
@@ -178,75 +141,76 @@ function recordSelectedDate(year, numberMonth, day) {
 
 //** elem dateTitle */
 
-    // function choiceElemTitleActive() {
-    //     clearClassElemTitle();
-    //     this.classList.add('active');
+    function validationAddClassActive() {
+        console.log('validation!! numberMonth: ', numberMonth);
+        elemSelectionYear.classList.remove('active');
+        elemSelectionMonth.classList.remove('active');
+        if (elemSelectionFull.classList.contains('active')) {
+            this.classList.add('active');
+            console.log('validationMinusMonth: ', validationMinusMonth());
+            if (validationMinusMonth()) {
+                dateSign.forEach(el => el.classList.add('active'));
+            } else {
+                console.log('sign+')
+                elemSignPlus.classList.add('active');
+            }
 
-    //     switch (this.dataset.dateTitle) {
-    //         case 'title-year':
-    //             recValueInput(this.dataset.dateTitle, year);
-    //             dateSlider.dataset.dateTitle = 'title-year';
-    //             // dateSign.forEach(() => {dataset.dateTitle = 'title-year'});
-    //             break;
-    //         case 'title-month':
-    //             recValueInput(this.dataset.dateTitle, numberMonth);
-    //             dateSlider.dataset.dateTitle = 'title-month';
-    //             // dateSign.forEach(() => {dataset.dateTitle = 'title-month'});
-    //             break;
-    //         case 'title-day':
-    //             if (!day) {
-    //                 day = new Date().getDate() + 7;
-    //             } else {
-    //                 day = this.textContent;
-    //             }
-    //             recValueInput(this.dataset.dateTitle, day);
-    //             selectionDay('dateTitle', day);
-    //             dateSlider.dataset.dateTitle = 'title-day';
-    //             // dateSign.forEach(() => {dataset.dateTitle = 'title-day'});
-    //             break;
-    //     }
+            dateSlider.classList.add('active');
+            console.log('this.dataset.dateTitle: ', this.dataset.dateTitle)
+            switch (this.dataset.dateTitle) {
+                case 'title-year':
+                    recValueInput(this.dataset.dateTitle, year);
+                    dateSlider.dataset.dateTitle = 'title-year';
+                    dateSign.forEach((el) => {el.dataset.dateTitle = 'title-year'});
+                    break;
+                case 'title-month':
+                    recValueInput(this.dataset.dateTitle, numberMonth);
+                    dateSlider.dataset.dateTitle = 'title-month';
+                    dateSign.forEach((el) => {el.dataset.dateTitle = 'title-month'});
+                    break;
+            }
+        }
+    }
 
-    //     dateTitle.forEach(el => {
-    //         if (!el.classList.contains('active')) {
-    //             el.classList.add('deactivation');
-    //         }
-    //     })
-    // }
-
-    // function recValueTitle(unit, newValue) {
-    //     switch (unit) {
-    //         case 'title-year':
-    //             elemSelectionTextYear.textContent = `${newValue}`;
-    //             elemTitleTextYear.textContent = `${newValue}`;
-    //             break;
-    //         case 'title-month':
-    //             elemSelectionTextMonth.textContent = `${nameMonth[newValue]}`;
-    //             elemTitleTextMonth.textContent = `${nameMonth[newValue]}`;
-    //             break;
-    //         case 'title-day':
-    //             elemSelectionTextDay.textContent = `${newValue}`;
-    //             elemTitleTextDay.textContent = `${newValue}`;
-    //             break;
-    //     }
-    // }
+    function recValueTitle(unit, newValue) {
+        switch (unit) {
+            case 'title-year':
+                elemSelectionYear.textContent = `${newValue}`;
+                break;
+            case 'title-month':
+                elemSelectionMonth.textContent = `${nameMonth[newValue]}`;
+                break;
+            case 'title-day':
+                elemSelectionDay.textContent = `${newValue}`;
+                break;
+        }
+    }
+    
+    function validationMinusMonth() {
+        if (numberMonth == newNumberMonth  && year == newYear) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
 //** elem Sign */
         
     function changeFromSign() {    
-        let dateSignDirection;
+        let changeSignDirection;
         switch(this.dataset.direction) {
             case 'minus':
-            dateSignDirection = null;
+            changeSignDirection = false;
             break;
             case 'plus':
-            dateSignDirection = 1;
+            changeSignDirection = true;
             break;
         }
         dateTitle.forEach((el) => {
             if (el.classList.contains('active')) {
                 switch (el.dataset.dateTitle) {
                     case 'title-year':
-                        if (dateSignDirection) {
+                        if (changeSignDirection) {
                             newNextYear();
                             validationMemorySelectedDay();
                         } else {
@@ -256,7 +220,7 @@ function recordSelectedDate(year, numberMonth, day) {
                         }
                         break;
                     case 'title-month':
-                        if (dateSignDirection) {
+                        if (changeSignDirection) {
                             newNextMonth();
                             validationMemorySelectedDay();
                         } else {
@@ -266,7 +230,7 @@ function recordSelectedDate(year, numberMonth, day) {
                         }
                     break;
                     case 'title-day':
-                        if (dateSignDirection) {
+                        if (changeSignDirection) {
                             selectionDay(year, numberMonth, ++day);
                             validationMemorySelectedDay();
                             elemTitleDay.textContent = `${day}`;
@@ -299,9 +263,16 @@ function recordSelectedDate(year, numberMonth, day) {
         })
     }
 
+    function validationFromSignStartPressActive() {
+        if (this.classList.contains('active')) {
+            startPressActivation(this);
+        }
+    }
+
 //** elem Slider */
 
 function changeFromSlider() {
+    console.log('changeFromSlider')
     switch (this.dataset.dateTitle) {
         case 'title-year':
             if (this.value > year) {
@@ -312,7 +283,7 @@ function changeFromSlider() {
                 validationMemorySelectedDay();
                 validationCancelYearHover();
             }
-            elemTitleYear.textContent = `${this.value}`
+            elemSelectionYear.textContent = `${this.value}`
             break;
         case 'title-month':
             if (this.value > numberMonth) {
@@ -323,11 +294,7 @@ function changeFromSlider() {
                 validationMemorySelectedDay();
                 validationCancelYearHover();
             };
-            elemTitleMonth.textContent = `${nameMonth[this.value]}`
-            break;
-        case 'title-day':
-            elemTitleDay.textContent = `${this.value}`;
-            setTimeout(() => {selectionDay('slider', this.value)}, 150);
+            elemSelectionMonth.textContent = `${nameMonth[this.value]}`
             break;
     }
 }
@@ -352,7 +319,6 @@ function recValueInput(unit, newValue) {
             const counterDaysInMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
             dateSlider.min = '1';
             dateSlider.max = `${counterDaysInMonth}`;
-            // setTimeout(() => {dateSlider.value = `${newValue}`}, 150);
             dateSlider.value = `${newValue}`;
             dateSlider.dataset.dateTitle = 'title-day';
             break;
@@ -361,7 +327,6 @@ function recValueInput(unit, newValue) {
 
 function recordSizeSlider() {
     dateSlider.style.width = `${tableBody.clientWidth}px`; 
-    // elemDateSignSelection.style.width = `${tableBody.clientWidth}px`; 
     dateSlider.min = '0';
     dateSlider.max = '0';
     dateSlider.value = '0';
@@ -380,18 +345,23 @@ setTimeout(recordSizeSlider, 200);
         el.addEventListener('mouseenter', addClassHover);
         el.addEventListener('mouseleave', delClassHover);
     })
+
+    elemSelectionYear.addEventListener('pointerdown', () => startPressActivation(elemSelectionYear));
+    elemSelectionYear.addEventListener('pointerdown', validationAddClassActive);
+    elemSelectionMonth.addEventListener('pointerdown', () => startPressActivation(elemSelectionMonth));
+    elemSelectionMonth.addEventListener('pointerdown', validationAddClassActive);
     
     dateSign.forEach((el) => {
         el.addEventListener('mouseenter', validationAddClassHover);
         el.addEventListener('mouseleave', validationAddClassHover);
-        el.addEventListener('pointerdown', validationStartPressActive);
-        el.addEventListener('pointerdown', () => {startPressActivation(el)});
+        el.addEventListener('pointerdown', validationFromSignStartPressActive);
+        // el.addEventListener('pointerdown', () => {startPressActivation(el)});
         el.addEventListener('pointerdown', changeFromSign);
     })
 
     dateSlider.addEventListener('mouseenter', addClassHover);
     dateSlider.addEventListener('mouseleave', delClassHover);
-    if (dateSlider.classList.contains('grow')) {
+    if (dateSlider.classList.contains('wait')) {
         dateSlider.addEventListener('mousemove', restartTimerRemoveGrow);
     }
     dateSlider.addEventListener('input', changeFromSlider);
@@ -438,7 +408,7 @@ setTimeout(recordSizeSlider, 200);
             el.classList.remove('day-neighbor');
         });
 
-        elemSelectionTextDay.textContent = `${day}`;
+        elemSelectionDay.textContent = `${day}`;
         console.log('day22: ', day);
         const selectionDay = document.querySelector(`.day-${day}`);
         selectionDate[0] = year;
@@ -451,8 +421,6 @@ setTimeout(recordSizeSlider, 200);
             elemSelectionFull.classList.add('selected');
             dateTitle.forEach(el => el.classList.remove)
         }
-        // selectionDate = [year, numberMonth, ]
-        // showSelectionDate(selectionDate);
         
         if (elemSelectionFull.classList.contains('deactivation') && elemTitleDay.classList.contains('active')) {
             recValueTitle('title-day', day);
@@ -603,8 +571,6 @@ setTimeout(recordSizeSlider, 200);
                 }
 
                 recordSelectedDate(year, numberMonth, Number(el.textContent))
-                // addButtonDate(year, numberMonth, Number(el.textContent));
-                // memorySelectedDate = [year, numberMonth, Number(el.textContent)];
                 sessionStorage.setItem('selection-year', year);
                 sessionStorage.setItem('selection-month', numberMonth);
                 sessionStorage.setItem('selection-day', Number(el.textContent));
@@ -619,22 +585,10 @@ setTimeout(recordSizeSlider, 200);
             el.addEventListener('mousemove', validationMouseMove);
             
             if (el.classList.contains('allowed')) {
-                // day = Number(el.textContent);
                 el.addEventListener('pointerdown', function() {selectionDay('calendar', Number(this.textContent))});
-
-                // el.addEventListener('pointerdown', () => selectionDay(year, numberMonth, day));
                 el.addEventListener('pointerdown', addButtonMemoryDate);
-                // dateSlider.value = Number(el.textContent);
             }            
         })
-
-        // if (Number(sessionStorage.getItem('date--year')) == year && Number(sessionStorage.getItem('date--month')) == numberMonth) {
-        //     selectionDay(
-        //         Number(sessionStorage.getItem('date--year')), 
-        //         Number(sessionStorage.getItem('date--month')),
-        //         Number(sessionStorage.getItem('date--day'))
-        //     );
-        // }
     }
 
     delRows();
@@ -677,9 +631,9 @@ setTimeout(recordSizeSlider, 200);
                 changeYear(year);
                 delRows();
                 addRow(year, numberMonth);
-                elemSelectionTextYear.textContent = `${selectionDate[0]}`;
-                elemSelectionTextMonth.textContent = `${nameMonth[selectionDate[1]]}`;
-                elemSelectionTextDay.textContent = `${selectionDate[2]}`;
+                // elemSelectionTextYear.textContent = `${selectionDate[0]}`;
+                // elemSelectionTextMonth.textContent = `${nameMonth[selectionDate[1]]}`;
+                // elemSelectionTextDay.textContent = `${selectionDate[2]}`;
                 break;
             case 'minusYear': 
                 year = --year;
