@@ -62,17 +62,12 @@
     // border: solid green 1px;
 }
 
-.date-calendar-title-full.press-active {
-    background-color: @color-basis-grey;
-    transition: background-color 150ms ease-in;
-}
-
 // .date-calendar-title-full.active {
 //     // background-color: @color-basis-white;
 //     // transition: background-color 150ms ease-in;
 // }
 
-.date-calendar-selection-full {
+.date-selection-full {
     width: min-content;
     display: flex;
     justify-content: center;
@@ -82,34 +77,53 @@
     border-radius: 20px;
     background-color: @color-basis-hover;
     transition: background-color 150ms ease-in;
+    cursor: pointer;
     // border: solid 1px blueviolet;
 }
 
-.date-calendar-selection-full.active {
+.date-selection-full.press-active {
+    background-color: @color-basis-grey;
+    transition: background-color 150ms ease-in;
+}
+
+// .date-calendar-selection-full.press-active.active {
+//     background-color: @color-basis-grey;
+//     transition: background-color 150ms ease-in;
+// }
+
+.date-selection-full.active {
+    // padding: 0;
     background-color: @color-basis-white;
     transition: background-color 150ms ease-in;
-    cursor: default;
+    // cursor: default;
     // border: solid 1px blueviolet;
 }
 
-.date-calendar-selection-full.selected {
-    background-color: @color-basis;
-    color: @color-basis-white;
-    transition: background-color 150ms ease-in;
-    // border: solid 1px orangered;
+.date-selection-full.active.hover {
+    cursor: default;
 }
+
+// .date-calendar-selection-full.selected {
+//     background-color: @color-basis;
+//     color: @color-basis-white;
+//     transition: background-color 150ms ease-in;
+//     // border: solid 1px orangered;
+// }
+
+// .date-calendar-selection-full.selected.active {
+//     background-color: @color-basis-white;
+//     color: @color-basis-black;
+//     transition: background-color 150ms ease-in;
+//     // border: solid 1px orangered;
+// }
 
 // .date-calendar-selection-date.deactivation {
 //     // display: none;
 // }
 
-.date-calendar-selection-full.hover {
-    cursor: pointer;
-}
-
-.date-calendar-selection-full.press-active {
-    background-color: @color-basis-grey;
-}
+// .date-calendar-selection-full.hover {
+//     cursor: pointer;
+// }
 
 .date-selection-title {
     display: flex;
@@ -117,10 +131,10 @@
     justify-content: center;
     padding: 8px;
     border-radius: 20px;
-    // border: solid 1px blue;
+    // border: solid 1px red;
 }
 
-.date-selection-title.active {
+.date-selection-title.wait {
     display: flex;
     padding: 8px;
     border-radius: 20px;
@@ -135,32 +149,28 @@
     transition: background-color 150ms ease-in;
 }
     
-.date-selection-year.active {
-    width: 2rem;
-    background-color: @color-basis-white;
-    transition: background-color 150ms ease-in;
+.date-selection-year.wait {
+    width: 3rem;
+    // background-color: @color-basis-white;
+    // transition: background-color 150ms ease-in;
 }
 
-.date-selection-year.active.hover {
-    width: 2rem;
+.date-selection-year.wait.hover, .date-selection-month.wait.hover {
     background-color: @color-basis-hover;
     transition: background-color 150ms ease-in;
+    cursor: pointer;
 }
 
-.date-selection-month.active {
+.date-selection-month.wait {
     width: 4.4rem;
-    background-color: @color-basis-white;
-    transition: background-color 150ms ease-in;
+    margin: 0 0.2rem;
+    // background-color: @color-basis-white;
+    // transition: background-color 150ms ease-in;
 }
 
-.date-selection-month.active.hover {
-    background-color: @color-basis-hover;
-    transition: background-color 150ms ease-in;
-}
-
-.date-selection-day.active {
+.date-selection-day.wait {
     // justify-content: flex-end;
-    width: 1.2rem;
+    width: 3rem;
     cursor: default;
 }
 
@@ -239,7 +249,7 @@
     display: none;
 }
 
-.date-sign.active {
+.date-sign.wait {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -247,10 +257,10 @@
     padding: 8px;
     width: 1.5rem;
     height: 15px;
-    margin: 0 1rem;
     background-color: @color-basis-white;
     transition: background-color 150ms ease-in;
-    cursor: pointer;
+    cursor: default;
+    // border: solid 1px green;
 }
 
 .date-sign.active.hover {
@@ -316,7 +326,7 @@
 }
 
 .wait.date-slider::-webkit-slider-runnable-track {
-    height: 4px;
+    // height: 4px;
     border-radius: 5px;  
     background-color: @color-basis-light;
     transition: background-color 150ms ease-in;
@@ -331,7 +341,7 @@
     height: 14px;
     border-radius: 50%; 
     margin-top: -5px;
-    background-color: @color-basis-light;
+    background-color: @color-basis-grey;
     transition: opacity 150ms ease-in;
 }
 

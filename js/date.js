@@ -37,7 +37,7 @@ export function createCalendar(newYear, newNumberMonth, newDay, selectDay) {
         // newElemHTML(el, 'afterbegin', '<p>&gt</p>');
     })
     
-    const elemSelectionDate = document.querySelector('.date-calendar-selection-full'); 
+    const elemSelectionFull = document.querySelector('.date-selection-full'); 
     // newElemHTML(elemSelectionDate, 'beforeend', `<p class="date-selection-year">${year}</p>`);  
     // newElemHTML(elemSelectionDate, 'beforeend', `<p class="date-selection-month">${nameMonth[numberMonth]}</p>`);  
     // newElemHTML(elemSelectionDate, 'beforeend', `<p class="date-selection-day">${newDay}</p>`);  
@@ -56,7 +56,7 @@ export function createCalendar(newYear, newNumberMonth, newDay, selectDay) {
     const tableBody = document.querySelector('.date-table-body');
     newElemHTML(tableBody, 'beforeend', '<tr class="date-table-header-row"></tr>');
     
-    const elemDateSelectionTitle = document.querySelectorAll('.date-selection-title');
+    // const elemSelectionTitle = document.querySelectorAll('.date-selection-title');
     const dateSlider = document.querySelector('.date-slider');
     const dateTitle = document.querySelectorAll('.date-calendar-title');
     const dateSign = document.querySelectorAll('.date-sign');
@@ -67,42 +67,6 @@ export function createCalendar(newYear, newNumberMonth, newDay, selectDay) {
     const elemTitleTextYear = document.querySelector('.date-title-text-year');
     const elemTitleTextMonth = document.querySelector('.date-title-text-month');
     const elemTitleTextDay = document.querySelector('.date-title-text-day');
-
-    // function recValueInputStart() {
-    //     let newYear;
-    //     let newMonth;
-    //     let newDay;
-    //     if (sessionStorage.getItem('selection-year')) {
-    //         newYear = sessionStorage.getItem('selection-year');
-    //         newMonth = sessionStorage.getItem('selection-month');
-    //         newDay = sessionStorage.getItem('selection-day');
-    //     } else {
-    //         newYear = new Date().getFullYear();
-    //         newMonth = new Date().getMonth();
-    //         newDay = new Date().getDate();
-    //     }
-    //     switch (this.dataset.dateTitle) {
-    //         case 'title-year':
-    //             dateSlider.min = `${new Date().getFullYear()}`;
-    //             dateSlider.max = String(new Date().getFullYear() + 100);
-    //             dateSlider.value = `${newYear}`;
-    //             dateSlider.dataset.dateTitle = 'title-year';
-    //             break;
-    //         case 'title-month':
-    //             dateSlider.min = '0';
-    //             dateSlider.max = '11';
-    //             dateSlider.value = `${newMonth}`;
-    //             dateSlider.dataset.dateTitle = 'title-month';
-    //         break;
-    //         case 'title-day':
-    //             const counterDaysInMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
-    //             dateSlider.min = '1';
-    //             dateSlider.max = `${counterDaysInMonth}`;
-    //             dateSlider.value = `${newDay}`;
-    //             dateSlider.dataset.dateTitle = 'title-day';
-    //             break;
-    //     }
-    // }
 
 //** class hover */
 
@@ -130,11 +94,12 @@ function delClassHover() {
         //     el.classList.remove('active');
         //     el.classList.remove('deactivation');
         // })
-        elemDateSelectionTitle.forEach(el => el.classList.remove('active'));
-        dateSign.forEach((el) => {el.classList.remove('active')});
+        elemSelectionTitle.forEach(el => el.classList.remove('wait'));
+        elemSelectionTitle.forEach(el => el.classList.remove('wait'));
+        dateSign.forEach((el) => {el.classList.remove('wait')});
         dateSlider.classList.remove('wait');
         // dateSlider.classList.remove('active');
-        elemSelectionDate.classList.remove('active');
+        elemSelectionFull.classList.remove('active');
         dateSlider.min = '0';
         dateSlider.max = '0';
         dateSlider.value = '0';
@@ -174,14 +139,24 @@ function delClassHover() {
         selectionDay('show', selectionDate[2]);
     }
 
+    function validationStartPressActive() {
+        if (!this.classList.contains('active')) {
+            startPressActivation(this);
+        }
+    }
+
 //** elem SelectionDate */
 
 function changeButtonSelectionDate() {    
     // console.log('day: ', day);  
-    this.classList.add ('active');
-    elemDateSelectionTitle.forEach(el => el.classList.add('active'));
-    elemDateSelectionTitle.forEach(el => startPressActivation(el));
-    dateSign.forEach(el => el.classList.add('active'));
+    // elemDateSelectionTitle.forEach(el => el.classList.add('active'));
+    // this.classList.add ('active');
+    setTimeout(() => this.classList.add('active'), 150);
+    setTimeout(() => elemSelectionTitle.forEach(el => el.classList.add('wait')), 300);
+    setTimeout(() => dateSign.forEach(el => el.classList.add('wait')), 300);
+    setTimeout(() => {dateSlider.classList.add('wait')}, 300);
+    // elemDateSelectionTitle.forEach(el => startPressActivation(el));
+    // dateSign.forEach(el => el.classList.add('active'));
     // dateTitle.forEach((el) => {el.classList.add('grow')});
     // elemTitleTextYear.textContent = `${selectionDate[0]}`;
     // elemTitleTextMonth.textContent = `${nameMonth[1]}`;
@@ -191,7 +166,6 @@ function changeButtonSelectionDate() {
     //     elemTitleTextDay.textContent = `${selectionDate[2]}`;
     // }
     // dateSign.forEach((el) => {el.classList.add('active')});
-    setTimeout(() => {dateSlider.classList.add('wait')}, 150);
     // dateSign.forEach((el) => {el.classList.add('show-opacity')});
     restartTimerRemoveGrow();
 }
@@ -310,6 +284,21 @@ function recordSelectedDate(year, numberMonth, day) {
         })
     }
 
+    function validationAddClassHover(event) {
+        elemSelectionTitle.forEach(el => {
+            if (el.classList.contains('active')) {
+                switch(event.type) {
+                    case 'mouseenter':
+                        this.classList.add('hover');
+                        break;
+                    case 'mouseleave':
+                        this.classList.remove('hover');
+                        break;
+                }
+            }
+        })
+    }
+
 //** elem Slider */
 
 function changeFromSlider() {
@@ -382,26 +371,20 @@ setTimeout(recordSizeSlider, 200);
    
 //** addEventListener */
 
-    elemSelectionDate.addEventListener('mouseenter', addClassHover);
-    elemSelectionDate.addEventListener('mouseleave', delClassHover);
-    elemSelectionDate.addEventListener('pointerdown', () => {startPressActivation(elemSelectionDate)});
-    elemSelectionDate.addEventListener('pointerdown', changeButtonSelectionDate);
+    elemSelectionFull.addEventListener('mouseenter', addClassHover);
+    elemSelectionFull.addEventListener('mouseleave', delClassHover);
+    elemSelectionFull.addEventListener('pointerdown', validationStartPressActive);
+    elemSelectionFull.addEventListener('pointerdown', changeButtonSelectionDate);
     
-    elemDateSelectionTitle.forEach(el => {
+    elemSelectionTitle.forEach(el => {
         el.addEventListener('mouseenter', addClassHover);
         el.addEventListener('mouseleave', delClassHover);
     })
-    // dateTitle.forEach((el) => {
-    //     el.addEventListener('mouseenter', addClassHover);
-    //     el.addEventListener('mouseleave', delClassHover);
-    //     el.addEventListener('pointerdown', () => {startPressActivation(el)});
-    //     el.addEventListener('pointerdown', choiceElemTitleActive);
-    //     el.addEventListener('mousemove', restartTimerRemoveGrow);
-    // })
     
     dateSign.forEach((el) => {
-        el.addEventListener('mouseenter', addClassHover);
-        el.addEventListener('mouseleave', delClassHover);
+        el.addEventListener('mouseenter', validationAddClassHover);
+        el.addEventListener('mouseleave', validationAddClassHover);
+        el.addEventListener('pointerdown', validationStartPressActive);
         el.addEventListener('pointerdown', () => {startPressActivation(el)});
         el.addEventListener('pointerdown', changeFromSign);
     })
@@ -446,7 +429,7 @@ setTimeout(recordSizeSlider, 200);
     function selectionDay(fromWitch, newDay) {
         day = newDay;
 
-        if (elemSelectionDate.classList.contains('deactivation')) {
+        if (elemSelectionFull.classList.contains('deactivation')) {
             restartTimerRemoveGrow();
         }
         const daysMonth = document.querySelectorAll('.date-day-counter');      
@@ -464,14 +447,14 @@ setTimeout(recordSizeSlider, 200);
         selectionDate[3] = true;
         selectionDay.classList.add('active');
 
-        if (!elemSelectionDate.classList.contains('selected')) {
-            elemSelectionDate.classList.add('selected');
+        if (!elemSelectionFull.classList.contains('selected')) {
+            elemSelectionFull.classList.add('selected');
             dateTitle.forEach(el => el.classList.remove)
         }
         // selectionDate = [year, numberMonth, ]
         // showSelectionDate(selectionDate);
         
-        if (elemSelectionDate.classList.contains('deactivation') && elemTitleDay.classList.contains('active')) {
+        if (elemSelectionFull.classList.contains('deactivation') && elemTitleDay.classList.contains('active')) {
             recValueTitle('title-day', day);
             recValueInput('title-day', day);
         };
@@ -610,7 +593,7 @@ setTimeout(recordSizeSlider, 200);
   
         daysMonth.forEach(el => {
             function addButtonMemoryDate() {
-                if (elemSelectionDate.classList.contains('deactivation')) {
+                if (elemSelectionFull.classList.contains('deactivation')) {
                     elemTitleYear.classList.add('deactivation');
                     elemTitleMonth.classList.add('deactivation');
                     dateSlider.classList.add('active');
@@ -628,7 +611,7 @@ setTimeout(recordSizeSlider, 200);
             }
 
             function validationMouseMove() {
-                if (elemSelectionDate.classList.contains('deactivation')) {
+                if (elemSelectionFull.classList.contains('deactivation')) {
                     restartTimerRemoveGrow();
                 }
             }
