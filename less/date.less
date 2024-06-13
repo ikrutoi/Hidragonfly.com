@@ -173,6 +173,10 @@
     // border: solid 1px palevioletred;
 }
 
+.date-slider-left {
+    display: none;
+}
+
 .date-slider-right.active.hover {
     cursor: pointer;
 }
@@ -189,10 +193,14 @@
     outline: none;
 }
 
-.wait.date-slider-right::-webkit-slider-runnable-track {
-    background-color: @color-basis-light;
-    transition: background-color 150ms ease-in;
+.date-slider-left.wait {
+    display: block;
 }
+
+// .wait.date-slider-right::-webkit-slider-runnable-track {
+//     background-color: @color-basis-light;
+//     transition: background-color 150ms ease-in;
+// }
 
 .active.date-slider-right::-webkit-slider-runnable-track {
     background-color: @color-basis-light;
@@ -211,7 +219,7 @@
     transition: opacity 150ms ease-in;
 }
 
-.wait.date-slider-left::-webkit-slider-thumb {
+.wait.active.date-slider-left::-webkit-slider-thumb {
     opacity: 1;
     transition: opacity 150ms ease-in;
 }
