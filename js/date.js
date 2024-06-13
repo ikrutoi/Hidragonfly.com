@@ -46,9 +46,12 @@ export function createCalendar(newYear, newNumberMonth, newDay, selectDay) {
     const tableBody = document.querySelector('.date-table-body');
     newElemHTML(tableBody, 'beforeend', '<tr class="date-table-header-row"></tr>');
     
-    const dateSlider = document.querySelector('.date-slider');
     const dateTitle = document.querySelectorAll('.date-calendar-title');
     const dateSign = document.querySelectorAll('.date-sign');
+    const dateSlider = document.querySelector('.date-slider');
+    // const elemSliderHalf = document.querySelectorAll('.date-slider-half');
+    const elemSliderLeft = document.querySelector('.date-slider-left');
+    const elemSliderRight = document.querySelector('.date-slider-right');
     const elemSignPlus = document.querySelector('.sign-plus');
     const elemTitleYear = document.querySelector('.date-title-year');
     const elemTitleMonth = document.querySelector('.date-title-month');
@@ -78,14 +81,14 @@ function delClassHover() {
         dateSign.forEach((el) => {el.classList.remove('hover')});
         dateSign.forEach((el) => {el.classList.remove('active')});
         dateSign.forEach(el => {delete el.dataset.dateTitle});
-        dateSlider.classList.remove('wait');
-        dateSlider.classList.remove('active');
-        delete dateSlider.dataset.dateTitle;
+        elemSliderLeft.classList.remove('wait');
+        elemSliderRight.classList.remove('active');
+        delete elemSliderRight.dataset.dateTitle;
         elemSelectionFull.classList.remove('active');
         setTimeout(() => {
-            dateSlider.min = '0';
-            dateSlider.max = '0';
-            dateSlider.value = '0';
+            elemSliderRight.min = '0';
+            elemSliderRight.max = '0';
+            elemSliderRight.value = '0';
         }, 150);
     }
 
@@ -125,12 +128,14 @@ function delClassHover() {
 
 //** elem SelectionDate */
 
-function changeButtonSelectionDate() {    
-    setTimeout(() => this.classList.add('active'), 150);
-    setTimeout(() => elemSelectionTitle.forEach(el => el.classList.add('wait')), 300);
-    setTimeout(() => dateSign.forEach(el => el.classList.add('wait')), 300);
-    setTimeout(() => {dateSlider.classList.add('wait')}, 300);
-    restartTimerRemoveGrow();
+function changeButtonSelectionDate() {  
+    if (!this.classList.contains('active')) {
+        setTimeout(() => this.classList.add('active'), 150);
+        setTimeout(() => elemSelectionTitle.forEach(el => el.classList.add('wait')), 300);
+        setTimeout(() => dateSign.forEach(el => el.classList.add('wait')), 300);
+        setTimeout(() => {elemSliderLeft.classList.add('wait')}, 300);
+        restartTimerRemoveGrow();
+    }  
 }
   
 function recordSelectedDate(year, numberMonth, day) {
@@ -154,18 +159,18 @@ function recordSelectedDate(year, numberMonth, day) {
                 console.log('sign+')
                 elemSignPlus.classList.add('active');
             }
-
-            dateSlider.classList.add('active');
-            console.log('this.dataset.dateTitle: ', this.dataset.dateTitle)
+            elemSliderLeft.classList.remove('wait');
+            console.log('remove wait')
+            // elemSliderRight.classList.add('active');
             switch (this.dataset.dateTitle) {
                 case 'title-year':
                     recValueInput(this.dataset.dateTitle, year);
-                    dateSlider.dataset.dateTitle = 'title-year';
+                    // dateSlider.dataset.dateTitle = 'title-year';
                     dateSign.forEach((el) => {el.dataset.dateTitle = 'title-year'});
                     break;
                 case 'title-month':
                     recValueInput(this.dataset.dateTitle, numberMonth);
-                    dateSlider.dataset.dateTitle = 'title-month';
+                    // dateSlider.dataset.dateTitle = 'title-month';
                     dateSign.forEach((el) => {el.dataset.dateTitle = 'title-month'});
                     break;
             }
@@ -273,6 +278,11 @@ function recordSelectedDate(year, numberMonth, day) {
 
 function changeFromSlider() {
     console.log('changeFromSlider')
+    if (this.value <= newNumberMonth  && year == newYear) {
+        console.log('slider-minus');
+        // dateSlider.classList.remove('active');
+        dateSlider.value = newNumberMonth;
+    }
     switch (this.dataset.dateTitle) {
         case 'title-year':
             if (this.value > year) {
@@ -300,8 +310,8 @@ function changeFromSlider() {
 }
 
 function recValueInput(unit, newValue) {
-    setTimeout(() => {dateSlider.classList.add('active');}, 150);
-    console.log('input value: ', newValue);
+    elemSliderRight.classList.add('active');
+    // setTimeout(() => {elemSliderRight.classList.add('active');}, 150);
     switch (unit) {
         case 'title-year':
             dateSlider.min = `${new Date().getFullYear()}`;
@@ -310,26 +320,25 @@ function recValueInput(unit, newValue) {
             dateSlider.dataset.dateTitle = 'title-year';
             break;
         case 'title-month':
-            dateSlider.min = '0';
-            dateSlider.max = '11';
-            dateSlider.value = `${newValue}`;
-            dateSlider.dataset.dateTitle = 'title-month';
-            break;
-        case 'title-day':
-            const counterDaysInMonth = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
-            dateSlider.min = '1';
-            dateSlider.max = `${counterDaysInMonth}`;
-            dateSlider.value = `${newValue}`;
-            dateSlider.dataset.dateTitle = 'title-day';
+            elemSliderRight.min = `${newNumberMonth}`;
+            elemSliderRight.max = '11';
+            elemSliderRight.value = `${newValue}`;
+            elemSliderRight.dataset.dateTitle = 'title-month';
             break;
     }
 }
 
 function recordSizeSlider() {
-    dateSlider.style.width = `${tableBody.clientWidth}px`; 
-    dateSlider.min = '0';
-    dateSlider.max = '0';
-    dateSlider.value = '0';
+    // dateSlider.style.width = `${tableBody.clientWidth}px`; 
+    const partWidthSlider = tableBody.clientWidth / 11;
+    elemSliderLeft.style.width = `${partWidthSlider * newNumberMonth}px`; 
+    elemSliderRight.style.width = `${tableBody.clientWidth - partWidthSlider * newNumberMonth}px`; 
+    elemSliderLeft.min = '0';
+    elemSliderLeft.max = '0';
+    elemSliderLeft.value = '0';
+    elemSliderRight.min = '0';
+    elemSliderRight.max = '0';
+    elemSliderRight.value = '0';
 }
 
 setTimeout(recordSizeSlider, 200);
@@ -359,13 +368,14 @@ setTimeout(recordSizeSlider, 200);
         el.addEventListener('pointerdown', changeFromSign);
     })
 
-    dateSlider.addEventListener('mouseenter', addClassHover);
-    dateSlider.addEventListener('mouseleave', delClassHover);
-    if (dateSlider.classList.contains('wait')) {
-        dateSlider.addEventListener('mousemove', restartTimerRemoveGrow);
+    elemSliderRight.addEventListener('mouseenter', addClassHover);
+    elemSliderRight.addEventListener('mouseleave', delClassHover);
+    if (elemSliderLeft.classList.contains('wait') || elemSliderRight.classList.contains('active')) {
+        elemSliderLeft.addEventListener('mousemove', restartTimerRemoveGrow);
+        elemSliderRight.addEventListener('mousemove', restartTimerRemoveGrow);
     }
-    dateSlider.addEventListener('input', changeFromSlider);
-    dateSlider.addEventListener('input', restartTimerRemoveGrow);
+    elemSliderRight.addEventListener('input', changeFromSlider);
+    elemSliderRight.addEventListener('input', restartTimerRemoveGrow);
 
 //** */
 
