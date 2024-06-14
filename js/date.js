@@ -55,9 +55,9 @@ export function createCalendar(newYear, newNumberMonth, newDay, selectDay) {
     const elemSliderRight = document.querySelector('.date-slider-right');
     const elemSignMinus = document.querySelector('.sign-minus');
     const elemSignPlus = document.querySelector('.sign-plus');
-    const elemTitleYear = document.querySelector('.date-title-year');
-    const elemTitleMonth = document.querySelector('.date-title-month');
-    const elemTitleDay = document.querySelector('.date-title-day');
+    // const elemTitleYear = document.querySelector('.date-title-year');
+    // const elemTitleMonth = document.querySelector('.date-title-month');
+    // const elemTitleDay = document.querySelector('.date-title-day');
 
 //** class hover */
 
@@ -85,6 +85,7 @@ function delClassHover() {
         dateSign.forEach(el => {delete el.dataset.dateTitle});
         elemSliderLeft.classList.remove('wait');
         elemSliderRight.classList.remove('active');
+        recordSizeSlider('start');
         delete elemSliderRight.dataset.dateTitle;
         elemSelectionFull.classList.remove('active');
         setTimeout(() => {
@@ -102,14 +103,14 @@ function delClassHover() {
                 if (selectionDate[3]) {
                     showSelectionDate(selectionDate);
                 }
-            }, 11000);
+            }, 10000);
         } else {
             timerGrow = setTimeout(() => {
                 clearClassElemTitle();
                 if (selectionDate[3]) {
                     showSelectionDate(selectionDate);
                 }
-            }, 11000);
+            }, 10000);
         }  
     }
 
@@ -144,15 +145,14 @@ function changeButtonSelectionDate() {
 }
   
 function recordSelectedDate(year, numberMonth, day) {
-    elemTitleYear.textContent = `${year}`;
-    elemTitleMonth.textContent = `${nameMonth[numberMonth]}`;
-    elemTitleDay.textContent = `${day}`;
+    elemSelectionYear.textContent = `${year}`;
+    elemSelectionMonth.textContent = `${nameMonth[numberMonth]}`;
+    elemSelectionDay.textContent = `${day}`;
 }
 
 //** elem dateTitle */
 
     function validationAddClassActive() {
-        console.log('valid..')
         elemSelectionYear.classList.remove('active');
         elemSelectionMonth.classList.remove('active');
         if (elemSelectionFull.classList.contains('active')) {
@@ -440,7 +440,6 @@ setTimeout(() => recordSizeSlider('start'), 200);
         });
 
         elemSelectionDay.textContent = `${day}`;
-        console.log('day22: ', day);
         const selectionDay = document.querySelector(`.day-${day}`);
         selectionDate[0] = year;
         selectionDate[1] = numberMonth;

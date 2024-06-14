@@ -143,11 +143,6 @@
     background-color: @color-basis-grey;
 }
 
-// .date-sign.hover {
-//     background-color: @color-basis-hover;
-//     transition: background-color 150ms ease-in;
-// }
-
 @keyframes show-opacity {
     from {
         opacity: 0;
@@ -197,11 +192,6 @@
     display: block;
 }
 
-// .wait.date-slider-right::-webkit-slider-runnable-track {
-//     background-color: @color-basis-light;
-//     transition: background-color 150ms ease-in;
-// }
-
 .active.date-slider-right::-webkit-slider-runnable-track {
     background-color: @color-basis-light;
     transition: background-color 150ms ease-in;
@@ -216,18 +206,16 @@
     border-radius: 50%; 
     margin-top: -6px;
     background-color: @color-basis-grey;
-    transition: opacity 150ms ease-in;
 }
 
 .wait.active.date-slider-left::-webkit-slider-thumb {
     opacity: 1;
-    transition: opacity 150ms ease-in;
+    transition: opacity 75ms ease-in;
 }
 
 .active.date-slider-right::-webkit-slider-thumb {
     opacity: 1;
     background-color: @color-basis;
-    transition: opacity 150ms ease-in;
 }
 
 // .date-slider:focus::-webkit-slider-thumb {
