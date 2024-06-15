@@ -5,14 +5,8 @@ import { startPressActivation } from "./start-press-activation.js";
 export function createCalendar(newYear, newNumberMonth, newDay) {
     const buttonDate = document.querySelector('.button-date');
     buttonDate.classList.add('created');
-
-    let currentDate;
-    let selectionDate;
-    if (selectionDate) {
-        currentDate = [selectionDate[0], selectionDate[1], selectionDate[2]];
-    } else {
-        currentDate = [newYear, newNumberMonth, newDay];
-    }
+    let currentDate = [newYear, newNumberMonth, newDay];
+    let selectionDate = [];
     const nameMonth = [
         'January', 
         'February', 
@@ -65,12 +59,12 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
     }
 
     function verificationSelectedDate() {
-        if (selectionDate) {
+        // if (selectionDate) {
             if (selectionDate[0] == currentDate[0] && selectionDate[1] == currentDate[1]) {
                 console.log('++++++++++++++++');
-                // selectionDay('ping', selectionDate[2]);
+                selectionDay('ping', selectionDate[2]);
             }
-        }
+        // }
     }
 
 //** timer Selection Date */
@@ -101,16 +95,16 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
             clearTimeout(timerGrow);
             timerGrow = setTimeout(() => {
                 clearClassElemTitle();
-                if (selectionDate) {
+                // if (selectionDate) {
                     // showSelectionDate(selectionDate);
-                }
+                // }
             }, 10000);
         } else {
             timerGrow = setTimeout(() => {
                 clearClassElemTitle();
-                if (selectionDate) {
+                // if (selectionDate) {
                     // showSelectionDate(selectionDate);
-                }
+                // }
             }, 10000);
         }  
     }
@@ -118,7 +112,7 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
     function showSelectionDate(selectionDate) {
         delRows();
         addRow(currentDate[0], currentDate[1]);
-        recordSelectionDate(selectionDate[0], selectionDate[1], showSelectionDate[2], true)
+        // recordSelectionDate(selectionDate[0], selectionDate[1], showSelectionDate[2], true)
         selectionDay('show', selectionDate);
     }
 
@@ -203,8 +197,9 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
         }
     }
         
-    function changeFromSign() {    
-        console.log('currentDate: ', currentDate);
+    function changeFromSign() {   
+        console.log('currentDate1: ', currentDate);
+        console.log('selectionDate1: ', selectionDate) 
         verificationSelectedDate();
         let changeSignDirection;
         switch(this.dataset.direction) {
@@ -422,9 +417,15 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
     }
 
     function selectionDay(fromWitch, newDay) {
+        console.log('newDay: ', newDay);
         if (elemSelectionFull.classList.contains('deactivation')) {
             restartTimerRemoveGrow();
         }
+
+        elemSelectionFull.dataset.selectionDate = 'true';
+        elemSelectionYear.dataset.selectionDate = `${currentDate[0]}`;
+        elemSelectionMonth.dataset.selectionDate = `${currentDate[1]}`;
+        elemSelectionDay.dataset.selectionDate = `${newDay}`;
         const daysMonth = document.querySelectorAll('.date-day-counter');      
         daysMonth.forEach((el) => {
             el.classList.remove('active');
@@ -433,66 +434,61 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
         
         elemSelectionDay.textContent = `${newDay}`;
         const selectionDay = document.querySelector(`.day-${newDay}`);
-        selectionDate[0] = year;
-        selectionDate[1] = numberMonth;
-        selectionDate[2] = day;
-        selectionDate[3] = true;
-        console.log('selectionDate2: ', selectionDate);
+        // if (!selectionDate) {
+            // selectionDate = [];
+            selectionDate[0] = currentDate[0];
+            selectionDate[1] = currentDate[1];
+            selectionDate[2] = newDay;
+            // selectionDate[3] = true;
+        // } else {
+        //     selectionDate[2] = newDay;
+        // }
+
+        // console.log('currentDate2: ', currentDate);
+        // console.log('selectionDate2: ', selectionDate);
+
         selectionDay.classList.add('active');
 
-        if (!elemSelectionFull.classList.contains('selected')) {
-            elemSelectionFull.classList.add('selected');
-            dateTitle.forEach(el => el.classList.remove)
-        }
-        
-        if (elemSelectionFull.classList.contains('deactivation') && elemTitleDay.classList.contains('active')) {
-            recValueTitle('title-day', day);
-            recValueInput('title-day', day);
-        };
+        recValueTitle('title-day', newDay);
         
         memoryNeighborDayLeft = null;
         memoryNeighborDayRight = null;
-
-        const neighborLeft = document.querySelector(`.day-${day - 1}`);
-        const neighborRight = document.querySelector(`.day-${Number(day) + 1}`);
+        const neighborLeft = document.querySelector(`.day-${newDay - 1}`);
+        const neighborRight = document.querySelector(`.day-${Number(newDay) + 1}`);
             
         function addClassNeighbor() {
-            if (day > 1 && day < quantityDaysOfMonth) {
+            if (newDay > 1 && newDay < quantityDaysOfMonth) {
                 neighborLeft.classList.add('day-neighbor');
                 neighborRight.classList.add('day-neighbor');
-            } else if (day == 1) {
-                neighborRight.classList.add('day-neighbor');
-                
-                if (numberMonth == 0) {
-                    const yearNeighborLeft = --year;
+            } else if (newDay == 1) {
+                neighborRight.classList.add('day-neighbor');              
+                if (selectionDate[1] == 0) {
+                    const yearNeighborLeft = --selectionDate[0];
                     const monthNeighborLeft = 11;
                     const lastDayMonthNeighborLeft = getQuantityDaysOfMonth(yearNeighborLeft, monthNeighborLeft);
-
                     memoryNeighborDayLeft = [yearNeighborLeft, monthNeighborLeft, lastDayMonthNeighborLeft];
                 } else {
-                    const monthNeighborLeft = --numberMonth;
-                    const lastDayMonthNeighborLeft = getQuantityDaysOfMonth(year, monthNeighborLeft);
-                    
-                    memoryNeighborDayLeft = [year, monthNeighborLeft, lastDayMonthNeighborLeft];
+                    const monthNeighborLeft = --selectionDate[1];
+                    const lastDayMonthNeighborLeft = getQuantityDaysOfMonth(selectionDate[0], monthNeighborLeft);                   
+                    memoryNeighborDayLeft = [selectionDate[0], monthNeighborLeft, lastDayMonthNeighborLeft];
                 }
-            } else if (day == getQuantityDaysOfMonth(year, numberMonth)) {
+            } else if (newDay == getQuantityDaysOfMonth(selectionDate[0], selectionDate[1])) {
                 neighborLeft.classList.add('day-neighbor');
-
-                if (numberMonth == 11) {
-                    const yearNeighborRight = ++year;
+                if (selectionDate[1] == 11) {
+                    const yearNeighborRight = ++selectionDate[0];
                     const monthNeighborRight = 0;
-
                     memoryNeighborDayRight = [yearNeighborRight, monthNeighborRight, 1];
                 } else {
-                    const monthNeighborRight = ++numberMonth;
-
-                    memoryNeighborDayRight = [year, monthNeighborRight, 1];
+                    const monthNeighborRight = ++selectionDate[1];
+                    memoryNeighborDayRight = [selectionDate[0], monthNeighborRight, 1];
                 }
             }
         }  
 
         setTimeout(addClassNeighbor, 75);
     }
+
+//** function addRow() */
 
     function addRow(year, numberMonth) {   
 
@@ -590,7 +586,7 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
                     dateSlider.classList.add('active');
                 }
 
-                recordSelectedDate(year, numberMonth, Number(el.textContent))
+                // recordSelectedDate(year, numberMonth, Number(el.textContent))
                 sessionStorage.setItem('selection-year', year);
                 sessionStorage.setItem('selection-month', numberMonth);
                 sessionStorage.setItem('selection-day', Number(el.textContent));
@@ -611,20 +607,20 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
         })
     }
 
-    delRows();
-    if (selectionDate) {
-        addRow(selectionDate[0], selectionDate[1]);
-        selectionDay[2];
-    } else {
-        addRow(currentDate[0], currentDate[1]);
-    }
-
     function delRows() {
         const dateRowDays = document.querySelectorAll('.date-row-days');
-
         dateRowDays.forEach(el => el.remove());
     }
     
+    delRows();
+
+    if (elemSelectionFull.dataset.selectionDate == 'true') {
+        addRow(selectionDate[0], selectionDate[1]);
+        selectionDay(selectionDate[2]);
+    } else {
+        addRow(currentDate[0], currentDate[1]);
+    }
+ 
     function changeYearMonth(val) {
 
         function changeMonth(numberMonth) {
@@ -637,8 +633,7 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
             elemSliderRight.value = year;
         }
 
-        function verificationNumberMonth(year, numberMonth, unit) {
-                    
+        function verificationNumberMonth(year, numberMonth, unit) {             
             if (numberMonth >= 0 && numberMonth <= 11) {
                 changeMonth(numberMonth);
                 delRows();
@@ -659,8 +654,6 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
                         break;
                 }
             }
-            
-            return [currentDate[0], currentDate[1]];
         }
 
         switch (val) {
@@ -678,16 +671,12 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
                 break;
             case 'plus-month': {
                 currentDate[1] = ++currentDate[1];
-                const newYearMonth = verificationNumberMonth(currentDate[0], currentDate[1], 'plus-month');
-                currentDate[0] = newYearMonth[0];
-                currentDate[1] = newYearMonth[1];
+                verificationNumberMonth(currentDate[0], currentDate[1], 'plus-month');
                 break;
             }
             case 'minus-month': {
                 currentDate[1] = --currentDate[1];
-                const newYearMonth = verificationNumberMonth(currentDate[0], currentDate[1], 'minus-month');
-                currentDate[0] = newYearMonth[0];
-                currentDate[1] = newYearMonth[1];
+                verificationNumberMonth(currentDate[0], currentDate[1], 'minus-month');
                 break;
             }
         }
