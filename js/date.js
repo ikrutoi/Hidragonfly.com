@@ -117,9 +117,9 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
 
     function showSelectionDate(selectionDate) {
         delRows();
-        addRow(year, numberMonth);
+        addRow(currentDate[0], currentDate[1]);
         recordSelectionDate(selectionDate[0], selectionDate[1], showSelectionDate[2], true)
-        selectionDay('show', selectionDate[2]);
+        selectionDay('show', selectionDate);
     }
 
     function validationStartPressActive() {
@@ -204,6 +204,7 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
     }
         
     function changeFromSign() {    
+        console.log('currentDate: ', currentDate);
         verificationSelectedDate();
         let changeSignDirection;
         switch(this.dataset.direction) {
@@ -421,9 +422,6 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
     }
 
     function selectionDay(fromWitch, newDay) {
-        console.log('selectionDate1: ', selectionDate);
-        day = newDay;
-        
         if (elemSelectionFull.classList.contains('deactivation')) {
             restartTimerRemoveGrow();
         }
@@ -433,8 +431,8 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
             el.classList.remove('day-neighbor');
         });
         
-        elemSelectionDay.textContent = `${day}`;
-        const selectionDay = document.querySelector(`.day-${day}`);
+        elemSelectionDay.textContent = `${newDay}`;
+        const selectionDay = document.querySelector(`.day-${newDay}`);
         selectionDate[0] = year;
         selectionDate[1] = numberMonth;
         selectionDate[2] = day;
@@ -646,47 +644,46 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
                 delRows();
                 addRow(year, numberMonth);
             } else {
-
                 switch(unit) {
                     case 'plus-month':
-                        year = ++year;
-                        changeYear(year);
-                        numberMonth = 0;
-                        verificationNumberMonth(year, numberMonth);
+                        currentDate[0] = ++currentDate[0];
+                        recValueTitle('title-year', currentDate[0]);
+                        currentDate[1] = 0;
+                        verificationNumberMonth(currentDate[0], currentDate[1]);
                         break;
-                    case 'minus':
-                        year = --year;
-                        changeYear(year);
-                        numberMonth = 11;
-                        verificationNumberMonth(year, numberMonth);
+                    case 'minus-month':
+                        currentDate[0] = --currentDate[0];
+                        changeYear(currentDate[0]);
+                        currentDate[1] = 11;
+                        verificationNumberMonth(currentDate[0], currentDate[1]);
                         break;
                 }
             }
             
-            return [year, numberMonth];
+            return [currentDate[0], currentDate[1]];
         }
 
         switch (val) {
-            case 'plusYear': 
+            case 'plus-year': 
                 currentDate[0] = ++currentDate[0];
                 changeYear(currentDate[0]);
                 delRows();
                 addRow(currentDate[0], currentDate[1]);
                 break;
-            case 'minusYear': 
+            case 'minus-year': 
                 currentDate[0] = --currentDate[0];
                 changeYear(currentDate[0]);
                 delRows();
                 addRow(currentDate[0], currentDate[1]);
                 break;
-            case 'plusMonth': {
+            case 'plus-month': {
                 currentDate[1] = ++currentDate[1];
                 const newYearMonth = verificationNumberMonth(currentDate[0], currentDate[1], 'plus-month');
                 currentDate[0] = newYearMonth[0];
                 currentDate[1] = newYearMonth[1];
                 break;
             }
-            case 'minusMonth': {
+            case 'minus-month': {
                 currentDate[1] = --currentDate[1];
                 const newYearMonth = verificationNumberMonth(currentDate[0], currentDate[1], 'minus-month');
                 currentDate[0] = newYearMonth[0];
@@ -697,30 +694,30 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
     }
 
     function newNextYear() {
-        changeYearMonth('plusYear');
+        changeYearMonth('plus-year');
     }
 
     function newLastYear() {
         if (currentDate[0] == parseInt(new Date().getFullYear()) + 1 && currentDate[1] >= new Date().getMonth()) {
-            changeYearMonth('minusYear');
+            changeYearMonth('minus-year');
         }
 
         if (currentDate[0] > parseInt(new Date().getFullYear()) + 1) {
-            changeYearMonth('minusYear');
+            changeYearMonth('minus-year');
         }
     }
     
     function newNextMonth() {
-        changeYearMonth('plusMonth');
+        changeYearMonth('plus-month');
     }
 
     function newLastMonth() {
         if (currentDate[1] > new Date().getMonth() && currentDate[0] == new Date().getFullYear()) {
-            changeYearMonth('minusMonth');
+            changeYearMonth('minus-month');
         }
 
         if (currentDate[0] > new Date().getFullYear()) {
-            changeYearMonth('minusMonth');
+            changeYearMonth('minus-month');
         }
     }
 
