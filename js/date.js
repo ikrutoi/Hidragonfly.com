@@ -86,6 +86,7 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
         elemSelectionFull.classList.remove('active');
         if (selectionDate != '') {
             showSelectionDate();
+            elemSelectionFull.classList.add('selection-date');
         }
         setTimeout(() => {
             elemSliderRight.min = '0';
@@ -124,6 +125,7 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
 
     function changeButtonSelectionDate() {  
         if (!this.classList.contains('active')) {
+            setTimeout(() => this.classList.remove('selection-date'), 150);
             setTimeout(() => this.classList.add('active'), 150);
             setTimeout(() => elemSelectionTitle.forEach(el => el.classList.add('wait')), 300);
             setTimeout(() => dateSign.forEach(el => el.classList.add('wait')), 300);
@@ -198,8 +200,6 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
     }
         
     function changeFromSign() {   
-        // console.log('currentDate1: ', currentDate);
-        console.log('selectionDate1: ', selectionDate) 
         let changeSignDirection;
         switch(this.dataset.direction) {
             case 'minus':
@@ -414,14 +414,6 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
     }
 
     function selectionDay(newDay, unit) {
-        // if (elemSelectionFull.classList.contains('deactivation')) {
-        //     restartTimerRemoveGrow();
-        // }
-
-        // elemSelectionFull.dataset.selectionDate = 'true';
-        // elemSelectionYear.dataset.selectionDate = `${currentDate[0]}`;
-        // elemSelectionMonth.dataset.selectionDate = `${currentDate[1]}`;
-        // elemSelectionDay.dataset.selectionDate = `${newDay}`;
         const daysMonth = document.querySelectorAll('.date-day-counter');      
         daysMonth.forEach((el) => {
             el.classList.remove('active');
@@ -475,9 +467,7 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
                     memoryNeighborDayRight = [selectionDate[0], monthNeighborRight, 1];
                 }
             }
-            console.log('selectionDate-exit2: ', selectionDate);
         }  
-        console.log('selectionDate-exit1: ', selectionDate);
         setTimeout(() => addClassNeighbor(selectionDate[0], selectionDate[1], selectionDate[2]), 75);
     }
 
