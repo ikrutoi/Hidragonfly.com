@@ -59,12 +59,11 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
     }
 
     function verificationSelectedDate() {
-        // if (selectionDate) {
+        if (selectionDate != '') {
             if (selectionDate[0] == currentDate[0] && selectionDate[1] == currentDate[1]) {
-                console.log('++++++++++++++++');
-                selectionDay('ping', selectionDate[2]);
+                selectionDay(selectionDate[2], 'repeat');
             }
-        // }
+        }
     }
 
 //** timer Selection Date */
@@ -81,8 +80,13 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
         elemSliderLeft.classList.remove('wait');
         elemSliderRight.classList.remove('active');
         recordSizeSliderTrack('start');
+        elemBlockAdditive.removeEventListener('mousemove', restartTimerRemoveGrow);
+        elemBlockAdditive.removeEventListener('pointerdown', restartTimerRemoveGrow);
         delete elemSliderRight.dataset.dateTitle;
         elemSelectionFull.classList.remove('active');
+        if (selectionDate != '') {
+            showSelectionDate();
+        }
         setTimeout(() => {
             elemSliderRight.min = '0';
             elemSliderRight.max = '0';
@@ -95,25 +99,19 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
             clearTimeout(timerGrow);
             timerGrow = setTimeout(() => {
                 clearClassElemTitle();
-                // if (selectionDate) {
-                    // showSelectionDate(selectionDate);
-                // }
             }, 10000);
         } else {
             timerGrow = setTimeout(() => {
                 clearClassElemTitle();
-                // if (selectionDate) {
-                    // showSelectionDate(selectionDate);
-                // }
             }, 10000);
         }  
     }
 
-    function showSelectionDate(selectionDate) {
+    function showSelectionDate() {
         delRows();
-        addRow(currentDate[0], currentDate[1]);
-        // recordSelectionDate(selectionDate[0], selectionDate[1], showSelectionDate[2], true)
-        selectionDay('show', selectionDate);
+        addRow(selectionDate[0], selectionDate[1]);
+        recordSelectionDate(selectionDate[0], selectionDate[1], selectionDate[2])
+        selectionDay(selectionDate[2], 'repeat');
     }
 
     function validationStartPressActive() {
@@ -134,6 +132,8 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
                 elemSliderLeft.classList.add('active');
             }, 300);
             restartTimerRemoveGrow();
+            elemBlockAdditive.addEventListener('mousemove', restartTimerRemoveGrow);
+            elemBlockAdditive.addEventListener('pointerdown', restartTimerRemoveGrow);
         }  
     }
     
@@ -198,9 +198,8 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
     }
         
     function changeFromSign() {   
-        console.log('currentDate1: ', currentDate);
+        // console.log('currentDate1: ', currentDate);
         console.log('selectionDate1: ', selectionDate) 
-        verificationSelectedDate();
         let changeSignDirection;
         switch(this.dataset.direction) {
             case 'minus':
@@ -217,11 +216,11 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
                         if (changeSignDirection) {
                             newNextYear();
                             recValueInput('title-year', currentDate[0]);
-                            validationMemorySelectedDay();
+                            validationSelectedDateForNeighbor();
                         } else {
                             newLastYear();
                             recValueInput('title-year', currentDate[0]);
-                            validationMemorySelectedDay();
+                            validationSelectedDateForNeighbor();
                             validationCancelYearHover();
                         }
                         break;
@@ -229,15 +228,16 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
                         if (changeSignDirection) {
                             newNextMonth();
                             recValueInput('title-month', currentDate[1]);
-                            validationMemorySelectedDay();
+                            validationSelectedDateForNeighbor();
                         } else {
                             newLastMonth();
                             recValueInput('title-month', currentDate[1]);
-                        validationMemorySelectedDay();
-                        validationCancelYearHover();
+                            validationSelectedDateForNeighbor();
+                            validationCancelYearHover();
                         }
                     break;
                 }
+                verificationSelectedDate();
                 validationMinusMonth();
             }
         })
@@ -272,27 +272,27 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
                 if (this.value > currentDate[0]) {
                     newNextYear();
                     validationMinusMonth();
-                    validationMemorySelectedDay();
+                    validationSelectedDateForNeighbor();
                 } else {
                     newLastYear();
                     validationMinusMonth();
-                    validationMemorySelectedDay();
+                    validationSelectedDateForNeighbor();
                     validationCancelYearHover();
                 }
-                elemSelectionYear.textContent = `${this.value}`
+                recValueTitle('title-year', this.value);
                 break;
             case 'title-month':
                 if (this.value > currentDate[1]) {
                     newNextMonth();
                     validationMinusMonth();
-                    validationMemorySelectedDay();
+                    validationSelectedDateForNeighbor();
                 } else {
                     newLastMonth();
                     validationMinusMonth();
-                    validationMemorySelectedDay();
+                    validationSelectedDateForNeighbor();
                     validationCancelYearHover();
-                };
-                elemSelectionMonth.textContent = `${nameMonth[this.value]}`
+                }
+                recValueTitle('title-month', this.value);
                 break;
         }
     }
@@ -358,9 +358,6 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
    
 //** addEventListener */
 
-    elemBlockAdditive.addEventListener('mousemove', restartTimerRemoveGrow);
-    elemBlockAdditive.addEventListener('pointerdown', restartTimerRemoveGrow);
-
     elemSelectionFull.addEventListener('mouseenter', addClassHover);
     elemSelectionFull.addEventListener('mouseleave', delClassHover);
     elemSelectionFull.addEventListener('pointerdown', validationStartPressActive);
@@ -416,39 +413,34 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
         return new Date(year, numberMonth, 0).getDate();
     }
 
-    function selectionDay(fromWitch, newDay) {
-        console.log('newDay: ', newDay);
-        if (elemSelectionFull.classList.contains('deactivation')) {
-            restartTimerRemoveGrow();
-        }
+    function selectionDay(newDay, unit) {
+        // if (elemSelectionFull.classList.contains('deactivation')) {
+        //     restartTimerRemoveGrow();
+        // }
 
-        elemSelectionFull.dataset.selectionDate = 'true';
-        elemSelectionYear.dataset.selectionDate = `${currentDate[0]}`;
-        elemSelectionMonth.dataset.selectionDate = `${currentDate[1]}`;
-        elemSelectionDay.dataset.selectionDate = `${newDay}`;
+        // elemSelectionFull.dataset.selectionDate = 'true';
+        // elemSelectionYear.dataset.selectionDate = `${currentDate[0]}`;
+        // elemSelectionMonth.dataset.selectionDate = `${currentDate[1]}`;
+        // elemSelectionDay.dataset.selectionDate = `${newDay}`;
         const daysMonth = document.querySelectorAll('.date-day-counter');      
         daysMonth.forEach((el) => {
             el.classList.remove('active');
             el.classList.remove('day-neighbor');
         });
         
-        elemSelectionDay.textContent = `${newDay}`;
         const selectionDay = document.querySelector(`.day-${newDay}`);
-        // if (!selectionDate) {
-            // selectionDate = [];
-            selectionDate[0] = currentDate[0];
-            selectionDate[1] = currentDate[1];
-            selectionDate[2] = newDay;
-            // selectionDate[3] = true;
-        // } else {
-        //     selectionDate[2] = newDay;
-        // }
 
-        // console.log('currentDate2: ', currentDate);
-        // console.log('selectionDate2: ', selectionDate);
+        switch(unit) {
+            case 'new': 
+                selectionDate[0] = currentDate[0];
+                selectionDate[1] = currentDate[1];
+                selectionDate[2] = newDay;
+                break;
+            case 'repeat': 
+                break;
+        }
 
         selectionDay.classList.add('active');
-
         recValueTitle('title-day', newDay);
         
         memoryNeighborDayLeft = null;
@@ -456,36 +448,37 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
         const neighborLeft = document.querySelector(`.day-${newDay - 1}`);
         const neighborRight = document.querySelector(`.day-${Number(newDay) + 1}`);
             
-        function addClassNeighbor() {
-            if (newDay > 1 && newDay < quantityDaysOfMonth) {
+        function addClassNeighbor(year, numberMonth, day) {
+            if (day > 1 && day < quantityDaysOfMonth) {
                 neighborLeft.classList.add('day-neighbor');
                 neighborRight.classList.add('day-neighbor');
-            } else if (newDay == 1) {
+            } else if (day == 1) {
                 neighborRight.classList.add('day-neighbor');              
                 if (selectionDate[1] == 0) {
-                    const yearNeighborLeft = --selectionDate[0];
+                    const yearNeighborLeft = --year;
                     const monthNeighborLeft = 11;
                     const lastDayMonthNeighborLeft = getQuantityDaysOfMonth(yearNeighborLeft, monthNeighborLeft);
                     memoryNeighborDayLeft = [yearNeighborLeft, monthNeighborLeft, lastDayMonthNeighborLeft];
                 } else {
-                    const monthNeighborLeft = --selectionDate[1];
+                    const monthNeighborLeft = --numberMonth;
                     const lastDayMonthNeighborLeft = getQuantityDaysOfMonth(selectionDate[0], monthNeighborLeft);                   
                     memoryNeighborDayLeft = [selectionDate[0], monthNeighborLeft, lastDayMonthNeighborLeft];
                 }
-            } else if (newDay == getQuantityDaysOfMonth(selectionDate[0], selectionDate[1])) {
+            } else if (day == getQuantityDaysOfMonth(selectionDate[0], selectionDate[1])) {
                 neighborLeft.classList.add('day-neighbor');
                 if (selectionDate[1] == 11) {
-                    const yearNeighborRight = ++selectionDate[0];
+                    const yearNeighborRight = ++year;
                     const monthNeighborRight = 0;
                     memoryNeighborDayRight = [yearNeighborRight, monthNeighborRight, 1];
                 } else {
-                    const monthNeighborRight = ++selectionDate[1];
+                    const monthNeighborRight = ++numberMonth;
                     memoryNeighborDayRight = [selectionDate[0], monthNeighborRight, 1];
                 }
             }
+            console.log('selectionDate-exit2: ', selectionDate);
         }  
-
-        setTimeout(addClassNeighbor, 75);
+        console.log('selectionDate-exit1: ', selectionDate);
+        setTimeout(() => addClassNeighbor(selectionDate[0], selectionDate[1], selectionDate[2]), 75);
     }
 
 //** function addRow() */
@@ -601,7 +594,7 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
             el.addEventListener('mousemove', validationMouseMove);
             
             if (el.classList.contains('allowed')) {
-                el.addEventListener('pointerdown', function() {selectionDay('calendar', Number(this.textContent))});
+                el.addEventListener('pointerdown', function() {selectionDay(Number(this.textContent), 'new')});
                 el.addEventListener('pointerdown', addButtonMemoryDate);
             }            
         })
@@ -614,9 +607,9 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
     
     delRows();
 
-    if (elemSelectionFull.dataset.selectionDate == 'true') {
+    if (selectionDate != '') {
         addRow(selectionDate[0], selectionDate[1]);
-        selectionDay(selectionDate[2]);
+        selectionDay(selectionDate[2], 'repeat');
     } else {
         addRow(currentDate[0], currentDate[1]);
     }
@@ -750,7 +743,7 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
     //     }
     // }
    
-    function validationMemorySelectedDay() {
+    function validationSelectedDateForNeighbor() {
         const daysMonth = document.querySelectorAll('.date-day');
         if (memoryNeighborDayLeft) {   
             if (memoryNeighborDayLeft[0] == currentDate[0] && memoryNeighborDayLeft[1] == currentDate[1]) {
