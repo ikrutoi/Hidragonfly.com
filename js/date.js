@@ -434,7 +434,9 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
 
         selectionDay.classList.add('active');
         recValueTitle('title-day', newDay);
-        elemSelectionFull.classList.add('selection-date');
+        if (!elemSelectionFull.classList.contains('active')) {
+            elemSelectionFull.classList.add('selection-date');
+        }
         
         memoryNeighborDayLeft = null;
         memoryNeighborDayRight = null;
