@@ -398,18 +398,26 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
     }
 
     function getQuantityDaysOfMonth(year, numberMonth) {
-        numberMonth = ++numberMonth;
-
-        if (numberMonth == 12) {
+        console.log('year, numberMonth1: ', year, numberMonth);
+        // numberMonth = ++numberMonth;
+        
+        if (numberMonth == 11) {
             year = ++year;
             numberMonth = 0;
+        } else {
+            numberMonth = ++numberMonth;
         }
+        
+        // if (numberMonth == -1) {
+        //     year = --year;
+        //     numberMonth = 11;
+        // }
 
-        if (numberMonth == 0) {
-            year = --year;
-            numberMonth = 11;
-        }
-
+        // if (numberMonnumberMonth < 11) {
+        // }
+        
+        console.log('year, numberMonth2: ', year, numberMonth);
+        console.log('**', new Date(year, numberMonth, 0).getDate());
         return new Date(year, numberMonth, 0).getDate();
     }
 
@@ -480,11 +488,12 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
 
         function getFirstDay(year, numberMonth) {
             let firstDay = new Date(year, numberMonth, 1);
-            
             return firstDay.getDay();
         }
         
         let numberFirstDay = getFirstDay(year, numberMonth);
+
+        console.log('numberFirstDay: ', numberFirstDay)
         
         // function getQuantityDaysOfMonth(year, numberMonth) {
         //     numberMonth = ++numberMonth;
@@ -502,41 +511,45 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
         //     return new Date(year, numberMonth, 0).getDate();
         // }
         
+        const quantityDaysOfMonthPrevious = getQuantityDaysOfMonth(year, numberMonth - 1);
         quantityDaysOfMonth = getQuantityDaysOfMonth(year, numberMonth);
 
         let dayCounter = 0;
         let numberDayCounter = 0;
-        let numberRow = 0;
+        // let numberRow = 0;
+        let numberDayOut = 1;
 
-        function newRow(numberRow) {     
-            numberRow = ++numberRow;
+        // function newRow(numberRow) {     
+            // numberRow = ++numberRow;
 
-            newElemHTML(tableBody, 'beforeend', `<tr class="date-row-days date-row-${numberRow}"></tr>`);
-            
-            const tableRow = document.querySelector(`.date-row-${numberRow}`);
-            
-            if (numberRow == 1) {   
-                for (let i = 0; i < 7; i++) {
-                    if (i < numberFirstDay) {
-                        newElemHTML(tableRow, 'beforeend', `<td></td>`);
-                    } else 
-                    newElemHTML(tableRow, 'beforeend', `<td class="date-day date-day-counter day-${++numberDayCounter}"><p>${++dayCounter}</p></td>`);
-                }
-                newRow(numberRow);
-            } else {
-                for (let i = 0; i < 7; i++) {
-                    if (dayCounter < quantityDaysOfMonth) {
+            for (let numberRow = 0; numberRow < 6; numberRow++) {
+                newElemHTML(tableBody, 'beforeend', `<tr class="date-row-days date-row-${numberRow}"></tr>`);
+                
+                const tableRow = document.querySelector(`.date-row-${numberRow}`);
+                if (numberRow == 0) {   
+                    for (let i = 0; i < 7; i++) {
+                        if (i < numberFirstDay) {
+                            newElemHTML(tableRow, 'beforeend', `<td class="date-day date-day-outside"><p>${quantityDaysOfMonthPrevious - numberFirstDay + i + 1}</p></td>`);
+                        } else 
                         newElemHTML(tableRow, 'beforeend', `<td class="date-day date-day-counter day-${++numberDayCounter}"><p>${++dayCounter}</p></td>`);
-                    } else 
-                    newElemHTML(tableRow, 'beforeend', `<td></td>`);
-                }   
-                if (dayCounter < quantityDaysOfMonth) {
-                    newRow(numberRow);
+                    }
+                    // newRow(numberRow);
+                } else {
+                    for (let i = 0; i < 7; i++) {
+                        if (dayCounter < quantityDaysOfMonth) {
+                            newElemHTML(tableRow, 'beforeend', `<td class="date-day date-day-counter day-${++numberDayCounter}"><p>${++dayCounter}</p></td>`);
+                        } else {
+                            newElemHTML(tableRow, 'beforeend', `<td class="date-day date-day-outside">${numberDayOut++}</td>`);
+                        }
+                    }   
+                    if (dayCounter < quantityDaysOfMonth) {
+                        // newRow(numberRow);
+                    }
                 }
             }
-        }
+        // }
 
-        newRow(numberRow);
+        // newRow(numberRow);
  
         const daysMonth = document.querySelectorAll('.date-day-counter');
      
