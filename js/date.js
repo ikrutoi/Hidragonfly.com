@@ -372,7 +372,7 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
     }
     
     setTimeout(() => recordSizeSliderTrack('start'), 200);
-   
+
 //** addEventListener */
 
     elemSelectionFull.addEventListener('mouseenter', addClassHover);
@@ -390,7 +390,7 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
     elemSelectionMonth.addEventListener('pointerdown', () => startPressActivation(elemSelectionMonth));
     elemSelectionMonth.addEventListener('pointerdown', validationAddClassActive);
     
-    dateSign.forEach((el) => {
+    dateSign.forEach(el => {
         el.addEventListener('mouseenter', validationAddClassHover);
         el.addEventListener('mouseleave', validationAddClassHover);
         el.addEventListener('pointerdown', validationFromSignStartPressActive);
@@ -491,6 +491,29 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
         }  
         setTimeout(() => addClassNeighbor(selectionDate[0], selectionDate[1], selectionDate[2]), 75);
     }
+   
+//** function showPreviousMonth / showNextMonth */ 
+
+function showPreviousMonth1() {
+    newLastMonth();
+    if (elemSliderRight.classList.contains('active')) {
+        recValueInput('title-month', currentDate[1]);
+    }
+    validationSelectedDateForNeighbor();
+    validationCancelYearHover();
+    verificationSelectedDate();
+    validationMinusMonth();
+}
+
+function showNextMonth1() {
+    newNextMonth();
+    if (elemSliderRight.classList.contains('active')) {
+        recValueInput('title-month', currentDate[1]);
+    }
+    validationSelectedDateForNeighbor();
+    verificationSelectedDate();
+    validationMinusMonth();
+}
 
 //** function addRow() */
 
@@ -524,42 +547,30 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
 
         let dayCounter = 0;
         let numberDayCounter = 0;
-        // let numberRow = 0;
         let numberDayOut = 1;
-
-        // function newRow(numberRow) {     
-            // numberRow = ++numberRow;
-
-            for (let numberRow = 0; numberRow < 6; numberRow++) {
-                newElemHTML(tableBody, 'beforeend', `<tr class="date-row-days date-row-${numberRow}"></tr>`);
-                
-                const tableRow = document.querySelector(`.date-row-${numberRow}`);
-                if (numberRow == 0) {   
-                    for (let i = 0; i < 7; i++) {
-                        if (i < numberFirstDay) {
-                            let numberDayOutside = quantityDaysOfMonthPrevious - numberFirstDay + i + 1;
-                            newElemHTML(tableRow, 'beforeend', `<td class="date-day date-day-outside date-day-outside-${numberDayOutside}" data-day-outside="${numberDayOutside}"><p>${numberDayOutside}</p></td>`);
-                        } else 
-                        newElemHTML(tableRow, 'beforeend', `<td class="date-day date-day-counter day-${++numberDayCounter}"><p>${++dayCounter}</p></td>`);
-                    }
-                    // newRow(numberRow);
-                } else {
-                    for (let i = 0; i < 7; i++) {
-                        if (dayCounter < quantityDaysOfMonth) {
-                            newElemHTML(tableRow, 'beforeend', `<td class="date-day date-day-counter day-${++numberDayCounter}"><p>${++dayCounter}</p></td>`);
-                        } else {
-                            let numberDayOutside = numberDayOut++;
-                            newElemHTML(tableRow, 'beforeend', `<td class="date-day date-day-outside date-day-outside-${numberDayOutside}" data-day-outside="${numberDayOutside}">${numberDayOutside}</td>`);
-                        }
-                    }   
-                    // if (dayCounter < quantityDaysOfMonth) {
-                    //     // newRow(numberRow);
-                    // }
+        for (let numberRow = 0; numberRow < 6; numberRow++) {
+            newElemHTML(tableBody, 'beforeend', `<tr class="date-row-days date-row-${numberRow}"></tr>`);
+            
+            const tableRow = document.querySelector(`.date-row-${numberRow}`);
+            if (numberRow == 0) {   
+                for (let i = 0; i < 7; i++) {
+                    if (i < numberFirstDay) {
+                        let numberDayOutside = quantityDaysOfMonthPrevious - numberFirstDay + i + 1;
+                        newElemHTML(tableRow, 'beforeend', `<td class="date-day date-day-outside-left date-day-outside" data-day-outside="${numberDayOutside}"><p>${numberDayOutside}</p></td>`);
+                    } else 
+                    newElemHTML(tableRow, 'beforeend', `<td class="date-day date-day-counter day-${++numberDayCounter}"><p>${++dayCounter}</p></td>`);
                 }
+            } else {
+                for (let i = 0; i < 7; i++) {
+                    if (dayCounter < quantityDaysOfMonth) {
+                        newElemHTML(tableRow, 'beforeend', `<td class="date-day date-day-counter day-${++numberDayCounter}"><p>${++dayCounter}</p></td>`);
+                    } else {
+                        let numberDayOutside = numberDayOut++;
+                        newElemHTML(tableRow, 'beforeend', `<td class="date-day date-day-outside-right date-day-outside" data-day-outside="${numberDayOutside}">${numberDayOutside}</td>`);
+                    }
+                }   
             }
-        // }
-
-        // newRow(numberRow);
+        }
  
         const daysMonth = document.querySelectorAll('.date-day-counter');
      
@@ -613,7 +624,12 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
                 el.addEventListener('pointerdown', function() {selectionDay(Number(this.textContent), 'new')});
                 el.addEventListener('pointerdown', addButtonMemoryDate);
             }            
-        })
+        });
+ 
+        const daysOutsideLeft = document.querySelectorAll('.date-day-outside-left');
+        daysOutsideLeft.forEach(el => el.addEventListener('pointerdown', showPreviousMonth1));
+        const daysOutsideRight = document.querySelectorAll('.date-day-outside-right');
+        daysOutsideRight.forEach(el => {el.addEventListener('pointerdown', showNextMonth1)});
     }
 
     function delRows() {
