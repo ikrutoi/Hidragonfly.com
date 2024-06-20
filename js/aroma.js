@@ -1,7 +1,7 @@
 import { newElem } from "./new-element.js";
 import { newElemHTML } from "./new-element.js";
 import { startPressActivation } from "./start-press-activation.js";
-import { addButtonAroma } from "./aroma-create-button-aroma.js";
+// import { addButtonAroma } from "./aroma-create-button-aroma.js";
 
 export function createAroma() {
     const blockAroma = document.querySelector('.aroma-block');    
@@ -25,7 +25,6 @@ export function createAroma() {
     blockAroma.classList.add('active');
     
     for (let i = 0; i < sortNameAroma.length; i++) {
-        
         function addElementAroma(aromaRow) {
             if (i == 0) {
                 newElemHTML(
@@ -45,28 +44,22 @@ export function createAroma() {
         if (!(i % 2)) {
             numberRow = ++numberRow;
 
-            newElem(blockAroma, 'div', ['aroma-block-row', `aroma-row-${numberRow}`]);         
-            
+            newElem(blockAroma, 'div', ['aroma-block-row', `aroma-row-${numberRow}`]);                    
             const aromaRow = document.querySelector(`.aroma-row-${numberRow}`);
-
             addElementAroma(aromaRow);
         } else {
             const aromaRow = document.querySelector(`.aroma-row-${numberRow}`);
-
             addElementAroma(aromaRow);
         }
     }
- 
-    const elemNameAroma = document.querySelectorAll('.aroma-element');
-    
-    elemNameAroma.forEach(el => {
-        function startCreateButtonAroma() {
-            const memoryAroma = [`${el.innerText.split('\n\n')[0]}`, `${el.innerText.split('\n\n')[1]}`];
-            addButtonAroma(memoryAroma);
-        }
 
-        el.addEventListener('pointerdown', startCreateButtonAroma);
-        el.addEventListener('pointerdown', () => startPressActivation(el));
+    const elemNameAroma = document.querySelectorAll('.aroma-element');
+    function changeAroma() {
+        elemNameAroma.forEach(el => el.classList.remove('active'));
+        this.classList.add('active');
+    }
+    elemNameAroma.forEach(el => {
+        el.addEventListener('pointerdown', changeAroma);
     });
 }
 

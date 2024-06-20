@@ -24,17 +24,30 @@
     align-items: center;
     flex-direction: column;
     border-radius: 40px;
-    transition: background-color 150ms ease-in;
+    background-color: @color-basis-white;
+    transition: background-color 75ms ease-in;
 }
 
 .aroma-element:hover {
     background-color: @color-basis-hover;
-    transition: background-color 150ms ease-in;
+    transition: background-color 75ms ease-in;
     cursor: pointer;
 }
 
 .aroma-element.press-active {
     .add-press-button;
+}
+
+.aroma-element.active {
+    color: @color-basis-hover;
+    background-color: @color-basis;
+    transition: color 75ms ease-in;
+    transition: background-color 75ms ease-in;
+}
+
+.aroma-element.active:hover {
+    color: @color-basis-white;
+    transition: color 75ms ease-in;
 }
 
 .nav-additional-aroma:hover {

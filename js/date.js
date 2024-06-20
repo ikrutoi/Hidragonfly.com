@@ -95,7 +95,7 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
             elemSliderRight.min = '0';
             elemSliderRight.max = '0';
             elemSliderRight.value = '0';
-        }, 150);
+        }, 75);
     }
 
     function restartTimerRemoveGrow() {
@@ -134,14 +134,14 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
 
     function changeButtonSelectionDate() {  
         if (!this.classList.contains('active')) {
-            setTimeout(() => this.classList.remove('selection-date'), 150);
-            setTimeout(() => this.classList.add('active'), 150);
-            setTimeout(() => elemSelectionTitle.forEach(el => el.classList.add('wait')), 300);
-            setTimeout(() => dateSign.forEach(el => el.classList.add('wait')), 300);
+            setTimeout(() => this.classList.remove('selection-date'), 75);
+            setTimeout(() => this.classList.add('active'), 75);
+            setTimeout(() => elemSelectionTitle.forEach(el => el.classList.add('wait')), 150);
+            setTimeout(() => dateSign.forEach(el => el.classList.add('wait')), 150);
             setTimeout(() => {
                 elemSliderLeft.classList.add('wait');
                 elemSliderLeft.classList.add('active');
-            }, 300);
+            }, 150);
             restartTimerRemoveGrow();
             elemBlockAdditive.addEventListener('mousemove', restartTimerRemoveGrow);
             elemBlockAdditive.addEventListener('pointerdown', restartTimerRemoveGrow);

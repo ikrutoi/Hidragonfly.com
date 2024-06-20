@@ -77,12 +77,12 @@ export function clickButtonActive(el) {
             }
         }
 
-        if (el.classList.contains('button-aroma') && sessionStorage.getItem('aroma--name')) {         
-            setTimeout(() => addButtonAroma(
-                [sessionStorage.getItem('aroma--name'),
-                sessionStorage.getItem('aroma--make')]
-            ), 150);
-        }
+        // if (el.classList.contains('button-aroma') && sessionStorage.getItem('aroma--name')) {         
+        //     setTimeout(() => addButtonAroma(
+        //         [sessionStorage.getItem('aroma--name'),
+        //         sessionStorage.getItem('aroma--make')]
+        //     ), 75);
+        // }
 
 //** Block Date */
 
@@ -115,7 +115,7 @@ export function clickButtonActive(el) {
                 +sessionStorage.getItem('date--year'),
                 +sessionStorage.getItem('date--month'),
                 +sessionStorage.getItem('date--day')
-            ), 150);
+            ), 75);
         }
 
 //** ---------- */
