@@ -398,38 +398,22 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
     }
 
     function getQuantityDaysOfMonth(year, numberMonth) {
-        console.log('year, numberMonth1: ', year, numberMonth);
-        // numberMonth = ++numberMonth;
-        
         if (numberMonth == 11) {
             year = ++year;
             numberMonth = 0;
         } else {
             numberMonth = ++numberMonth;
         }
-        
-        // if (numberMonth == -1) {
-        //     year = --year;
-        //     numberMonth = 11;
-        // }
-
-        // if (numberMonnumberMonth < 11) {
-        // }
-        
-        console.log('year, numberMonth2: ', year, numberMonth);
-        console.log('**', new Date(year, numberMonth, 0).getDate());
         return new Date(year, numberMonth, 0).getDate();
     }
 
     function selectionDay(newDay, unit) {
-        const daysMonth = document.querySelectorAll('.date-day-counter');      
+        const daysMonth = document.querySelectorAll('.date-day');      
         daysMonth.forEach((el) => {
             el.classList.remove('active');
             el.classList.remove('day-neighbor');
-        });
-        
+        }); 
         const selectionDay = document.querySelector(`.day-${newDay}`);
-
         switch(unit) {
             case 'new': 
                 selectionDate[0] = currentDate[0];
@@ -456,6 +440,7 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
                 neighborLeft.classList.add('day-neighbor');
                 neighborRight.classList.add('day-neighbor');
             } else if (day == 1) {
+                const neighborLeftOutside = selectionDay.previousElementSibling;
                 neighborRight.classList.add('day-neighbor');              
                 if (selectionDate[1] == 0) {
                     const yearNeighborLeft = --year;
@@ -467,7 +452,11 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
                     const lastDayMonthNeighborLeft = getQuantityDaysOfMonth(selectionDate[0], monthNeighborLeft);                   
                     memoryNeighborDayLeft = [selectionDate[0], monthNeighborLeft, lastDayMonthNeighborLeft];
                 }
+                if (neighborLeftOutside) {
+                    neighborLeftOutside.classList.add('day-neighbor');
+                }
             } else if (day == getQuantityDaysOfMonth(selectionDate[0], selectionDate[1])) {
+                const neighborRightOutside = selectionDay.nextElementSibling;
                 neighborLeft.classList.add('day-neighbor');
                 if (selectionDate[1] == 11) {
                     const yearNeighborRight = ++year;
@@ -476,6 +465,9 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
                 } else {
                     const monthNeighborRight = ++numberMonth;
                     memoryNeighborDayRight = [selectionDate[0], monthNeighborRight, 1];
+                }
+                if (neighborRightOutside) {
+                    neighborRightOutside.classList.add('day-neighbor');
                 }
             }
         }  
@@ -492,8 +484,6 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
         }
         
         let numberFirstDay = getFirstDay(year, numberMonth);
-
-        console.log('numberFirstDay: ', numberFirstDay)
         
         // function getQuantityDaysOfMonth(year, numberMonth) {
         //     numberMonth = ++numberMonth;
@@ -529,7 +519,8 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
                 if (numberRow == 0) {   
                     for (let i = 0; i < 7; i++) {
                         if (i < numberFirstDay) {
-                            newElemHTML(tableRow, 'beforeend', `<td class="date-day date-day-outside"><p>${quantityDaysOfMonthPrevious - numberFirstDay + i + 1}</p></td>`);
+                            let numberDayOutside = quantityDaysOfMonthPrevious - numberFirstDay + i + 1;
+                            newElemHTML(tableRow, 'beforeend', `<td class="date-day date-day-outside date-day-outside-${numberDayOutside}" data-day-outside="${numberDayOutside}"><p>${numberDayOutside}</p></td>`);
                         } else 
                         newElemHTML(tableRow, 'beforeend', `<td class="date-day date-day-counter day-${++numberDayCounter}"><p>${++dayCounter}</p></td>`);
                     }
@@ -539,12 +530,13 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
                         if (dayCounter < quantityDaysOfMonth) {
                             newElemHTML(tableRow, 'beforeend', `<td class="date-day date-day-counter day-${++numberDayCounter}"><p>${++dayCounter}</p></td>`);
                         } else {
-                            newElemHTML(tableRow, 'beforeend', `<td class="date-day date-day-outside">${numberDayOut++}</td>`);
+                            let numberDayOutside = numberDayOut++;
+                            newElemHTML(tableRow, 'beforeend', `<td class="date-day date-day-outside date-day-outside-${numberDayOutside}" data-day-outside="${numberDayOutside}">${numberDayOutside}</td>`);
                         }
                     }   
-                    if (dayCounter < quantityDaysOfMonth) {
-                        // newRow(numberRow);
-                    }
+                    // if (dayCounter < quantityDaysOfMonth) {
+                    //     // newRow(numberRow);
+                    // }
                 }
             }
         // }
@@ -750,7 +742,7 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
     // }
    
     function validationSelectedDateForNeighbor() {
-        const daysMonth = document.querySelectorAll('.date-day');
+        const daysMonth = document.querySelectorAll('.date-day-counter');
         if (memoryNeighborDayLeft) {   
             if (memoryNeighborDayLeft[0] == currentDate[0] && memoryNeighborDayLeft[1] == currentDate[1]) {
                 daysMonth.forEach(el => {
