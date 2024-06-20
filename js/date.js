@@ -35,7 +35,7 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
     const tableBody = document.querySelector('.date-table-body');
     newElemHTML(tableBody, 'beforeend', '<tr class="date-table-header-row"></tr>');
     
-    recordSelectionDate(currentDate[0], currentDate[1], currentDate[2]);
+    recordSelectionDate(currentDate);
 
     const dateTitle = document.querySelectorAll('.date-selection-title');
     const dateSign = document.querySelectorAll('.date-sign');
@@ -84,9 +84,12 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
         elemBlockAdditive.removeEventListener('pointerdown', restartTimerRemoveGrow);
         delete elemSliderRight.dataset.dateTitle;
         elemSelectionFull.classList.remove('active');
+        showSelectionDate();
         if (selectionDate != '') {
-            showSelectionDate();
             elemSelectionFull.classList.add('selection-date');
+            currentDate[0] = selectionDate[0];
+            currentDate[1] = selectionDate[1];
+            currentDate[2] = selectionDate[2];
         }
         setTimeout(() => {
             elemSliderRight.min = '0';
@@ -110,9 +113,15 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
 
     function showSelectionDate() {
         delRows();
-        addRow(selectionDate[0], selectionDate[1]);
-        recordSelectionDate(selectionDate[0], selectionDate[1], selectionDate[2])
-        selectionDay(selectionDate[2], 'repeat');
+        if (selectionDate != '') {
+            addRow(selectionDate[0], selectionDate[1]);
+            recordSelectionDate(selectionDate)
+            selectionDay(selectionDate[2], 'repeat');
+        } else {
+            currentDate = [newYear, newNumberMonth, newDay];
+            addRow(currentDate[0], currentDate[1]);
+            recordSelectionDate(currentDate);
+        }
     }
 
     function validationStartPressActive() {
@@ -139,10 +148,10 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
         }  
     }
     
-    function recordSelectionDate(year, numberMonth, day) {
-        elemSelectionYear.textContent = `${year}`;
-        elemSelectionMonth.textContent = `${nameMonth[numberMonth]}`;
-        elemSelectionDay.textContent = `${day}`;
+    function recordSelectionDate(newDate) {
+        elemSelectionYear.textContent = `${newDate[0]}`;
+        elemSelectionMonth.textContent = `${nameMonth[newDate[1]]}`;
+        elemSelectionDay.textContent = `${newDate[2]}`;
     }
 
 //** elem dateTitle */
@@ -156,11 +165,19 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
             elemSliderLeft.classList.remove('wait');
             switch (this.dataset.dateTitle) {
                 case 'title-year':
-                    recValueInput(this.dataset.dateTitle, currentDate[0]);
+                    if (selectionDate != '') {
+                        recValueInput(this.dataset.dateTitle, selectionDate[0]);
+                    } else {
+                        recValueInput(this.dataset.dateTitle, currentDate[0]);
+                    }
                     dateSign.forEach((el) => {el.dataset.dateTitle = 'title-year'});
                     break;
                 case 'title-month':
-                    recValueInput(this.dataset.dateTitle, currentDate[1]);
+                    if (selectionDate != '') {
+                        recValueInput(this.dataset.dateTitle, selectionDate[1]);
+                    } else {
+                        recValueInput(this.dataset.dateTitle, currentDate[1]);
+                    }
                     dateSign.forEach((el) => {el.dataset.dateTitle = 'title-month'});
                     break;
             }
@@ -421,6 +438,7 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
                 selectionDate[2] = newDay;
                 break;
             case 'repeat': 
+                selectionDate[2] = newDay;
                 break;
         }
 
