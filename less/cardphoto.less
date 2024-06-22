@@ -3,6 +3,11 @@
     position: relative;
 }
 
+.cardphoto.hover {
+    opacity: 0.85;
+    transition: opacity 75ms ease-in;
+}
+
 .cardphoto-input {
     .card-size-mixin;
     border: solid 1px green;
@@ -13,7 +18,7 @@
     transition: opacity 75ms ease-in;
 }
 
-.cardphoto-img {
+.cardphoto-img-start {
     display: flex;
     justify-content: end;
     align-items: flex-end;
@@ -22,13 +27,13 @@
     background-size: cover;
 }
 
-.cardphoto.hover {
-    opacity: 0.85;
-    transition: opacity 75ms ease-in;
+.cardphoto-img {
+    display: none;
 }
 
-.cardphoto-newimg {
+.cardphoto-img.active {
     .card-size-mixin;
+    display: block;
     position: absolute;
     border: solid 1px palegreen; 
 }
