@@ -1,12 +1,34 @@
-.card-photo {
+.cardphoto {
     .card-size-mixin;
+    position: relative;
 }
 
-.card-photo-img {
+.cardphoto-input {
+    .card-size-mixin;
+    border: solid 1px green;
+    position: absolute;
+    cursor: pointer;
+    background-color: @color-basis-grey;
+    opacity: 0;
+    transition: opacity 75ms ease-in;
+}
+
+.cardphoto-img {
     display: flex;
     justify-content: end;
     align-items: flex-end;
     background-image: url(/image/card-photo-bw.jpg);
     height: 100%;
     background-size: cover;
+}
+
+.cardphoto.hover {
+    opacity: 0.85;
+    transition: opacity 75ms ease-in;
+}
+
+.cardphoto-newimg {
+    .card-size-mixin;
+    position: absolute;
+    border: solid 1px palegreen; 
 }

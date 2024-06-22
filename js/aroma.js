@@ -43,7 +43,6 @@ export function createAroma() {
 
         if (!(i % 2)) {
             numberRow = ++numberRow;
-
             newElem(blockAroma, 'div', ['aroma-block-row', `aroma-row-${numberRow}`]);                    
             const aromaRow = document.querySelector(`.aroma-row-${numberRow}`);
             addElementAroma(aromaRow);

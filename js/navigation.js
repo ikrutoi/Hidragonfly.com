@@ -7,6 +7,7 @@ import { startPressActivation } from "./start-press-activation.js";
 import { addButtonDate } from "./date-create-button-date.js";
 import { addButtonAroma } from "./aroma-create-button-aroma.js";
 import { readEnvelope } from "./envelope.js";
+import { formationCardPhoto } from "./card-photo.js";
 
 export function clickButtonActive(el) {
             
@@ -32,7 +33,7 @@ export function clickButtonActive(el) {
             el.classList.add('active');
         }
         
-        setTimeout(showButtonTimer, 200);
+        setTimeout(showButtonTimer, 75);
         
         const blockDataSetMenuNav = document.querySelectorAll(`.${el.dataset.menuNav}`);
         
@@ -54,6 +55,13 @@ export function clickButtonActive(el) {
                 el.classList.add('active');
             }
         })
+
+//** Block Card Photo */
+
+        if (el.classList.contains('button-cardphoto')) {
+            formationCardPhoto();
+        }
+
 
 //** Block Envelope */
 
@@ -120,7 +128,7 @@ export function clickButtonActive(el) {
 
 //** ---------- */
 
-        setTimeout(showBlockTimer, 150);
+        setTimeout(showBlockTimer, 75);
 
         const buttonNavAdditional = document.querySelectorAll('.nav-additional-button');
         
