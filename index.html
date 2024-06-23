@@ -111,7 +111,23 @@
         </nav>
         <main class="main">
             <div class="block cardphoto cardphoto-anchor">
-                <input class="cardphoto-input" type="file" accept="image/*"/>
+                <div class="cardphoto-img-nav">
+                    <label clas="cardphoto-img-nav-label" for="cardphoto-addimg">
+                        <div class="cardphoto-img-nav-button img-nav-add" data-cardphoto-nav="add">
+                            <p class="cardphoto-img-button-text">add</p></div>
+                    </label>
+                    <div class="cardphoto-img-nav-button img-nav-cut" data-cardphoto-nav="cut">
+                        <p class="cardphoto-img-button-text">cut</p></div>
+                    <div class="cardphoto-img-nav-button img-nav-center" data-cardphoto-nav="cntr">
+                        <p class="cardphoto-img-button-text">cntr</p></div>
+                    <div class="cardphoto-img-nav-button img-nav-torn" data-cardphoto-nav="torn">
+                        <p class="cardphoto-img-button-text">torn</p>
+                    </div>
+                    <div class="cardphoto-img-nav-button img-nav-del" data-cardphoto-nav="del">
+                        <p class="cardphoto-img-button-text">del</p>
+                    </div>
+                </div>
+                <input id="cardphoto-addimg" class="cardphoto-input" type="file" accept="image/*"/>
                 <div class="cardphoto-img-start"></div>
                 <img class="cardphoto-img" src="">
             </div>

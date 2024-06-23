@@ -3,19 +3,60 @@
     position: relative;
 }
 
-.cardphoto.hover {
+.cardphoto-img-nav {
+    display: none;
+}
+
+.cardphoto-img-nav.active {
+    position: absolute;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    // border: solid 1px green;
+}
+
+.cardphoto-img-nav-button {
+    display: none;
+}
+
+.cardphoto-img-nav-button.wait-start {
+    // position: relative;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 3rem;
+    height: 3rem;
+    opacity: 0;
+    transition: opacity 150ms ease-in;
+    background-color: @color-basis-white;
+    border-radius: 50%;
+    margin: 0.5rem 1rem;
+    user-select: none; 
+}
+
+.cardphoto-img-nav-button.wait.wait {
+    opacity: 0.65;
+    transition: opacity 150ms ease-in;
+}
+    
+.cardphoto-img-nav-button.wait.hover {
     opacity: 0.85;
     transition: opacity 75ms ease-in;
 }
 
-.cardphoto-input {
-    .card-size-mixin;
-    border: solid 1px green;
-    position: absolute;
-    cursor: pointer;
+.cardphoto-img-nav-button.press-active {
     background-color: @color-basis-grey;
-    opacity: 0;
-    transition: opacity 75ms ease-in;
+}
+    
+.cardphoto-img-button-text {
+    user-select: none; 
+}
+
+.cardphoto-input {
+    display: none;
 }
 
 .cardphoto-img-start {
@@ -27,6 +68,10 @@
     background-size: cover;
 }
 
+.cardphoto-img-start.deactivation {
+    display: none;
+}
+
 .cardphoto-img {
     display: none;
 }
@@ -34,6 +79,5 @@
 .cardphoto-img.active {
     .card-size-mixin;
     display: block;
-    position: absolute;
     border: solid 1px palegreen; 
 }
