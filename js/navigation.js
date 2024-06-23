@@ -1,4 +1,4 @@
-import { dragNDrop } from "./dnd.js";
+// import { dragNDrop } from "./dnd.js";
 import { keepCirclesInCorners } from "./dnd-keep-circles-in-corners.js";
 import { formationLetterArea } from "./card-letter.js";
 import { createAroma } from "./aroma.js";
@@ -7,7 +7,7 @@ import { startPressActivation } from "./start-press-activation.js";
 import { addButtonDate } from "./date-create-button-date.js";
 import { addButtonAroma } from "./aroma-create-button-aroma.js";
 import { readEnvelope } from "./envelope.js";
-import { formationCardPhoto } from "./card-photo.js";
+import { formationCardPhoto } from "./cardphoto.js";
 
 export function clickButtonActive(el) {
             
@@ -27,7 +27,7 @@ export function clickButtonActive(el) {
             removeClassActive(el);
         });
           
-        document.querySelector('.new-area').classList.remove('active');
+        // document.querySelector('.new-area').classList.remove('active');
         
         function showButtonTimer() {
             el.classList.add('active');
@@ -143,17 +143,17 @@ export function clickButtonActive(el) {
                 
                 el.classList.add('active');
                 
-                if(el.classList.contains('nav-addit-cardphoto-add')) {
-                    document.querySelector('.cardphoto-anchor').classList.remove('active');
-                    document.querySelector('.block-new-img').classList.add('active');
-                    document.querySelector('.new-area').classList.add('active');
+                // if(el.classList.contains('nav-addit-cardphoto-add')) {
+                //     document.querySelector('.cardphoto-anchor').classList.remove('active');
+                //     document.querySelector('.block-new-img').classList.add('active');
+                //     document.querySelector('.new-area').classList.add('active');
 
-                    dragNDrop();
+                //     dragNDrop();
 
-                    el.onpointerup = function() {
-                        el.classList.remove('active');
-                    }
-                }
+                //     el.onpointerup = function() {
+                //         el.classList.remove('active');
+                //     }
+                // }
 
                 const navAdditionalMulti = document.querySelectorAll('.nav-additional-multi');
                 const navAdditionalMultiTitle = document.querySelector('.nav-additional-multi-title');

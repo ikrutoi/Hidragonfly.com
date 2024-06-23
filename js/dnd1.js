@@ -27,6 +27,7 @@ const areaCut = document.querySelector('.new-area');
 const deltaCircle = 5.5;
 
 export function dragNDrop() { 
+    console.log('circle: ', circle, circle1);
     
     circle.forEach((el) => {            
         el.ondragstart = function() {
@@ -184,8 +185,8 @@ export function dragNDrop() {
     });
 };
 
-function myPointerDown(ev) {
-    captureAreaMove(ev);
-}
+// function myPointerDown(ev) {
+//     captureAreaMove(ev);
+// }
 
-areaCut.addEventListener('pointerdown', myPointerDown);
+areaCut.addEventListener('pointerdown', captureAreaMove);

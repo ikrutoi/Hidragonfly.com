@@ -4,24 +4,29 @@
 }
 
 .cardphoto-img-nav {
-    display: none;
-}
-
-.cardphoto-img-nav.active {
+    // display: none;
     position: absolute;
+    left: -6rem;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    // border: solid 1px green;
+    z-index: 1;
 }
+
+// .cardphoto-img-nav.active {
+//     position: absolute;
+//     left: -6rem;
+//     height: 100%;
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     z-index: 1;
+//     // border: solid 1px green;
+// }
 
 .cardphoto-img-nav-button {
-    display: none;
-}
-
-.cardphoto-img-nav-button.wait-start {
-    // position: relative;
+    // display: none;
     cursor: pointer;
     font-size: 1rem;
     display: flex;
@@ -29,7 +34,7 @@
     align-items: center;
     width: 3rem;
     height: 3rem;
-    opacity: 0;
+    opacity: 0.65;
     transition: opacity 150ms ease-in;
     background-color: @color-basis-white;
     border-radius: 50%;
@@ -37,15 +42,37 @@
     user-select: none; 
 }
 
+// .cardphoto-img-nav-button.wait-start {
+//     // position: relative;
+//     cursor: pointer;
+//     font-size: 1rem;
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     width: 3rem;
+//     height: 3rem;
+//     opacity: 0;
+//     transition: opacity 150ms ease-in;
+//     background-color: @color-basis-white;
+//     border-radius: 50%;
+//     margin: 0.5rem 1rem;
+//     user-select: none; 
+// }
+
 .cardphoto-img-nav-button.wait.wait {
     opacity: 0.65;
     transition: opacity 150ms ease-in;
 }
     
-.cardphoto-img-nav-button.wait.hover {
+.cardphoto-img-nav-button.hover {
     opacity: 0.85;
     transition: opacity 75ms ease-in;
 }
+
+// .cardphoto-img-nav-button.wait.hover {
+//     opacity: 0.85;
+//     transition: opacity 75ms ease-in;
+// }
 
 .cardphoto-img-nav-button.press-active {
     background-color: @color-basis-grey;
@@ -53,6 +80,7 @@
     
 .cardphoto-img-button-text {
     user-select: none; 
+    font-size: 1rem;
 }
 
 .cardphoto-input {
@@ -79,5 +107,38 @@
 .cardphoto-img.active {
     .card-size-mixin;
     display: block;
-    border: solid 1px palegreen; 
+}
+
+//** circle */
+
+.cardphoto-circles {
+    .card-size-mixin;
+    position: absolute;
+}
+
+.circle {
+    background-color: @color-basis; 
+    position: absolute; 
+    touch-action: none;
+    width: 9px; 
+    height: 9px; 
+    border-radius: 10px; 
+    border: solid 2px @color-basis-white;
+    z-index: 2;
+}
+
+.circle-start {
+    position: absolute; 
+    width: 1px; 
+    height: 1px;
+    opacity: 0;
+    z-index: 1;
+}
+
+.circle-1, .circle-3 {
+    cursor: nwse-resize;
+}
+
+.circle-2, .circle-4 {
+    cursor: nesw-resize;
 }

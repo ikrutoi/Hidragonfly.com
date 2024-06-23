@@ -4,6 +4,7 @@
 
 .block-new-img.active {
     .new-img-mixin;
+    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -24,13 +25,13 @@
 }
 
 .crop-circle {
-    background-color: #008aed; 
+    background-color: @color-basis; 
     position: absolute; 
     touch-action: none;
     width: 9px; 
     height: 9px; 
     border-radius: 10px; 
-    border: solid 1px #ffffff;
+    border: solid 2px @color-basis-white;
     z-index: 2;
 }
 
