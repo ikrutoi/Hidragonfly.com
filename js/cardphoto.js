@@ -83,6 +83,26 @@ export function formationCardPhoto() {
         const circle4start = document.querySelector('.circle-start-4');
         // const areaCut = document.querySelector('.new-area');
         const deltaCircle = 5.5;
+
+        function dnd() {
+            // console.log('dnd. this1', this);
+            console.log('dnd. this.get.top.', this.getBoundingClientRect().top);
+            console.log('dnd. this.get.left', this.getBoundingClientRect().left);
+            console.log('dnd. this.style', this.style);
+            console.log('blockNewImage', blockNewImg.getBoundingClientRect().top, '/', blockNewImg.getBoundingClientRect().left);
+            
+            function circleMove(event) {
+                // console.log('dnd. this2', this);
+                console.log('circleMove. clientY / clientX', event.clientY, '/', event.clientX);
+                // this.style.top = event.clientY - blockNewImg.getBoundingClientRect().top + 'px';
+                // this.style.left = event.clientX - blockNewImg.getBoundingClientRect().left + 'px';
+            }
+
+            this.addEventListener('pointermove', circleMove);
+        }
+        circle.forEach(el => {
+            el.addEventListener('pointerdown', dnd);
+        })
     }
 
     function changeSizeImage() {
