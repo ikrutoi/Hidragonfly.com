@@ -6,6 +6,7 @@ import { newElem } from "./new-element.js";
 import { newElemHTML } from "./new-element.js";
 
 export function formationCardPhoto() {   
+    const elemMain = document.querySelector('.main');
     const elemCardphoto = document.querySelector('.cardphoto');
     const elemCardphotoImageNav = document.querySelector('.cardphoto-img-nav');
     const elemCardphotoImageNavButton = document.querySelectorAll('.cardphoto-img-nav-button');
@@ -62,47 +63,83 @@ export function formationCardPhoto() {
     }
 
     function creationCircle() {
-        newElem(cardphotoCircles, 'span', ['circle', 'circle-1'], [['style', 'top: -5px; left: -5px;']]);
-        newElem(cardphotoCircles, 'span', ['circle-start', 'circle-start-1'], [['style', 'top: -5px; left: -5px;']]);
-        newElem(cardphotoCircles, 'span', ['circle', 'circle-2'], [['style', 'top: -5px; right: -5px;']]);
-        newElem(cardphotoCircles, 'span', ['circle-start', 'circle-start-2'], [['style', 'top: -5px; right: -5px;']]);
-        newElem(cardphotoCircles, 'span', ['circle', 'circle-3'], [['style', 'bottom: -5px; right: -5px;']]);
-        newElem(cardphotoCircles, 'span', ['circle-start', 'circle-start-3'], [['style', 'bottom: -5px; right: -5px;']]);
-        newElem(cardphotoCircles, 'span', ['circle', 'circle-4'], [['style', 'bottom: -5px; left: -5px;']]);
-        newElem(cardphotoCircles, 'span', ['circle-start', 'circle-start-4'], [['style', 'bottom: -5px; left: -5px;']]);
-        // newElem(cardphotoDrops, 'div', ['new-area']);
-
+        // newElem(elemMain, 'span', ['circle', 'circle-1']);
+        newElemHTML(elemMain, 'beforeend', '<span class="circle circle-1" data-dnd="circle-1"></span>');  
+        // newElem(elemMain, 'span', ['circle-start', 'circle-start-1']);
+        // newElem(elemMain, 'span', ['circle', 'circle-2']);
+        newElemHTML(elemMain, 'beforeend', '<span class="circle circle-2" data-dnd="circle-2"></span>');  
+        // newElem(elemMain, 'span', ['circle-start', 'circle-start-2'], [['style', `top: ${valueY1}px; left: ${valueX2}px;`]]);
+        // newElem(elemMain, 'span', ['circle', 'circle-3']);
+        newElemHTML(elemMain, 'beforeend', '<span class="circle circle-3" data-dnd="circle-3"></span>');  
+        // newElem(elemMain, 'span', ['circle-start', 'circle-start-3'], [['style', `top: ${valueY3}px; left: ${valueX2}px;`]]);
+        // newElem(elemMain, 'span', ['circle', 'circle-4']);
+        newElemHTML(elemMain, 'beforeend', '<span class="circle circle-4" data-dnd="circle-4"></span>');  
+        // newElem(elemMain, 'span', ['circle-start', 'circle-start-4'], [['style', `top: ${valueY3}px; left: ${valueX1}px;`]]);
+        
         const circle = document.querySelectorAll('.circle');
         const circle1 = document.querySelector('.circle-1');
-        const circle1start = document.querySelector('.circle-start-1');
         const circle2 = document.querySelector('.circle-2');
-        const circle2start = document.querySelector('.circle-start-2');
         const circle3 = document.querySelector('.circle-3');
-        const circle3start = document.querySelector('.circle-start-3');
         const circle4 = document.querySelector('.circle-4');
-        const circle4start = document.querySelector('.circle-start-4');
-        // const areaCut = document.querySelector('.new-area');
-        const deltaCircle = 5.5;
+        const deltaCircle = circle1.offsetWidth / 2;
+        const valueY1 = elemCardphoto.getBoundingClientRect().top - elemMain.getBoundingClientRect().top - deltaCircle;
+        const valueX1 = elemCardphoto.getBoundingClientRect().left - deltaCircle;
+        const valueX2 = valueX1 + elemCardphoto.getBoundingClientRect().width;
+        const valueY3 = valueY1 + elemCardphoto.getBoundingClientRect().height;
+        circle1.style.top = valueY1 + 'px';
+        circle1.style.left = valueX1 + 'px';
+        circle2.style.top = valueY1 + 'px';
+        circle2.style.left = valueX2 + 'px';
+        circle3.style.top = valueY3 + 'px';
+        circle3.style.left = valueX2 + 'px';
+        circle4.style.top = valueY3 + 'px';
+        circle4.style.left = valueX1 + 'px';
 
-        function dnd() {
-            // console.log('dnd. this1', this);
-            console.log('dnd. this.get.top.', this.getBoundingClientRect().top);
-            console.log('dnd. this.get.left', this.getBoundingClientRect().left);
-            console.log('dnd. this.style', this.style);
-            console.log('blockNewImage', blockNewImg.getBoundingClientRect().top, '/', blockNewImg.getBoundingClientRect().left);
-            
-            function circleMove(event) {
-                // console.log('dnd. this2', this);
-                console.log('circleMove. clientY / clientX', event.clientY, '/', event.clientX);
-                // this.style.top = event.clientY - blockNewImg.getBoundingClientRect().top + 'px';
-                // this.style.left = event.clientX - blockNewImg.getBoundingClientRect().left + 'px';
+        circle.forEach(el => {
+            el.onmousedown = function() {
+                circle.forEach(el => elemMain.append(el));
+
+                function circleMouseMove(event) {
+                    const valueY = event.pageY - elemMain.getBoundingClientRect().top - deltaCircle + 'px';
+                    const valueX = event.pageX - deltaCircle + 'px'
+                    this.style.top = valueY;
+                    this.style.left = valueX;
+                    // this.style.top = event.pageY - elemMain.getBoundingClientRect().top - deltaCircle + 'px';
+                    // this.style.left = event.pageX - deltaCircle + 'px';
+
+                    switch (this.dataset.dnd) {
+                        case 'circle-1':
+                            circle2.style.top = valueY;
+                            circle4.style.left = valueX;
+                            break;
+                        case 'circle-2':
+                            circle1.style.top = valueY;
+                            circle3.style.left = valueX;
+                            break;
+                        case 'circle-3':
+                            circle4.style.top = valueY;
+                            circle2.style.left = valueX;
+                            break;
+                        case 'circle-4':
+                            circle3.style.top = valueY;
+                            circle1.style.left = valueX;
+                            break;
+                    }
+                }
+    
+                this.addEventListener('mousemove', circleMouseMove);
+                
+                this.onmouseup = function() {
+                    this.removeEventListener('mousemove', circleMouseMove);
+                    this.onmouseup = null;
+                }
             }
 
-            this.addEventListener('pointermove', circleMove);
-        }
-        circle.forEach(el => {
-            el.addEventListener('pointerdown', dnd);
+            el.ondragstart = function() {
+                return false;
+            }
         })
+
     }
 
     function changeSizeImage() {
@@ -118,7 +155,6 @@ export function formationCardPhoto() {
                 elemCardphotoInput.addEventListener('change', checkImgSelection);
                 break; 
             case 'chng':
-                console.log('chng');
                 changeSizeImage();
                 break; 
             case 'cut':
