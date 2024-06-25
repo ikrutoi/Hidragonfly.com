@@ -65,22 +65,30 @@ export function formationCardPhoto() {
     function creationCircle() {
         // newElem(elemMain, 'span', ['circle', 'circle-1']);
         newElemHTML(elemMain, 'beforeend', '<span class="circle circle-1" data-dnd="circle-1"></span>');  
+        newElemHTML(elemMain, 'beforeend', '<span class="circle-start circle-1-start" data-dnd-start="circle-1-start"></span>');  
         // newElem(elemMain, 'span', ['circle-start', 'circle-start-1']);
         // newElem(elemMain, 'span', ['circle', 'circle-2']);
         newElemHTML(elemMain, 'beforeend', '<span class="circle circle-2" data-dnd="circle-2"></span>');  
+        newElemHTML(elemMain, 'beforeend', '<span class="circle-start circle-2-start" data-dnd-start="circle-2-start"></span>');  
         // newElem(elemMain, 'span', ['circle-start', 'circle-start-2'], [['style', `top: ${valueY1}px; left: ${valueX2}px;`]]);
         // newElem(elemMain, 'span', ['circle', 'circle-3']);
         newElemHTML(elemMain, 'beforeend', '<span class="circle circle-3" data-dnd="circle-3"></span>');  
+        newElemHTML(elemMain, 'beforeend', '<span class="circle-start circle-3-start" data-dnd-start="circle-3-start"></span>');  
         // newElem(elemMain, 'span', ['circle-start', 'circle-start-3'], [['style', `top: ${valueY3}px; left: ${valueX2}px;`]]);
         // newElem(elemMain, 'span', ['circle', 'circle-4']);
         newElemHTML(elemMain, 'beforeend', '<span class="circle circle-4" data-dnd="circle-4"></span>');  
+        newElemHTML(elemMain, 'beforeend', '<span class="circle-start circle-4-start" data-dnd-start="circle-4-start"></span>');  
         // newElem(elemMain, 'span', ['circle-start', 'circle-start-4'], [['style', `top: ${valueY3}px; left: ${valueX1}px;`]]);
         
         const circle = document.querySelectorAll('.circle');
         const circle1 = document.querySelector('.circle-1');
+        const circleStart1 = document.querySelector('.circle-1-start');
         const circle2 = document.querySelector('.circle-2');
+        const circleStart2 = document.querySelector('.circle-2-start');
         const circle3 = document.querySelector('.circle-3');
+        const circleStart3 = document.querySelector('.circle-3-start');
         const circle4 = document.querySelector('.circle-4');
+        const circleStart4 = document.querySelector('.circle-4-start');
         const deltaCircle = circle1.offsetWidth / 2;
         const valueY1 = elemCardphoto.getBoundingClientRect().top - elemMain.getBoundingClientRect().top - deltaCircle;
         const valueX1 = elemCardphoto.getBoundingClientRect().left - deltaCircle;
@@ -88,12 +96,20 @@ export function formationCardPhoto() {
         const valueY3 = valueY1 + elemCardphoto.getBoundingClientRect().height;
         circle1.style.top = valueY1 + 'px';
         circle1.style.left = valueX1 + 'px';
+        circleStart1.style.top = valueY1 + 'px';
+        circleStart1.style.left = valueX1 + 'px';
         circle2.style.top = valueY1 + 'px';
         circle2.style.left = valueX2 + 'px';
+        circleStart2.style.top = valueY1 + 'px';
+        circleStart2.style.left = valueX2 + 'px';
         circle3.style.top = valueY3 + 'px';
         circle3.style.left = valueX2 + 'px';
+        circleStart3.style.top = valueY3 + 'px';
+        circleStart3.style.left = valueX2 + 'px';
         circle4.style.top = valueY3 + 'px';
         circle4.style.left = valueX1 + 'px';
+        circleStart4.style.top = valueY3 + 'px';
+        circleStart4.style.left = valueX1 + 'px';
 
         circle.forEach(el => {
             el.onmousedown = function() {
@@ -101,28 +117,38 @@ export function formationCardPhoto() {
 
                 function circleMouseMove(event) {
                     const valueY = event.pageY - elemMain.getBoundingClientRect().top - deltaCircle + 'px';
-                    const valueX = event.pageX - deltaCircle + 'px'
+                    const deltaMouve = valueY - 
+                    const valueX = event.pageX - deltaCircle + 'px';
                     this.style.top = valueY;
                     this.style.left = valueX;
-                    // this.style.top = event.pageY - elemMain.getBoundingClientRect().top - deltaCircle + 'px';
-                    // this.style.left = event.pageX - deltaCircle + 'px';
+
+                    // document.querySelector(`.${this.dataset.dnd}-start`).style.top = valueY;
+                    // document.querySelector(`.${this.dataset.dnd}-start`).style.left = valueX;
 
                     switch (this.dataset.dnd) {
                         case 'circle-1':
                             circle2.style.top = valueY;
                             circle4.style.left = valueX;
+                            // circleStart2.style.top = valueY;
+                            // circleStart4.style.left = valueX;
                             break;
                         case 'circle-2':
                             circle1.style.top = valueY;
                             circle3.style.left = valueX;
+                            // circleStart1.style.top = valueY;
+                            // circleStart3.style.left = valueX;
                             break;
                         case 'circle-3':
                             circle4.style.top = valueY;
                             circle2.style.left = valueX;
+                            // circleStart4.style.top = valueY;
+                            // circleStart2.style.left = valueX;
                             break;
                         case 'circle-4':
                             circle3.style.top = valueY;
                             circle1.style.left = valueX;
+                            // circleStart3.style.top = valueY;
+                            // circleStart1.style.left = valueX;
                             break;
                     }
                 }
