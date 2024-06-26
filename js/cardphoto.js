@@ -65,22 +65,23 @@ export function formationCardPhoto() {
     function creationCircle() {
         // newElem(elemMain, 'span', ['circle', 'circle-1']);
         newElemHTML(elemMain, 'beforeend', '<span class="circle circle-1" data-dnd="circle-1"></span>');  
-        newElemHTML(elemMain, 'beforeend', '<span class="circle-start circle-1-start" data-dnd-start="circle-1-start"></span>');  
+        newElemHTML(elemMain, 'beforeend', '<span class="circle-start circle-1-start" data-dnd-start="circle-1"></span>');  
         // newElem(elemMain, 'span', ['circle-start', 'circle-start-1']);
         // newElem(elemMain, 'span', ['circle', 'circle-2']);
         newElemHTML(elemMain, 'beforeend', '<span class="circle circle-2" data-dnd="circle-2"></span>');  
-        newElemHTML(elemMain, 'beforeend', '<span class="circle-start circle-2-start" data-dnd-start="circle-2-start"></span>');  
+        newElemHTML(elemMain, 'beforeend', '<span class="circle-start circle-2-start" data-dnd-start="circle-2"></span>');  
         // newElem(elemMain, 'span', ['circle-start', 'circle-start-2'], [['style', `top: ${valueY1}px; left: ${valueX2}px;`]]);
         // newElem(elemMain, 'span', ['circle', 'circle-3']);
         newElemHTML(elemMain, 'beforeend', '<span class="circle circle-3" data-dnd="circle-3"></span>');  
-        newElemHTML(elemMain, 'beforeend', '<span class="circle-start circle-3-start" data-dnd-start="circle-3-start"></span>');  
+        newElemHTML(elemMain, 'beforeend', '<span class="circle-start circle-3-start" data-dnd-start="circle-3"></span>');  
         // newElem(elemMain, 'span', ['circle-start', 'circle-start-3'], [['style', `top: ${valueY3}px; left: ${valueX2}px;`]]);
         // newElem(elemMain, 'span', ['circle', 'circle-4']);
         newElemHTML(elemMain, 'beforeend', '<span class="circle circle-4" data-dnd="circle-4"></span>');  
-        newElemHTML(elemMain, 'beforeend', '<span class="circle-start circle-4-start" data-dnd-start="circle-4-start"></span>');  
+        newElemHTML(elemMain, 'beforeend', '<span class="circle-start circle-4-start" data-dnd-start="circle-4"></span>');  
         // newElem(elemMain, 'span', ['circle-start', 'circle-start-4'], [['style', `top: ${valueY3}px; left: ${valueX1}px;`]]);
         
-        const circle = document.querySelectorAll('.circle');
+        const circles = document.querySelectorAll('.circle');
+        const circlesStart = document.querySelectorAll('.circle-start');
         const circle1 = document.querySelector('.circle-1');
         const circleStart1 = document.querySelector('.circle-1-start');
         const circle2 = document.querySelector('.circle-2');
@@ -111,57 +112,72 @@ export function formationCardPhoto() {
         circleStart4.style.top = valueY3 + 'px';
         circleStart4.style.left = valueX1 + 'px';
 
-        circle.forEach(el => {
-            el.onmousedown = function() {
-                circle.forEach(el => elemMain.append(el));
+        circles.forEach(el => {
 
-                function circleMouseMove(event) {
-                    const valueY = event.pageY - elemMain.getBoundingClientRect().top - deltaCircle + 'px';
-                    const deltaMouve = valueY - 
-                    const valueX = event.pageX - deltaCircle + 'px';
-                    this.style.top = valueY;
-                    this.style.left = valueX;
+            function circleMouseMove(event) {
+                // console.log('coordinate circle-start: ', document.querySelector(`.${el.dataset.dnd}-start`).style.left);
+                const valueY = event.pageY - elemMain.getBoundingClientRect().top - deltaCircle + 'px';
+                const deltaMouveY = (parseFloat(valueY) - parseFloat(document.querySelector(`.${el.dataset.dnd}-start`).style.top)).toFixed(2);
+                const valueX = parseFloat(document.querySelector(`.${el.dataset.dnd}-start`).style.left) + parseFloat(deltaMouveY) * 1.42 + 'px';
+                // const valueX = event.pageX - deltaCircle + 'px';
+                el.style.top = valueY;
+                el.style.left = valueX;
 
-                    // document.querySelector(`.${this.dataset.dnd}-start`).style.top = valueY;
-                    // document.querySelector(`.${this.dataset.dnd}-start`).style.left = valueX;
-
-                    switch (this.dataset.dnd) {
-                        case 'circle-1':
-                            circle2.style.top = valueY;
-                            circle4.style.left = valueX;
-                            // circleStart2.style.top = valueY;
-                            // circleStart4.style.left = valueX;
-                            break;
-                        case 'circle-2':
-                            circle1.style.top = valueY;
-                            circle3.style.left = valueX;
-                            // circleStart1.style.top = valueY;
-                            // circleStart3.style.left = valueX;
-                            break;
-                        case 'circle-3':
-                            circle4.style.top = valueY;
-                            circle2.style.left = valueX;
-                            // circleStart4.style.top = valueY;
-                            // circleStart2.style.left = valueX;
-                            break;
-                        case 'circle-4':
-                            circle3.style.top = valueY;
-                            circle1.style.left = valueX;
-                            // circleStart3.style.top = valueY;
-                            // circleStart1.style.left = valueX;
-                            break;
-                    }
-                }
-    
-                this.addEventListener('mousemove', circleMouseMove);
-                
-                this.onmouseup = function() {
-                    this.removeEventListener('mousemove', circleMouseMove);
-                    this.onmouseup = null;
+                switch (el.dataset.dnd) {
+                    case 'circle-1':
+                        circle2.style.top = valueY;
+                        circle4.style.left = valueX;
+                        break;
+                    case 'circle-2':
+                        circle1.style.top = valueY;
+                        circle3.style.left = valueX;
+                        break;
+                    case 'circle-3':
+                        circle4.style.top = valueY;
+                        circle2.style.left = valueX;
+                        break;
+                    case 'circle-4':
+                        circle3.style.top = valueY;
+                        circle1.style.left = valueX;
+                        break;
                 }
             }
 
-            el.ondragstart = function() {
+            function reRecordCircleStart() {
+                circlesStart.forEach(el => {
+                    switch (el.dataset.dndStart) {
+                        case 'circle-1':
+                            el.style.top = circle1.style.top;
+                            el.style.left = circle1.style.left;
+                            break;
+                        case 'circle-2':
+                            el.style.top = circle2.style.top;
+                            el.style.left = circle2.style.left;
+                            break;
+                        case 'circle-3':
+                            el.style.top = circle3.style.top;
+                            el.style.left = circle3.style.left;
+                            break;
+                        case 'circle-4':
+                            el.style.top = circle4.style.top;
+                            el.style.left = circle4.style.left;
+                            break;
+                    }
+                })
+            }
+
+            el.onmousedown = function() {
+                elemMain.addEventListener('mousemove', circleMouseMove);
+                elemMain.onmouseup = function() {
+                    elemMain.removeEventListener('mousemove', circleMouseMove);
+                    // el.removeEventListener('mousemove', circleMouseMove);
+                    reRecordCircleStart();
+                    elemMain.onmouseup = null;
+                    el.onmouseup = null;
+                }
+            }
+            
+            document.ondragstart = function() {
                 return false;
             }
         })
