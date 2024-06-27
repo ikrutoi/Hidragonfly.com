@@ -101,20 +101,20 @@ export function formationCardPhoto() {
         const valueY3 = valueY1 + elemCardphoto.getBoundingClientRect().height;
         circle1.style.top = valueY1 + 'px';
         circle1.style.left = valueX1 + 'px';
-        circleStart1.style.top = valueY1 + 'px';
-        circleStart1.style.left = valueX1 + 'px';
+        circleStart1.style.top = valueY1 + deltaCircle + 'px';
+        circleStart1.style.left = valueX1 + deltaCircle + 'px';
         circle2.style.top = valueY1 + 'px';
         circle2.style.left = valueX2 + 'px';
-        circleStart2.style.top = valueY1 + 'px';
-        circleStart2.style.left = valueX2 + 'px';
+        circleStart2.style.top = valueY1 + deltaCircle + 'px';
+        circleStart2.style.left = valueX2 + deltaCircle + 'px';
         circle3.style.top = valueY3 + 'px';
         circle3.style.left = valueX2 + 'px';
-        circleStart3.style.top = valueY3 + 'px';
-        circleStart3.style.left = valueX2 + 'px';
+        circleStart3.style.top = valueY3 + deltaCircle + 'px';
+        circleStart3.style.left = valueX2 + deltaCircle + 'px';
         circle4.style.top = valueY3 + 'px';
         circle4.style.left = valueX1 + 'px';
-        circleStart4.style.top = valueY3 + 'px';
-        circleStart4.style.left = valueX1 + 'px';
+        circleStart4.style.top = valueY3 + deltaCircle + 'px';
+        circleStart4.style.left = valueX1 + deltaCircle + 'px';
 
         let deltaMouveY;
         let deltaBkgY1;
@@ -129,6 +129,7 @@ export function formationCardPhoto() {
                 const elemBkgRight = document.querySelector('.background-image-right');
                 const elemBkgButtom = document.querySelector('.background-image-buttom');
                 const elemBkgLeft = document.querySelector('.background-image-left');
+                // const valueY = event.pageY - elemMain.getBoundingClientRect().top + 'px';
                 const valueY = event.pageY - elemMain.getBoundingClientRect().top - deltaCircle + 'px';
                 deltaMouveY = parseFloat(valueY) - parseFloat(document.querySelector(`.${el.dataset.dnd}-start`).style.top);
                 const valueX14 = parseFloat(document.querySelector(`.${el.dataset.dnd}-start`).style.left) + deltaMouveY * 1.42 + 'px';
@@ -146,13 +147,13 @@ export function formationCardPhoto() {
                         if (!deltaBkgY1) {deltaBkgY1 = 0};
 
                         elemBkgUp.style.top = elemCardphoto.getBoundingClientRect().top - elemMain.getBoundingClientRect().top + 'px';
-                        elemBkgUp.style.left = elemCardphoto.getBoundingClientRect().left + deltaBkgY1 * 1.42 + deltaMouveY * 1.42 + 'px';
-                        elemBkgUp.style.width = elemCardphoto.getBoundingClientRect().width - deltaBkgY1 * 1.42 - deltaMouveY * 1.42 + 'px';
+                        elemBkgUp.style.left = circleStart1.getBoundingClientRect().left + deltaCircle + deltaBkgY1 * 1.42 + deltaMouveY * 1.42 + 'px';
+                        elemBkgUp.style.width = elemCardphoto.getBoundingClientRect().width - deltaBkgY1 * 1.42 - deltaMouveY * 1.42 - deltaCircle + 'px';
                         elemBkgUp.style.height = deltaBkgY1 + deltaMouveY + 'px';
 
                         elemBkgLeft.style.top = elemCardphoto.getBoundingClientRect().top - elemMain.getBoundingClientRect().top + 'px';
                         elemBkgLeft.style.left = elemCardphoto.getBoundingClientRect().left + 'px';
-                        elemBkgLeft.style.width = deltaBkgY1 * 1.42 + deltaMouveY * 1.42 + 'px';
+                        elemBkgLeft.style.width = deltaBkgY1 * 1.42 + deltaMouveY * 1.42 + deltaCircle + 'px';
                         elemBkgLeft.style.height = elemCardphoto.getBoundingClientRect().height + 'px';
                         break;
                     case 'circle-2':
@@ -163,17 +164,17 @@ export function formationCardPhoto() {
                         if (!deltaBkgY2) {deltaBkgY2 = 0};
 
                         elemBkgUp.style.top = elemCardphoto.getBoundingClientRect().top - elemMain.getBoundingClientRect().top + 'px';
-                        elemBkgUp.style.left = circleStart1.getBoundingClientRect().left + deltaCircle + 'px';
-                        elemBkgUp.style.width = elemCardphoto.getBoundingClientRect().width - elemBkgLeft.getBoundingClientRect().width - deltaBkgY2 * 1.42 - deltaMouveY * 1.42 + 'px';
+                        elemBkgUp.style.left = circleStart1.getBoundingClientRect().left + 'px';
+                        elemBkgUp.style.width = elemCardphoto.getBoundingClientRect().width - (circleStart1.getBoundingClientRect().left - elemCardphoto.getBoundingClientRect().left) + deltaCircle - deltaBkgY2 * 1.42 - deltaMouveY * 1.42 + 'px';
                         // elemBkgUp.style.width = elemCardphoto.getBoundingClientRect().width - deltaBkgY2 * 1.42 - deltaMouveY * 1.42 + 'px';
-                        elemBkgUp.style.height = circleStart1.getBoundingClientRect().top - elemCardphoto.getBoundingClientRect().top - deltaBkgY2 + deltaMouveY + deltaCircle + 'px';
+                        elemBkgUp.style.height = deltaBkgY2 + deltaMouveY + deltaCircle + 'px';
                         // elemBkgUp.style.top = elemCardphoto.getBoundingClientRect().top - elemMain.getBoundingClientRect().top + 'px';
                         // elemBkgUp.style.left = elemCardphoto.getBoundingClientRect().left + 'px';
                         // elemBkgUp.style.width = elemCardphoto.getBoundingClientRect().width - deltaBkgY2 * 1.42 - deltaMouveY * 1.42 + 'px';
                         // elemBkgUp.style.height = deltaBkgY2 + deltaMouveY + 'px';
 
                         elemBkgRight.style.top = elemCardphoto.getBoundingClientRect().top - elemMain.getBoundingClientRect().top + 'px';
-                        elemBkgRight.style.left = elemCardphoto.getBoundingClientRect().left + elemCardphoto.getBoundingClientRect().width - deltaBkgY2 * 1.42 - deltaMouveY * 1.42 + 'px';
+                        elemBkgRight.style.left = elemCardphoto.getBoundingClientRect().left + elemCardphoto.getBoundingClientRect().width + deltaCircle - deltaBkgY2 * 1.42 - deltaMouveY * 1.42 + 'px';
                         elemBkgRight.style.width = deltaBkgY2 * 1.42 + deltaMouveY * 1.42 + 'px';
                         elemBkgRight.style.height = elemCardphoto.getBoundingClientRect().height + 'px';
                         break;
