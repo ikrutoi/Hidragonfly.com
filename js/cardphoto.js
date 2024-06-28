@@ -124,13 +124,29 @@ export function formationCardPhoto() {
 
         circles.forEach(el => {
             let movieY;
+            let differY;
+            let differX;
 
-            function circleMouseMove(event) {         
+            function circleMouseMove(event) {     
+                    
                 const elemBkgUp = document.querySelector('.background-image-up');
                 const elemBkgRight = document.querySelector('.background-image-right');
                 const elemBkgButtom = document.querySelector('.background-image-buttom');
                 const elemBkgLeft = document.querySelector('.background-image-left');
 
+                
+                if (!differY) {
+                    console.log('*+*+*+');
+                    differY = Number((event.clientY - (parseFloat(el.style.top) + elemMain.getBoundingClientRect().top)).toFixed(0));
+                } 
+                
+                if (!differX) {
+                    console.log('differX: ', event.clientX, '/', parseFloat(el.style.left))
+                    differX = Number((event.clientX - parseFloat(el.style.left)).toFixed(0));
+                } 
+
+                console.log('events...Y ', event.pageY, '/', event.clientY, '//', differY, '/', differX)
+                
                 movieY = 
                     event.pageY - 
                     document.querySelector(`.${el.dataset.dnd}-start`).getBoundingClientRect().top;
@@ -138,21 +154,7 @@ export function formationCardPhoto() {
                 const valueY =  
                     document.querySelector(`.${el.dataset.dnd}-start`).getBoundingClientRect().top - 
                     elemMain.getBoundingClientRect().top +
-                    movieY -
-                    deltaCircle;
-
-                // const valueX14 = 
-                //     elemCardphoto.getBoundingClientRect().left +
-                //     deltaBkgY1 * 1.42 + 
-                //     movieY * 1.42;
-
-                // const valueX23 = 
-                //     elemCardphoto.getBoundingClientRect().left +
-                //     elemCardphoto.getBoundingClientRect().width -
-                //     deltaBkgY2 * 1.42 -
-                //     movieY * 1.42;
-
-                // console.log('valueX23: ', valueX23);
+                    movieY + differY;
 
                 el.style.top = valueY + 'px';
 
@@ -164,7 +166,7 @@ export function formationCardPhoto() {
                         const valueX1 = 
                             elemCardphoto.getBoundingClientRect().left +
                             deltaBkgY1 * 1.42 + 
-                            movieY * 1.42;
+                            movieY * 1.42 + differX;
 
                         el.style.left = valueX1 + 'px';
                         circle2.style.top = valueY + 'px';
@@ -285,37 +287,32 @@ export function formationCardPhoto() {
                         case 'circle-1':
                             el.style.top = 
                                 circle1.getBoundingClientRect().top -
-                                elemMain.getBoundingClientRect().top + 
-                                deltaCircle + 'px';
-                            el.style.left = circle1.getBoundingClientRect().left + deltaCircle + 'px';  
+                                elemMain.getBoundingClientRect().top + 'px';
+                            el.style.left = circle1.getBoundingClientRect().left + 'px';  
                        
                             deltaBkgY1 = deltaBkgY1 + movieY;
-                            console.log('circle1start: ', el.style.top, '/', el.style.left, '/', deltaBkgY1);
                             break;
                         case 'circle-2':
                             el.style.top = 
                                 circle2.getBoundingClientRect().top -
-                                elemMain.getBoundingClientRect().top + 
-                                deltaCircle + 'px';
-                            el.style.left = circle2.getBoundingClientRect().left + deltaCircle + 'px';
+                                elemMain.getBoundingClientRect().top + 'px';
+                            el.style.left = circle2.getBoundingClientRect().left + 'px';
 
                             deltaBkgY2 = deltaBkgY2 + movieY;
                             break;
                         case 'circle-3':
                             el.style.top = 
                                 circle3.getBoundingClientRect().top -
-                                elemMain.getBoundingClientRect().top + 
-                                deltaCircle + 'px';
-                            el.style.left = circle3.getBoundingClientRect().left + deltaCircle + 'px';
+                                elemMain.getBoundingClientRect().top + 'px';
+                            el.style.left = circle3.getBoundingClientRect().left + 'px';
 
                             deltaBkgY3 = deltaBkgY3 - movieY;
                             break;
                         case 'circle-4':
                             el.style.top = 
                                 circle4.getBoundingClientRect().top -
-                                elemMain.getBoundingClientRect().top + 
-                                deltaCircle + 'px';
-                            el.style.left = circle4.getBoundingClientRect().left + deltaCircle + 'px';
+                                elemMain.getBoundingClientRect().top + 'px';
+                            el.style.left = circle4.getBoundingClientRect().left + 'px';
 
                             deltaBkgY4 = deltaBkgY4 - movieY;
                             break;
@@ -324,7 +321,9 @@ export function formationCardPhoto() {
 
                 switch (elem.dataset.dnd) {
                     case 'circle-1':
-                        console.log('1///////////////')                          
+                        console.log('1///////////////')  
+                        differY = null;                        
+                        differX = null;                        
                         // deltaBkgY2 = deltaBkgY1;
                         break;
                     case 'circle-2':
