@@ -141,20 +141,35 @@ export function formationCardPhoto() {
                     movieY -
                     deltaCircle;
 
-                const valueX14 = 
-                    elemCardphoto.getBoundingClientRect().left +
-                    deltaBkgY1 * 1.42 + 
-                    movieY * 1.42;
+                // const valueX14 = 
+                //     elemCardphoto.getBoundingClientRect().left +
+                //     deltaBkgY1 * 1.42 + 
+                //     movieY * 1.42;
+
+                // const valueX23 = 
+                //     elemCardphoto.getBoundingClientRect().left +
+                //     elemCardphoto.getBoundingClientRect().width -
+                //     deltaBkgY2 * 1.42 -
+                //     movieY * 1.42;
+
+                // console.log('valueX23: ', valueX23);
 
                 el.style.top = valueY + 'px';
 
                 switch (el.dataset.dnd) {
                     case 'circle-1':
-                        el.style.left = valueX14 + 'px';
-                        circle2.style.top = valueY + 'px';
-                        circle4.style.left = valueX14 + 'px';
 
                         if (!deltaBkgY1) {deltaBkgY1 = 0};
+
+                        const valueX1 = 
+                            elemCardphoto.getBoundingClientRect().left +
+                            deltaBkgY1 * 1.42 + 
+                            movieY * 1.42;
+
+                        el.style.left = valueX1 + 'px';
+                        circle2.style.top = valueY + 'px';
+                        circle4.style.left = valueX1 + 'px';
+
 
                         elemBkgUp.style.top = 
                             elemCardphoto.getBoundingClientRect().top - 
@@ -183,12 +198,19 @@ export function formationCardPhoto() {
                             elemCardphoto.getBoundingClientRect().height + 'px';
                         break;
                     case 'circle-2':
-                        console.log('circle2');
-                        el.style.left = valueX23;
-                        circle1.style.top = valueEventY;
-                        circle3.style.left = valueX23;
 
                         if (!deltaBkgY2) {deltaBkgY2 = 0};
+
+                        const valueX2 = 
+                            elemCardphoto.getBoundingClientRect().left +
+                            elemCardphoto.getBoundingClientRect().width -
+                            deltaBkgY2 * 1.42 -
+                            movieY * 1.42;
+
+                        el.style.left = valueX2 + 'px';
+                        circle1.style.top = valueY + 'px';
+                        circle3.style.left = valueX2 + 'px';
+
 
                         elemBkgUp.style.top = elemCardphoto.getBoundingClientRect().top - elemMain.getBoundingClientRect().top + 'px';
                         elemBkgUp.style.left = circleStart1.getBoundingClientRect().left + 'px';
@@ -206,11 +228,19 @@ export function formationCardPhoto() {
                         elemBkgRight.style.height = elemCardphoto.getBoundingClientRect().height + 'px';
                         break;
                     case 'circle-3':
-                        el.style.left = valueX14;
-                        circle4.style.top = valueEventY;
-                        circle2.style.left = valueX14;
 
                         if (!deltaBkgY3) {deltaBkgY3 = 0};
+
+                        const valueX3 = 
+                            elemCardphoto.getBoundingClientRect().left +
+                            elemCardphoto.getBoundingClientRect().width -
+                            deltaBkgY3 * 1.42 +
+                            movieY * 1.42;
+
+                        el.style.left = valueX3 + 'px';
+                        circle4.style.top = valueY + 'px';
+                        circle2.style.left = valueX3 + 'px';
+
                         
                         elemBkgRight.style.top = elemCardphoto.getBoundingClientRect().top - elemMain.getBoundingClientRect().top + 'px';
                         elemBkgRight.style.left = elemCardphoto.getBoundingClientRect().left + elemCardphoto.getBoundingClientRect().width - deltaBkgY3 * 1.42 + deltaMouveY * 1.42 + 'px';
@@ -223,11 +253,18 @@ export function formationCardPhoto() {
                         elemBkgButtom.style.height = deltaBkgY3 - deltaMouveY + 'px';
                         break;
                     case 'circle-4':
-                        el.style.left = valueX23;
-                        circle3.style.top = valueEventY;
-                        circle1.style.left = valueX23;
 
                         if (!deltaBkgY4) {deltaBkgY4 = 0};
+
+                        const valueX4 = 
+                            elemCardphoto.getBoundingClientRect().left +
+                            deltaBkgY4 * 1.42 - 
+                            movieY * 1.42;
+
+                        el.style.left = valueX4 + 'px';
+                        circle3.style.top = valueY + 'px';
+                        circle1.style.left = valueX4 + 'px';
+
 
                         elemBkgButtom.style.bottom = elemCardphoto.getBoundingClientRect().top - elemMain.getBoundingClientRect().top + 'px';                     
                         elemBkgButtom.style.left = elemCardphoto.getBoundingClientRect().left + deltaBkgY4 * 1.42 - deltaMouveY * 1.42 + 'px';
