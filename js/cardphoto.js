@@ -119,7 +119,6 @@ export function formationCardPhoto() {
         circleStart4.style.left = valueX1 + 'px';
 
         function resizeNewImage() {
-            console.log('resizeNewImage');
             newImage.style.top = circleStart1.style.top;
             newImage.style.left = circleStart1.style.left;
             newImage.style.width = circle2.getBoundingClientRect().left - circle1.getBoundingClientRect().left + 'px';
@@ -127,6 +126,10 @@ export function formationCardPhoto() {
         }
 
         // resizeNewImage();
+        const elemBkgUp = document.querySelector('.background-image-up');
+        const elemBkgRight = document.querySelector('.background-image-right');
+        const elemBkgButtom = document.querySelector('.background-image-buttom');
+        const elemBkgLeft = document.querySelector('.background-image-left');
 
         let deltaBkgY1;
         let deltaBkgY2;
@@ -137,13 +140,6 @@ export function formationCardPhoto() {
             let movieY;
 
             function circleMouseMove(event) {  
-                console.log('move -->');   
-                    
-                const elemBkgUp = document.querySelector('.background-image-up');
-                const elemBkgRight = document.querySelector('.background-image-right');
-                const elemBkgButtom = document.querySelector('.background-image-buttom');
-                const elemBkgLeft = document.querySelector('.background-image-left');
-
                 movieY = 
                     event.pageY - 
                     document.querySelector(`.${el.dataset.dnd}-start`).getBoundingClientRect().top;
@@ -390,8 +386,6 @@ export function formationCardPhoto() {
         
         function reRecordCircleStart() {
             circlesStart.forEach(el => {
-                console.log('*1: ', circle1.getBoundingClientRect().top, circleStart1.getBoundingClientRect().top);
-
                 switch (el.dataset.dndStart) {
                     case 'circle-1':
                         el.style.top = 
@@ -419,7 +413,6 @@ export function formationCardPhoto() {
                         break;
                 }
             });
-            console.log('*2: ', circle1.getBoundingClientRect().top, circleStart1.getBoundingClientRect().top);
 
             // switch (elem.dataset.dnd) {
             //     case 'circle-1':
@@ -437,7 +430,6 @@ export function formationCardPhoto() {
             // };
 
             resizeNewImage();
-            console.log('*3: ', circle1.getBoundingClientRect().top, circleStart1.getBoundingClientRect().top);
         }
 
         document.ondragstart = function() {
@@ -448,6 +440,68 @@ export function formationCardPhoto() {
         function startMoveNewImage(event) {
             startNewImageY = event.pageY;
             startNewImageX = event.pageX;
+        }
+
+        function changeBackgroud(moveY, moveX) {
+            console.log('changeBKG');
+
+            elemBkgLeft.style.top = 
+                elemCardphoto.getBoundingClientRect().top - 
+                elemMain.getBoundingClientRect().top + 'px';
+            elemBkgLeft.style.left =
+                elemCardphoto.getBoundingClientRect().left + 'px';
+            elemBkgLeft.style.width = 
+                circleStart1.getBoundingClientRect().left -
+                elemCardphoto.getBoundingClientRect().left +
+                moveX + 'px';
+            elemBkgLeft.style.height = 
+                elemCardphoto.getBoundingClientRect().height + 'px';
+
+            elemBkgUp.style.top = 
+                elemCardphoto.getBoundingClientRect().top - 
+                elemMain.getBoundingClientRect().top + 'px';
+            elemBkgUp.style.left = 
+                circleStart1.getBoundingClientRect().left +
+                moveX + 'px';
+            elemBkgUp.style.width = 
+                circleStart2.getBoundingClientRect().left -
+                circleStart1.getBoundingClientRect().left + 'px';
+                // moveX + 'px';
+            elemBkgUp.style.height = 
+                circleStart1.getBoundingClientRect().top -
+                elemCardphoto.getBoundingClientRect().top +
+                moveY + 'px';
+
+            elemBkgRight.style.top = 
+                elemCardphoto.getBoundingClientRect().top - 
+                elemMain.getBoundingClientRect().top + 'px';
+            elemBkgRight.style.left = 
+                circleStart2.getBoundingClientRect().left +
+                moveX + 'px';
+            elemBkgRight.style.width = 
+                elemCardphoto.getBoundingClientRect().left + 
+                elemCardphoto.getBoundingClientRect().width -
+                circleStart2.getBoundingClientRect().left - 
+                moveX + 'px';
+            elemBkgRight.style.height = elemCardphoto.getBoundingClientRect().height + 'px';
+
+            elemBkgButtom.style.bottom = 
+                elemMain.getBoundingClientRect().height +
+                elemMain.getBoundingClientRect().top -
+                elemCardphoto.getBoundingClientRect().top -
+                elemCardphoto.getBoundingClientRect().height + 'px';
+            elemBkgButtom.style.left = 
+                circleStart4.getBoundingClientRect().left +
+                moveX + 'px';
+            elemBkgButtom.style.width = 
+                circleStart3.getBoundingClientRect().left -
+                circleStart4.getBoundingClientRect().left + 'px'
+                // moveX + 'px';
+            elemBkgButtom.style.height =
+                elemCardphoto.getBoundingClientRect().top +
+                elemCardphoto.getBoundingClientRect().height -
+                circleStart4.getBoundingClientRect().top -
+                moveY + 'px';
         }
             
         function moveNewImage(event) {
@@ -463,7 +517,8 @@ export function formationCardPhoto() {
                 document.querySelector(`.${el.dataset.dnd}-start`).getBoundingClientRect().left +
                     moveX - 
                     deltaCircle + 'px';
-            })
+                })
+                changeBackgroud(moveY, moveX);
             newImage.style.top = 
                 circleStart1.getBoundingClientRect().top - 
                 elemMain.getBoundingClientRect().top +
