@@ -83,6 +83,7 @@ export function formationCardPhoto() {
         newElemHTML(elemMain, 'beforeend', '<div class="background-image background-image-right" data-bkg-image="bkg-image-right"></div>');  
         newElemHTML(elemMain, 'beforeend', '<div class="background-image background-image-buttom" data-bkg-image="bkg-image-buttom"></div>');  
         newElemHTML(elemMain, 'beforeend', '<div class="background-image background-image-left" data-bkg-image="bkg-image-left"></div>');  
+        newElemHTML(elemMain, 'beforeend', '<div class="new-image"></div>');  
         
         const circles = document.querySelectorAll('.circle');
         const circlesStart = document.querySelectorAll('.circle-start');
@@ -94,6 +95,7 @@ export function formationCardPhoto() {
         const circleStart3 = document.querySelector('.circle-3-start');
         const circle4 = document.querySelector('.circle-4');
         const circleStart4 = document.querySelector('.circle-4-start');
+        const newImage = document.querySelector('.new-image');
         const deltaCircle = circle1.offsetWidth / 2;
         const valueY1 = elemCardphoto.getBoundingClientRect().top - elemMain.getBoundingClientRect().top;
         const valueX1 = elemCardphoto.getBoundingClientRect().left;
@@ -116,7 +118,16 @@ export function formationCardPhoto() {
         circleStart4.style.top = valueY3 + 'px';
         circleStart4.style.left = valueX1 + 'px';
 
-        let deltaMouveY;
+        function resizeNewImage() {
+            console.log('resizeNewImage');
+            newImage.style.top = circleStart1.style.top;
+            newImage.style.left = circleStart1.style.left;
+            newImage.style.width = circle2.getBoundingClientRect().left - circle1.getBoundingClientRect().left + 'px';
+            newImage.style.height = circle4.getBoundingClientRect().top - circle1.getBoundingClientRect().top + 'px';
+        }
+
+        // resizeNewImage();
+
         let deltaBkgY1;
         let deltaBkgY2;
         let deltaBkgY3;
@@ -125,7 +136,8 @@ export function formationCardPhoto() {
         circles.forEach(el => {
             let movieY;
 
-            function circleMouseMove(event) {     
+            function circleMouseMove(event) {  
+                console.log('move -->');   
                     
                 const elemBkgUp = document.querySelector('.background-image-up');
                 const elemBkgRight = document.querySelector('.background-image-right');
@@ -364,68 +376,119 @@ export function formationCardPhoto() {
                 }
             }
 
-            function reRecordCircleStart(elem) {
-                circlesStart.forEach(el => {
-                    switch (el.dataset.dndStart) {
-                        case 'circle-1':
-                            el.style.top = 
-                                circle1.getBoundingClientRect().top -
-                                elemMain.getBoundingClientRect().top + deltaCircle + 'px';
-                            el.style.left = circle1.getBoundingClientRect().left + deltaCircle + 'px';  
-                            break;
-                        case 'circle-2':
-                            el.style.top = 
-                                circle2.getBoundingClientRect().top -
-                                elemMain.getBoundingClientRect().top + deltaCircle + 'px';
-                            el.style.left = circle2.getBoundingClientRect().left + deltaCircle + 'px';
-                            break;
-                        case 'circle-3':
-                            el.style.top = 
-                                circle3.getBoundingClientRect().top -
-                                elemMain.getBoundingClientRect().top + deltaCircle + 'px';
-                            el.style.left = circle3.getBoundingClientRect().left + deltaCircle + 'px';
-                            break;
-                        case 'circle-4':
-                            el.style.top = 
-                                circle4.getBoundingClientRect().top -
-                                elemMain.getBoundingClientRect().top + deltaCircle + 'px';
-                            el.style.left = circle4.getBoundingClientRect().left + deltaCircle + 'px';
-                            break;
-                    }
-                });
-
-                switch (elem.dataset.dnd) {
-                    case 'circle-1':
-                        deltaBkgY1 = deltaBkgY1 + movieY;                       
-                        break;
-                    case 'circle-2':
-                        deltaBkgY2 = deltaBkgY2 + movieY;
-                        break;
-                    case 'circle-3':
-                        deltaBkgY3 = deltaBkgY3 - movieY;
-                        break;
-                    case 'circle-4':
-                        deltaBkgY4 = deltaBkgY4 - movieY;
-                        break;
-                };
-            }
-
             el.onmousedown = function() {
                 // creationBackgrondImage(el)
                 elemMain.addEventListener('mousemove', circleMouseMove);
                 elemMain.onmouseup = function() {
                     elemMain.removeEventListener('mousemove', circleMouseMove);
-                    reRecordCircleStart(el);
+                    reRecordCircleStart();
                     elemMain.onmouseup = null;
                     el.onmouseup = null;
                 }
             }
-            
-            document.ondragstart = function() {
-                return false;
-            }
-        })
+        }); 
+        
+        function reRecordCircleStart() {
+            circlesStart.forEach(el => {
+                console.log('*1: ', circle1.getBoundingClientRect().top, circleStart1.getBoundingClientRect().top);
 
+                switch (el.dataset.dndStart) {
+                    case 'circle-1':
+                        el.style.top = 
+                            circle1.getBoundingClientRect().top -
+                            elemMain.getBoundingClientRect().top + deltaCircle + 'px';
+                        el.style.left = circle1.getBoundingClientRect().left + deltaCircle + 'px';  
+                        break;
+                    case 'circle-2':
+                        el.style.top = 
+                            circle2.getBoundingClientRect().top -
+                            elemMain.getBoundingClientRect().top + deltaCircle + 'px';
+                        el.style.left = circle2.getBoundingClientRect().left + deltaCircle + 'px';
+                        break;
+                    case 'circle-3':
+                        el.style.top = 
+                            circle3.getBoundingClientRect().top -
+                            elemMain.getBoundingClientRect().top + deltaCircle + 'px';
+                        el.style.left = circle3.getBoundingClientRect().left + deltaCircle + 'px';
+                        break;
+                    case 'circle-4':
+                        el.style.top = 
+                            circle4.getBoundingClientRect().top -
+                            elemMain.getBoundingClientRect().top + deltaCircle + 'px';
+                        el.style.left = circle4.getBoundingClientRect().left + deltaCircle + 'px';
+                        break;
+                }
+            });
+            console.log('*2: ', circle1.getBoundingClientRect().top, circleStart1.getBoundingClientRect().top);
+
+            // switch (elem.dataset.dnd) {
+            //     case 'circle-1':
+            //         deltaBkgY1 = deltaBkgY1 + movieY;                       
+            //         break;
+            //     case 'circle-2':
+            //         deltaBkgY2 = deltaBkgY2 + movieY;
+            //         break;
+            //     case 'circle-3':
+            //         deltaBkgY3 = deltaBkgY3 - movieY;
+            //         break;
+            //     case 'circle-4':
+            //         deltaBkgY4 = deltaBkgY4 - movieY;
+            //         break;
+            // };
+
+            resizeNewImage();
+            console.log('*3: ', circle1.getBoundingClientRect().top, circleStart1.getBoundingClientRect().top);
+        }
+
+        document.ondragstart = function() {
+            return false;
+        }
+        let startNewImageY;
+        let startNewImageX;
+        function startMoveNewImage(event) {
+            startNewImageY = event.pageY;
+            startNewImageX = event.pageX;
+        }
+            
+        function moveNewImage(event) {
+            const moveY = event.pageY - startNewImageY;
+            const moveX = event.pageX - startNewImageX;
+            circles.forEach(el => {
+                el.style.top = 
+                    document.querySelector(`.${el.dataset.dnd}-start`).getBoundingClientRect().top -
+                    elemMain.getBoundingClientRect().top +
+                    moveY -
+                    deltaCircle + 'px';
+                el.style.left = 
+                document.querySelector(`.${el.dataset.dnd}-start`).getBoundingClientRect().left +
+                    moveX - 
+                    deltaCircle + 'px';
+            })
+            newImage.style.top = 
+                circleStart1.getBoundingClientRect().top - 
+                elemMain.getBoundingClientRect().top +
+                deltaCircle +
+                moveY -
+                deltaCircle + 'px';
+            newImage.style.left = 
+                circleStart1.getBoundingClientRect().left +
+                deltaCircle +
+                moveX -
+                deltaCircle + 'px';  
+        }
+
+        newImage.addEventListener('mouseenter', addClassHover);
+        newImage.addEventListener('mouseleave', delClassHover);
+        newImage.addEventListener('pointerdown', startMoveNewImage);
+        newImage.onmousedown = function() {
+            // creationBackgrondImage(el)
+            newImage.addEventListener('mousemove', moveNewImage);
+            newImage.onmouseup = function() {
+                newImage.removeEventListener('mousemove', moveNewImage);
+                reRecordCircleStart();
+                newImage.onmouseup = null;
+            }
+        }
     }
 
     function changeSizeImage() {
@@ -463,7 +526,6 @@ export function formationCardPhoto() {
             addClassActive();
         }
     }
-
     
     elemCardphoto.addEventListener('mouseenter', addClassHover);
     elemCardphoto.addEventListener('mouseenter', addClassActive);
