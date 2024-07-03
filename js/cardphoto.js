@@ -545,10 +545,48 @@ export function formationCardPhoto() {
         let stopMoveNewImageCircle2;
         let stopMoveNewImageCircle3;
         let stopMoveNewImageCircle4;
+
+        let pauseNewImageX;
+        let pauseNewImageY;
+        let eventPageTemporaryX;
+        let eventPageTemporaryY;
+        let deltaMoveImageX;
+        let deltaMoveImageY;
             
         function moveNewImage(event) {
             const moveY = event.pageY - startNewImageY;
             const moveX = event.pageX - startNewImageX;
+
+            if (!stopMoveNewImageCircle1 &&
+                !stopMoveNewImageCircle2 && 
+                !stopMoveNewImageCircle3 &&
+                !stopMoveNewImageCircle4  
+            ) {
+                if (pauseNewImageX || pauseNewImageY) {
+                    pauseNewImageX = false;
+                    pauseNewImageY = false;
+                }
+            } else {
+                if (pauseNewImageX || pauseNewImageY) {
+                    if (eventPageTemporaryX < event.pageX || eventPageTemporaryY < event.pageY) {
+                        if (!deltaMoveImageX || !deltaMoveImageY) {
+                            deltaMoveImageX = event.pageX - pauseNewImageX;
+                            deltaMoveImageY = event.pageY - pauseNewImageY;
+                            startNewImageX = startNewImageX + deltaMoveImageX;
+                            startNewImageY = startNewImageY + deltaMoveImageY;
+                            pauseNewImageX = null;
+                            deltaMoveImageX = null;
+                            pauseNewImageY = null;
+                            deltaMoveImageY = null;
+                        }
+                    }
+                } else {
+                    pauseNewImageX = event.pageX;
+                    pauseNewImageY = event.pageY;
+                }                
+                eventPageTemporaryX = event.pageX;
+                eventPageTemporaryY = event.pageY;
+            }
 
             circles.forEach(el => {
 
@@ -562,8 +600,8 @@ export function formationCardPhoto() {
                 switch (el.dataset.dnd) {
                     case 'circle-1':
                         if (
-                            valueCircleY < elemCardphoto.getBoundingClientRect().top - deltaCircle ||
-                            valueCircleX < elemCardphoto.getBoundingClientRect().left - deltaCircle
+                            valueCircleY < elemCardphoto.getBoundingClientRect().top ||
+                            valueCircleX < elemCardphoto.getBoundingClientRect().left
                         ) 
                         { 
                             stopMoveNewImageCircle1 = true;
@@ -581,7 +619,7 @@ export function formationCardPhoto() {
                         break;
                     case 'circle-2':
                         if (
-                            valueCircleY < elemCardphoto.getBoundingClientRect().top - deltaCircle ||
+                            valueCircleY < elemCardphoto.getBoundingClientRect().top ||
                             valueCircleX > elemCardphoto.getBoundingClientRect().left + elemCardphoto.getBoundingClientRect().width + deltaCircle
                         ) { 
                             stopMoveNewImageCircle2 = true;
@@ -599,8 +637,8 @@ export function formationCardPhoto() {
                         break;
                     case 'circle-3':
                         if (
-                            valueCircleY > elemCardphoto.getBoundingClientRect().top + elemCardphoto.getBoundingClientRect().height + deltaCircle ||
-                            valueCircleX > elemCardphoto.getBoundingClientRect().left + elemCardphoto.getBoundingClientRect().width + deltaCircle
+                            valueCircleY > elemCardphoto.getBoundingClientRect().top + elemCardphoto.getBoundingClientRect().height ||
+                            valueCircleX > elemCardphoto.getBoundingClientRect().left + elemCardphoto.getBoundingClientRect().width
                         ) { 
                             stopMoveNewImageCircle3 = true;
                         } else {
@@ -617,8 +655,8 @@ export function formationCardPhoto() {
                         break;
                     case 'circle-4':
                         if (
-                            valueCircleY > elemCardphoto.getBoundingClientRect().top + elemCardphoto.getBoundingClientRect().height + deltaCircle ||
-                            valueCircleX < elemCardphoto.getBoundingClientRect().left - deltaCircle
+                            valueCircleY > elemCardphoto.getBoundingClientRect().top + elemCardphoto.getBoundingClientRect().height ||
+                            valueCircleX < elemCardphoto.getBoundingClientRect().left
                         ) { 
                             stopMoveNewImageCircle4 = true;
                         } else {
@@ -647,19 +685,26 @@ export function formationCardPhoto() {
                 }
             })
 
-            changeBackgroud(moveY, moveX);
-            newImage.style.top = 
-                circleStart1.getBoundingClientRect().top - 
-                elemMain.getBoundingClientRect().top +
-                deltaCircle +
-                moveY -
-                deltaCircle + 'px';
+            if (!stopMoveNewImageCircle1 &&
+                !stopMoveNewImageCircle2 && 
+                !stopMoveNewImageCircle3 &&
+                !stopMoveNewImageCircle4
+            ) {
+                changeBackgroud(moveY, moveX);
+                
+                newImage.style.top = 
+                    circleStart1.getBoundingClientRect().top - 
+                    elemMain.getBoundingClientRect().top +
+                    deltaCircle +
+                    moveY -
+                    deltaCircle + 'px';
 
-            newImage.style.left = 
-                circleStart1.getBoundingClientRect().left +
-                deltaCircle +
-                moveX -
-                deltaCircle + 'px'; 
+                newImage.style.left = 
+                    circleStart1.getBoundingClientRect().left +
+                    deltaCircle +
+                    moveX -
+                    deltaCircle + 'px';
+            } 
         };
 
         newImage.addEventListener('mouseenter', addClassHover);
