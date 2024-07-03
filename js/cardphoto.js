@@ -98,10 +98,6 @@ export function formationCardPhoto() {
         const circle4 = document.querySelector('.circle-4');
         const circleStart4 = document.querySelector('.circle-4-start');
         const deltaCircle = circle1.offsetWidth / 2;
-        // elemOuterBorderImage.style.left = elemOuterBorderImage.getBoundingClientRect().left - deltaCircle + 'px';
-        // elemOuterBorderImage.style.top = elemOuterBorderImage.getBoundingClientRect().top - elemMain.getBoundingClientRect().top - deltaCircle + 'px';
-        // elemOuterBorderImage.style.width = elemOuterBorderImage.getBoundingClientRect().width + 2 * deltaCircle - 2 + 'px';
-        // elemOuterBorderImage.style.height = elemOuterBorderImage.getBoundingClientRect().height + 2 * deltaCircle - 2 + 'px';
         const newImage = document.querySelector('.new-image');
         const valueY1 = elemCardphoto.getBoundingClientRect().top - elemMain.getBoundingClientRect().top;
         const valueX1 = elemCardphoto.getBoundingClientRect().left;
@@ -131,16 +127,11 @@ export function formationCardPhoto() {
             newImage.style.height = circle4.getBoundingClientRect().top - circle1.getBoundingClientRect().top + 'px';
         }
 
-        // resizeNewImage();
         const elemBkgUp = document.querySelector('.background-image-up');
         const elemBkgRight = document.querySelector('.background-image-right');
         const elemBkgButtom = document.querySelector('.background-image-buttom');
         const elemBkgLeft = document.querySelector('.background-image-left');
 
-        // let deltaBkgY1;
-        // let deltaBkgY2;
-        // let deltaBkgY3;
-        // let deltaBkgY4;
         let movieY;
 
         circles.forEach(el => {
@@ -155,11 +146,8 @@ export function formationCardPhoto() {
                     elemMain.getBoundingClientRect().top +
                     movieY - deltaCircle;
 
-                // el.style.top = valueY + 'px';
-
                 switch (el.dataset.dnd) {
                     case 'circle-1':
-                        // if (!deltaBkgY1) {deltaBkgY1 = 0};
                         const valueX1 = 
                             document.querySelector(`.${el.dataset.dnd}-start`).getBoundingClientRect().left + 
                             movieY * 1.42 -
@@ -452,21 +440,6 @@ export function formationCardPhoto() {
                 }
             });
 
-            // switch (elem.dataset.dnd) {
-            //     case 'circle-1':
-            //         deltaBkgY1 = deltaBkgY1 + movieY;                       
-            //         break;
-            //     case 'circle-2':
-            //         deltaBkgY2 = deltaBkgY2 + movieY;
-            //         break;
-            //     case 'circle-3':
-            //         deltaBkgY3 = deltaBkgY3 - movieY;
-            //         break;
-            //     case 'circle-4':
-            //         deltaBkgY4 = deltaBkgY4 - movieY;
-            //         break;
-            // };
-
             resizeNewImage();
         }
 
@@ -568,8 +541,9 @@ export function formationCardPhoto() {
                 }
             } else {
                 if (pauseNewImageX || pauseNewImageY) {
-                    if (eventPageTemporaryX < event.pageX || eventPageTemporaryY < event.pageY) {
-                        if (!deltaMoveImageX || !deltaMoveImageY) {
+                    if (!deltaMoveImageX && !deltaMoveImageY) {
+
+                        function changeStartNewImage() {
                             deltaMoveImageX = event.pageX - pauseNewImageX;
                             deltaMoveImageY = event.pageY - pauseNewImageY;
                             startNewImageX = startNewImageX + deltaMoveImageX;
@@ -578,6 +552,17 @@ export function formationCardPhoto() {
                             deltaMoveImageX = null;
                             pauseNewImageY = null;
                             deltaMoveImageY = null;
+                        }
+
+                        if (stopMoveNewImageCircle1 && stopMoveNewImageCircle4 || stopMoveNewImageCircle1 && stopMoveNewImageCircle2) {
+                            if (eventPageTemporaryX < event.pageX || eventPageTemporaryY < event.pageY) {
+                                changeStartNewImage();
+                            }
+                        }
+                        if (stopMoveNewImageCircle2 && stopMoveNewImageCircle3 || stopMoveNewImageCircle3 && stopMoveNewImageCircle4) {
+                            if (eventPageTemporaryX > event.pageX || eventPageTemporaryY > event.pageY) {
+                                changeStartNewImage();
+                            }
                         }
                     }
                 } else {
