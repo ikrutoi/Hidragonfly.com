@@ -7,14 +7,15 @@ import { newElemHTML } from "./new-element.js";
 
 export function formationCardPhoto() {   
     const elemMain = document.querySelector('.main');
+    // const blockNewImage = document.querySelector('.block-new-image');
     const elemCardphoto = document.querySelector('.cardphoto');
     const elemCardphotoImageNav = document.querySelector('.cardphoto-img-nav');
     const elemCardphotoImageNavButton = document.querySelectorAll('.cardphoto-img-nav-button');
     const elemCardphotoInput = document.querySelector('.cardphoto-input');
     const elemCardphotoImageStart = document.querySelector('.cardphoto-img-start');
     const elemCardphotoImage = document.querySelector('.cardphoto-img');
-    const blockNewImg = document.querySelector('.block-new-img');
-    const cardphotoCircles = document.querySelector('.cardphoto-circles');
+    const blockNewImage = document.querySelector('.block-new-image');
+    // const cardphotoCircles = document.querySelector('.cardphoto-circles');
     
     function addActive() {
         this.classList.add('active');
@@ -62,30 +63,33 @@ export function formationCardPhoto() {
         }, 150);
     }
 
+    function removeCreationCircle() {
+        const circles = document.querySelectorAll('.circle');
+        const circlesStart = document.querySelectorAll('.circle-start');
+        const newImage = document.querySelector('.new-image');
+        const elemBackgroundImage = document.querySelectorAll('.background-image');
+
+        elemBackgroundImage.forEach(el => el.setAttribute('style', 'display:"none"'));
+        newImage.setAttribute('style', 'display:"none"');
+        circlesStart.forEach(el => el.setAttribute('style', 'display:"none"'));
+        circles.forEach(el => el.setAttribute('style', 'display:"none"'));
+    }
+
     function creationCircle() {
-        // newElem(elemMain, 'span', ['circle', 'circle-1']);
-        // newElemHTML(elemMain, 'beforeend', '<div class="image-outer-border"></div>');  
-        // const elemOuterBorderImage = document.querySelector('.image-outer-border');
-        newElemHTML(elemMain, 'beforeend', '<span class="circle circle-1" data-dnd="circle-1"></span>');  
-        newElemHTML(elemMain, 'beforeend', '<span class="circle-start circle-1-start" data-dnd-start="circle-1"></span>');  
-        // newElem(elemMain, 'span', ['circle-start', 'circle-start-1']);
-        // newElem(elemMain, 'span', ['circle', 'circle-2']);
-        newElemHTML(elemMain, 'beforeend', '<span class="circle circle-2" data-dnd="circle-2"></span>');  
-        newElemHTML(elemMain, 'beforeend', '<span class="circle-start circle-2-start" data-dnd-start="circle-2"></span>');  
-        // newElem(elemMain, 'span', ['circle-start', 'circle-start-2'], [['style', `top: ${valueY1}px; left: ${valueX2}px;`]]);
-        // newElem(elemMain, 'span', ['circle', 'circle-3']);
-        newElemHTML(elemMain, 'beforeend', '<span class="circle circle-3" data-dnd="circle-3"></span>');  
-        newElemHTML(elemMain, 'beforeend', '<span class="circle-start circle-3-start" data-dnd-start="circle-3"></span>');  
-        // newElem(elemMain, 'span', ['circle-start', 'circle-start-3'], [['style', `top: ${valueY3}px; left: ${valueX2}px;`]]);
-        // newElem(elemMain, 'span', ['circle', 'circle-4']);
-        newElemHTML(elemMain, 'beforeend', '<span class="circle circle-4" data-dnd="circle-4"></span>');  
-        newElemHTML(elemMain, 'beforeend', '<span class="circle-start circle-4-start" data-dnd-start="circle-4"></span>');  
-        // newElem(elemMain, 'span', ['circle-start', 'circle-start-4'], [['style', `top: ${valueY3}px; left: ${valueX1}px;`]]);
-        newElemHTML(elemMain, 'beforeend', '<div class="background-image background-image-up" data-bkg-image="bkg-image-up"></div>');  
-        newElemHTML(elemMain, 'beforeend', '<div class="background-image background-image-right" data-bkg-image="bkg-image-right"></div>');  
-        newElemHTML(elemMain, 'beforeend', '<div class="background-image background-image-buttom" data-bkg-image="bkg-image-buttom"></div>');  
-        newElemHTML(elemMain, 'beforeend', '<div class="background-image background-image-left" data-bkg-image="bkg-image-left"></div>');  
-        newElemHTML(elemMain, 'beforeend', '<div class="new-image"></div>');  
+
+        newElemHTML(blockNewImage, 'beforeend', '<span class="circle circle-1" data-dnd="circle-1"></span>');  
+        newElemHTML(blockNewImage, 'beforeend', '<span class="circle-start circle-1-start" data-dnd-start="circle-1"></span>');  
+        newElemHTML(blockNewImage, 'beforeend', '<span class="circle circle-2" data-dnd="circle-2"></span>');  
+        newElemHTML(blockNewImage, 'beforeend', '<span class="circle-start circle-2-start" data-dnd-start="circle-2"></span>');  
+        newElemHTML(blockNewImage, 'beforeend', '<span class="circle circle-3" data-dnd="circle-3"></span>');  
+        newElemHTML(blockNewImage, 'beforeend', '<span class="circle-start circle-3-start" data-dnd-start="circle-3"></span>');  
+        newElemHTML(blockNewImage, 'beforeend', '<span class="circle circle-4" data-dnd="circle-4"></span>');  
+        newElemHTML(blockNewImage, 'beforeend', '<span class="circle-start circle-4-start" data-dnd-start="circle-4"></span>'); 
+        newElemHTML(blockNewImage, 'beforeend', '<div class="background-image background-image-up" data-bkg-image="bkg-image-up"></div>');  
+        newElemHTML(blockNewImage, 'beforeend', '<div class="background-image background-image-right" data-bkg-image="bkg-image-right"></div>');  
+        newElemHTML(blockNewImage, 'beforeend', '<div class="background-image background-image-buttom" data-bkg-image="bkg-image-buttom"></div>');  
+        newElemHTML(blockNewImage, 'beforeend', '<div class="background-image background-image-left" data-bkg-image="bkg-image-left"></div>');  
+        newElemHTML(blockNewImage, 'beforeend', '<div class="new-image"></div>');   
         
         const circles = document.querySelectorAll('.circle');
         const circlesStart = document.querySelectorAll('.circle-start');
@@ -97,12 +101,14 @@ export function formationCardPhoto() {
         const circleStart3 = document.querySelector('.circle-3-start');
         const circle4 = document.querySelector('.circle-4');
         const circleStart4 = document.querySelector('.circle-4-start');
-        const deltaCircle = circle1.offsetWidth / 2;
         const newImage = document.querySelector('.new-image');
+
+        const deltaCircle = circle1.offsetWidth / 2;
         const valueY1 = elemCardphoto.getBoundingClientRect().top - elemMain.getBoundingClientRect().top;
         const valueX1 = elemCardphoto.getBoundingClientRect().left;
         const valueX2 = valueX1 + elemCardphoto.getBoundingClientRect().width;
         const valueY3 = valueY1 + elemCardphoto.getBoundingClientRect().height;
+
         circle1.style.top = valueY1 - deltaCircle + 'px';
         circle1.style.left = valueX1 - deltaCircle + 'px';
         circleStart1.style.top = valueY1 + 'px';
@@ -706,11 +712,18 @@ export function formationCardPhoto() {
         }
     }
 
-    function changeSizeImage() {
-        creationCircle();
+    function changeSizeImage(el) {
+        el.classList.toggle('active');
+
+        if (el.classList.contains('active')) {
+            creationCircle();
+        } else {
+            removeCreationCircle();
+        }
+
         // dragNDrop();
         // elemCardphotoImageStart.classList.add('deactivation');
-        blockNewImg.classList.add('active');
+        blockNewImage.classList.add('active');
     }
 
     function validationImageNavButton() {
@@ -719,13 +732,16 @@ export function formationCardPhoto() {
                 elemCardphotoInput.addEventListener('change', checkImgSelection);
                 break; 
             case 'chng':
-                changeSizeImage();
+                changeSizeImage(this);
                 break; 
             case 'cut':
                 console.log('cut');
                 break; 
             case 'cntr':
                 console.log('cntr');
+                break; 
+            case 'max':
+                console.log('max');
                 break; 
             case 'torn':
                 console.log('torn');

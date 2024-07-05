@@ -1,15 +1,18 @@
 .size-nav-header-button() {
     color: @color-basis-black;
-    background-color: @color-basis-white;
-    transition: background-color 150ms ease-in;
+    // background-color: @color-basis-white;
     margin: 0 4px;
+    border-bottom-color: @color-basis-transparent;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
     padding: 6px 0.7rem 6px 0.8rem;
-    border-radius: 30px;
+    // border-radius: 30px;
     display: flex;
     align-items: center;
     // height: 16px;
     cursor: pointer;
     user-select: none;
+    transition: border-bottom-color 100ms ease-in;
 }
 
 .size-nav-additional-block {

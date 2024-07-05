@@ -59,12 +59,17 @@
 //     user-select: none; 
 // }
 
-.cardphoto-img-nav-button.wait.wait {
+.cardphoto-img-nav-button.wait {
     opacity: 0.65;
     transition: opacity 150ms ease-in;
 }
     
 .cardphoto-img-nav-button.hover {
+    opacity: 0.85;
+    transition: opacity 75ms ease-in;
+}
+
+.cardphoto-img-nav-button.active {
     opacity: 0.85;
     transition: opacity 75ms ease-in;
 }
@@ -85,6 +90,14 @@
 
 .cardphoto-input {
     display: none;
+}
+
+.block-new-image {
+    position: absolute;
+    box-sizing: border-box;
+    border: solid 1px orange;
+    width: 100%;
+    height: 100%;
 }
 
 .cardphoto-img-start {

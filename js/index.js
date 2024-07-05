@@ -3,7 +3,7 @@ import { startPressActivation } from "./start-press-activation.js";
 import { clearSessionStarage } from './clear-session-storage.js';
 import { validationValueSessionStorage } from './envelope-valid-ses-stor.js';
 
-const buttonMenuNav = document.querySelectorAll('.nav-button');
+const buttonMenuNav = document.querySelectorAll('.header-nav--button');
 
 buttonMenuNav.forEach((el) => {
     function startClassActive() {
