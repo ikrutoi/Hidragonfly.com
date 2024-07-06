@@ -14,38 +14,55 @@
 
 .aroma-block-row {
     display: flex;
+    list-style-type: none;
 }
 
-.aroma-element {
-    .size-button-aroma;
+.aroma-button {
     display: flex;
-    margin: 1rem;
-    justify-content: space-evenly;
     align-items: center;
-    flex-direction: column;
-    border-radius: 40px;
-    background-color: @color-basis-white;
-    transition: background-color 75ms ease-in;
-}
-
-.aroma-element:hover {
-    background-color: @color-basis-hover;
-    transition: background-color 75ms ease-in;
+    margin: 0 1rem;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: @color-basis-transparent;
+    transition: color 100ms ease-in;
+    transition: border-bottom-color 100ms ease-in;
+    user-select: none;
     cursor: pointer;
 }
 
-.aroma-element.press-active {
+.aroma-button:hover {
+    border-bottom-color: @color-basis;
+    transition: border-bottom-color 100ms ease-in;
+}
+
+.aroma-logo {
+    color: grey;
+    width: 14px;
+    height: 14px;
+    background-color: grey;
+}
+
+.aroma-text {
+    line-height: 34px;
+    padding: 2px 1px 0 0;
+    // color: aqua;
+    margin-left: 10px;
+    // border: solid 1px red;
+    transform: skew(-7deg);
+}
+
+.aroma-button.press-active {
     .add-press-button;
 }
 
-.aroma-element.active {
+.aroma-button.active {
     color: @color-basis-hover;
     background-color: @color-basis;
     transition: color 75ms ease-in;
     transition: background-color 75ms ease-in;
 }
 
-.aroma-element.active:hover {
+.aroma-button.active:hover {
     color: @color-basis-white;
     transition: color 75ms ease-in;
 }

@@ -92,9 +92,16 @@ export function clickButtonActive(el) {
 //** Block Aroma */
 
         if (el.classList.contains('button-aroma')) {
+            const mainNav = document.querySelector('.main-nav');
             const blockAroma = document.querySelector('.aroma-block');
 
+            if (mainNav.classList.contains('created-aroma')) {
+                const mainNavMenuAroma = document.querySelector('.main-nav-menu--aroma');
+                mainNavMenuAroma.classList.add('active');
+            }
+
             if (!blockAroma.classList.contains('active')) {
+                createNavAddit('aroma');
                 createAroma();
             }
         }
