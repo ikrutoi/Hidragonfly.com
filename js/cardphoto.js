@@ -9,8 +9,8 @@ export function formationCardPhoto() {
     const elemMain = document.querySelector('.main');
     // const blockNewImage = document.querySelector('.block-new-image');
     const elemCardphoto = document.querySelector('.cardphoto');
-    const elemCardphotoImageNav = document.querySelector('.cardphoto-img-nav');
-    const elemCardphotoImageNavButton = document.querySelectorAll('.cardphoto-img-nav-button');
+    const mainNavMenuCardphoto = document.querySelector('.main-nav-menu--cardphoto');
+    const mainNavButton = document.querySelectorAll('.main-nav--button');
     const elemCardphotoInput = document.querySelector('.cardphoto-input');
     const elemCardphotoImageStart = document.querySelector('.cardphoto-img-start');
     const elemCardphotoImage = document.querySelector('.cardphoto-img');
@@ -50,7 +50,7 @@ export function formationCardPhoto() {
     }
 
     function addClassActive () {
-        elemCardphotoImageNav.classList.add('active');
+        mainNavMenuCardphoto.classList.add('active');
         // elemCardphotoImageNavButton.forEach(el => el.classList.add('wait-start'));
         // setTimeout(() => elemCardphotoImageNavButton.forEach(el => el.classList.add('wait')), 150);
     }
@@ -58,7 +58,7 @@ export function formationCardPhoto() {
     function delClassActive () {
         // elemCardphotoImageNavButton.forEach(el => el.classList.remove('wait'));
         setTimeout(() => {
-            elemCardphotoImageNav.classList.remove('active');
+            mainNavMenuCardphoto.classList.remove('active');
             // elemCardphotoImageNavButton.forEach(el => el.classList.remove('wait-start'));
         }, 150);
     }
@@ -753,7 +753,7 @@ export function formationCardPhoto() {
     }
 
     function validationMouseenter() {
-        if (!elemCardphotoImageNav.classList.contains('active')) {
+        if (!mainNavMenuCardphoto.classList.contains('active')) {
             addClassActive();
         }
     }
@@ -765,7 +765,7 @@ export function formationCardPhoto() {
     elemCardphoto.addEventListener('pointerdown', addActive); 
     elemCardphoto.addEventListener('mousemove', validationMouseenter); 
     
-    elemCardphotoImageNavButton.forEach(el => {
+    mainNavButton.forEach(el => {
         el.addEventListener('mouseenter', addClassHover);
         el.addEventListener('mouseleave', delClassHover);
         el.addEventListener('pointerdown', () => startPressActivation(el));

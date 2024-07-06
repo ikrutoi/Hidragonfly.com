@@ -8,7 +8,7 @@ import { addButtonDate } from "./date-create-button-date.js";
 import { addButtonAroma } from "./aroma-create-button-aroma.js";
 import { readEnvelope } from "./envelope.js";
 import { formationCardPhoto } from "./cardphoto.js";
-import { createNavAddit } from "./nav-additional.js";
+import { createNavAddit } from "./main-nav.js";
 
 export function clickButtonActive(el) {
             
@@ -25,6 +25,12 @@ export function clickButtonActive(el) {
         const block = document.querySelectorAll('.block');
         
         block.forEach((el) => {
+            removeClassActive(el);
+        });
+
+        const mainNavMenu = document.querySelectorAll('.main-nav-menu');
+        
+        mainNavMenu.forEach((el) => {
             removeClassActive(el);
         });
           
@@ -60,7 +66,13 @@ export function clickButtonActive(el) {
 //** Block Card Photo */
 
         if (el.classList.contains('button-cardphoto')) {
-            createNavAddit();
+            const mainNav = document.querySelector('.main-nav');
+
+            if (mainNav.classList.contains('created-cardphoto')) {
+                document.querySelector('.main-nav-menu--cardphoto').classList.add('active');
+            }
+
+            createNavAddit(el.dataset.navMenu);
             formationCardPhoto();
         }
 

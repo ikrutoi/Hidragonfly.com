@@ -33,13 +33,17 @@
                 <img class="logoname-img" src="/logo/logoname-v3-28-30-for-header-classic.svg">
             </div>
             <div class="header-menu-login header-menu-item">
-                <p>login</p>
+                <span class="header-login-icon">Log</span>
             </div>
         </div>
         <!-- <div class="nav"> -->
             <div class="header-nav">
                 <ul class="header-nav-menu">
-                    <li class="header-nav--button button-cardphoto" data-menu-nav="cardphoto-anchor" data-block-addit="nav-additional-cardphoto">
+                    <li 
+                        class="header-nav--button button-cardphoto" 
+                        data-menu-nav="cardphoto-anchor" 
+                        data-block-addit="nav-additional-cardphoto"
+                        data-nav-menu="cardphoto">
                         <span class="header-nav--button-logo">.</span>
                         <span class="header-nav--button-text">Card&#160photo</span>
                     </li>
@@ -69,8 +73,9 @@
     </header>
     <main class="main">
         <div class="main-addition">
+            <div class="main-nav"></div>
             <div class="block cardphoto cardphoto-anchor">
-            <div class="cardphoto-img-nav">
+            <!-- <div class="cardphoto-img-nav">
                 <label clas="cardphoto-img-nav-label" for="cardphoto-addimg">
                     <div class="cardphoto-img-nav-button img-nav-add" data-cardphoto-nav="add">
                         <p class="cardphoto-img-button-text">add</p></div>
@@ -89,7 +94,7 @@
                 <div class="cardphoto-img-nav-button img-nav-del" data-cardphoto-nav="del">
                     <p class="cardphoto-img-button-text">del</p>
                 </div>
-            </div>
+            </div> -->
             <div class="cardphoto-circles"></div>
             <input id="cardphoto-addimg" class="cardphoto-input" type="file" accept="image/*"/>
             <div class="cardphoto-img-start"></div>

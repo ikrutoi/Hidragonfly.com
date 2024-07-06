@@ -2,9 +2,9 @@
     grid-area: header;
     grid-row: 1/2;
     // height: 44px;
-    margin: 0.3rem 0 0.3rem 2rem;
+    margin: 0.3rem 2rem 0.3rem 2rem;
     background-color: @color-basis-white;
-    border-radius: 1.4rem 0 0 1.4rem;
+    border-radius: 1.4rem;
     // border: solid 1px red;
 }
 
@@ -38,27 +38,29 @@
     padding-left: 0.6rem;
 }
 
-.header-menu-login {
+.header-login {
     width: 287px;
     user-select: none;
     font-size: 0.8rem;
     display: flex;
     justify-content: end;
     align-items: center;
-    // border: solid 1px red;
+    border: solid 1px red;
+}
+
+.header-login-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    width: 36px;
+    border-radius: 1.4rem;
+    margin: 2px 2px 0 0;
+    background-color: @color-basis-light;
+    // border: solid 1px blue;
 }
 
 //** header navigation */
-
-// .nav {
-//     // grid-area: navigation;
-//     // grid-row: 2/3;
-//     // height: 36px;
-//     position: relative;
-//     display: flex;
-//     justify-content: flex-start;
-//     text-align: center;
-// }
 
 .header-nav {
     // height: 46px;
@@ -88,6 +90,7 @@
     border-bottom-color: @color-basis-transparent;
     transition: color 100ms ease-in;
     transition: border-bottom-color 100ms ease-in;
+    user-select: none;
     // line-height: 46px;
     cursor: pointer;
     // border: solid 1px green;
