@@ -6,20 +6,22 @@
 
 .aroma-block {
     display: flex;
-    margin: 2rem;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
 }
 
-.aroma-block-row {
+.aroma-block-list {
     display: flex;
-    list-style-type: none;
+    flex-direction: column;
 }
 
 .aroma-button {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
     margin: 0 1rem;
     border-bottom-width: 2px;
     border-bottom-style: solid;
@@ -28,6 +30,10 @@
     transition: border-bottom-color 100ms ease-in;
     user-select: none;
     cursor: pointer;
+}
+
+.aroma-button.active {
+    color: @color-basis;
 }
 
 .aroma-button:hover {
@@ -42,36 +48,14 @@
     background-color: grey;
 }
 
+.aroma-button:first-child .aroma-logo {
+    background-color: rgb(216, 215, 215);
+}
+
 .aroma-text {
     line-height: 34px;
     padding: 2px 1px 0 0;
-    // color: aqua;
     margin-left: 10px;
-    // border: solid 1px red;
     transform: skew(-7deg);
-}
-
-.aroma-button.press-active {
-    .add-press-button;
-}
-
-.aroma-button.active {
-    color: @color-basis-hover;
-    background-color: @color-basis;
-    transition: color 75ms ease-in;
-    transition: background-color 75ms ease-in;
-}
-
-.aroma-button.active:hover {
-    color: @color-basis-white;
-    transition: color 75ms ease-in;
-}
-
-.nav-additional-aroma:hover {
-    user-select: none;
-    cursor: default;
-}
-
-.aroma-make, .aroma-name {
-    user-select: none;
+    // border: solid 1px red;
 }
