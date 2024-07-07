@@ -1,16 +1,45 @@
-// import { dragNDrop } from "./dnd.js";
 import { keepCirclesInCorners } from "./dnd-keep-circles-in-corners.js";
 import { formationLetterArea } from "./card-letter.js";
 import { createAroma } from "./aroma.js";
 import { createCalendar } from "./date.js";
 import { startPressActivation } from "./start-press-activation.js";
 import { addButtonDate } from "./date-create-button-date.js";
-import { addButtonAroma } from "./aroma-create-button-aroma.js";
 import { readEnvelope } from "./envelope.js";
 import { formationCardPhoto } from "./cardphoto.js";
-import { createNavAddit } from "./main-nav.js";
+import { changeMainNavMenu, createMainNav } from "./main-nav.js";
+import { validationValueSessionStorage } from './envelope-valid-ses-stor.js';
+
+export function navigationHeaderMenu() {
+    const buttonMenuNav = document.querySelectorAll('.header-nav--button');
+
+    buttonMenuNav.forEach((el) => {
+
+        console.log('gooo')
+        function startClassActive() {
+            if (!el.classList.contains('active')) {
+                startPressActivation(el);
+                clickButtonActive(el);
+                createMainNav(el);
+            }      
+        }
+    
+        validationValueSessionStorage();
+    
+        if (el.classList.contains('header-nav--button-aroma') && sessionStorage.getItem('aroma--name')) {
+            el.classList.add('value-in-memory');
+        }
+        
+        if (el.classList.contains('header-nav--button-date') && sessionStorage.getItem('date--year')) {      
+            el.classList.add('value-in-memory');
+        }
+    
+        el.addEventListener('pointerdown', startClassActive);
+    });
+}
 
 export function clickButtonActive(el) {
+
+        changeMainNavMenu(el);
             
         function removeClassActive(el) {
             el.classList.remove('active');
@@ -33,65 +62,56 @@ export function clickButtonActive(el) {
         mainNavMenu.forEach((el) => {
             removeClassActive(el);
         });
-          
-        // document.querySelector('.new-area').classList.remove('active');
         
         function showButtonTimer() {
             el.classList.add('active');
         }
         
         setTimeout(showButtonTimer, 75);
+
+        console.log('***2', document.querySelector(`.${el.dataset.menuNav}`) )
         
-        const blockDataSetMenuNav = document.querySelectorAll(`.${el.dataset.menuNav}`);
+        const blockDataSetMenuNav = document.querySelector(`.${el.dataset.menuNav}`);
         
         function showBlockTimer() {
-            blockDataSetMenuNav.forEach((el) => {
-                el.classList.add('active');
-            })    
+            blockDataSetMenuNav.classList.add('active')
+
+            const selectedElem = document.querySelector(`.main-nav-menu--${el.dataset.menuNav}`);
+
+            if (selectedElem.classList.contains('selected') || el.dataset.menuNav == 'cardphoto') {
+                selectedElem.classList.add('active');
+            } 
         } 
-      
-        const blockNavAddition = document.querySelectorAll('.nav-additional-block');
-        const blockDataSetAddit = el.dataset.blockAddit;
-        
-        blockNavAddition.forEach((el) => {
-            removeClassActive(el);
-        })
-        
-        blockNavAddition.forEach((el) => {
-            if(el.classList.contains(blockDataSetAddit)) {
-                el.classList.add('active');
-            }
-        })
 
 //** Block Card Photo */
 
-        if (el.classList.contains('button-cardphoto')) {
+        if (el.classList.contains('header-nav--button-cardphoto')) {
             const mainNav = document.querySelector('.main-nav');
 
             if (mainNav.classList.contains('created-cardphoto')) {
                 document.querySelector('.main-nav-menu--cardphoto').classList.add('active');
             }
 
-            createNavAddit(el.dataset.navMenu);
+            createMainNav(el.dataset.menuNav);
             formationCardPhoto();
         }
 
 
 //** Block Envelope */
 
-        if (el.classList.contains('button-envelope')) {
+        if (el.classList.contains('header-nav--button-envelope')) {
             readEnvelope();
         }
 
 //** Block Card Text */
 
-        if (el.classList.contains('button-cardtext')) {
+        if (el.classList.contains('header-nav--button-cardtext')) {
             formationLetterArea();
         }
 
 //** Block Aroma */
 
-        if (el.classList.contains('button-aroma')) {
+        if (el.classList.contains('header-nav--button-aroma')) {
             const mainNav = document.querySelector('.main-nav');
             const blockAroma = document.querySelector('.aroma-block');
 
@@ -101,24 +121,14 @@ export function clickButtonActive(el) {
             }
 
             if (!blockAroma.classList.contains('active')) {
-                createNavAddit('aroma');
+                createMainNav('aroma');
                 createAroma();
             }
         }
 
-        // if (el.classList.contains('button-aroma') && sessionStorage.getItem('aroma--name')) {         
-        //     setTimeout(() => addButtonAroma(
-        //         [sessionStorage.getItem('aroma--name'),
-        //         sessionStorage.getItem('aroma--make')]
-        //     ), 75);
-        // }
-
 //** Block Date */
 
         if (el.classList.contains('button-date') && !el.classList.contains('created')) {
-            const elemDateMonthSlider = document.querySelector('.date-month-slider');
-            // elemDateMonthSlider.value = new Date().getMonth();
-            // console.log('month: ', new Date().getMonth());
 
             if (sessionStorage.getItem('date--year')) {
                 createCalendar(
@@ -127,6 +137,7 @@ export function clickButtonActive(el) {
                     +sessionStorage.getItem('date--day')
                 );  
             } else {
+                createMainNav('date');
                 createCalendar(
                     new Date().getFullYear(), 
                     new Date().getMonth(), 
@@ -134,7 +145,10 @@ export function clickButtonActive(el) {
                     false
                 );
             }
+
         }   
+
+        // if (mainNav.dataset.navDate )
             
         if (el.classList.contains('button-date') && sessionStorage.getItem('date--year')) {
             const elemNavAdditionalDate = document.querySelector('.nav-additional-date');
@@ -163,18 +177,6 @@ export function clickButtonActive(el) {
                 })
                 
                 el.classList.add('active');
-                
-                // if(el.classList.contains('nav-addit-cardphoto-add')) {
-                //     document.querySelector('.cardphoto-anchor').classList.remove('active');
-                //     document.querySelector('.block-new-img').classList.add('active');
-                //     document.querySelector('.new-area').classList.add('active');
-
-                //     dragNDrop();
-
-                //     el.onpointerup = function() {
-                //         el.classList.remove('active');
-                //     }
-                // }
 
                 const navAdditionalMulti = document.querySelectorAll('.nav-additional-multi');
                 const navAdditionalMultiTitle = document.querySelector('.nav-additional-multi-title');

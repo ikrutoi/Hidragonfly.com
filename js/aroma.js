@@ -22,12 +22,14 @@ export function createAroma() {
         {make: 'Christian Dior', name: 'Poison'},
         {make: 'Carolina Herrera', name: '212'}
     ];
-    const key = 'name';
-    const sortNameAroma = nameAroma.sort((nameAroma1, nameAroma2) => nameAroma1[key] > nameAroma2[key] ? 1 : -1);
+    const keyName = 'name';
+    const sortNameAroma = nameAroma.sort((nameAroma1, nameAroma2) => nameAroma1[keyName] > nameAroma2[keyName] ? 1 : -1);
+    const keyMake = 'make';
+    const sortMakeAroma = nameAroma.sort((nameAroma1, nameAroma2) => nameAroma1[keyMake] > nameAroma2[keyMake] ? 1 : -1);
 
     aromaBlock.classList.add('active');
     
-    for (let i = 0; i < sortNameAroma.length; i++) {
+    for (let i = 0; i < sortMakeAroma.length; i++) {
         if (i == 0) {
             newElemHTML(
                 aromaBlockList, 
@@ -43,28 +45,28 @@ export function createAroma() {
                 'beforeend', 
                 `<li class="aroma-button aroma-button-${i}" data-number-aroma="${i}">
                     <span class="aroma-logo aroma-logo-${i}"></span>
-                    <span class="aroma-text aroma-name">${sortNameAroma[i].name}.</span>
-                    <span class="aroma-text aroma-make">${sortNameAroma[i].make}<span>
+                    <span class="aroma-text aroma-name">${sortMakeAroma[i].name}.</span>
+                    <span class="aroma-text aroma-make">${sortMakeAroma[i].make}<span>
                 </li>`
             );
         }
     }
 
-    const elemNameAroma = document.querySelectorAll('.aroma-button');
+    const aromaButton = document.querySelectorAll('.aroma-button');
 
     function changeAroma() {
-        elemNameAroma.forEach(el => el.classList.remove('active'));
+        aromaButton.forEach(el => el.classList.remove('active'));
         this.classList.add('active');
 
         const mainNavMenuAroma = document.querySelector('.main-nav-menu--aroma');
         mainNavMenuAroma.classList.add('active');
         mainNavMenuAroma.classList.add('selected');
 
-        const mainNavButtonAromaText = document.querySelector('.main-nav--button-text');
+        const mainNavButtonAromaText = document.querySelector('.main-nav--aroma--button-text');
         mainNavButtonAromaText.textContent = `${sortNameAroma[this.dataset.numberAroma].name}. ${sortNameAroma[this.dataset.numberAroma].make}`
     }
 
-    elemNameAroma.forEach(el => {
+    aromaButton.forEach(el => {
         el.addEventListener('pointerdown', changeAroma);
     });
 }

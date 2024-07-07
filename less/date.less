@@ -1,3 +1,52 @@
+//** main navigation */
+
+.date-button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    margin: 0 1rem;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: @color-basis-transparent;
+    transition: color 100ms ease-in;
+    transition: border-bottom-color 100ms ease-in;
+    user-select: none;
+    cursor: pointer;
+}
+
+.date-button.active {
+    color: @color-basis;
+}
+
+.date-button:hover {
+    border-bottom-color: @color-basis;
+    transition: border-bottom-color 100ms ease-in;
+}
+
+.date-logo {
+    color: grey;
+    width: 14px;
+    height: 14px;
+    background-color: grey;
+}
+
+.date-text {
+    line-height: 34px;
+    padding: 2px 1px 0 0;
+    margin-left: 10px;
+    transform: skew(-7deg);
+    // border: solid 1px red;
+}
+
+.main-nav--date--button-text {
+    word-spacing: 0.5rem;
+}
+
+//** */
+
 .date.active {
     .card-size-mixin;
     background-color: @color-basis-white;
@@ -9,7 +58,7 @@
 .date-block-additive {
     .size-card-calendar;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     flex-direction: column;
 }
     

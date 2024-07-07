@@ -446,6 +446,13 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
         recValueTitle('title-day', newDay);
         if (!elemSelectionFull.classList.contains('active')) {
             elemSelectionFull.classList.add('selection-date');
+
+            const mainNavMenuDate = document.querySelector('.main-nav-menu--date');
+            mainNavMenuDate.classList.add('active');
+            mainNavMenuDate.classList.add('selected');
+
+            const mainNavButtonDateText = document.querySelector('.main-nav--date--button-text');
+            mainNavButtonDateText.textContent = `${selectionDate[0]} ${nameMonth[selectionDate[1]]} ${selectionDate[2]}`
         }
         
         memoryNeighborDayLeft = null;

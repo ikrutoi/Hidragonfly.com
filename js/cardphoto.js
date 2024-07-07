@@ -759,9 +759,9 @@ export function formationCardPhoto() {
     }
     
     elemCardphoto.addEventListener('mouseenter', addClassHover);
-    elemCardphoto.addEventListener('mouseenter', addClassActive);
+    // elemCardphoto.addEventListener('mouseenter', addClassActive);
     elemCardphoto.addEventListener('mouseleave', delClassHover);
-    elemCardphoto.addEventListener('mouseleave', delClassActive);
+    // elemCardphoto.addEventListener('mouseleave', delClassActive);
     elemCardphoto.addEventListener('pointerdown', addActive); 
     elemCardphoto.addEventListener('mousemove', validationMouseenter); 
     

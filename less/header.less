@@ -56,7 +56,9 @@
     width: 36px;
     border-radius: 1.4rem;
     margin: 2px 2px 0 0;
-    background-color: @color-basis-light;
+    background-color: @color-basis;
+    color: @color-basis-white;
+    // transform: skew(-7deg);
     // border: solid 1px blue;
 }
 
@@ -108,14 +110,19 @@
     transition: border-bottom-color 100ms ease-in;
 }
 
-.header-nav--button-logo {
+.nav--button-logo {
     color: grey;
     width: 14px;
     height: 14px;
     background-color: grey;
 }
 
-.header-nav--button-text {
+.nav--button-logo.active {
+    color: @color-basis;
+    background-color: @color-basis;
+}
+
+.nav--button-text {
     line-height: 34px;
     padding: 2px 1px 0 0;
     // color: aqua;
