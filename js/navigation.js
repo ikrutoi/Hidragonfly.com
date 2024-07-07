@@ -14,7 +14,6 @@ export function navigationHeaderMenu() {
 
     buttonMenuNav.forEach((el) => {
 
-        console.log('gooo')
         function startClassActive() {
             if (!el.classList.contains('active')) {
                 startPressActivation(el);
