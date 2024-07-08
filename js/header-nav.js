@@ -1,13 +1,10 @@
-import { createNavList } from "./new-nav-list.js";
+import { createNavList } from "./new-nav.js";
 import { navigationHeaderMenu } from "./navigation.js";
 import { newElemHTML } from "./new-element.js";
 
 export function createHeaderNav() {
-    const headerNav = document.querySelector('.header-nav');
 
-    newElemHTML(headerNav, 'beforeend', '<ul class="header-nav-menu"></ul>'); 
-    
-    const headerNavMenu = document.querySelector('.header-nav-menu');
+    const headerNav = document.querySelector('.header-nav');
 
     const listMenuHeader = [
         {codename: 'cardphoto', title: 'Cardphoto'},
@@ -19,7 +16,7 @@ export function createHeaderNav() {
     ];
   
     for (let i = 0; i < listMenuHeader.length; i++) { 
-        createNavList(headerNavMenu, listMenuHeader[i].codename, listMenuHeader[i].title);
+        createNavList(i, headerNav, 'header', listMenuHeader[i].codename, listMenuHeader[i].title, 'header');
     }
 
     navigationHeaderMenu();

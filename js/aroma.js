@@ -26,8 +26,6 @@ export function createAroma() {
     const sortNameAroma = nameAroma.sort((nameAroma1, nameAroma2) => nameAroma1[keyName] > nameAroma2[keyName] ? 1 : -1);
     const keyMake = 'make';
     const sortMakeAroma = nameAroma.sort((nameAroma1, nameAroma2) => nameAroma1[keyMake] > nameAroma2[keyMake] ? 1 : -1);
-
-    aromaBlock.classList.add('active');
     
     for (let i = 0; i < sortMakeAroma.length; i++) {
         if (i == 0) {
@@ -35,8 +33,8 @@ export function createAroma() {
                 aromaBlockList, 
                 'beforeend', 
                 `<li class="aroma-button aroma-button-${i}">
-                    <span class="aroma-logo aroma-logo-${i}"></span>
-                    <span class="aroma-text aroma-name">None</span>
+                <span class="aroma-logo aroma-logo-${i}"></span>
+                <span class="aroma-text aroma-name">None</span>
                 </li>`
             ); 
         } else {  
@@ -44,13 +42,15 @@ export function createAroma() {
                 aromaBlockList, 
                 'beforeend', 
                 `<li class="aroma-button aroma-button-${i}" data-number-aroma="${i}">
-                    <span class="aroma-logo aroma-logo-${i}"></span>
-                    <span class="aroma-text aroma-name">${sortMakeAroma[i].name}.</span>
-                    <span class="aroma-text aroma-make">${sortMakeAroma[i].make}<span>
+                <span class="aroma-logo aroma-logo-${i}"></span>
+                <span class="aroma-text aroma-name">${sortMakeAroma[i].name}.</span>
+                <span class="aroma-text aroma-make">${sortMakeAroma[i].make}<span>
                 </li>`
             );
         }
     }
+
+    aromaBlock.classList.add('created');
 
     const aromaButton = document.querySelectorAll('.aroma-button');
 
@@ -62,8 +62,17 @@ export function createAroma() {
         mainNavMenuAroma.classList.add('active');
         mainNavMenuAroma.classList.add('selected');
 
+        const mainNavMenuAromaLogo = document.querySelector('.main-nav--aroma--button-logo');
+        mainNavMenuAromaLogo.classList.add('active');
+
+        const headerNavMenuAromaLogo = document.querySelector('.header-nav--aroma--button-logo');
+        headerNavMenuAromaLogo.classList.add('active');
+
         const mainNavButtonAromaText = document.querySelector('.main-nav--aroma--button-text');
-        mainNavButtonAromaText.textContent = `${sortNameAroma[this.dataset.numberAroma].name}. ${sortNameAroma[this.dataset.numberAroma].make}`
+        mainNavButtonAromaText.textContent = `${sortNameAroma[this.dataset.numberAroma].name}. ${sortNameAroma[this.dataset.numberAroma].make}`;
+
+        const mainNav = document.querySelector('.main-nav');
+        mainNav.classList.add('border-bottom');
     }
 
     aromaButton.forEach(el => {

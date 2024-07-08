@@ -3,8 +3,8 @@ import { addButtonDate } from "./date-create-button-date.js";
 import { startPressActivation } from "./start-press-activation.js";
 
 export function createCalendar(newYear, newNumberMonth, newDay) {
-    const buttonDate = document.querySelector('.button-date');
-    buttonDate.classList.add('created');
+    const headerNavDate = document.querySelector('.header-nav--button-date');
+    headerNavDate.classList.add('created-calendar');
     let currentDate = [newYear, newNumberMonth, newDay];
     let selectionDate = [];
     const nameMonth = [
@@ -450,10 +450,19 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
             const mainNavMenuDate = document.querySelector('.main-nav-menu--date');
             mainNavMenuDate.classList.add('active');
             mainNavMenuDate.classList.add('selected');
-
-            const mainNavButtonDateText = document.querySelector('.main-nav--date--button-text');
-            mainNavButtonDateText.textContent = `${selectionDate[0]} ${nameMonth[selectionDate[1]]} ${selectionDate[2]}`
         }
+
+        const mainNavMenuDateLogo = document.querySelector('.main-nav--date--button-logo');
+        mainNavMenuDateLogo.classList.add('active');
+
+        const headerNavMenuDateLogo = document.querySelector('.header-nav--date--button-logo');
+        headerNavMenuDateLogo.classList.add('active');
+        
+        const mainNavButtonDateText = document.querySelector('.main-nav--date--button-text');
+        mainNavButtonDateText.textContent = `${selectionDate[0]} ${nameMonth[selectionDate[1]]} ${selectionDate[2]}`;
+
+        const mainNav = document.querySelector('.main-nav');
+        mainNav.classList.add('border-bottom');
         
         memoryNeighborDayLeft = null;
         memoryNeighborDayRight = null;

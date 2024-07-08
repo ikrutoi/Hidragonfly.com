@@ -10,33 +10,30 @@ import { changeMainNavMenu, createMainNav } from "./main-nav.js";
 import { validationValueSessionStorage } from './envelope-valid-ses-stor.js';
 
 export function navigationHeaderMenu() {
-    const buttonMenuNav = document.querySelectorAll('.header-nav--button');
+    const headerNavButton = document.querySelectorAll('.header-nav--button');
 
-    buttonMenuNav.forEach((el) => {
-
+    headerNavButton.forEach((el) => {
+        
         function startClassActive() {
+            const mainNav = document.querySelector('.main-nav');
+            mainNav.classList.remove('border-bottom');
+
             if (!el.classList.contains('active')) {
-                startPressActivation(el);
+                // startPressActivation(el);
                 clickButtonActive(el);
-                createMainNav(el);
+                createMainNav(el.dataset.menuNav);
             }      
         }
     
         validationValueSessionStorage();
-    
-        if (el.classList.contains('header-nav--button-aroma') && sessionStorage.getItem('aroma--name')) {
-            el.classList.add('value-in-memory');
-        }
-        
-        if (el.classList.contains('header-nav--button-date') && sessionStorage.getItem('date--year')) {      
-            el.classList.add('value-in-memory');
-        }
     
         el.addEventListener('pointerdown', startClassActive);
     });
 }
 
 export function clickButtonActive(el) {
+
+    const datasetElement = el.dataset.menuNav;
 
         changeMainNavMenu(el);
             
@@ -61,37 +58,40 @@ export function clickButtonActive(el) {
         mainNavMenu.forEach((el) => {
             removeClassActive(el);
         });
-        
-        function showButtonTimer() {
-            el.classList.add('active');
-        }
-        
-        setTimeout(showButtonTimer, 75);
 
-        console.log('***2', document.querySelector(`.${el.dataset.menuNav}`) )
+        el.classList.add('active');
         
-        const blockDataSetMenuNav = document.querySelector(`.${el.dataset.menuNav}`);
-        
-        function showBlockTimer() {
-            blockDataSetMenuNav.classList.add('active')
+        function showButton() {
+            const selectedElem = document.querySelector(`.main-nav-menu--${datasetElement}`);
 
-            const selectedElem = document.querySelector(`.main-nav-menu--${el.dataset.menuNav}`);
-
-            if (selectedElem.classList.contains('selected') || el.dataset.menuNav == 'cardphoto') {
+            if ((datasetElement == 'aroma' || datasetElement == 'date') && selectedElem.classList.contains('selected')) {
                 selectedElem.classList.add('active');
             } 
+
+            if (datasetElement == 'cardphoto') {
+                selectedElem.classList.add('active');
+            } 
+        }
+        
+        setTimeout(showButton, 75);
+        
+        
+        function showBlockTimer() {
+            const blockDataSetMenuNav = document.querySelector(`.${el.dataset.menuNav}`);
+            blockDataSetMenuNav.classList.add('active')
         } 
 
 //** Block Card Photo */
 
         if (el.classList.contains('header-nav--button-cardphoto')) {
             const mainNav = document.querySelector('.main-nav');
+            mainNav.classList.add('border-bottom');
 
             if (mainNav.classList.contains('created-cardphoto')) {
                 document.querySelector('.main-nav-menu--cardphoto').classList.add('active');
             }
 
-            createMainNav(el.dataset.menuNav);
+            // createMainNav(el.dataset.menuNav);
             formationCardPhoto();
         }
 
@@ -111,54 +111,29 @@ export function clickButtonActive(el) {
 //** Block Aroma */
 
         if (el.classList.contains('header-nav--button-aroma')) {
-            const mainNav = document.querySelector('.main-nav');
-            const blockAroma = document.querySelector('.aroma-block');
-
-            if (mainNav.classList.contains('created-aroma')) {
-                const mainNavMenuAroma = document.querySelector('.main-nav-menu--aroma');
-                mainNavMenuAroma.classList.add('active');
+            const aromaBlock = document.querySelector('.aroma-block');
+            const mainNavMenuAroma = document.querySelector('.main-nav-menu--aroma');
+            
+            if (mainNavMenuAroma && mainNavMenuAroma.classList.contains('selected')) {
+                const mainNav = document.querySelector('.main-nav');
+                mainNav.classList.add('border-bottom');
             }
-
-            if (!blockAroma.classList.contains('active')) {
-                createMainNav('aroma');
+                        
+            if (!aromaBlock.classList.contains('created')) {
                 createAroma();
             }
         }
 
 //** Block Date */
 
-        if (el.classList.contains('button-date') && !el.classList.contains('created')) {
-
-            if (sessionStorage.getItem('date--year')) {
-                createCalendar(
-                    +sessionStorage.getItem('date--year'), 
-                    +sessionStorage.getItem('date--month'),
-                    +sessionStorage.getItem('date--day')
-                );  
-            } else {
-                createMainNav('date');
-                createCalendar(
-                    new Date().getFullYear(), 
-                    new Date().getMonth(), 
-                    new Date().getDate(),
-                    false
-                );
-            }
-
+        if (el.classList.contains('header-nav--button-date') && !el.classList.contains('created-calendar')) {
+            createCalendar(
+                new Date().getFullYear(), 
+                new Date().getMonth(), 
+                new Date().getDate(),
+                false
+            );
         }   
-
-        // if (mainNav.dataset.navDate )
-            
-        if (el.classList.contains('button-date') && sessionStorage.getItem('date--year')) {
-            const elemNavAdditionalDate = document.querySelector('.nav-additional-date');
-            elemNavAdditionalDate.classList.add('active');
-
-            setTimeout(() => addButtonDate(
-                +sessionStorage.getItem('date--year'),
-                +sessionStorage.getItem('date--month'),
-                +sessionStorage.getItem('date--day')
-            ), 75);
-        }
 
 //** ---------- */
 
