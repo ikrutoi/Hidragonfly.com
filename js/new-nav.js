@@ -15,7 +15,7 @@ export function createNavList(i, toTag, toBlock, codeName, titleName, unit) {
     newElemHTML(
         newUl, 
         'beforeend', 
-        `<li class="${toBlock}-nav--button ${toBlock}-nav--button-${codeName}" data-menu-nav="${codeName}"></li>`
+        `<li class="${toBlock}-nav--button ${toBlock}-nav--${unit}--button ${toBlock}-nav--button-${codeName}" data-menu-nav="${codeName}"></li>`
     ); 
 
     const newLi = document.querySelector(`.${toBlock}-nav--button-${codeName}`);

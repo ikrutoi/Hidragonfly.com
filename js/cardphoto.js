@@ -6,16 +6,25 @@ import { newElem } from "./new-element.js";
 import { newElemHTML } from "./new-element.js";
 
 export function formationCardPhoto() {   
+    console.log('formation!')
     const elemMain = document.querySelector('.main');
     // const blockNewImage = document.querySelector('.block-new-image');
     const elemCardphoto = document.querySelector('.cardphoto');
     const mainNavMenuCardphoto = document.querySelector('.main-nav-menu--cardphoto');
-    const mainNavButton = document.querySelectorAll('.main-nav--button');
+    const mainNavCardphotoButton = document.querySelectorAll('.main-nav--cardphoto--button');
     const elemCardphotoInput = document.querySelector('.cardphoto-input');
     const elemCardphotoImageStart = document.querySelector('.cardphoto-img-start');
     const elemCardphotoImage = document.querySelector('.cardphoto-img');
     const blockNewImage = document.querySelector('.block-new-image');
     // const cardphotoCircles = document.querySelector('.cardphoto-circles');
+
+    const temporaryButton = document.querySelector('.main-nav--button-change');
+
+    setTimeout(() => console.log('*/*/*', temporaryButton), 1000)
+
+    console.log('main-nav-button: ', mainNavCardphotoButton);
+    console.log('main-nav-button33: ', mainNavMenuCardphoto);
+    setTimeout(() => console.log('main-nav-button2: ', mainNavCardphotoButton), 1000);
     
     function addActive() {
         this.classList.add('active');
@@ -26,7 +35,6 @@ export function formationCardPhoto() {
         }
         
     function checkImgSelection(event) {
-        console.log('this.value1: ', this.value);
         elemCardphotoImageStart.classList.add('deactivation');
         elemCardphotoImage.classList.add('active');
         const newImageFile = document.querySelector('.cardphoto-input').files[0];
@@ -726,19 +734,17 @@ export function formationCardPhoto() {
         blockNewImage.classList.add('active');
     }
 
-    function validationImageNavButton() {
-        switch(this.dataset.cardphotoNav) {
+    function validationCardphotoMainNavMenu() {
+        switch(this.dataset.menuNav) {
             case 'add':
                 elemCardphotoInput.addEventListener('change', checkImgSelection);
                 break; 
-            case 'chng':
+            case 'change':
                 changeSizeImage(this);
+                console.log('*******')
                 break; 
             case 'cut':
                 console.log('cut');
-                break; 
-            case 'cntr':
-                console.log('cntr');
                 break; 
             case 'max':
                 console.log('max');
@@ -752,23 +758,23 @@ export function formationCardPhoto() {
         }
     }
 
-    function validationMouseenter() {
-        if (!mainNavMenuCardphoto.classList.contains('active')) {
-            addClassActive();
-        }
-    }
+    // function validationMouseenter() {
+    //     if (!mainNavMenuCardphoto.classList.contains('active')) {
+    //         addClassActive();
+    //     }
+    // }
     
     elemCardphoto.addEventListener('mouseenter', addClassHover);
     // elemCardphoto.addEventListener('mouseenter', addClassActive);
     elemCardphoto.addEventListener('mouseleave', delClassHover);
     // elemCardphoto.addEventListener('mouseleave', delClassActive);
     elemCardphoto.addEventListener('pointerdown', addActive); 
-    elemCardphoto.addEventListener('mousemove', validationMouseenter); 
+    // elemCardphoto.addEventListener('mousemove', validationMouseenter); 
     
-    mainNavButton.forEach(el => {
+    mainNavCardphotoButton.forEach(el => {
         el.addEventListener('mouseenter', addClassHover);
         el.addEventListener('mouseleave', delClassHover);
-        el.addEventListener('pointerdown', () => startPressActivation(el));
-        el.addEventListener('pointerdown', validationImageNavButton);
+        // el.addEventListener('pointerdown', () => startPressActivation(el));
+        el.addEventListener('pointerdown', validationCardphotoMainNavMenu);
     })
 }

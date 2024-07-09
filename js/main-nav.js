@@ -16,6 +16,16 @@ export function createMainNav(unit) {
                 {codename: 'del', title: 'Delete'}
             ];
             break;
+        case 'cardtext':
+            listMenuMain = [
+                {codename: 'add', title: 'Add'},
+                {codename: 'change', title: 'Change'},
+                {codename: 'cut', title: 'Cut'},
+                {codename: 'max', title: 'Max'},
+                {codename: 'torn', title: 'Torn'},
+                {codename: 'del', title: 'Delete'}
+            ];
+            break;
         case 'aroma':         
             listMenuMain = [
                 {codename: 'aroma', title: ''}
