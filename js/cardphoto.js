@@ -6,7 +6,6 @@ import { newElem } from "./new-element.js";
 import { newElemHTML } from "./new-element.js";
 
 export function formationCardPhoto() {   
-    console.log('formation!')
     const elemMain = document.querySelector('.main');
     // const blockNewImage = document.querySelector('.block-new-image');
     const elemCardphoto = document.querySelector('.cardphoto');
@@ -17,14 +16,6 @@ export function formationCardPhoto() {
     const elemCardphotoImage = document.querySelector('.cardphoto-img');
     const blockNewImage = document.querySelector('.block-new-image');
     // const cardphotoCircles = document.querySelector('.cardphoto-circles');
-
-    const temporaryButton = document.querySelector('.main-nav--button-change');
-
-    setTimeout(() => console.log('*/*/*', temporaryButton), 1000)
-
-    console.log('main-nav-button: ', mainNavCardphotoButton);
-    console.log('main-nav-button33: ', mainNavMenuCardphoto);
-    setTimeout(() => console.log('main-nav-button2: ', mainNavCardphotoButton), 1000);
     
     function addActive() {
         this.classList.add('active');

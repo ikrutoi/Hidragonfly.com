@@ -6,150 +6,106 @@ import { startPressActivation } from "./start-press-activation.js";
 import { addButtonDate } from "./date-create-button-date.js";
 import { readEnvelope } from "./envelope.js";
 import { formationCardPhoto } from "./cardphoto.js";
-import { changeMainNavMenu, createMainNav } from "./main-nav.js";
-import { validationValueSessionStorage } from './envelope-valid-ses-stor.js';
+import { createMainNavMenu } from "./main-nav.js";
+// import { validationValueSessionStorage } from './envelope-valid-ses-stor.js';
 
 export function navigationHeaderMenu() {
     const headerNavButton = document.querySelectorAll('.header-nav--button');
-
+    
     headerNavButton.forEach((el) => {
+        const datasetElement = el.dataset.menuNav;
+        const block = document.querySelectorAll('.block');
         
-        function startClassActive() {
+        function removeClassActive() {
+            headerNavButton.forEach(el => el.classList.remove('active'));
+            block.forEach(el => el.classList.remove('active'));
+
+            const mainNavMenu = document.querySelectorAll('.main-nav-menu');
+            mainNavMenu.forEach(el => el.classList.remove('active'));
+        };
+
+        function createMainNav() {
+            el.classList.add('active');
+            createMainNavMenu(el.dataset.menuNav);    
+        }
+
+        function showMainNav() {
+            const selectedElem = document.querySelector(`.main-nav-menu--${datasetElement}`);
+            if ((datasetElement == 'aroma' || datasetElement == 'date') && selectedElem.classList.contains('selected')) {
+                selectedElem.classList.add('active');
+            } 
+            if (datasetElement == 'cardphoto') {
+                selectedElem.classList.add('active');
+            } 
+        }
+        
+        function addBorderBottom() {
             const mainNav = document.querySelector('.main-nav');
             mainNav.classList.remove('border-bottom');
+            const targetMainButton = document.querySelector(`.main-nav-menu--${datasetElement}`);
 
-            if (!el.classList.contains('active')) {
-                // startPressActivation(el);
-                clickButtonActive(el);
-                createMainNav(el.dataset.menuNav);
-            }      
+
+            if ((targetMainButton && targetMainButton.classList.contains('selected')) || el.classList.contains('header-nav--button-cardphoto')) {
+                mainNav.classList.add('border-bottom');
+            }
         }
-    
-        validationValueSessionStorage();
-    
-        el.addEventListener('pointerdown', startClassActive);
+        
+        function createMainBlock() {
+            const targetBlock = document.querySelector(`.${datasetElement}`);
+            targetBlock.classList.add('active');
+            
+            switch(datasetElement) {
+                case 'cardphoto':
+                    console.log('cardphoto');
+                    formationCardPhoto();
+                    break; 
+                case 'cardtext':
+                    console.log('cardtext');
+                    formationLetterArea();
+                    break; 
+                case 'envelope':
+                    console.log('envelope');
+                    readEnvelope();
+                    break; 
+                case 'aroma':
+                    if (document.querySelector(`.${datasetElement}-block`).dataset.created != 'true') {
+                        createAroma();
+                    }
+                    break; 
+                case 'date':
+                    if (document.querySelector(`.${datasetElement}-block`).dataset.created != 'true') {
+                        createCalendar(
+                            new Date().getFullYear(), 
+                            new Date().getMonth(), 
+                            new Date().getDate(),
+                            false
+                        );
+                    }
+                    break; 
+                case 'history':
+                    removeImage();
+                    break; 
+            }
+        }
+            
+        el.addEventListener('pointerdown', removeClassActive);
+        el.addEventListener('pointerdown', createMainBlock);  
+        el.addEventListener('pointerdown', createMainNav);
+        el.addEventListener('pointerdown', showMainNav);
+        el.addEventListener('pointerdown', addBorderBottom);
     });
 }
 
-export function clickButtonActive(el) {
+export function clickButtonActive(el) {  
 
-    const datasetElement = el.dataset.menuNav;
-
-    changeMainNavMenu(el);
-        
-    function removeClassActive(el) {
-        el.classList.remove('active');
-    };
+    const mainNavCardphotoButton = document.querySelectorAll('.main-nav--cardphoto--button');
     
-    const buttonHeaderNav = document.querySelectorAll('.header-nav--button');
-    buttonHeaderNav.forEach((el) => {
-        removeClassActive(el);
-    });
-    
-    const block = document.querySelectorAll('.block');
-    
-    block.forEach((el) => {
-        removeClassActive(el);
-    });
-    const mainNavMenu = document.querySelectorAll('.main-nav-menu');
-    
-    mainNavMenu.forEach((el) => {
-        removeClassActive(el);
-    });
-    el.classList.add('active');
-    
-    function showButton() {
-        const selectedElem = document.querySelector(`.main-nav-menu--${datasetElement}`);
-        if ((datasetElement == 'aroma' || datasetElement == 'date') && selectedElem.classList.contains('selected')) {
-            selectedElem.classList.add('active');
-        } 
-        if (datasetElement == 'cardphoto') {
-            selectedElem.classList.add('active');
-        } 
-    }
-    
-    setTimeout(showButton, 75);
-    
-    
-    function showBlockTimer() {
-        const blockDataSetMenuNav = document.querySelector(`.${el.dataset.menuNav}`);
-        blockDataSetMenuNav.classList.add('active')
-    } 
-
-//** Block Card Photo */
-    const mainNav = document.querySelector('.main-nav');
-
-    if (el.classList.contains('header-nav--button-cardphoto')) {
-        mainNav.classList.add('border-bottom');
-        console.log('formation0');
-
-        if (mainNav.classList.contains('created-cardphoto')) {
-            document.querySelector('.main-nav-menu--cardphoto').classList.add('active');
-        }
-        // createMainNav(el.dataset.menuNav);
-        formationCardPhoto();
-    }
-
-
-//** Block Envelope */
-
-    if (el.classList.contains('header-nav--button-envelope')) {
-        readEnvelope();
-    }
-
-//** Block Card Text */
-
-    if (el.classList.contains('header-nav--button-cardtext')) {
-        formationLetterArea();
-    }
-
-//** Block Aroma */
-
-    if (el.classList.contains('header-nav--button-aroma')) {
-        const aromaBlock = document.querySelector('.aroma-block');
-        const mainNavMenuAroma = document.querySelector('.main-nav-menu--aroma');
-        
-        if (mainNavMenuAroma && mainNavMenuAroma.classList.contains('selected')) {
-            const mainNav = document.querySelector('.main-nav');
-            mainNav.classList.add('border-bottom');
-        }
-                    
-        if (!aromaBlock.classList.contains('created')) {
-            createAroma();
-        }
-    }
-
-//** Block Date */
-
-    if (el.classList.contains('header-nav--button-date') && !el.classList.contains('created-calendar')) {
-        
-        createCalendar(
-            new Date().getFullYear(), 
-            new Date().getMonth(), 
-            new Date().getDate(),
-            false
-        );
-        
-    }   
-
-    const mainNavMenuDate = document.querySelector('.main-nav-menu--date');
-
-    if (mainNavMenuDate && mainNavMenuDate.classList.contains('selected')) {
-        mainNav.classList.add('border-bottom');
-    }
-
-//** ---------- */
-
-    setTimeout(showBlockTimer, 75);
-
-    const buttonNavAdditional = document.querySelectorAll('.nav-additional-button');
-    
-    buttonNavAdditional.forEach((el) => {
-        removeClassActive(el);
+    mainNavCardphotoButton.forEach((el) => {
+        // removeClassActive(el);
         
         function startClassActive() {
 
-            buttonNavAdditional.forEach((el) => {
+            mainNavCardphotoButton.forEach((el) => {
                 el.classList.remove('active');
             })
             

@@ -1,7 +1,7 @@
 import { newElemHTML } from "./new-element.js";
 import { createNavList } from "./new-nav.js";
 
-export function createMainNav(unit) {
+export function createMainNavMenu(unit) {
     const mainNav = document.querySelector('.main-nav');
     let listMenuMain;
 
@@ -51,8 +51,8 @@ export function createMainNav(unit) {
     }
 }
 
-export function changeMainNavMenu(elem) {
-    const mainNavMenu = document.querySelectorAll('.main-nav-menu');
+// export function changeMainNavMenu(elem) {
+//     const mainNavMenu = document.querySelectorAll('.main-nav-menu');
 
-    mainNavMenu.forEach(el => el.classList.remove('active'));
-}
+//     mainNavMenu.forEach(el => el.classList.remove('active'));
+// }

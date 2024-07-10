@@ -21,7 +21,7 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
         'November',
         'December'
     ];
-    const elemBlockAdditive = document.querySelector('.date-block-additive'); 
+    const dateBlock = document.querySelector('.date-block'); 
     const elemSelectionFull = document.querySelector('.date-selection-full'); 
     const elemSelectionTitle = document.querySelectorAll('.date-selection-title');
     const elemSelectionYear = document.querySelector('.date-selection-year');
@@ -80,8 +80,8 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
         elemSliderLeft.classList.remove('wait');
         elemSliderRight.classList.remove('active');
         recordSizeSliderTrack('start');
-        elemBlockAdditive.removeEventListener('mousemove', restartTimerRemoveGrow);
-        elemBlockAdditive.removeEventListener('pointerdown', restartTimerRemoveGrow);
+        dateBlock.removeEventListener('mousemove', restartTimerRemoveGrow);
+        dateBlock.removeEventListener('pointerdown', restartTimerRemoveGrow);
         delete elemSliderRight.dataset.dateTitle;
         elemSelectionFull.classList.remove('active');
         showSelectionDate();
@@ -143,8 +143,8 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
                 elemSliderLeft.classList.add('active');
             }, 150);
             restartTimerRemoveGrow();
-            elemBlockAdditive.addEventListener('mousemove', restartTimerRemoveGrow);
-            elemBlockAdditive.addEventListener('pointerdown', restartTimerRemoveGrow);
+            dateBlock.addEventListener('mousemove', restartTimerRemoveGrow);
+            dateBlock.addEventListener('pointerdown', restartTimerRemoveGrow);
         }  
     }
     
@@ -646,6 +646,8 @@ function showNextMonth1() {
         daysOutsideLeft.forEach(el => el.addEventListener('pointerdown', showPreviousMonth1));
         const daysOutsideRight = document.querySelectorAll('.date-day-outside-right');
         daysOutsideRight.forEach(el => {el.addEventListener('pointerdown', showNextMonth1)});
+
+        dateBlock.dataset.created = 'true';
     }
 
     function delRows() {
@@ -655,12 +657,15 @@ function showNextMonth1() {
     
     delRows();
 
-    if (selectionDate != '') {
-        addRow(selectionDate[0], selectionDate[1]);
-        selectionDay(selectionDate[2], 'repeat');
-    } else {
-        addRow(currentDate[0], currentDate[1]);
-    }
+    // if (dateBlock.dataset.created != 'true') {
+        if (selectionDate != '') {
+            addRow(selectionDate[0], selectionDate[1]);
+            selectionDay(selectionDate[2], 'repeat');
+        } else {
+            addRow(currentDate[0], currentDate[1]);
+        }
+    // }
+
  
     function changeYearMonth(val) {
 

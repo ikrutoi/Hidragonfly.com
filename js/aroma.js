@@ -1,6 +1,7 @@
 import { newElemHTML } from "./new-element.js";
 
 export function createAroma() {
+    console.log('aroma+');
     const aromaBlock = document.querySelector('.aroma-block');   
     
     newElemHTML(
@@ -50,7 +51,7 @@ export function createAroma() {
         }
     }
 
-    aromaBlock.classList.add('created');
+    aromaBlock.dataset.created = 'true';
 
     const aromaButton = document.querySelectorAll('.aroma-button');
 
