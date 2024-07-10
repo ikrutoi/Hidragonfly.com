@@ -1,7 +1,6 @@
 import { newElemHTML } from "./new-element.js";
 
 export function createAroma() {
-    console.log('aroma+');
     const aromaBlock = document.querySelector('.aroma-block');   
     
     newElemHTML(

@@ -1,5 +1,5 @@
 import { createNavList } from "./new-nav.js";
-import { navigationHeaderMenu } from "./navigation.js";
+import { navigationHeaderMenu } from "./navigation-header.js";
 import { newElemHTML } from "./new-element.js";
 
 export function createHeaderNav() {

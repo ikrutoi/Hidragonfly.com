@@ -1,5 +1,5 @@
 import { createHeaderNav } from './header-nav.js';
-import { clickButtonActive } from './navigation.js';
+// import { clickButtonActive } from './navigation.js';
 import { startPressActivation } from "./start-press-activation.js";
 import { clearSessionStarage } from './clear-session-storage.js';
 import { validationValueSessionStorage } from './envelope-valid-ses-stor.js';

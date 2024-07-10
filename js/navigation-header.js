@@ -5,8 +5,9 @@ import { createCalendar } from "./date.js";
 import { startPressActivation } from "./start-press-activation.js";
 import { addButtonDate } from "./date-create-button-date.js";
 import { readEnvelope } from "./envelope.js";
-import { formationCardPhoto } from "./cardphoto.js";
+import { formationCardphoto } from "./cardphoto.js";
 import { createMainNavMenu } from "./main-nav.js";
+import { navigationMain } from "./navigation-main.js";
 // import { validationValueSessionStorage } from './envelope-valid-ses-stor.js';
 
 export function navigationHeaderMenu() {
@@ -37,6 +38,8 @@ export function navigationHeaderMenu() {
             if (datasetElement == 'cardphoto') {
                 selectedElem.classList.add('active');
             } 
+
+            navigationMain(datasetElement);
         }
         
         function addBorderBottom() {
@@ -53,18 +56,16 @@ export function navigationHeaderMenu() {
         function createMainBlock() {
             const targetBlock = document.querySelector(`.${datasetElement}`);
             targetBlock.classList.add('active');
-            
+
             switch(datasetElement) {
                 case 'cardphoto':
-                    console.log('cardphoto');
-                    formationCardPhoto();
+                    // formationCardphoto();
+                    navigationMain();
                     break; 
                 case 'cardtext':
-                    console.log('cardtext');
                     formationLetterArea();
                     break; 
                 case 'envelope':
-                    console.log('envelope');
                     readEnvelope();
                     break; 
                 case 'aroma':
@@ -96,60 +97,60 @@ export function navigationHeaderMenu() {
     });
 }
 
-export function clickButtonActive(el) {  
+// export function clickButtonActive(el) {  
 
-    const mainNavCardphotoButton = document.querySelectorAll('.main-nav--cardphoto--button');
+//     const mainNavCardphotoButton = document.querySelectorAll('.main-nav--cardphoto--button');
     
-    mainNavCardphotoButton.forEach((el) => {
-        // removeClassActive(el);
+//     mainNavCardphotoButton.forEach((el) => {
+//         // removeClassActive(el);
         
-        function startClassActive() {
+//         function startClassActive() {
 
-            mainNavCardphotoButton.forEach((el) => {
-                el.classList.remove('active');
-            })
+//             mainNavCardphotoButton.forEach((el) => {
+//                 el.classList.remove('active');
+//             })
             
-            el.classList.add('active');
+//             el.classList.add('active');
 
-            const navAdditionalMulti = document.querySelectorAll('.nav-additional-multi');
-            const navAdditionalMultiTitle = document.querySelector('.nav-additional-multi-title');
+//             const navAdditionalMulti = document.querySelectorAll('.nav-additional-multi');
+//             const navAdditionalMultiTitle = document.querySelector('.nav-additional-multi-title');
             
-            navAdditionalMulti.forEach((el) => {
-                el.classList.remove('appearance');
-            })
+//             navAdditionalMulti.forEach((el) => {
+//                 el.classList.remove('appearance');
+//             })
 
-            navAdditionalMultiTitle.classList.remove('active');
+//             navAdditionalMultiTitle.classList.remove('active');
 
-            if(el.classList.contains('nav-addit-cardtext-size')) {
-                navAdditionalMultiTitle.classList.add('active');
-                navAdditionalMulti.forEach((el) => {
-                    el.classList.add('appearance');
-                })
-            }  
-        }
+//             if(el.classList.contains('nav-addit-cardtext-size')) {
+//                 navAdditionalMultiTitle.classList.add('active');
+//                 navAdditionalMulti.forEach((el) => {
+//                     el.classList.add('appearance');
+//                 })
+//             }  
+//         }
                         
-        function startToCenter() {
-            const blockNewImg = document.querySelector('.new-img');
-            const newArea = document.querySelector('.new-area');
-            const startImgLeft = blockNewImg.getBoundingClientRect().left;
-            const startImgTop = blockNewImg.getBoundingClientRect().top;
-            const startImgWidth = blockNewImg.getBoundingClientRect().width;
-            const startImgHeight = blockNewImg.getBoundingClientRect().height;
+//         function startToCenter() {
+//             const blockNewImg = document.querySelector('.new-img');
+//             const newArea = document.querySelector('.new-area');
+//             const startImgLeft = blockNewImg.getBoundingClientRect().left;
+//             const startImgTop = blockNewImg.getBoundingClientRect().top;
+//             const startImgWidth = blockNewImg.getBoundingClientRect().width;
+//             const startImgHeight = blockNewImg.getBoundingClientRect().height;
             
-            newArea.setAttribute('style', `left: ${startImgLeft}; top: ${startImgTop}; width: ${startImgWidth}; height: ${startImgHeight};`)
+//             newArea.setAttribute('style', `left: ${startImgLeft}; top: ${startImgTop}; width: ${startImgWidth}; height: ${startImgHeight};`)
             
-            keepCirclesInCorners(startImgLeft, startImgTop, startImgWidth, startImgHeight);
-        }
+//             keepCirclesInCorners(startImgLeft, startImgTop, startImgWidth, startImgHeight);
+//         }
 
-        el.addEventListener('pointerdown', () => startPressActivation(el));
+//         el.addEventListener('pointerdown', () => startPressActivation(el));
         
-        if(el.classList.contains('nav-addit-cardphoto-center')) {
-            el.addEventListener('pointerdown', startToCenter);
-            el.onpointerup = function() {
-                el.classList.remove('active');
-            };
-        }
+//         if(el.classList.contains('nav-addit-cardphoto-center')) {
+//             el.addEventListener('pointerdown', startToCenter);
+//             el.onpointerup = function() {
+//                 el.classList.remove('active');
+//             };
+//         }
         
-        el.addEventListener('pointerdown', startClassActive);
-    })
-};
+//         el.addEventListener('pointerdown', startClassActive);
+//     })
+// };

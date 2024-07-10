@@ -5,15 +5,15 @@ import { newElem } from "./new-element.js";
 // import { dragNDrop } from "./dnd.js";
 import { newElemHTML } from "./new-element.js";
 
-export function formationCardPhoto() {   
+export function formationCardphoto() {   
     const elemMain = document.querySelector('.main');
     // const blockNewImage = document.querySelector('.block-new-image');
     const elemCardphoto = document.querySelector('.cardphoto');
     const mainNavMenuCardphoto = document.querySelector('.main-nav-menu--cardphoto');
     const mainNavCardphotoButton = document.querySelectorAll('.main-nav--cardphoto--button');
     const elemCardphotoInput = document.querySelector('.cardphoto-input');
-    const elemCardphotoImageStart = document.querySelector('.cardphoto-img-start');
-    const elemCardphotoImage = document.querySelector('.cardphoto-img');
+    const elemCardphotoImageStart = document.querySelector('.cardphoto-image-start');
+    const elemCardphotoImage = document.querySelector('.cardphoto-image');
     const blockNewImage = document.querySelector('.block-new-image');
     // const cardphotoCircles = document.querySelector('.cardphoto-circles');
     
@@ -727,23 +727,23 @@ export function formationCardPhoto() {
 
     function validationCardphotoMainNavMenu() {
         switch(this.dataset.menuNav) {
-            case 'add':
+            case 'add2':
                 elemCardphotoInput.addEventListener('change', checkImgSelection);
                 break; 
-            case 'change':
+            case 'change2':
                 changeSizeImage(this);
                 console.log('*******')
                 break; 
-            case 'cut':
+            case 'cut2':
                 console.log('cut');
                 break; 
-            case 'max':
+            case 'max2':
                 console.log('max');
                 break; 
-            case 'torn':
+            case 'torn2':
                 console.log('torn');
                 break; 
-            case 'del':
+            case 'del2':
                 removeImage();
                 break; 
         }
@@ -768,4 +768,8 @@ export function formationCardPhoto() {
         // el.addEventListener('pointerdown', () => startPressActivation(el));
         el.addEventListener('pointerdown', validationCardphotoMainNavMenu);
     })
-}
+} 
+
+// export formationButtonChange() {
+
+// }
