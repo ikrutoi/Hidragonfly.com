@@ -60,7 +60,7 @@ export function navigationHeaderMenu() {
             switch(datasetElement) {
                 case 'cardphoto':
                     // formationCardphoto();
-                    navigationMain();
+                    // navigationMain(datasetElement);
                     break; 
                 case 'cardtext':
                     formationLetterArea();

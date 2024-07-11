@@ -43,108 +43,106 @@
     <main class="main">
         <div class="main-addition">
             <div class="main-nav"></div>
-            <div class="block cardphoto">
-            <div class="cardphoto-circles"></div>
-            <input id="cardphoto-addimg" class="cardphoto-input" type="file" accept="image/*"/>
-            <div class="cardphoto-image-start"></div>
-            <img class="cardphoto-image" src="">
-            </div>
-            <div class="block block-new-image">
-                <!-- <div class="new-img">
-                    <div class="new-img-rubber"></div>
-                </div> -->
-            </div>
-            <div class="block envelope-card envelope">
-            <div class="envelope-letter">
-                <div class="envelope-main">
-                    <div class="envelope-from-adress envelope-item">
-                        <div class="envelope-logoname">
-                            <img class="envelope-logoname-img" src="/logo/logoname-v3-40.svg">
-                        </div>
-                        <div class="envelope-my-adress">
-                            <form class="form-my-adress" action="my-adress.js" method="post">
-                                <fieldset class="my-adress-fieldset">
-                                    <legend class="my-adress-legend">My adress</legend>
-                                    <label class="my-adress-label">Street / House
-                                        <input class="envelope-input envelope-from-input from-street" name="envelope-from-street" type="text">
-                                    </label>
-                                    <label class="my-adress-label">Index / City
-                                        <input class="envelope-input envelope-from-input from-index-city" name="envelope-from-index" type="text" pattern="[0-9]">
-                                    </label>
-                                    <label class="my-adress-label">Country
-                                        <input class="envelope-input envelope-from-input from-country" name="envelope-from-city" type="text">
-                                    </label>
-                                    <label class="my-adress-label">Name
-                                        <input class="envelope-input envelope-from-input from-name" name="envelope-from-name" type="text">
-                                    </label>
-                                </fieldset>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="envelope-stamp envelope-item">
-                        <div class="envelope-poststamp envelope-stamp-item">
-                            <img class="envelope-poststamp-img" src="/logo/poststamp-180-noactive.svg">
-                        </div>
-                        <div class="envelope-postmark envelope-stamp-item">
-                        </div>
-                    </div>
-                    <div class="envelope-to-adress envelope-item">
-                        <form class="form-to-adress" action="my-adress.js" method="post">
-                            <fieldset class="to-adress-fieldset">
-                                <legend class="to-adress-legend">Adress&#160recipient</legend>
-                                <label class="to-adress-label">Name
-                                    <input class="envelope-input envelope-to-input to-name" name="envelope-to-name" type="text">
-                                </label>
-                                <label class="to-adress-label">Street / House
-                                    <input class="envelope-input envelope-to-input to-street" name="envelope-to-street" type="text">
-                                </label>
-                                <label class="to-adress-label">Index / City
-                                    <input class="envelope-input envelope-to-input to-index-city" name="envelope-to-city" type="text">
-                                </label>
-                                <label class="to-adress-label">Country
-                                    <input class="envelope-input envelope-to-input to-country" name="envelope-to-country" type="text">
-                                </label>
-                            </fieldset>
-                        </form>
-                    </div>
+            <div class="main-block">
+                <div class="block cardphoto">
+                    <div class="cardphoto-circles"></div>
+                    <input id="cardphoto-addimg" class="cardphoto-input" type="file" accept="image/*"/>
+                    <div class="cardphoto-image-start"></div>
+                    <img class="cardphoto-image" src="">
                 </div>
-            </div>
-            </div>
-            <div class="block card-text cardtext" contenteditable="true">
-            <form class="form-card-letter">
-                <fieldset class="card-letter-fieldset">
-                    <legend class="card-letter-legend"></legend>
-                    <div class="card-letter-area">
-                        <!-- <textarea class="card-letter-textarea" maxlength="180" spellcheck="false"></textarea> -->
-                    </div>
-                </fieldset>
-            </form>
-            </div>
-            <div class="block aroma">
-                <div class="aroma-block" data-created=""></div>
-            </div>
-            <div class="block date">
-                <div class="date-block" data-created="">
-                    <div class="date-year-month-full date-calendar-header">
-                        <div class="date-calendar-header-selection">
-                            <div class="date-sign sign-minus" data-direction="minus">
-                                <span>&lt</span>
+                <div class="block block-cardphoto-change"></div>
+                <div class="block envelope-card envelope">
+                <div class="envelope-letter">
+                        <div class="envelope-main">
+                            <div class="envelope-from-adress envelope-item">
+                                <div class="envelope-logoname">
+                                    <img class="envelope-logoname-img" src="/logo/logoname-v3-40.svg">
+                                </div>
+                                <div class="envelope-my-adress">
+                                    <form class="form-my-adress" action="my-adress.js" method="post">
+                                        <fieldset class="my-adress-fieldset">
+                                            <legend class="my-adress-legend">My adress</legend>
+                                            <label class="my-adress-label">Street / House
+                                                <input class="envelope-input envelope-from-input from-street" name="envelope-from-street" type="text">
+                                            </label>
+                                            <label class="my-adress-label">Index / City
+                                                <input class="envelope-input envelope-from-input from-index-city" name="envelope-from-index" type="text" pattern="[0-9]">
+                                            </label>
+                                            <label class="my-adress-label">Country
+                                                <input class="envelope-input envelope-from-input from-country" name="envelope-from-city" type="text">
+                                            </label>
+                                            <label class="my-adress-label">Name
+                                                <input class="envelope-input envelope-from-input from-name" name="envelope-from-name" type="text">
+                                            </label>
+                                        </fieldset>
+                                    </form>
+                                </div>
                             </div>
-                            <div class="date-selection-full" data-selection-date="false">
-                                <div class="date-selection-title date-selection-year" data-date-title="title-year"></div>
-                                <div class="date-selection-title date-selection-month" data-date-title="title-month"></div>
-                                <div class="date-selection-title date-selection-day" data-date-title="title-day"></div>
+                            <div class="envelope-stamp envelope-item">
+                                <div class="envelope-poststamp envelope-stamp-item">
+                                    <img class="envelope-poststamp-img" src="/logo/poststamp-180-noactive.svg">
+                                </div>
+                                <div class="envelope-postmark envelope-stamp-item">
+                                </div>
                             </div>
-                            <div class="date-sign sign-plus" data-direction="plus">
-                                <span>&gt</span>
+                            <div class="envelope-to-adress envelope-item">
+                                <form class="form-to-adress" action="my-adress.js" method="post">
+                                    <fieldset class="to-adress-fieldset">
+                                        <legend class="to-adress-legend">Adress&#160recipient</legend>
+                                        <label class="to-adress-label">Name
+                                            <input class="envelope-input envelope-to-input to-name" name="envelope-to-name" type="text">
+                                        </label>
+                                        <label class="to-adress-label">Street / House
+                                            <input class="envelope-input envelope-to-input to-street" name="envelope-to-street" type="text">
+                                        </label>
+                                        <label class="to-adress-label">Index / City
+                                            <input class="envelope-input envelope-to-input to-index-city" name="envelope-to-city" type="text">
+                                        </label>
+                                        <label class="to-adress-label">Country
+                                            <input class="envelope-input envelope-to-input to-country" name="envelope-to-country" type="text">
+                                        </label>
+                                    </fieldset>
+                                </form>
                             </div>
                         </div>
-                        <div class="date-slider">
-                            <input class="date-slider-half date-slider-left" type="range">
-                            <input class="date-slider-half date-slider-right" type="range">
+                </div>
+                </div>
+                <div class="block card-text cardtext" contenteditable="true">
+                <form class="form-card-letter">
+                    <fieldset class="card-letter-fieldset">
+                        <legend class="card-letter-legend"></legend>
+                        <div class="card-letter-area">
+                            <!-- <textarea class="card-letter-textarea" maxlength="180" spellcheck="false"></textarea> -->
                         </div>
+                    </fieldset>
+                </form>
+                </div>
+                <div class="block aroma">
+                    <div class="aroma-block" data-created=""></div>
+                </div>
+                <div class="block date">
+                    <div class="date-block" data-created="">
+                        <div class="date-year-month-full date-calendar-header">
+                            <div class="date-calendar-header-selection">
+                                <div class="date-sign sign-minus" data-direction="minus">
+                                    <span>&lt</span>
+                                </div>
+                                <div class="date-selection-full" data-selection-date="false">
+                                    <div class="date-selection-title date-selection-year" data-date-title="title-year"></div>
+                                    <div class="date-selection-title date-selection-month" data-date-title="title-month"></div>
+                                    <div class="date-selection-title date-selection-day" data-date-title="title-day"></div>
+                                </div>
+                                <div class="date-sign sign-plus" data-direction="plus">
+                                    <span>&gt</span>
+                                </div>
+                            </div>
+                            <div class="date-slider">
+                                <input class="date-slider-half date-slider-left" type="range">
+                                <input class="date-slider-half date-slider-right" type="range">
+                            </div>
+                        </div>
+                        <div class="date-table-month"></div>
                     </div>
-                    <div class="date-table-month"></div>
                 </div>
             </div>
         </div>

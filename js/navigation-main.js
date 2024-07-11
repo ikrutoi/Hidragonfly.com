@@ -1,15 +1,18 @@
+import { formationCardphoto } from "./cardphoto.js";
+
 export function navigationMain(unit) {
     const buttonsMainNavMenu = document.querySelectorAll(`.main-nav--${unit}--button`);
 
     function changeFromButton() {
-        const targetButton = document.querySelector(`.main-nav--${unit}--button-${this.dataset.menuNav}`);
+        // const targetButton = document.querySelector(`.main-nav--${unit}--button-${this.dataset.menuNav}`);
 
         switch (this.dataset.menuNav) {
             case 'add':
                 console.log('add');
                 break;
             case 'change':
-                console.log('change');
+                console.log('change', this.dataset.menuNav);
+                formationCardphoto(this);
                 break;
             case 'cut':
                 console.log('cut');

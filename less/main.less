@@ -1,23 +1,42 @@
 .main {
     grid-area: main;
     position: relative;
-    grid-row: 2/3;
-    // display: flex;
-    // justify-content: center;
-    // align-items: center;
-    // opacity: 0.8;
 }
 
 .main-addition {
     position: relative;
-    // width: 100%;
+    display: grid;
+    grid-template-rows: min-content auto;
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+        "mainnav"
+        "mainblock";
     height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     margin: 0 2rem;
     border-radius: 1.4rem;
     background: linear-gradient(to bottom, @color-basis-gradient-bottom, @color-basis-gradient-top);
-    // background-color: @color-basis-gradient-bottom;
+    // border: solid 1px fuchsia;
+}
+
+.main-nav {
+    grid-area: mainnav;
+    display: flex;
+    align-items: center;
+    top: 0.3rem;
+    width: 100%;
+    height: 36px;
+    border-radius: 1.4rem 1.4rem 0 0;
+    border-bottom: none;
+    // border: solid 1px red;
+}
+
+.main-block {
+    grid-area: mainblock;
+    position: relative;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     // border: solid 1px green;
 }
