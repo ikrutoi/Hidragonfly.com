@@ -67,6 +67,8 @@ export function formationCardphoto(elem) {
     //     }, 150);
     // }
 
+
+
     function createCircles() {
         newElemHTML(blockCardphotoChange, 'beforeend', '<span class="circle circle-1" data-dnd="circle-1"></span>');  
         newElemHTML(blockCardphotoChange, 'beforeend', '<span class="circle-start circle-1-start" data-dnd-start="circle-1"></span>');  
@@ -104,6 +106,39 @@ export function formationCardphoto(elem) {
     const circle4 = document.querySelector('.circle-4');
     const circleStart4 = document.querySelector('.circle-4-start');
     const newImage = document.querySelector('.new-image');
+
+    switch(elem.dataset.menuNav) {
+        case 'add':
+            console.log('add2');
+            elemCardphotoInput.addEventListener('change', checkImgSelection);
+            break; 
+        case 'change':
+            elem.classList.toggle('active');
+            blockCardphotoChange.classList.toggle('active');
+
+            if (elem.classList.contains('active')) {
+                // if (!blockCardphotoChange.classList.contains('created')) {
+                //     console.log('createCircles!')
+                //     createCircles();
+                //     setStartCircles();
+                // }
+                formationNewImage();
+            } 
+            break; 
+        case 'cut':
+            console.log('cut2');
+            break; 
+        case 'max':
+            console.log('max2');
+            break; 
+        case 'torn':
+            console.log('torn2');
+            break; 
+        case 'del':
+            console.log('del2');
+            // removeImage();
+            break; 
+    }
     
     const deltaCircle = circle1.offsetWidth / 2;
     const valueY1 = elemCardphoto.getBoundingClientRect().top - mainBlock.getBoundingClientRect().top;
@@ -136,8 +171,6 @@ export function formationCardphoto(elem) {
 
     function formationNewImage() {
 
-        // console.log('circles3: ', circles);
-
         function resizeNewImage() {
             newImage.style.top = circleStart1.style.top;
             newImage.style.left = circleStart1.style.left;
@@ -153,7 +186,13 @@ export function formationCardphoto(elem) {
         let movieY;
 
         circles.forEach(el => {
-            function circleMouseMove(event) {  
+            
+            function circleMouseMove(event) { 
+                
+                newImage.onmouseenter = function() {
+                    newImage.removeEventListener('mouseenter', addClassHover);
+                }
+
                 movieY = 
                     event.pageY - 
                     document.querySelector(`.${el.dataset.dnd}-start`).getBoundingClientRect().top;
@@ -173,7 +212,10 @@ export function formationCardphoto(elem) {
 
                         if (
                             valueY + mainBlock.getBoundingClientRect().top < elemCardphoto.getBoundingClientRect().top - deltaCircle ||
-                            valueX1 < elemCardphoto.getBoundingClientRect().left - deltaCircle
+                            valueX1 < 
+                                elemCardphoto.getBoundingClientRect().left - 
+                                mainBlock.getBoundingClientRect().left - 
+                                deltaCircle
                         ) { break }
 
                         el.style.top = valueY + 'px';
@@ -238,7 +280,11 @@ export function formationCardphoto(elem) {
 
                         if (
                             valueY + mainBlock.getBoundingClientRect().top < elemCardphoto.getBoundingClientRect().top - deltaCircle ||
-                            valueX2 > elemCardphoto.getBoundingClientRect().left + elemCardphoto.getBoundingClientRect().width - deltaCircle
+                            valueX2 > 
+                                elemCardphoto.getBoundingClientRect().left - 
+                                mainBlock.getBoundingClientRect().left + 
+                                elemCardphoto.getBoundingClientRect().width - 
+                                deltaCircle
                         ) { break }
 
                         // if (!deltaBkgY2) {deltaBkgY2 = 0};
@@ -303,8 +349,15 @@ export function formationCardphoto(elem) {
                             deltaCircle;
 
                         if (
-                            valueY + mainBlock.getBoundingClientRect().top > elemCardphoto.getBoundingClientRect().top + elemCardphoto.getBoundingClientRect().height - deltaCircle ||
-                            valueX3 > elemCardphoto.getBoundingClientRect().left + elemCardphoto.getBoundingClientRect().width - deltaCircle
+                            valueY + mainBlock.getBoundingClientRect().top > 
+                                elemCardphoto.getBoundingClientRect().top + 
+                                elemCardphoto.getBoundingClientRect().height - 
+                                deltaCircle ||
+                            valueX3 > 
+                                elemCardphoto.getBoundingClientRect().left - 
+                                mainBlock.getBoundingClientRect().left + 
+                                elemCardphoto.getBoundingClientRect().width - 
+                                deltaCircle
                         ) { break }
 
                         // if (!deltaBkgY3) {deltaBkgY3 = 0};
@@ -370,7 +423,10 @@ export function formationCardphoto(elem) {
 
                         if (
                             valueY + mainBlock.getBoundingClientRect().top > elemCardphoto.getBoundingClientRect().top + elemCardphoto.getBoundingClientRect().height - deltaCircle ||
-                            valueX4 < elemCardphoto.getBoundingClientRect().left - deltaCircle
+                            valueX4 < 
+                                elemCardphoto.getBoundingClientRect().left - 
+                                mainBlock.getBoundingClientRect().left - 
+                                deltaCircle
                         ) { break }
 
                         // if (!deltaBkgY4) {deltaBkgY4 = 0};
@@ -431,8 +487,9 @@ export function formationCardphoto(elem) {
             }
 
             el.onmousedown = function() {
+                // console.log('mousedown')
                 // creationBackgrondImage(el)
-                mainBlock.addEventListener('mousemove', circleMouseMove);
+                // mainBlock.addEventListener('mousemove', circleMouseMove);
                 mainBlock.addEventListener('mousemove', circleMouseMove);
                 mainBlock.onmouseup = function() {
                     mainBlock.removeEventListener('mousemove', circleMouseMove);
@@ -711,6 +768,7 @@ export function formationCardphoto(elem) {
 
                     el.style.left = 
                         valueCircleX - 
+                        mainBlock.getBoundingClientRect().left -
                         deltaCircle + 'px';
                 }
             })
@@ -761,41 +819,6 @@ export function formationCardphoto(elem) {
     //     newImage.setAttribute('style', 'display:"none"');
     //     circlesStart.forEach(el => el.setAttribute('style', 'display:"none"'));
     //     circles.forEach(el => el.setAttribute('style', 'display:"none"'));
-    // }
-
-    // function validationCardphotoMainNavMenu() {
-        switch(elem.dataset.menuNav) {
-            case 'add':
-                console.log('add2');
-                elemCardphotoInput.addEventListener('change', checkImgSelection);
-                break; 
-            case 'change':
-                elem.classList.toggle('active');
-                blockCardphotoChange.classList.toggle('active');
-
-                if (elem.classList.contains('active')) {
-                    // if (!blockCardphotoChange.classList.contains('created')) {
-                    //     console.log('createCircles!')
-                    //     createCircles();
-                    //     setStartCircles();
-                    // }
-                    formationNewImage();
-                } 
-                break; 
-            case 'cut':
-                console.log('cut2');
-                break; 
-            case 'max':
-                console.log('max2');
-                break; 
-            case 'torn':
-                console.log('torn2');
-                break; 
-            case 'del':
-                console.log('del2');
-                // removeImage();
-                break; 
-        }
     // }
 
     // function validationMouseenter() {
