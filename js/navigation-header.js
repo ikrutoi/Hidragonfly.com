@@ -5,7 +5,7 @@ import { createCalendar } from "./date.js";
 import { startPressActivation } from "./start-press-activation.js";
 import { addButtonDate } from "./date-create-button-date.js";
 import { readEnvelope } from "./envelope.js";
-import { cardphotoChange } from "./cardphoto.js";
+// import { cardphotoChange } from "./cardphoto.js";
 import { createMainNavMenu } from "./main-nav.js";
 import { navigationMain } from "./navigation-main.js";
 // import { changeSizeImageForm } from "./cardphoto.js";
