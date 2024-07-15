@@ -8,7 +8,7 @@ import { readEnvelope } from "./envelope.js";
 import { cardphotoChange } from "./cardphoto.js";
 import { createMainNavMenu } from "./main-nav.js";
 import { navigationMain } from "./navigation-main.js";
-import { changeSizeImageForm } from "./cardphoto.js";
+// import { changeSizeImageForm } from "./cardphoto.js";
 // import { validationValueSessionStorage } from './envelope-valid-ses-stor.js';
 
 export function navigationHeaderMenu() {
@@ -33,14 +33,20 @@ export function navigationHeaderMenu() {
 
         function showMainNav() {
             const selectedElem = document.querySelector(`.main-nav-menu--${datasetElement}`);
-            if ((datasetElement == 'aroma' || datasetElement == 'date') && selectedElem.classList.contains('selected')) {
-                selectedElem.classList.add('active');
-            } 
-            if (datasetElement == 'cardphoto') {
+
+            if (
+                (datasetElement == 'aroma' || datasetElement == 'date') && selectedElem.classList.contains('selected') || 
+                datasetElement == 'cardphoto'
+            ) {
                 selectedElem.classList.add('active');
             } 
 
+            // if (datasetElement == 'cardphoto') {
+            //     selectedElem.classList.add('active');
+            // } 
+
             navigationMain(datasetElement);
+            // cardphotoChange(el);
         }
         
         function addBorderBottom() {
@@ -60,7 +66,8 @@ export function navigationHeaderMenu() {
 
             switch(datasetElement) {
                 case 'cardphoto':
-                    changeSizeImageForm();
+                    // cardphotoChange(el);
+                    // changeSizeImageForm();
                     // formationCardphoto();
                     // navigationMain(datasetElement);
                     // console.log('*-*-*-*', el)
@@ -96,9 +103,9 @@ export function navigationHeaderMenu() {
         }
             
         el.addEventListener('pointerdown', removeClassActive);
-        el.addEventListener('pointerdown', createMainBlock);  
         el.addEventListener('pointerdown', createMainNav);
         el.addEventListener('pointerdown', showMainNav);
         el.addEventListener('pointerdown', addBorderBottom);
+        el.addEventListener('pointerdown', createMainBlock);  
     });
 }

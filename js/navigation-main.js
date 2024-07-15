@@ -1,22 +1,10 @@
+import { cardphotoTorn } from "./cardphoto-torn.js";
 import { cardphotoChange } from "./cardphoto.js";
+// import { cardphotoTorn } from "./cardphoto-torn.js";
 
 export function navigationMain(unit) {
-    const buttonsMainNavMenu = document.querySelectorAll(`.main-nav--${unit}--button`);
 
-
-    // console.log('---', unit)
-
-    // if (unit == 'cardphoto') {
-
-        // if (cardphoto.getBoundingClientRect().width > cardphoto.getBoundingClientRect().height) {
-        //     console.log('-----');
-        // } else {
-        //     console.log('|||||');
-        //     cardphotoImageForm.style.left = cardphoto.getBoundingClientRect().left - mainBlock.getBoundingClientRect().left + 'px';
-        //     cardphotoImageForm.style.width = cardphoto.getBoundingClientRect().width + 'px';
-        //     cardphotoImageForm.style.height = cardphoto.getBoundingClientRect().width / 1.42 + 'px';
-        // }
-    // }
+    const buttonMainNavMenu = document.querySelectorAll(`.main-nav--${unit}--button`);
 
     function changeFromButton() {
         // const targetButton = document.querySelector(`.main-nav--${unit}--button-${this.dataset.menuNav}`);
@@ -26,7 +14,7 @@ export function navigationMain(unit) {
                 console.log('add');
                 break;
             case 'change':
-                console.log('change', this.dataset.menuNav);
+                // console.log('change', this.dataset.menuNav);
                 cardphotoChange(this);
                 break;
             case 'cut':
@@ -36,8 +24,9 @@ export function navigationMain(unit) {
                 console.log('max');
                 break;
             case 'torn':
-                console.log('torn');
-                cardphotoChange(this);
+                // console.log('torn');
+                // cardphotoChange(this);
+                cardphotoTorn();
                 break;
             case 'delete':
                 console.log('delete');
@@ -45,7 +34,7 @@ export function navigationMain(unit) {
         }
     }
 
-    buttonsMainNavMenu.forEach(el => {
+    buttonMainNavMenu.forEach(el => {
         el.addEventListener('pointerdown', changeFromButton);
     });
 }
