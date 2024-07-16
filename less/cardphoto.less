@@ -20,16 +20,18 @@
 }
 
 .cardphoto-form.active {
-    display: block;
+    display: flex;
+    // justify-content: center;
+    // align-items: center;
     // .card-size-mixin;
     position: absolute;
     // box-sizing: border-box;
-    border: solid 1px fuchsia;
+    // border: solid 1px fuchsia;
 }
 
-// .new-image {
-//     border: solid 1px blue;
-// }
+.new-image {
+    border: solid 1px blue;
+}
 
 // .cardphoto-image-form {
 //     .card-size-mixin;
@@ -142,6 +144,7 @@
     background-image: url(/image/card-photo-bw.jpg);
     .card-size-mixin;
     background-size: cover;
+    border-top: solid 1px red;
     // transform: matrix(1, 0, 0, 1, 0, 0);
     // border: solid 1px red;
 }
@@ -203,9 +206,41 @@
     cursor: nesw-resize;
 }
 
+// .circle-1-start {
+//     background-color: aqua;
+// }
+
+// .circle-1 {
+//     background-color: rgb(24, 182, 108);
+// }
+
 .background-image {
     position: absolute;
     background-color: @color-basis-hover;
+    opacity: 0.5;
+}
+
+.background-image-left {
+    position: absolute;
+    background-color: palevioletred;
+    opacity: 0.5;
+}
+
+.background-image-up {
+    position: absolute;
+    background-color: rgb(30, 103, 185);
+    opacity: 0.5;
+}
+
+.background-image-right {
+    position: absolute;
+    background-color: rgb(30, 185, 164);
+    opacity: 0.5;
+}
+
+.background-image-buttom {
+    position: absolute;
+    background-color: rgb(185, 175, 30);
     opacity: 0.5;
 }
 

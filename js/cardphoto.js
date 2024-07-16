@@ -5,10 +5,15 @@ import { newElem } from "./new-element.js";
 // import { dragNDrop } from "./dnd.js";
 import { newElemHTML } from "./new-element.js";
 
+const main = document.querySelector('.main');
 const mainBlock = document.querySelector('.main-block');
 const cardphoto = document.querySelector('.cardphoto');
 const cardphotoForm = document.querySelector('.cardphoto-form');
 const cardphotoImage = document.querySelector('.cardphoto-image');
+
+let heightCardphotoImageStart;
+let widthNewImageStart;
+let heightNewImageStart;
 
 function setSizeCardphotoForm() {
     // const valueX1 = cardphotoImage.getBoundingClientRect().left;
@@ -23,10 +28,15 @@ function setSizeCardphotoForm() {
     cardphotoForm.style.height = valueHeight + 'px';
 }
 
-export function changeCardphoto(elem) {  
-    
-    console.log('***----', elem)    
+// function getCoordinatesCircle() {
+//     const valueX = circle1.getBoundingClientRect().left;
+//     const valueY = circle1.getBoundingClientRect().top;
+//     const coordinatesCircle1 = [valueX, valueY];
 
+//     return coordinatesCircle1;
+// }
+
+export function changeCardphoto(elem) {  
 
     // const blockCardphotoChange = document.querySelector('.block-new-image');
 
@@ -130,6 +140,11 @@ export function changeCardphoto(elem) {
     const circleStart4 = document.querySelector('.circle-4-start');
     const newImage = document.querySelector('.new-image');
 
+    const elemBkgUp = document.querySelector('.background-image-up');
+    const elemBkgRight = document.querySelector('.background-image-right');
+    const elemBkgButtom = document.querySelector('.background-image-buttom');
+    const elemBkgLeft = document.querySelector('.background-image-left');
+
     let deltaCircle;
     let rotateImage;
 
@@ -157,10 +172,14 @@ export function changeCardphoto(elem) {
                     deltaCircle = circle1.offsetWidth / 2;
                     const valueX1 = 0;
                     const valueY1 = 0;
-                    const valueX2 = valueX1 + cardphotoForm.getBoundingClientRect().width;
-                    const valueY3 = valueY1 + cardphotoForm.getBoundingClientRect().height;
+                    const valueX2 = valueX1 + cardphotoImage.getBoundingClientRect().width;
+                    const valueY3 = valueY1 + cardphotoImage.getBoundingClientRect().height;
+                    // const valueX1 = 0;
+                    // const valueY1 = 0;
+                    // const valueX2 = valueX1 + cardphotoForm.getBoundingClientRect().width;
+                    // const valueY3 = valueY1 + cardphotoForm.getBoundingClientRect().height;
             
-                    setCoordinatesCircles(valueX1, valueY1, valueX2, valueY3);
+                    setCoordinatesCircles(valueX1, valueY1, valueX2, valueY3, deltaCircle);
                 // }
                 
                 formationNewImage();
@@ -182,7 +201,8 @@ export function changeCardphoto(elem) {
             break; 
     }
     
-    function setCoordinatesCircles(x1, y1, x2, y3) {
+    function setCoordinatesCircles(x1, y1, x2, y3, deltaCircle) {
+
         circle1.style.top = y1 - deltaCircle + 'px';
         circle1.style.left = x1 - deltaCircle + 'px';
         circleStart1.style.top = y1 + 'px';
@@ -201,15 +221,106 @@ export function changeCardphoto(elem) {
         circleStart4.style.left = x1 + 'px';
     }
 
-    // if (firstStart) {
-    //     console.log('delta', deltaCircle)
-    //     const valueX1 = -10;
-    //     const valueY1 = -10;
-    //     const valueX2 = valueX1 + cardphotoForm.getBoundingClientRect().width;
-    //     const valueY3 = valueY1 + cardphotoForm.getBoundingClientRect().height;
+    function changeBackgroud(moveY, moveX) {
 
-    //     setCoordinatesCircles(valueX1, valueY1, valueX2, valueY3);
-    // }
+        elemBkgLeft.style.top = 
+            cardphoto.getBoundingClientRect().top - 
+            cardphotoForm.getBoundingClientRect().top + 'px';
+        elemBkgLeft.style.left =
+            cardphoto.getBoundingClientRect().left - 
+            cardphotoForm.getBoundingClientRect().left + 'px';
+        elemBkgLeft.style.width = 
+            circleStart1.getBoundingClientRect().left -
+            cardphoto.getBoundingClientRect().left +
+            moveX + 'px';
+        elemBkgLeft.style.height = 
+            cardphoto.getBoundingClientRect().height + 'px';
+
+        elemBkgUp.style.top = 
+            cardphoto.getBoundingClientRect().top - 
+            cardphotoForm.getBoundingClientRect().top + 'px';
+        elemBkgUp.style.left = 
+            circleStart1.getBoundingClientRect().left - 
+            cardphotoForm.getBoundingClientRect().left +
+            moveX + 'px';
+        elemBkgUp.style.width = 
+            circleStart2.getBoundingClientRect().left -
+            circleStart1.getBoundingClientRect().left + 'px';
+        elemBkgUp.style.height = 
+            circleStart1.getBoundingClientRect().top -
+            cardphoto.getBoundingClientRect().top +
+            moveY + 'px';
+
+        elemBkgRight.style.top = 
+            cardphoto.getBoundingClientRect().top - 
+            cardphotoForm.getBoundingClientRect().top + 'px';
+        elemBkgRight.style.left = 
+            circleStart2.getBoundingClientRect().left - 
+            cardphotoForm.getBoundingClientRect().left +
+            moveX + 'px';
+        elemBkgRight.style.width = 
+            cardphoto.getBoundingClientRect().left + 
+            cardphoto.getBoundingClientRect().width -
+            circleStart2.getBoundingClientRect().left - 
+            moveX + 'px';
+        elemBkgRight.style.height = cardphoto.getBoundingClientRect().height + 'px';
+
+        elemBkgButtom.style.bottom = 
+            cardphotoForm.getBoundingClientRect().height +
+            cardphotoForm.getBoundingClientRect().top -
+            cardphoto.getBoundingClientRect().top -
+            cardphoto.getBoundingClientRect().height + 'px';
+        elemBkgButtom.style.left = 
+            circleStart4.getBoundingClientRect().left - 
+            cardphotoForm.getBoundingClientRect().left +
+            moveX + 'px';
+        elemBkgButtom.style.width = 
+            circleStart3.getBoundingClientRect().left -
+            circleStart4.getBoundingClientRect().left + 'px'
+        elemBkgButtom.style.height =
+            cardphoto.getBoundingClientRect().top +
+            cardphoto.getBoundingClientRect().height -
+            circleStart4.getBoundingClientRect().top -
+            moveY + 'px';
+    }
+
+    function changeBackgroudFromTorn(deltaX1, deltaY1, newImageWidth, newImageHeight, imageWidth, imageHeight, deltaCircle) {
+
+        elemBkgLeft.style.top = 
+'0px';
+        elemBkgLeft.style.left =
+'0px';
+        elemBkgLeft.style.width = 
+            deltaX1 + 'px';
+        elemBkgLeft.style.height = 
+            imageHeight + 'px';
+
+        elemBkgUp.style.top = 
+            '0px';
+        elemBkgUp.style.left = 
+            deltaX1 + 'px';
+        elemBkgUp.style.width = 
+            newImageHeight + 'px';
+        elemBkgUp.style.height = 
+            deltaY1 + 'px';
+
+        elemBkgRight.style.top = 
+'0px';
+        elemBkgRight.style.left = 
+            deltaX1 + newImageHeight + 'px';
+        elemBkgRight.style.width = 
+            deltaX1 + 'px';
+        elemBkgRight.style.height = imageHeight + 'px';
+
+        elemBkgButtom.style.bottom = 
+             '0px';
+        elemBkgButtom.style.left = 
+            deltaX1 + 'px';
+        elemBkgButtom.style.width = 
+            newImageHeight + 'px'
+        elemBkgButtom.style.height =
+             deltaY1  + 'px';
+    }
 
     function formationNewImage() {
 
@@ -220,10 +331,10 @@ export function changeCardphoto(elem) {
             newImage.style.height = circle4.getBoundingClientRect().top - circle1.getBoundingClientRect().top - deltaCircle / 2 + 'px';
         }
 
-        const elemBkgUp = document.querySelector('.background-image-up');
-        const elemBkgRight = document.querySelector('.background-image-right');
-        const elemBkgButtom = document.querySelector('.background-image-buttom');
-        const elemBkgLeft = document.querySelector('.background-image-left');
+        // const elemBkgUp = document.querySelector('.background-image-up');
+        // const elemBkgRight = document.querySelector('.background-image-right');
+        // const elemBkgButtom = document.querySelector('.background-image-buttom');
+        // const elemBkgLeft = document.querySelector('.background-image-left');
 
         let movieY;
 
@@ -590,68 +701,68 @@ export function changeCardphoto(elem) {
             startNewImageX = event.pageX;
         }
 
-        function changeBackgroud(moveY, moveX) {
+        // function changeBackgroud(moveY, moveX) {
 
-            elemBkgLeft.style.top = 
-                cardphoto.getBoundingClientRect().top - 
-                cardphotoForm.getBoundingClientRect().top + 'px';
-            elemBkgLeft.style.left =
-                cardphoto.getBoundingClientRect().left - 
-                cardphotoForm.getBoundingClientRect().left + 'px';
-            elemBkgLeft.style.width = 
-                circleStart1.getBoundingClientRect().left -
-                cardphoto.getBoundingClientRect().left +
-                moveX + 'px';
-            elemBkgLeft.style.height = 
-                cardphoto.getBoundingClientRect().height + 'px';
+        //     elemBkgLeft.style.top = 
+        //         cardphoto.getBoundingClientRect().top - 
+        //         cardphotoForm.getBoundingClientRect().top + 'px';
+        //     elemBkgLeft.style.left =
+        //         cardphoto.getBoundingClientRect().left - 
+        //         cardphotoForm.getBoundingClientRect().left + 'px';
+        //     elemBkgLeft.style.width = 
+        //         circleStart1.getBoundingClientRect().left -
+        //         cardphoto.getBoundingClientRect().left +
+        //         moveX + 'px';
+        //     elemBkgLeft.style.height = 
+        //         cardphoto.getBoundingClientRect().height + 'px';
 
-            elemBkgUp.style.top = 
-                cardphoto.getBoundingClientRect().top - 
-                cardphotoForm.getBoundingClientRect().top + 'px';
-            elemBkgUp.style.left = 
-                circleStart1.getBoundingClientRect().left - 
-                cardphotoForm.getBoundingClientRect().left +
-                moveX + 'px';
-            elemBkgUp.style.width = 
-                circleStart2.getBoundingClientRect().left -
-                circleStart1.getBoundingClientRect().left + 'px';
-            elemBkgUp.style.height = 
-                circleStart1.getBoundingClientRect().top -
-                cardphoto.getBoundingClientRect().top +
-                moveY + 'px';
+        //     elemBkgUp.style.top = 
+        //         cardphoto.getBoundingClientRect().top - 
+        //         cardphotoForm.getBoundingClientRect().top + 'px';
+        //     elemBkgUp.style.left = 
+        //         circleStart1.getBoundingClientRect().left - 
+        //         cardphotoForm.getBoundingClientRect().left +
+        //         moveX + 'px';
+        //     elemBkgUp.style.width = 
+        //         circleStart2.getBoundingClientRect().left -
+        //         circleStart1.getBoundingClientRect().left + 'px';
+        //     elemBkgUp.style.height = 
+        //         circleStart1.getBoundingClientRect().top -
+        //         cardphoto.getBoundingClientRect().top +
+        //         moveY + 'px';
 
-            elemBkgRight.style.top = 
-                cardphoto.getBoundingClientRect().top - 
-                cardphotoForm.getBoundingClientRect().top + 'px';
-            elemBkgRight.style.left = 
-                circleStart2.getBoundingClientRect().left - 
-                cardphotoForm.getBoundingClientRect().left +
-                moveX + 'px';
-            elemBkgRight.style.width = 
-                cardphoto.getBoundingClientRect().left + 
-                cardphoto.getBoundingClientRect().width -
-                circleStart2.getBoundingClientRect().left - 
-                moveX + 'px';
-            elemBkgRight.style.height = cardphoto.getBoundingClientRect().height + 'px';
+        //     elemBkgRight.style.top = 
+        //         cardphoto.getBoundingClientRect().top - 
+        //         cardphotoForm.getBoundingClientRect().top + 'px';
+        //     elemBkgRight.style.left = 
+        //         circleStart2.getBoundingClientRect().left - 
+        //         cardphotoForm.getBoundingClientRect().left +
+        //         moveX + 'px';
+        //     elemBkgRight.style.width = 
+        //         cardphoto.getBoundingClientRect().left + 
+        //         cardphoto.getBoundingClientRect().width -
+        //         circleStart2.getBoundingClientRect().left - 
+        //         moveX + 'px';
+        //     elemBkgRight.style.height = cardphoto.getBoundingClientRect().height + 'px';
 
-            elemBkgButtom.style.bottom = 
-                cardphotoForm.getBoundingClientRect().height +
-                cardphotoForm.getBoundingClientRect().top -
-                cardphoto.getBoundingClientRect().top -
-                cardphoto.getBoundingClientRect().height + 'px';
-            elemBkgButtom.style.left = 
-                circleStart4.getBoundingClientRect().left - 
-                cardphotoForm.getBoundingClientRect().left +
-                moveX + 'px';
-            elemBkgButtom.style.width = 
-                circleStart3.getBoundingClientRect().left -
-                circleStart4.getBoundingClientRect().left + 'px'
-            elemBkgButtom.style.height =
-                cardphoto.getBoundingClientRect().top +
-                cardphoto.getBoundingClientRect().height -
-                circleStart4.getBoundingClientRect().top -
-                moveY + 'px';
-        }
+        //     elemBkgButtom.style.bottom = 
+        //         cardphotoForm.getBoundingClientRect().height +
+        //         cardphotoForm.getBoundingClientRect().top -
+        //         cardphoto.getBoundingClientRect().top -
+        //         cardphoto.getBoundingClientRect().height + 'px';
+        //     elemBkgButtom.style.left = 
+        //         circleStart4.getBoundingClientRect().left - 
+        //         cardphotoForm.getBoundingClientRect().left +
+        //         moveX + 'px';
+        //     elemBkgButtom.style.width = 
+        //         circleStart3.getBoundingClientRect().left -
+        //         circleStart4.getBoundingClientRect().left + 'px'
+        //     elemBkgButtom.style.height =
+        //         cardphoto.getBoundingClientRect().top +
+        //         cardphoto.getBoundingClientRect().height -
+        //         circleStart4.getBoundingClientRect().top -
+        //         moveY + 'px';
+        // }
 
         let stopMoveNewImageCircle1;
         let stopMoveNewImageCircle2;
@@ -838,27 +949,105 @@ export function changeCardphoto(elem) {
 
     //** torn */
 
+
+
     function cardphotoTorn() {
 
+        // const total = 1768;
+
+        // for (let i = total; i > 1200; i = i - 13) {
+        //     console.log(`${i}: `, i / 78);
+        // }
+
         const cardphotoImage = document.querySelector('.cardphoto-image');
-        
+
+        const widthCardphotoImageStart = cardphotoImage.getBoundingClientRect().width;
+        const heightCardphotoImageStart = cardphotoImage.getBoundingClientRect().height;
+        const widthNewImageStart = newImage.getBoundingClientRect().width;
+        const heightNewImageStart = newImage.getBoundingClientRect().height;
+        const deltaXNewImage = (widthCardphotoImageStart - heightNewImageStart) / 2;
+        const deltaYNewImage = (heightCardphotoImageStart - widthNewImageStart) / 2;
+        const deltaCircle = circle1.offsetWidth / 2;
+
+        let coordinatesCircles;
+
+        if (widthNewImageStart < heightCardphotoImageStart) {
+            console.log('0');
+
+        } else {
+            console.log('1');
+        }
+
+        const startWidth = newImage.getBoundingClientRect().width;
+        const startHeight = newImage.getBoundingClientRect().height;
+
         switch (getComputedStyle(cardphotoImage).transform) {
             case 'none':
                 cardphotoImage.style.transform = 'matrix(0, 1, -1, 0, 0, 0)';
+                cardphotoForm.style.transform = 'matrix(0, 1, -1, 0, 0, 0)';
+
+                newImage.style.left = deltaXNewImage + 'px';
+                newImage.style.top = deltaYNewImage + 'px';
+                newImage.style.width = startHeight + 'px';
+                newImage.style.height = startWidth + 'px';
+
+                setCoordinatesCircles(deltaXNewImage, deltaYNewImage, deltaXNewImage + startHeight, deltaYNewImage + startWidth, deltaCircle);
+                changeBackgroudFromTorn(deltaXNewImage, deltaYNewImage, widthNewImageStart, heightNewImageStart, widthCardphotoImageStart, heightCardphotoImageStart, deltaCircle);
+
                 break;
             case 'matrix(1, 0, 0, 1, 0, 0)':
                 cardphotoImage.style.transform = 'matrix(0, 1, -1, 0, 0, 0)';
+                cardphotoForm.style.transform = 'matrix(0, 1, -1, 0, 0, 0)';
+
+                newImage.style.left = deltaXNewImage + 'px';
+                newImage.style.top = deltaYNewImage + 'px';
+                newImage.style.width = startHeight + 'px';
+                newImage.style.height = startWidth + 'px';
+
+                setCoordinatesCircles(deltaXNewImage, deltaYNewImage, deltaXNewImage + startHeight, deltaYNewImage + startWidth, deltaCircle);
+                changeBackgroudFromTorn(0, 0, deltaXNewImage, heightCardphotoImageStart, deltaCircle);
+
                 break;
             case 'matrix(0, 1, -1, 0, 0, 0)':
                 cardphotoImage.style.transform = 'matrix(-1, 0, 0, -1, 0, 0)';
+                cardphotoForm.style.transform = 'matrix(-1, 0, 0, -1, 0, 0)';
+
+                newImage.style.left = deltaYNewImage + 'px';
+                newImage.style.top = deltaXNewImage + 'px';
+                newImage.style.width = startWidth + 'px';
+                newImage.style.height = startHeight + 'px';
+
+                setCoordinatesCircles(deltaYNewImage, deltaXNewImage, deltaYNewImage + startWidth, deltaXNewImage + startHeight, deltaCircle);
+
                 break;
             case 'matrix(-1, 0, 0, -1, 0, 0)':
                 cardphotoImage.style.transform = 'matrix(0, -1, 1, 0, 0, 0)';
+                cardphotoForm.style.transform = 'matrix(0, -1, 1, 0, 0, 0)';
+
+                newImage.style.left = deltaXNewImage + 'px';
+                newImage.style.top = deltaYNewImage + 'px';
+                newImage.style.width = startHeight + 'px';
+                newImage.style.height = startWidth + 'px';
+
+                setCoordinatesCircles(deltaXNewImage, deltaYNewImage, deltaXNewImage + startHeight, deltaYNewImage + startWidth, deltaCircle);
+
                 break;
             case 'matrix(0, -1, 1, 0, 0, 0)':
                 cardphotoImage.style.transform = 'matrix(1, 0, 0, 1, 0, 0)';
+                cardphotoForm.style.transform = 'matrix(1, 0, 0, 1, 0, 0)';
+
+                newImage.style.left = deltaYNewImage + 'px';
+                newImage.style.top = deltaXNewImage + 'px';
+                newImage.style.width = startWidth + 'px';
+                newImage.style.height = startHeight + 'px';
+
+                setCoordinatesCircles(deltaYNewImage, deltaXNewImage, deltaYNewImage + startWidth, deltaXNewImage + startHeight, deltaCircle);
+
                 break;
         }
+
+
+
     }
 } 
 
