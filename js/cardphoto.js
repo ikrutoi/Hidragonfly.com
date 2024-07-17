@@ -14,6 +14,7 @@ const cardphotoImage = document.querySelector('.cardphoto-image');
 let heightCardphotoImageStart;
 let widthNewImageStart;
 let heightNewImageStart;
+let positionImage;
 
 function setSizeCardphotoForm() {
     // const valueX1 = cardphotoImage.getBoundingClientRect().left;
@@ -76,6 +77,8 @@ export function changeCardphoto(elem) {
 
 
 
+
+
     // function removeImage() {
     //     cardphotoImage.classList.remove('active');
     //     cardphotoImageStart.classList.remove('deactivation');
@@ -126,6 +129,8 @@ export function changeCardphoto(elem) {
         createCircles();
     }
 
+
+
     // console.log('111firstStart: ', firstStart);
 
     const circles = document.querySelectorAll('.circle');
@@ -144,6 +149,20 @@ export function changeCardphoto(elem) {
     const elemBkgRight = document.querySelector('.background-image-right');
     const elemBkgButtom = document.querySelector('.background-image-buttom');
     const elemBkgLeft = document.querySelector('.background-image-left');
+
+    const widthCardphotoImageStart = cardphotoImage.getBoundingClientRect().width;
+    const heightCardphotoImageStart = cardphotoImage.getBoundingClientRect().height;
+    let widthNewImageStart;
+    let heightNewImageStart;
+    let deltaXNewImage = (widthCardphotoImageStart - heightNewImageStart) / 2;
+    let deltaYNewImage = (heightCardphotoImageStart - widthNewImageStart) / 2;
+
+    function setSizeNewImage() {
+        widthNewImageStart = newImage.getBoundingClientRect().width;
+        heightNewImageStart = newImage.getBoundingClientRect().height;
+        deltaXNewImage = (widthCardphotoImageStart - heightNewImageStart) / 2;
+        deltaYNewImage = (heightCardphotoImageStart - widthNewImageStart) / 2;
+    }
 
     let deltaCircle;
     let rotateImage;
@@ -344,9 +363,229 @@ export function changeCardphoto(elem) {
                 unit24()
                 break; 
         }
-
-
     }
+
+    let startNewImageY;
+    let startNewImageX;
+
+    function startMoveNewImage(event) {
+        startNewImageY = event.pageY;
+        startNewImageX = event.pageX;
+    }
+
+    let stopMoveNewImageCircle1;
+    let stopMoveNewImageCircle2;
+    let stopMoveNewImageCircle3;
+    let stopMoveNewImageCircle4;
+
+    let pauseNewImageX;
+    let pauseNewImageY;
+    let eventPageTemporaryX;
+    let eventPageTemporaryY;
+    let deltaMoveImageX;
+    let deltaMoveImageY;
+
+    let moveX;
+    let moveY;
+        
+    function moveNewImage(event) {
+        // if (positionImage == 'matrix(0, 1, -1, 0, 0, 0)') {
+        //     console.log('matr-90')
+        //     moveX = event.pageY - startNewImageY;
+        //     moveY = event.pageX - startNewImageX;
+        // } else {
+        //     console.log('matr-0')
+        //     moveY = event.pageY - startNewImageY;
+        //     moveX = event.pageX - startNewImageX;
+        // }
+        moveY = event.pageY - startNewImageY;
+        moveX = event.pageX - startNewImageX;
+
+        if (!stopMoveNewImageCircle1 &&
+            !stopMoveNewImageCircle2 && 
+            !stopMoveNewImageCircle3 &&
+            !stopMoveNewImageCircle4  
+        ) {
+            if (pauseNewImageX || pauseNewImageY) {
+                pauseNewImageX = false;
+                pauseNewImageY = false;
+            }
+        } else {
+            if (pauseNewImageX || pauseNewImageY) {
+                if (!deltaMoveImageX && !deltaMoveImageY) {
+
+                    function changeStartNewImage() {
+                        deltaMoveImageX = event.pageX - pauseNewImageX;
+                        deltaMoveImageY = event.pageY - pauseNewImageY;
+                        startNewImageX = startNewImageX + deltaMoveImageX;
+                        startNewImageY = startNewImageY + deltaMoveImageY;
+                        pauseNewImageX = null;
+                        deltaMoveImageX = null;
+                        pauseNewImageY = null;
+                        deltaMoveImageY = null;
+                    }
+
+                    if (stopMoveNewImageCircle1 && stopMoveNewImageCircle4 || stopMoveNewImageCircle1 && stopMoveNewImageCircle2) {
+                        if (eventPageTemporaryX < event.pageX || eventPageTemporaryY < event.pageY) {
+                            changeStartNewImage();
+                        }
+                    }
+                    if (stopMoveNewImageCircle2 && stopMoveNewImageCircle3 || stopMoveNewImageCircle3 && stopMoveNewImageCircle4) {
+                        if (eventPageTemporaryX > event.pageX || eventPageTemporaryY > event.pageY) {
+                            changeStartNewImage();
+                        }
+                    }
+                }
+            } else {
+                pauseNewImageX = event.pageX;
+                pauseNewImageY = event.pageY;
+            }                
+            eventPageTemporaryX = event.pageX;
+            eventPageTemporaryY = event.pageY;
+        }
+
+        circles.forEach(el => {
+
+            const valueCircleY = 
+                document.querySelector(`.${el.dataset.dnd}-start`).getBoundingClientRect().top + 
+                moveY;
+            const valueCircleX = 
+                document.querySelector(`.${el.dataset.dnd}-start`).getBoundingClientRect().left + 
+                moveX;
+            
+            switch (el.dataset.dnd) {
+                case 'circle-1':
+                    if (
+                        valueCircleY < cardphotoForm.getBoundingClientRect().top ||
+                        valueCircleX < cardphotoForm.getBoundingClientRect().left
+                    ) 
+                    { 
+                        stopMoveNewImageCircle1 = true;
+                    } else {
+                        stopMoveNewImageCircle1 = false;
+                    };
+                    
+                    if (!stopMoveNewImageCircle1 &&
+                        !stopMoveNewImageCircle2 && 
+                        !stopMoveNewImageCircle3 &&
+                        !stopMoveNewImageCircle4
+                    ) {
+                        moveCircles(el);
+                    };
+                    break;
+                case 'circle-2':
+                    if (
+                        valueCircleY < cardphotoForm.getBoundingClientRect().top ||
+                        valueCircleX > cardphotoForm.getBoundingClientRect().left + cardphotoForm.getBoundingClientRect().width
+                    ) { 
+                        stopMoveNewImageCircle2 = true;
+                    } else {
+                        stopMoveNewImageCircle2 = false;
+                    }
+                    
+                    if (!stopMoveNewImageCircle1 &&
+                        !stopMoveNewImageCircle2 && 
+                        !stopMoveNewImageCircle3 &&
+                        !stopMoveNewImageCircle4
+                    ) {
+                        moveCircles(el);
+                    };
+                    break;
+                case 'circle-3':
+                    if (
+                        valueCircleY > cardphotoForm.getBoundingClientRect().top + cardphotoForm.getBoundingClientRect().height ||
+                        valueCircleX > cardphotoForm.getBoundingClientRect().left + cardphotoForm.getBoundingClientRect().width
+                    ) { 
+                        stopMoveNewImageCircle3 = true;
+                    } else {
+                        stopMoveNewImageCircle3 = false;
+                    }
+                    
+                    if (!stopMoveNewImageCircle1 &&
+                        !stopMoveNewImageCircle2 && 
+                        !stopMoveNewImageCircle3 &&
+                        !stopMoveNewImageCircle4
+                    ) {
+                        moveCircles(el);
+                    };
+                    break;
+                case 'circle-4':
+                    if (
+                        valueCircleY > cardphotoForm.getBoundingClientRect().top + cardphotoForm.getBoundingClientRect().height ||
+                        valueCircleX < cardphotoForm.getBoundingClientRect().left
+                    ) { 
+                        stopMoveNewImageCircle4 = true;
+                    } else {
+                        stopMoveNewImageCircle4 = false;
+                    }
+                    
+                    if (!stopMoveNewImageCircle1 &&
+                        !stopMoveNewImageCircle2 && 
+                        !stopMoveNewImageCircle3 &&
+                        !stopMoveNewImageCircle4
+                    ) {
+                        moveCircles(el);
+                    };
+                    break;
+            }
+
+            function moveCircles(el) {
+
+                if (positionImage == 'matrix(0, 1, -1, 0, 0, 0)') {
+                    el.style.top = 
+                      document.querySelector(`.${el.dataset.dnd}-start`).getBoundingClientRect().left - cardphotoImage.getBoundingClientRect().left -
+                moveX + deltaCircle + 'px';
+    
+                    el.style.left = 
+                document.querySelector(`.${el.dataset.dnd}-start`).getBoundingClientRect().top - cardphotoImage.getBoundingClientRect().top + 
+                moveY - deltaCircle + 'px';
+
+                } else {
+                    el.style.top = 
+                    valueCircleY - 
+                    cardphotoForm.getBoundingClientRect().top -
+                    deltaCircle + 'px';
+
+                el.style.left = 
+                    valueCircleX - 
+                    cardphotoForm.getBoundingClientRect().left -
+                    deltaCircle + 'px';
+
+                }
+
+                // el.style.top = 
+                //     valueCircleY - 
+                //     cardphotoForm.getBoundingClientRect().top -
+                //     deltaCircle + 'px';
+
+                // el.style.left = 
+                //     valueCircleX - 
+                //     cardphotoForm.getBoundingClientRect().left -
+                //     deltaCircle + 'px';
+            }
+        })
+
+        if (!stopMoveNewImageCircle1 &&
+            !stopMoveNewImageCircle2 && 
+            !stopMoveNewImageCircle3 &&
+            !stopMoveNewImageCircle4
+        ) {
+            changeBackgroud(moveY, moveX);
+
+
+            if (positionImage == 'matrix(0, 1, -1, 0, 0, 0)') {
+                 setSizeNewImage();
+                newImage.style.top = deltaYNewImage - moveX + 'px';
+                newImage.style.left = deltaXNewImage + moveY + 'px';
+
+            } else {
+                newImage.style.top = circleStart1.getBoundingClientRect().top - cardphotoForm.getBoundingClientRect().top + moveY + 'px';
+                newImage.style.left = circleStart1.getBoundingClientRect().left - cardphotoForm.getBoundingClientRect().left + moveX + 'px';
+
+            }
+        } 
+        console.log('222', newImage.style.top, '/ ', newImage.style.left)
+    };
 
     function formationNewImage() {
 
@@ -678,12 +917,21 @@ export function changeCardphoto(elem) {
             circlesStart.forEach(el => {
                 switch (el.dataset.dndStart) {
                     case 'circle-1':
-                        el.style.top = 
-                            circle1.getBoundingClientRect().top -
-                            cardphotoForm.getBoundingClientRect().top + deltaCircle + 'px';
-                        el.style.left = circle1.getBoundingClientRect().left - 
-                            cardphotoForm.getBoundingClientRect().left + 
-                            deltaCircle + 'px';  
+                        if (positionImage == 'matrix(0, 1, -1, 0, 0, 0)') {
+                            // el.style.top = 
+                            //     circle1.getBoundingClientRect().left -
+                            //     cardphotoForm.getBoundingClientRect().left + deltaCircle + 'px';
+                            // el.style.left = circle1.getBoundingClientRect().top - 
+                            //     cardphotoForm.getBoundingClientRect().top + 
+                            //     deltaCircle + 'px'; 
+                        } else {
+                            el.style.top = 
+                                circle1.getBoundingClientRect().top -
+                                cardphotoForm.getBoundingClientRect().top + deltaCircle + 'px';
+                            el.style.left = circle1.getBoundingClientRect().left - 
+                                cardphotoForm.getBoundingClientRect().left + 
+                                deltaCircle + 'px';  
+                        }
                         break;
                     case 'circle-2':
                         el.style.top = 
@@ -719,246 +967,6 @@ export function changeCardphoto(elem) {
             return false;
         }
 
-        let startNewImageY;
-        let startNewImageX;
-
-        function startMoveNewImage(event) {
-            startNewImageY = event.pageY;
-            startNewImageX = event.pageX;
-        }
-
-        // function changeBackgroud(moveY, moveX) {
-
-        //     elemBkgLeft.style.top = 
-        //         cardphoto.getBoundingClientRect().top - 
-        //         cardphotoForm.getBoundingClientRect().top + 'px';
-        //     elemBkgLeft.style.left =
-        //         cardphoto.getBoundingClientRect().left - 
-        //         cardphotoForm.getBoundingClientRect().left + 'px';
-        //     elemBkgLeft.style.width = 
-        //         circleStart1.getBoundingClientRect().left -
-        //         cardphoto.getBoundingClientRect().left +
-        //         moveX + 'px';
-        //     elemBkgLeft.style.height = 
-        //         cardphoto.getBoundingClientRect().height + 'px';
-
-        //     elemBkgUp.style.top = 
-        //         cardphoto.getBoundingClientRect().top - 
-        //         cardphotoForm.getBoundingClientRect().top + 'px';
-        //     elemBkgUp.style.left = 
-        //         circleStart1.getBoundingClientRect().left - 
-        //         cardphotoForm.getBoundingClientRect().left +
-        //         moveX + 'px';
-        //     elemBkgUp.style.width = 
-        //         circleStart2.getBoundingClientRect().left -
-        //         circleStart1.getBoundingClientRect().left + 'px';
-        //     elemBkgUp.style.height = 
-        //         circleStart1.getBoundingClientRect().top -
-        //         cardphoto.getBoundingClientRect().top +
-        //         moveY + 'px';
-
-        //     elemBkgRight.style.top = 
-        //         cardphoto.getBoundingClientRect().top - 
-        //         cardphotoForm.getBoundingClientRect().top + 'px';
-        //     elemBkgRight.style.left = 
-        //         circleStart2.getBoundingClientRect().left - 
-        //         cardphotoForm.getBoundingClientRect().left +
-        //         moveX + 'px';
-        //     elemBkgRight.style.width = 
-        //         cardphoto.getBoundingClientRect().left + 
-        //         cardphoto.getBoundingClientRect().width -
-        //         circleStart2.getBoundingClientRect().left - 
-        //         moveX + 'px';
-        //     elemBkgRight.style.height = cardphoto.getBoundingClientRect().height + 'px';
-
-        //     elemBkgButtom.style.bottom = 
-        //         cardphotoForm.getBoundingClientRect().height +
-        //         cardphotoForm.getBoundingClientRect().top -
-        //         cardphoto.getBoundingClientRect().top -
-        //         cardphoto.getBoundingClientRect().height + 'px';
-        //     elemBkgButtom.style.left = 
-        //         circleStart4.getBoundingClientRect().left - 
-        //         cardphotoForm.getBoundingClientRect().left +
-        //         moveX + 'px';
-        //     elemBkgButtom.style.width = 
-        //         circleStart3.getBoundingClientRect().left -
-        //         circleStart4.getBoundingClientRect().left + 'px'
-        //     elemBkgButtom.style.height =
-        //         cardphoto.getBoundingClientRect().top +
-        //         cardphoto.getBoundingClientRect().height -
-        //         circleStart4.getBoundingClientRect().top -
-        //         moveY + 'px';
-        // }
-
-        let stopMoveNewImageCircle1;
-        let stopMoveNewImageCircle2;
-        let stopMoveNewImageCircle3;
-        let stopMoveNewImageCircle4;
-
-        let pauseNewImageX;
-        let pauseNewImageY;
-        let eventPageTemporaryX;
-        let eventPageTemporaryY;
-        let deltaMoveImageX;
-        let deltaMoveImageY;
-            
-        function moveNewImage(event) {
-            const moveY = event.pageY - startNewImageY;
-            const moveX = event.pageX - startNewImageX;
-
-            if (!stopMoveNewImageCircle1 &&
-                !stopMoveNewImageCircle2 && 
-                !stopMoveNewImageCircle3 &&
-                !stopMoveNewImageCircle4  
-            ) {
-                if (pauseNewImageX || pauseNewImageY) {
-                    pauseNewImageX = false;
-                    pauseNewImageY = false;
-                }
-            } else {
-                if (pauseNewImageX || pauseNewImageY) {
-                    if (!deltaMoveImageX && !deltaMoveImageY) {
-
-                        function changeStartNewImage() {
-                            deltaMoveImageX = event.pageX - pauseNewImageX;
-                            deltaMoveImageY = event.pageY - pauseNewImageY;
-                            startNewImageX = startNewImageX + deltaMoveImageX;
-                            startNewImageY = startNewImageY + deltaMoveImageY;
-                            pauseNewImageX = null;
-                            deltaMoveImageX = null;
-                            pauseNewImageY = null;
-                            deltaMoveImageY = null;
-                        }
-
-                        if (stopMoveNewImageCircle1 && stopMoveNewImageCircle4 || stopMoveNewImageCircle1 && stopMoveNewImageCircle2) {
-                            if (eventPageTemporaryX < event.pageX || eventPageTemporaryY < event.pageY) {
-                                changeStartNewImage();
-                            }
-                        }
-                        if (stopMoveNewImageCircle2 && stopMoveNewImageCircle3 || stopMoveNewImageCircle3 && stopMoveNewImageCircle4) {
-                            if (eventPageTemporaryX > event.pageX || eventPageTemporaryY > event.pageY) {
-                                changeStartNewImage();
-                            }
-                        }
-                    }
-                } else {
-                    pauseNewImageX = event.pageX;
-                    pauseNewImageY = event.pageY;
-                }                
-                eventPageTemporaryX = event.pageX;
-                eventPageTemporaryY = event.pageY;
-            }
-
-            circles.forEach(el => {
-
-                const valueCircleY = 
-                    document.querySelector(`.${el.dataset.dnd}-start`).getBoundingClientRect().top + 
-                    moveY;
-                const valueCircleX = 
-                    document.querySelector(`.${el.dataset.dnd}-start`).getBoundingClientRect().left + 
-                    moveX;
-                
-                switch (el.dataset.dnd) {
-                    case 'circle-1':
-                        if (
-                            valueCircleY < cardphotoForm.getBoundingClientRect().top ||
-                            valueCircleX < cardphotoForm.getBoundingClientRect().left
-                        ) 
-                        { 
-                            stopMoveNewImageCircle1 = true;
-                        } else {
-                            stopMoveNewImageCircle1 = false;
-                        };
-                        
-                        if (!stopMoveNewImageCircle1 &&
-                            !stopMoveNewImageCircle2 && 
-                            !stopMoveNewImageCircle3 &&
-                            !stopMoveNewImageCircle4
-                        ) {
-                            moveCircles(el);
-                        };
-                        break;
-                    case 'circle-2':
-                        if (
-                            valueCircleY < cardphotoForm.getBoundingClientRect().top ||
-                            valueCircleX > cardphotoForm.getBoundingClientRect().left + cardphotoForm.getBoundingClientRect().width
-                        ) { 
-                            stopMoveNewImageCircle2 = true;
-                        } else {
-                            stopMoveNewImageCircle2 = false;
-                        }
-                        
-                        if (!stopMoveNewImageCircle1 &&
-                            !stopMoveNewImageCircle2 && 
-                            !stopMoveNewImageCircle3 &&
-                            !stopMoveNewImageCircle4
-                        ) {
-                            moveCircles(el);
-                        };
-                        break;
-                    case 'circle-3':
-                        if (
-                            valueCircleY > cardphotoForm.getBoundingClientRect().top + cardphotoForm.getBoundingClientRect().height ||
-                            valueCircleX > cardphotoForm.getBoundingClientRect().left + cardphotoForm.getBoundingClientRect().width
-                        ) { 
-                            stopMoveNewImageCircle3 = true;
-                        } else {
-                            stopMoveNewImageCircle3 = false;
-                        }
-                        
-                        if (!stopMoveNewImageCircle1 &&
-                            !stopMoveNewImageCircle2 && 
-                            !stopMoveNewImageCircle3 &&
-                            !stopMoveNewImageCircle4
-                        ) {
-                            moveCircles(el);
-                        };
-                        break;
-                    case 'circle-4':
-                        if (
-                            valueCircleY > cardphotoForm.getBoundingClientRect().top + cardphotoForm.getBoundingClientRect().height ||
-                            valueCircleX < cardphotoForm.getBoundingClientRect().left
-                        ) { 
-                            stopMoveNewImageCircle4 = true;
-                        } else {
-                            stopMoveNewImageCircle4 = false;
-                        }
-                        
-                        if (!stopMoveNewImageCircle1 &&
-                            !stopMoveNewImageCircle2 && 
-                            !stopMoveNewImageCircle3 &&
-                            !stopMoveNewImageCircle4
-                        ) {
-                            moveCircles(el);
-                        };
-                        break;
-                }
-
-                function moveCircles(el) {
-                    el.style.top = 
-                        valueCircleY - 
-                        cardphotoForm.getBoundingClientRect().top -
-                        deltaCircle + 'px';
-
-                    el.style.left = 
-                        valueCircleX - 
-                        cardphotoForm.getBoundingClientRect().left -
-                        deltaCircle + 'px';
-                }
-            })
-
-            if (!stopMoveNewImageCircle1 &&
-                !stopMoveNewImageCircle2 && 
-                !stopMoveNewImageCircle3 &&
-                !stopMoveNewImageCircle4
-            ) {
-                changeBackgroud(moveY, moveX);
-
-                newImage.style.top = circleStart1.getBoundingClientRect().top - cardphotoForm.getBoundingClientRect().top + moveY + 'px';
-                newImage.style.left = circleStart1.getBoundingClientRect().left - cardphotoForm.getBoundingClientRect().left + moveX + 'px';
-            } 
-        };
-
         newImage.addEventListener('mouseenter', addClassHover);
         newImage.addEventListener('mouseleave', delClassHover);
         newImage.addEventListener('pointerdown', startMoveNewImage);
@@ -966,33 +974,48 @@ export function changeCardphoto(elem) {
             // creationBackgrondImage(el)
             newImage.addEventListener('mousemove', moveNewImage);
             newImage.onmouseup = function() {
+                console.log('333', newImage.style.top, '/ ', newImage.style.left)
                 newImage.removeEventListener('mousemove', moveNewImage);
+                console.log('444', newImage.style.top, '/ ', newImage.style.left)
                 reRecordCircleStart();
+                console.log('555', newImage.style.top, '/ ', newImage.style.left)
                 newImage.onmouseup = null;
+                console.log('666', newImage.style.top, '/ ', newImage.style.left)
             }
         }
     }
 
     //** torn */
 
-
-
     function cardphotoTorn() {
 
-        // const total = 1768;
+    setSizeNewImage();
 
-        // for (let i = total; i > 1200; i = i - 13) {
-        //     console.log(`${i}: `, i / 78);
+        // const total = 2129;
+
+        // for (let i = total; i > 1800; i--) {
+
+        //     const etalon = '294872';
+
+        //     const fullNumber = (i / 78).toFixed(6).split('');
+
+        //     const fractionMumber = fullNumber[3] + fullNumber[4] + fullNumber[5] + fullNumber[6] + fullNumber[7] + fullNumber[8];
+
+        //     // console.log('fraction: ', fractionMumber)
+
+        //     if (fractionMumber == etalon) {
+        //         console.log('number: ', i)
+        //     }
         // }
 
         const cardphotoImage = document.querySelector('.cardphoto-image');
 
-        const widthCardphotoImageStart = cardphotoImage.getBoundingClientRect().width;
-        const heightCardphotoImageStart = cardphotoImage.getBoundingClientRect().height;
-        const widthNewImageStart = newImage.getBoundingClientRect().width;
-        const heightNewImageStart = newImage.getBoundingClientRect().height;
-        const deltaXNewImage = (widthCardphotoImageStart - heightNewImageStart) / 2;
-        const deltaYNewImage = (heightCardphotoImageStart - widthNewImageStart) / 2;
+        // const widthCardphotoImageStart = cardphotoImage.getBoundingClientRect().width;
+        // const heightCardphotoImageStart = cardphotoImage.getBoundingClientRect().height;
+        // const widthNewImageStart = newImage.getBoundingClientRect().width;
+        // const heightNewImageStart = newImage.getBoundingClientRect().height;
+        // const deltaXNewImage = (widthCardphotoImageStart - heightNewImageStart) / 2;
+        // const deltaYNewImage = (heightCardphotoImageStart - widthNewImageStart) / 2;
         const deltaCircle = circle1.offsetWidth / 2;
 
         let coordinatesCircles;
@@ -1003,6 +1026,8 @@ export function changeCardphoto(elem) {
         } else {
             console.log('1');
         }
+
+        console.log('matr-90-1', heightCardphotoImageStart, heightNewImageStart)
 
         const startWidth = newImage.getBoundingClientRect().width;
         const startHeight = newImage.getBoundingClientRect().height;
@@ -1072,7 +1097,11 @@ export function changeCardphoto(elem) {
                 break;
         }
 
-changeBackgroudFromTorn(deltaXNewImage, deltaYNewImage, widthNewImageStart, heightNewImageStart, widthCardphotoImageStart, heightCardphotoImageStart, getComputedStyle(cardphotoImage).transform);
+        positionImage = getComputedStyle(cardphotoImage).transform;
+
+        changeBackgroudFromTorn(deltaXNewImage, deltaYNewImage, widthNewImageStart, heightNewImageStart, widthCardphotoImageStart, heightCardphotoImageStart, getComputedStyle(cardphotoImage).transform);
+        // startMoveNewImage();
+        // moveNewImage()
 
     }
 } 
