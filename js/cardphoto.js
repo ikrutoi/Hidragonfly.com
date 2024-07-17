@@ -284,42 +284,98 @@ export function changeCardphoto(elem) {
             moveY + 'px';
     }
 
-    function changeBackgroudFromTorn(deltaX1, deltaY1, newImageWidth, newImageHeight, imageWidth, imageHeight, deltaCircle) {
+    function changeBackgroudFromTorn(deltaX1, deltaY1, newImageWidth, newImageHeight, imageWidth, imageHeight, unit) {
 
-        elemBkgLeft.style.top = 
-'0px';
-        elemBkgLeft.style.left =
-'0px';
-        elemBkgLeft.style.width = 
-            deltaX1 + 'px';
-        elemBkgLeft.style.height = 
-            imageHeight + 'px';
+        console.log('unit: ', unit)
 
-        elemBkgUp.style.top = 
-            '0px';
-        elemBkgUp.style.left = 
-            deltaX1 + 'px';
-        elemBkgUp.style.width = 
-            newImageHeight + 'px';
-        elemBkgUp.style.height = 
-            deltaY1 + 'px';
+        switch (unit) {
+            case 'matrix(0, 1, -1, 0, 0, 0)': 
+                elemBkgLeft.style.top = '0px';
+                elemBkgLeft.style.left = '0px';
+                elemBkgLeft.style.width = deltaX1 + 'px';
+                elemBkgLeft.style.height = imageHeight + 'px';
+            
+                elemBkgUp.style.top = '0px';
+                elemBkgUp.style.left = deltaX1 + 'px';
+                elemBkgUp.style.width = newImageHeight + 'px';
+                elemBkgUp.style.height = deltaY1 + 'px';
+            
+                elemBkgRight.style.top = '0px';
+                elemBkgRight.style.left = deltaX1 + newImageHeight + 'px';
+                elemBkgRight.style.width = deltaX1 + 'px';
+                elemBkgRight.style.height = imageHeight + 'px';
+            
+                elemBkgButtom.style.bottom = '0px';
+                elemBkgButtom.style.left = deltaX1 + 'px';
+                elemBkgButtom.style.width = newImageHeight + 'px'
+                elemBkgButtom.style.height = deltaY1  + 'px';
+                break;
+            case 'matrix(-1, 0, 0, -1, 0, 0)': 
+                elemBkgLeft.style.top = '0px';
+                elemBkgLeft.style.left = '0px';
+                elemBkgLeft.style.width = deltaY1 + 'px';
+                elemBkgLeft.style.height = imageWidth + 'px';
+            
+                elemBkgUp.style.top = '0px';
+                elemBkgUp.style.left = deltaY1 + 'px';
+                elemBkgUp.style.width = newImageWidth + 'px';
+                elemBkgUp.style.height = deltaX1 + 'px';
+            
+                elemBkgRight.style.top = '0px';
+                elemBkgRight.style.left = deltaY1 + newImageWidth + 'px';
+                elemBkgRight.style.width = deltaY1 + 'px';
+                elemBkgRight.style.height = imageWidth + 'px';
+            
+                elemBkgButtom.style.bottom = '0px';
+                elemBkgButtom.style.left = deltaY1 + 'px';
+                elemBkgButtom.style.width = newImageWidth + 'px'
+                elemBkgButtom.style.height = deltaX1  + 'px';
+                break;
+            case 'matrix(0, -1, 1, 0, 0, 0)': 
+                elemBkgLeft.style.top = '0px';
+                elemBkgLeft.style.left = '0px';
+                elemBkgLeft.style.width = deltaX1 + 'px';
+                elemBkgLeft.style.height = imageHeight + 'px';
+            
+                elemBkgUp.style.top = '0px';
+                elemBkgUp.style.left = deltaX1 + 'px';
+                elemBkgUp.style.width = newImageHeight + 'px';
+                elemBkgUp.style.height = deltaY1 + 'px';
+            
+                elemBkgRight.style.top = '0px';
+                elemBkgRight.style.left = deltaX1 + newImageHeight + 'px';
+                elemBkgRight.style.width = deltaX1 + 'px';
+                elemBkgRight.style.height = imageHeight + 'px';
+            
+                elemBkgButtom.style.bottom = '0px';
+                elemBkgButtom.style.left = deltaX1 + 'px';
+                elemBkgButtom.style.width = newImageHeight + 'px'
+                elemBkgButtom.style.height = deltaY1  + 'px';
+                break;
+            case 'matrix(1, 0, 0, 1, 0, 0)': 
+                elemBkgLeft.style.top = '0px';
+                elemBkgLeft.style.left = '0px';
+                elemBkgLeft.style.width = deltaY1 + 'px';
+                elemBkgLeft.style.height = imageWidth + 'px';
+            
+                elemBkgUp.style.top = '0px';
+                elemBkgUp.style.left = deltaY1 + 'px';
+                elemBkgUp.style.width = newImageWidth + 'px';
+                elemBkgUp.style.height = deltaX1 + 'px';
+            
+                elemBkgRight.style.top = '0px';
+                elemBkgRight.style.left = deltaY1 + newImageWidth + 'px';
+                elemBkgRight.style.width = deltaY1 + 'px';
+                elemBkgRight.style.height = imageWidth + 'px';
+            
+                elemBkgButtom.style.bottom = '0px';
+                elemBkgButtom.style.left = deltaY1 + 'px';
+                elemBkgButtom.style.width = newImageWidth + 'px'
+                elemBkgButtom.style.height = deltaX1  + 'px';
+                break; 
+        }
 
-        elemBkgRight.style.top = 
-'0px';
-        elemBkgRight.style.left = 
-            deltaX1 + newImageHeight + 'px';
-        elemBkgRight.style.width = 
-            deltaX1 + 'px';
-        elemBkgRight.style.height = imageHeight + 'px';
 
-        elemBkgButtom.style.bottom = 
-             '0px';
-        elemBkgButtom.style.left = 
-            deltaX1 + 'px';
-        elemBkgButtom.style.width = 
-            newImageHeight + 'px'
-        elemBkgButtom.style.height =
-             deltaY1  + 'px';
     }
 
     function formationNewImage() {
@@ -992,7 +1048,7 @@ export function changeCardphoto(elem) {
                 newImage.style.height = startWidth + 'px';
 
                 setCoordinatesCircles(deltaXNewImage, deltaYNewImage, deltaXNewImage + startHeight, deltaYNewImage + startWidth, deltaCircle);
-                changeBackgroudFromTorn(deltaXNewImage, deltaYNewImage, widthNewImageStart, heightNewImageStart, widthCardphotoImageStart, heightCardphotoImageStart, deltaCircle);
+                // changeBackgroudFromTorn(deltaXNewImage, deltaYNewImage, widthNewImageStart, heightNewImageStart, widthCardphotoImageStart, heightCardphotoImageStart, deltaCircle);
 
                 break;
             case 'matrix(1, 0, 0, 1, 0, 0)':
@@ -1005,7 +1061,7 @@ export function changeCardphoto(elem) {
                 newImage.style.height = startWidth + 'px';
 
                 setCoordinatesCircles(deltaXNewImage, deltaYNewImage, deltaXNewImage + startHeight, deltaYNewImage + startWidth, deltaCircle);
-                changeBackgroudFromTorn(0, 0, deltaXNewImage, heightCardphotoImageStart, deltaCircle);
+                // changeBackgroudFromTorn(0, 0, deltaXNewImage, heightCardphotoImageStart, deltaCircle);
 
                 break;
             case 'matrix(0, 1, -1, 0, 0, 0)':
@@ -1046,7 +1102,7 @@ export function changeCardphoto(elem) {
                 break;
         }
 
-
+changeBackgroudFromTorn(deltaXNewImage, deltaYNewImage, widthNewImageStart, heightNewImageStart, widthCardphotoImageStart, heightCardphotoImageStart, getComputedStyle(cardphotoImage).transform);
 
     }
 } 
