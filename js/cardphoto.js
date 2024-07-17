@@ -532,13 +532,21 @@ export function changeCardphoto(elem) {
             function moveCircles(el) {
 
                 if (positionImage == 'matrix(0, 1, -1, 0, 0, 0)') {
-                    el.style.top = 
-                      document.querySelector(`.${el.dataset.dnd}-start`).getBoundingClientRect().left - cardphotoImage.getBoundingClientRect().left -
-                moveX + deltaCircle + 'px';
+                    el.style.top = parseFloat(document.querySelector(`.${el.dataset.dnd}-start`).style.top) - moveX - deltaCircle + 'px';
+                //       document.querySelector(`.${el.dataset.dnd}-start`).getBoundingClientRect().left - cardphotoImage.getBoundingClientRect().left -
+                // moveX + deltaCircle + 'px';
     
-                    el.style.left = 
-                document.querySelector(`.${el.dataset.dnd}-start`).getBoundingClientRect().top - cardphotoImage.getBoundingClientRect().top + 
-                moveY - deltaCircle + 'px';
+                    el.style.left = parseFloat(document.querySelector(`.${el.dataset.dnd}-start`).style.left) + moveY - deltaCircle + 'px';
+                // document.querySelector(`.${el.dataset.dnd}-start`).getBoundingClientRect().top - cardphotoImage.getBoundingClientRect().top + 
+                // moveY - deltaCircle + 'px';
+
+                //     el.style.top = 
+                //       document.querySelector(`.${el.dataset.dnd}-start`).getBoundingClientRect().left - cardphotoImage.getBoundingClientRect().left -
+                // moveX + deltaCircle + 'px';
+    
+                //     el.style.left = 
+                // document.querySelector(`.${el.dataset.dnd}-start`).getBoundingClientRect().top - cardphotoImage.getBoundingClientRect().top + 
+                // moveY - deltaCircle + 'px';
 
                 } else {
                     el.style.top = 
@@ -584,16 +592,18 @@ export function changeCardphoto(elem) {
 
             }
         } 
-        console.log('222', newImage.style.top, '/ ', newImage.style.left)
     };
 
     function formationNewImage() {
 
         function resizeNewImage() {
-            newImage.style.top = circleStart1.style.top;
-            newImage.style.left = circleStart1.style.left;
-            newImage.style.width = circle2.getBoundingClientRect().left - circle1.getBoundingClientRect().left - deltaCircle / 2 + 'px';
-            newImage.style.height = circle4.getBoundingClientRect().top - circle1.getBoundingClientRect().top - deltaCircle / 2 + 'px';
+            if (positionImage == 'matrix(0, 1, -1, 0, 0, 0)') {
+            } else {
+                newImage.style.top = circleStart1.style.top;
+                newImage.style.left = circleStart1.style.left;
+                newImage.style.width = circle2.getBoundingClientRect().left - circle1.getBoundingClientRect().left - deltaCircle / 2 + 'px';
+                newImage.style.height = circle4.getBoundingClientRect().top - circle1.getBoundingClientRect().top - deltaCircle / 2 + 'px';
+            }
         }
 
         // const elemBkgUp = document.querySelector('.background-image-up');
@@ -918,12 +928,14 @@ export function changeCardphoto(elem) {
                 switch (el.dataset.dndStart) {
                     case 'circle-1':
                         if (positionImage == 'matrix(0, 1, -1, 0, 0, 0)') {
-                            // el.style.top = 
-                            //     circle1.getBoundingClientRect().left -
-                            //     cardphotoForm.getBoundingClientRect().left + deltaCircle + 'px';
-                            // el.style.left = circle1.getBoundingClientRect().top - 
-                            //     cardphotoForm.getBoundingClientRect().top + 
-                            //     deltaCircle + 'px'; 
+
+                            // console.log('circle1: ', circle1.getBoundingClientRect().left, '/ ', circle1.style.left)
+                            el.style.top = parseFloat(circle1.style.top) - deltaCircle + 'px';
+                            el.style.left = parseFloat(circle1.style.left) + deltaCircle + 'px'; 
+                                // circle1.getBoundingClientRect().left + 'px';
+                                // circle1.getBoundingClientRect().top - 
+                                // cardphotoImage.getBoundingClientRect().top + 
+                                // deltaCircle + 'px'; 
                         } else {
                             el.style.top = 
                                 circle1.getBoundingClientRect().top -
@@ -934,28 +946,43 @@ export function changeCardphoto(elem) {
                         }
                         break;
                     case 'circle-2':
+                        if (positionImage == 'matrix(0, 1, -1, 0, 0, 0)') {
+                            el.style.top = parseFloat(circle2.style.top) - deltaCircle + 'px';
+                            el.style.left = parseFloat(circle2.style.left) + deltaCircle + 'px'; 
+                        } else {
                         el.style.top = 
                             circle2.getBoundingClientRect().top -
                             cardphotoForm.getBoundingClientRect().top + deltaCircle + 'px';
                         el.style.left = circle2.getBoundingClientRect().left - 
                             cardphotoForm.getBoundingClientRect().left + 
                             deltaCircle + 'px';
+                        }
                         break;
                     case 'circle-3':
+                        if (positionImage == 'matrix(0, 1, -1, 0, 0, 0)') {
+                            el.style.top = parseFloat(circle3.style.top) - deltaCircle + 'px';
+                            el.style.left = parseFloat(circle3.style.left) + deltaCircle + 'px'; 
+                        } else {
                         el.style.top = 
                             circle3.getBoundingClientRect().top -
                             cardphotoForm.getBoundingClientRect().top + deltaCircle + 'px';
                         el.style.left = circle3.getBoundingClientRect().left - 
                             cardphotoForm.getBoundingClientRect().left + 
                             deltaCircle + 'px';
+                        }
                         break;
                     case 'circle-4':
+                        if (positionImage == 'matrix(0, 1, -1, 0, 0, 0)') {
+                            el.style.top = parseFloat(circle4.style.top) - deltaCircle + 'px';
+                            el.style.left = parseFloat(circle4.style.left) + deltaCircle + 'px';  
+                        } else {
                         el.style.top = 
                             circle4.getBoundingClientRect().top -
                             cardphotoForm.getBoundingClientRect().top + deltaCircle + 'px';
                         el.style.left = circle4.getBoundingClientRect().left - 
                             cardphotoForm.getBoundingClientRect().left + 
                             deltaCircle + 'px';
+                        }
                         break;
                 }
             });
@@ -974,13 +1001,9 @@ export function changeCardphoto(elem) {
             // creationBackgrondImage(el)
             newImage.addEventListener('mousemove', moveNewImage);
             newImage.onmouseup = function() {
-                console.log('333', newImage.style.top, '/ ', newImage.style.left)
                 newImage.removeEventListener('mousemove', moveNewImage);
-                console.log('444', newImage.style.top, '/ ', newImage.style.left)
                 reRecordCircleStart();
-                console.log('555', newImage.style.top, '/ ', newImage.style.left)
                 newImage.onmouseup = null;
-                console.log('666', newImage.style.top, '/ ', newImage.style.left)
             }
         }
     }
@@ -1026,8 +1049,6 @@ export function changeCardphoto(elem) {
         } else {
             console.log('1');
         }
-
-        console.log('matr-90-1', heightCardphotoImageStart, heightNewImageStart)
 
         const startWidth = newImage.getBoundingClientRect().width;
         const startHeight = newImage.getBoundingClientRect().height;
