@@ -286,92 +286,62 @@ export function changeCardphoto(elem) {
 
     function changeBackgroudFromTorn(deltaX1, deltaY1, newImageWidth, newImageHeight, imageWidth, imageHeight, unit) {
 
-        console.log('unit: ', unit)
+        function unit13() {
+            elemBkgLeft.style.top = '0px';
+            elemBkgLeft.style.left = '0px';
+            elemBkgLeft.style.width = deltaX1 + 'px';
+            elemBkgLeft.style.height = imageHeight + 'px';
+        
+            elemBkgUp.style.top = '0px';
+            elemBkgUp.style.left = deltaX1 + 'px';
+            elemBkgUp.style.width = newImageHeight + 'px';
+            elemBkgUp.style.height = deltaY1 + 'px';
+        
+            elemBkgRight.style.top = '0px';
+            elemBkgRight.style.left = deltaX1 + newImageHeight + 'px';
+            elemBkgRight.style.width = deltaX1 + 'px';
+            elemBkgRight.style.height = imageHeight + 'px';
+        
+            elemBkgButtom.style.bottom = '0px';
+            elemBkgButtom.style.left = deltaX1 + 'px';
+            elemBkgButtom.style.width = newImageHeight + 'px'
+            elemBkgButtom.style.height = deltaY1  + 'px';
+        }
+
+        function unit24() {
+            elemBkgLeft.style.top = '0px';
+            elemBkgLeft.style.left = '0px';
+            elemBkgLeft.style.width = deltaY1 + 'px';
+            elemBkgLeft.style.height = imageWidth + 'px';
+        
+            elemBkgUp.style.top = '0px';
+            elemBkgUp.style.left = deltaY1 + 'px';
+            elemBkgUp.style.width = newImageWidth + 'px';
+            elemBkgUp.style.height = deltaX1 + 'px';
+        
+            elemBkgRight.style.top = '0px';
+            elemBkgRight.style.left = deltaY1 + newImageWidth + 'px';
+            elemBkgRight.style.width = deltaY1 + 'px';
+            elemBkgRight.style.height = imageWidth + 'px';
+        
+            elemBkgButtom.style.bottom = '0px';
+            elemBkgButtom.style.left = deltaY1 + 'px';
+            elemBkgButtom.style.width = newImageWidth + 'px'
+            elemBkgButtom.style.height = deltaX1  + 'px';
+        }
 
         switch (unit) {
             case 'matrix(0, 1, -1, 0, 0, 0)': 
-                elemBkgLeft.style.top = '0px';
-                elemBkgLeft.style.left = '0px';
-                elemBkgLeft.style.width = deltaX1 + 'px';
-                elemBkgLeft.style.height = imageHeight + 'px';
-            
-                elemBkgUp.style.top = '0px';
-                elemBkgUp.style.left = deltaX1 + 'px';
-                elemBkgUp.style.width = newImageHeight + 'px';
-                elemBkgUp.style.height = deltaY1 + 'px';
-            
-                elemBkgRight.style.top = '0px';
-                elemBkgRight.style.left = deltaX1 + newImageHeight + 'px';
-                elemBkgRight.style.width = deltaX1 + 'px';
-                elemBkgRight.style.height = imageHeight + 'px';
-            
-                elemBkgButtom.style.bottom = '0px';
-                elemBkgButtom.style.left = deltaX1 + 'px';
-                elemBkgButtom.style.width = newImageHeight + 'px'
-                elemBkgButtom.style.height = deltaY1  + 'px';
+                unit13();
                 break;
             case 'matrix(-1, 0, 0, -1, 0, 0)': 
-                elemBkgLeft.style.top = '0px';
-                elemBkgLeft.style.left = '0px';
-                elemBkgLeft.style.width = deltaY1 + 'px';
-                elemBkgLeft.style.height = imageWidth + 'px';
-            
-                elemBkgUp.style.top = '0px';
-                elemBkgUp.style.left = deltaY1 + 'px';
-                elemBkgUp.style.width = newImageWidth + 'px';
-                elemBkgUp.style.height = deltaX1 + 'px';
-            
-                elemBkgRight.style.top = '0px';
-                elemBkgRight.style.left = deltaY1 + newImageWidth + 'px';
-                elemBkgRight.style.width = deltaY1 + 'px';
-                elemBkgRight.style.height = imageWidth + 'px';
-            
-                elemBkgButtom.style.bottom = '0px';
-                elemBkgButtom.style.left = deltaY1 + 'px';
-                elemBkgButtom.style.width = newImageWidth + 'px'
-                elemBkgButtom.style.height = deltaX1  + 'px';
+                unit24();
                 break;
             case 'matrix(0, -1, 1, 0, 0, 0)': 
-                elemBkgLeft.style.top = '0px';
-                elemBkgLeft.style.left = '0px';
-                elemBkgLeft.style.width = deltaX1 + 'px';
-                elemBkgLeft.style.height = imageHeight + 'px';
-            
-                elemBkgUp.style.top = '0px';
-                elemBkgUp.style.left = deltaX1 + 'px';
-                elemBkgUp.style.width = newImageHeight + 'px';
-                elemBkgUp.style.height = deltaY1 + 'px';
-            
-                elemBkgRight.style.top = '0px';
-                elemBkgRight.style.left = deltaX1 + newImageHeight + 'px';
-                elemBkgRight.style.width = deltaX1 + 'px';
-                elemBkgRight.style.height = imageHeight + 'px';
-            
-                elemBkgButtom.style.bottom = '0px';
-                elemBkgButtom.style.left = deltaX1 + 'px';
-                elemBkgButtom.style.width = newImageHeight + 'px'
-                elemBkgButtom.style.height = deltaY1  + 'px';
+                unit13();
                 break;
             case 'matrix(1, 0, 0, 1, 0, 0)': 
-                elemBkgLeft.style.top = '0px';
-                elemBkgLeft.style.left = '0px';
-                elemBkgLeft.style.width = deltaY1 + 'px';
-                elemBkgLeft.style.height = imageWidth + 'px';
-            
-                elemBkgUp.style.top = '0px';
-                elemBkgUp.style.left = deltaY1 + 'px';
-                elemBkgUp.style.width = newImageWidth + 'px';
-                elemBkgUp.style.height = deltaX1 + 'px';
-            
-                elemBkgRight.style.top = '0px';
-                elemBkgRight.style.left = deltaY1 + newImageWidth + 'px';
-                elemBkgRight.style.width = deltaY1 + 'px';
-                elemBkgRight.style.height = imageWidth + 'px';
-            
-                elemBkgButtom.style.bottom = '0px';
-                elemBkgButtom.style.left = deltaY1 + 'px';
-                elemBkgButtom.style.width = newImageWidth + 'px'
-                elemBkgButtom.style.height = deltaX1  + 'px';
+                unit24()
                 break; 
         }
 
