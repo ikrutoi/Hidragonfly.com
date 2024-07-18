@@ -21,8 +21,6 @@ function setSizeCardphotoForm() {
     const valueWidth = cardphotoImage.getBoundingClientRect().width;
     const valueHeight = cardphotoImage.getBoundingClientRect().height;
 
-    console.log('///setSizeForm ', valueWidth, valueHeight)
-
     cardphotoForm.style.width = valueWidth + 'px';
     cardphotoForm.style.height = valueHeight + 'px';
 
@@ -499,6 +497,15 @@ export function changeCardphoto(elem) {
         newImage.style.left = circleStart1.style.left;
         newImage.style.width = circle2.getBoundingClientRect().left - circle1.getBoundingClientRect().left + 'px';
         newImage.style.height = circle4.getBoundingClientRect().top - circle1.getBoundingClientRect().top + 'px';
+
+        // if (conditionWidth) {
+
+        // } else {
+        //     newImage.style.top = circleStart1.style.top;
+        //     newImage.style.left = circleStart1.style.left;
+        //     newImage.style.width = circle2.getBoundingClientRect().left - circle1.getBoundingClientRect().left + 'px';
+        //     newImage.style.height = circle4.getBoundingClientRect().top - circle1.getBoundingClientRect().top + 'px';
+        // }
     }
 
     function formationNewImage() {
@@ -900,79 +907,95 @@ export function changeCardphoto(elem) {
         const cardphotoImage = document.querySelector('.cardphoto-image');
         const deltaCircle = circle1.offsetWidth / 2;
 
-        const leftX = newImage.style.left;
+        let leftX;
         const leftY = newImage.style.top;
 
-        if (widthNewImageStart < heightCardphotoImageStart) {
+        // let conditionWidth;
+
+        console.log('----', newImage.getBoundingClientRect().width, newImage.getBoundingClientRect().height)
+
+        if (newImage.getBoundingClientRect().width < cardphotoForm.getBoundingClientRect().height) {
             console.log('0');
+            // conditionWidth = null;
+            leftX = newImage.style.left;
 
         } else {
             console.log('1');
+            newImage.style.width = cardphotoForm.getBoundingClientRect().height + 'px';
+            newImage.style.height = newImage.getBoundingClientRect().width / 1.42 + 'px';
+
+            leftX = 0;
+            // conditionWidth = true;
         }
 
-        const startWidth = newImage.getBoundingClientRect().width;
-        const startHeight = newImage.getBoundingClientRect().height;
+        console.log('-1---', newImage.getBoundingClientRect().width, newImage.getBoundingClientRect().height);
+        // console.log('-2---', deltaXNewImage, deltaYNewImage, deltaXNewImage + startHeight, deltaYNewImage + startWidth, deltaCircle);
+
+        // const startWidth = newImage.getBoundingClientRect().width;
+        // const startHeight = newImage.getBoundingClientRect().height;
 
         switch (getComputedStyle(cardphotoImage).transform) {
             case 'none':
                 cardphotoImage.style.transform = 'matrix(0, 1, -1, 0, 0, 0)';
 
-                newImage.style.left = deltaXNewImage + 'px';
-                newImage.style.top = deltaYNewImage + 'px';
-                newImage.style.width = startHeight + 'px';
-                newImage.style.height = startWidth + 'px';
+                // newImage.style.left = deltaXNewImage + 'px';
+                // newImage.style.top = deltaYNewImage + 'px';
+                // newImage.style.width = startHeight + 'px';
+                // newImage.style.height = startWidth + 'px';
 
-                setCoordinatesCircles(deltaXNewImage, deltaYNewImage, deltaXNewImage + startHeight, deltaYNewImage + startWidth, deltaCircle);
+                // setCoordinatesCircles(deltaXNewImage, deltaYNewImage, deltaXNewImage + startHeight, deltaYNewImage + startWidth, deltaCircle);
 
                 break;
             case 'matrix(1, 0, 0, 1, 0, 0)':
                 cardphotoImage.style.transform = 'matrix(0, 1, -1, 0, 0, 0)';
 
-                newImage.style.left = deltaXNewImage + 'px';
-                newImage.style.top = deltaYNewImage + 'px';
-                newImage.style.width = startHeight + 'px';
-                newImage.style.height = startWidth + 'px';
+                // newImage.style.left = deltaXNewImage + 'px';
+                // newImage.style.top = deltaYNewImage + 'px';
+                // newImage.style.width = startHeight + 'px';
+                // newImage.style.height = startWidth + 'px';
 
-                setCoordinatesCircles(deltaXNewImage, deltaYNewImage, deltaXNewImage + startHeight, deltaYNewImage + startWidth, deltaCircle);
+                // setCoordinatesCircles(deltaXNewImage, deltaYNewImage, deltaXNewImage + startHeight, deltaYNewImage + startWidth, deltaCircle);
 
                 break;
             case 'matrix(0, 1, -1, 0, 0, 0)':
                 cardphotoImage.style.transform = 'matrix(-1, 0, 0, -1, 0, 0)';
 
-                newImage.style.left = deltaYNewImage + 'px';
-                newImage.style.top = deltaXNewImage + 'px';
-                newImage.style.width = startWidth + 'px';
-                newImage.style.height = startHeight + 'px';
+                // newImage.style.left = deltaYNewImage + 'px';
+                // newImage.style.top = deltaXNewImage + 'px';
+                // newImage.style.width = startWidth + 'px';
+                // newImage.style.height = startHeight + 'px';
 
-                setCoordinatesCircles(deltaYNewImage, deltaXNewImage, deltaYNewImage + startWidth, deltaXNewImage + startHeight, deltaCircle);
+                // setCoordinatesCircles(deltaYNewImage, deltaXNewImage, deltaYNewImage + startWidth, deltaXNewImage + startHeight, deltaCircle);
 
                 break;
             case 'matrix(-1, 0, 0, -1, 0, 0)':
                 cardphotoImage.style.transform = 'matrix(0, -1, 1, 0, 0, 0)';
 
-                newImage.style.left = deltaXNewImage + 'px';
-                newImage.style.top = deltaYNewImage + 'px';
-                newImage.style.width = startHeight + 'px';
-                newImage.style.height = startWidth + 'px';
+                // newImage.style.left = deltaXNewImage + 'px';
+                // newImage.style.top = deltaYNewImage + 'px';
+                // newImage.style.width = startHeight + 'px';
+                // newImage.style.height = startWidth + 'px';
 
-                setCoordinatesCircles(deltaXNewImage, deltaYNewImage, deltaXNewImage + startHeight, deltaYNewImage + startWidth, deltaCircle);
+                // setCoordinatesCircles(deltaXNewImage, deltaYNewImage, deltaXNewImage + startHeight, deltaYNewImage + startWidth, deltaCircle);
 
                 break;
             case 'matrix(0, -1, 1, 0, 0, 0)':
                 cardphotoImage.style.transform = 'matrix(1, 0, 0, 1, 0, 0)';
 
-                newImage.style.left = deltaYNewImage + 'px';
-                newImage.style.top = deltaXNewImage + 'px';
-                newImage.style.width = startWidth + 'px';
-                newImage.style.height = startHeight + 'px';
+                // newImage.style.left = deltaYNewImage + 'px';
+                // newImage.style.top = deltaXNewImage + 'px';
+                // newImage.style.width = startWidth + 'px';
+                // newImage.style.height = startHeight + 'px';
 
-                setCoordinatesCircles(deltaYNewImage, deltaXNewImage, deltaYNewImage + startWidth, deltaXNewImage + startHeight, deltaCircle);
+                // setCoordinatesCircles(deltaYNewImage, deltaXNewImage, deltaYNewImage + startWidth, deltaXNewImage + startHeight, deltaCircle);
 
                 break;
         }
 
+        // newImage.style.width = cardphotoForm.style.height;
+        // newImage.style.height = newImage.getBoundingClientRect().width / 1.42 + 'px';
+
         setSizeCardphotoForm()
-        resizeNewImage();
         const newCoordinates = positiononigNewImage(leftX, leftY);
         setCoordinatesCircles(
             parseFloat(newCoordinates[0]), 
@@ -981,9 +1004,8 @@ export function changeCardphoto(elem) {
             parseFloat(newCoordinates[1]) + newImage.getBoundingClientRect().height,
             deltaCircle
         );
+        resizeNewImage();
         resizeBackground();
-        
-        console.log('new coordinates: ', newCoordinates);
     }
 } 
 
