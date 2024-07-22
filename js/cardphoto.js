@@ -319,19 +319,14 @@ export function changeCardphoto(elem) {
         startNewImageX = event.pageX;
     }
 
-    let stopMoveNewImage;
-    let stopMoveNewImageCircle2;
-    let stopMoveNewImageCircle3;
-    let stopMoveNewImageCircle4;
     let pauseNewImageX;
     let pauseNewImageY;
-    let stopNewImageX;
-    let eventPageTemporaryX;
-    let eventPageTemporaryY;
     let deltaMoveImageX;
     let deltaMoveImageY;
-    let stopDeltaMoveImageX;
     let temporaryDeltaMoveImageX;
+    let temporaryDeltaMoveImageY;
+    let stopMoveImage;
+    let treespass;
     let moveX;
     let moveY;
         
@@ -340,9 +335,23 @@ export function changeCardphoto(elem) {
         moveY = event.pageY - startNewImageY;
         moveX = event.pageX - startNewImageX;
 
-        const borderMoveX = parseFloat(circleStart1.style.left) + moveX;
+        // console.log('moveX: ', moveX)
 
-        if (borderMoveX > 0) {
+        // console.log('cardphoto.width: ', cardphotoForm.style.width, 'cardphoto.height: ', cardphotoForm.style.height)
+
+        const borderMoveLeft = parseFloat(circleStart1.style.left) + moveX;
+        const borderMoveTop = parseFloat(circleStart1.style.top) + moveY;
+        const borderMoveRight = parseFloat(circleStart1.style.left) + newImage.getBoundingClientRect().width + moveX;
+        const borderMoveButtom = parseFloat(circleStart1.style.top) + newImage.getBoundingClientRect().height + moveY;
+
+        console.log('borderMoveLeft: ', borderMoveLeft, 'borderMoveRight: ', borderMoveRight, 'borderMoveTop: ', borderMoveTop, 'borderMoveButtom: ', borderMoveButtom)
+
+        if (
+            borderMoveLeft > 0 && 
+            borderMoveTop > 0 && 
+            borderMoveRight < cardphotoForm.getBoundingClientRect().width &&
+            borderMoveButtom < cardphotoForm.getBoundingClientRect().height
+        ) {
 
             changeBackgroud(moveY, moveX);
             
@@ -370,27 +379,122 @@ export function changeCardphoto(elem) {
             })
 
         } else {
+            // console.log('pause0: ', pauseNewImageX, 'event.pageX: ', event.pageX)
+            deltaMoveImageX = pauseNewImageX - event.pageX;
+            deltaMoveImageY = pauseNewImageY - event.pageY;
 
             if (!pauseNewImageX || !pauseNewImageY) {
                 pauseNewImageX = event.pageX;
                 pauseNewImageY = event.pageY;
+
+                stopMoveImage = true;
             }
-
-            deltaMoveImageX = pauseNewImageX - event.pageX;
             
-            if (temporaryDeltaMoveImageX) {
+            if (temporaryDeltaMoveImageX || temporaryDeltaMoveImageY) {
 
-                if (deltaMoveImageX < temporaryDeltaMoveImageX) { 
+                if (borderMoveLeft <= 0) {
+                    treespass = 'left';
 
-                    if (deltaMoveImageX) {
-                        startNewImageX = startNewImageX - deltaMoveImageX ;
-    
-                        deltaMoveImageX = null;
+                    if (deltaMoveImageX < temporaryDeltaMoveImageX && stopMoveImage) { 
+                        //         if (deltaMoveImageX || deltaMoveImageY) {
+                                    console.log('--->>>')
+                        //             console.log('start: ', startNewImageX, 'deltaMoveX: ', deltaMoveImageX)
+                                    startNewImageX = startNewImageX + deltaMoveImageX ;
+                                    startNewImageY = startNewImageY + deltaMoveImageY ;
+                
+                                    deltaMoveImageX = null;
+                                    deltaMoveImageY = null;
+                                    stopMoveImage = null;
+                        //         } 
                     }
                 }
-            } 
 
+                console.log('borderMoveLeft: ', borderMoveLeft)
+
+                if (borderMoveTop <= 0) {
+                    treespass = 'top';
+                    if (deltaMoveImageY < temporaryDeltaMoveImageY && stopMoveImage) { 
+                        //         if (deltaMoveImageX || deltaMoveImageY) {
+                                    console.log('|||')
+                        //             console.log('start: ', startNewImageX, 'deltaMoveX: ', deltaMoveImageX)
+                                    startNewImageX = startNewImageX - deltaMoveImageX ;
+                                    startNewImageY = startNewImageY - deltaMoveImageY ;
+                
+                                    deltaMoveImageX = null;
+                                    deltaMoveImageY = null;
+                                    stopMoveImage = null;
+                        //         } 
+                    }
+                }
+
+                if (borderMoveRight >= cardphotoForm.getBoundingClientRect().width) {
+                    treespass = 'right';
+                    if (deltaMoveImageX > temporaryDeltaMoveImageX && stopMoveImage) { 
+                        //         if (deltaMoveImageX || deltaMoveImageY) {
+                                    console.log('<<<---')
+                        //             console.log('start: ', startNewImageX, 'deltaMoveX: ', deltaMoveImageX)
+                                    startNewImageX = startNewImageX + deltaMoveImageX ;
+                                    startNewImageY = startNewImageY + deltaMoveImageY ;
+                
+                                    deltaMoveImageX = null;
+                                    deltaMoveImageY = null;
+                                    stopMoveImage = null;
+                        //         } 
+                    }
+                }
+
+                if (borderMoveButtom >= cardphotoForm.getBoundingClientRect().height) {
+                    treespass = 'buttom';
+                    if (deltaMoveImageY > temporaryDeltaMoveImageY && stopMoveImage) { 
+                        //         if (deltaMoveImageX || deltaMoveImageY) {
+                                    console.log('^^^^')
+                        //             console.log('start: ', startNewImageX, 'deltaMoveX: ', deltaMoveImageX)
+                                    startNewImageX = startNewImageX + deltaMoveImageX ;
+                                    startNewImageY = startNewImageY + deltaMoveImageY ;
+                
+                                    deltaMoveImageX = null;
+                                    deltaMoveImageY = null;
+                                    stopMoveImage = null;
+                        //         } 
+                    }
+                }
+
+                // console.log('border: ', treespass);
+
+                console.log('startNewImageX: ', startNewImageX)
+            
+
+            
+            // console.log('pause1: ', pauseNewImageX, 'event.pageX: ', event.pageX)
+            //     if (deltaMoveImageX < temporaryDeltaMoveImageX && stopMoveImage) { 
+            // //         if (deltaMoveImageX || deltaMoveImageY) {
+            //             // console.log('--->>>')
+            // //             console.log('start: ', startNewImageX, 'deltaMoveX: ', deltaMoveImageX)
+            // //             startNewImageX = startNewImageX - deltaMoveImageX ;
+            // //             startNewImageY = startNewImageY - deltaMoveImageY ;
+    
+            // //             deltaMoveImageX = null;
+            // //             deltaMoveImageY = null;
+            // //             stopMoveImage = null;
+            // //         } 
+            //     }
+
+            //     if (deltaMoveImageY < temporaryDeltaMoveImageY && stopMoveImage) { 
+            // //         if (deltaMoveImageX || deltaMoveImageY) {
+            //             // console.log('<<<---')
+            // //             console.log('start: ', startNewImageX, 'deltaMoveX: ', deltaMoveImageX)
+            // //             startNewImageX = startNewImageX - deltaMoveImageX ;
+            // //             startNewImageY = startNewImageY - deltaMoveImageY ;
+    
+            // //             deltaMoveImageX = null;
+            // //             deltaMoveImageY = null;
+            // //             stopMoveImage = null;
+            // //         } 
+            //     }
+            } 
+            
             temporaryDeltaMoveImageX = deltaMoveImageX;
+            temporaryDeltaMoveImageY = deltaMoveImageY;
         }
     };
 
