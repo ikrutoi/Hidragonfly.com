@@ -332,6 +332,8 @@ export function changeCardphoto(elem) {
         
     function moveNewImage(event) {
 
+        console.log('event.pageX: ', event.pageX, 'startNewImageX: ', startNewImageX)
+
         moveY = event.pageY - startNewImageY;
         moveX = event.pageX - startNewImageX;
 
@@ -344,8 +346,12 @@ export function changeCardphoto(elem) {
         const borderMoveRight = parseFloat(circleStart1.style.left) + newImage.getBoundingClientRect().width + moveX;
         const borderMoveButtom = parseFloat(circleStart1.style.top) + newImage.getBoundingClientRect().height + moveY;
 
-        console.log('borderMoveLeft: ', borderMoveLeft, 'borderMoveRight: ', borderMoveRight, 'borderMoveTop: ', borderMoveTop, 'borderMoveButtom: ', borderMoveButtom)
+        // console.log('borderMoveLeft: ', borderMoveLeft, 'borderMoveRight: ', borderMoveRight, 'borderMoveTop: ', borderMoveTop, 'borderMoveButtom: ', borderMoveButtom)
 
+        // console.log('pauseNewImageX: ', pauseNewImageX)
+        console.log('moveX: ', moveX)
+        console.log('borderMoveLeft: ', borderMoveLeft)
+        // console.log('startNewImageX: ', startNewImageX)
         if (
             borderMoveLeft > 0 && 
             borderMoveTop > 0 && 
@@ -354,6 +360,8 @@ export function changeCardphoto(elem) {
         ) {
 
             changeBackgroud(moveY, moveX);
+
+            console.log('deltaMoveImageX in: ', deltaMoveImageX)
             
             newImage.style.left = parseFloat(circleStart1.style.left) + moveX + 'px'; 
             newImage.style.top = parseFloat(circleStart1.style.top) + moveY + 'px';
@@ -378,10 +386,20 @@ export function changeCardphoto(elem) {
                         deltaCircle + 'px';
             })
 
+            if (pauseNewImageX || pauseNewImageY) {
+                pauseNewImageX = null;
+                pauseNewImageY = null;
+            }
+
+            if (deltaMoveImageX || deltaMoveImageY) {
+                deltaMoveImageX = null;
+                deltaMoveImageY = null;
+            }
+
         } else {
             // console.log('pause0: ', pauseNewImageX, 'event.pageX: ', event.pageX)
-            deltaMoveImageX = pauseNewImageX - event.pageX;
-            deltaMoveImageY = pauseNewImageY - event.pageY;
+            // deltaMoveImageX = pauseNewImageX - event.pageX;
+            // deltaMoveImageY = pauseNewImageY - event.pageY;
 
             if (!pauseNewImageX || !pauseNewImageY) {
                 pauseNewImageX = event.pageX;
@@ -389,7 +407,12 @@ export function changeCardphoto(elem) {
 
                 stopMoveImage = true;
             }
+
+            deltaMoveImageX = pauseNewImageX - event.pageX;
+            deltaMoveImageY = pauseNewImageY - event.pageY;
             
+            console.log('deltaMoveImageX: ', deltaMoveImageX);
+            console.log('borderMoveLeft0: ', borderMoveLeft)
             if (temporaryDeltaMoveImageX || temporaryDeltaMoveImageY) {
 
                 if (borderMoveLeft <= 0) {
@@ -399,8 +422,8 @@ export function changeCardphoto(elem) {
                         //         if (deltaMoveImageX || deltaMoveImageY) {
                                     console.log('--->>>')
                         //             console.log('start: ', startNewImageX, 'deltaMoveX: ', deltaMoveImageX)
-                                    startNewImageX = startNewImageX + deltaMoveImageX ;
-                                    startNewImageY = startNewImageY + deltaMoveImageY ;
+                                    startNewImageX = startNewImageX - deltaMoveImageX ;
+                                    startNewImageY = startNewImageY - deltaMoveImageY ;
                 
                                     deltaMoveImageX = null;
                                     deltaMoveImageY = null;
@@ -409,7 +432,10 @@ export function changeCardphoto(elem) {
                     }
                 }
 
-                console.log('borderMoveLeft: ', borderMoveLeft)
+                // console.log('startNewImageX: ', startNewImageX)
+                // console.log('pauseMoveImageX: ', pauseNewImageX)
+                // console.log('deltaMoveImageX: ', deltaMoveImageX)
+                // console.log('borderMoveLeft1: ', borderMoveLeft)
 
                 if (borderMoveTop <= 0) {
                     treespass = 'top';
@@ -433,8 +459,8 @@ export function changeCardphoto(elem) {
                         //         if (deltaMoveImageX || deltaMoveImageY) {
                                     console.log('<<<---')
                         //             console.log('start: ', startNewImageX, 'deltaMoveX: ', deltaMoveImageX)
-                                    startNewImageX = startNewImageX + deltaMoveImageX ;
-                                    startNewImageY = startNewImageY + deltaMoveImageY ;
+                                    startNewImageX = startNewImageX - deltaMoveImageX ;
+                                    startNewImageY = startNewImageY - deltaMoveImageY ;
                 
                                     deltaMoveImageX = null;
                                     deltaMoveImageY = null;
@@ -449,8 +475,8 @@ export function changeCardphoto(elem) {
                         //         if (deltaMoveImageX || deltaMoveImageY) {
                                     console.log('^^^^')
                         //             console.log('start: ', startNewImageX, 'deltaMoveX: ', deltaMoveImageX)
-                                    startNewImageX = startNewImageX + deltaMoveImageX ;
-                                    startNewImageY = startNewImageY + deltaMoveImageY ;
+                                    startNewImageX = startNewImageX - deltaMoveImageX ;
+                                    startNewImageY = startNewImageY - deltaMoveImageY ;
                 
                                     deltaMoveImageX = null;
                                     deltaMoveImageY = null;
@@ -461,7 +487,7 @@ export function changeCardphoto(elem) {
 
                 // console.log('border: ', treespass);
 
-                console.log('startNewImageX: ', startNewImageX)
+                // console.log('startNewImageX: ', startNewImageX)
             
 
             
