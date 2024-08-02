@@ -399,6 +399,8 @@ export function changeCardphoto(elem) {
             moveNewImageButtom < cardphotoForm.getBoundingClientRect().height
         ) {
 
+            console.log('XXXXXXXXXXX')
+
             moveInsideNewImage(moveX, moveY);
             changeBackgroud();
             
@@ -466,18 +468,56 @@ export function changeCardphoto(elem) {
                 // }
                 
                 // if (borderMoveButtom >= cardphotoForm.getBoundingClientRect().height && borderMoveLeft <= 0) {
-                //     console.log('corner 4')
-                // }
+                    //     console.log('corner 4')
+                    // }
+                    
+                    // console.log('moveNewImageTop0 ', moveNewImageTop)
+
+
+                if (moveNewImageLeft <=0 && moveNewImageTop <= 0) {
+
+                    if (parseFloat(newImage.style.left) != 0) {
+                        newImage.style.left = '0px';
+                    }
+
+                    if (parseFloat(newImage.style.top) != 0) {
+                        newImage.style.top = '0px';
+                    }
+
+                    if (moveNewImageLeft > temporaryDeltaMoveImageX || moveNewImageTop > temporaryDeltaMoveImageY) { 
+                        startNewImageX = startNewImageX + moveNewImageLeft;   
+                        startNewImageY = startNewImageY + moveNewImageTop;  
+                    }
+                    
+                    clearTemporaryValue();
+                }
+
+                if (moveNewImageTop <= 0 && moveNewImageRight >= cardphotoForm.getBoundingClientRect().width) {
+
+                    if ((parseFloat(newImage.style.left) + newImage.getBoundingClientRect().width) != cardphotoForm.getBoundingClientRect().width) {
+                        newImage.style.left = (cardphotoForm.getBoundingClientRect().width - newImage.getBoundingClientRect().width).toFixed(2) + 'px';
+                    }
+
+                    if (parseFloat(newImage.style.top) != 0) {
+                        newImage.style.top = '0px';
+                    }
+
+                    if (moveNewImageTop > temporaryDeltaMoveImageY) { 
+                        console.log('>>>>>>')
+                        // startNewImageX = startNewImageX - moveNewImageLeft;   
+                        // startNewImageY = startNewImageY + moveNewImageTop;  
+                    }
+                    
+                    clearTemporaryValue();
+                }
                 
+
                 if (
                     moveNewImageLeft <= 0 && 
                     moveNewImageTop > 0 &&
                     moveNewImageButtom < cardphotoForm.getBoundingClientRect().height
                 ) {
-
                     temporarySticksX = temporarySticksX - parseFloat(newImage.style.left);
-
-                    // console.log('<<<---');
 
                     if (
                         moveNewImageTop > 0 &&
@@ -489,12 +529,7 @@ export function changeCardphoto(elem) {
 
                     if (moveNewImageLeft > temporaryDeltaMoveImageX) { 
                         startNewImageX = startNewImageX + moveNewImageLeft;
-                    }
-
-                    if (moveNewImageTop == 0) {
-                        console.log('border TOP!!')
-                    }
-                    
+                    }                  
                 }
 
                 if (
@@ -502,9 +537,6 @@ export function changeCardphoto(elem) {
                     moveNewImageLeft > 0 && 
                     moveNewImageRight < cardphotoForm.getBoundingClientRect().width
                 ) {
-
-                    // console.log('^^^')
-
                     temporarySticksY = temporarySticksY - parseFloat(newImage.style.top);
 
                     if (
