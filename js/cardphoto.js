@@ -283,20 +283,38 @@ export function changeCardphoto(elem) {
         startNewImageX = event.pageX;
     }
 
-    let pauseNewImageX;
-    let pauseNewImageY;
-    let pauseCornerX;
-    let pauseCornerY;
-    let finishCorner1;
-    let finishCorner2;
-    let finishCorner3;
-    let finishCorner4;
-    let deltaMoveImageX;
-    let deltaMoveImageY;
-    let deltaMoveImageCornerX;
-    let deltaMoveImageCornerY;
-    let finishDeltaMoveImageCornerX;
-    let finishDeltaMoveImageCornerY;
+    let moveOutX;
+    let moveOutY;
+
+    function moveMainBlock(event) {
+        moveOutX = event.pageX;
+        moveOutY = event.pageY;
+
+        // if (moveOutX < cardphotoForm.getBoundingClientRect().left) {
+        //     console.log('left');
+
+        //     moveInsideNewImage('left', event.pageY - startNewImageY);
+        // }
+
+        // if (moveOutX > (cardphotoForm.getBoundingClientRect().left + cardphotoForm.getBoundingClientRect().width)) {
+        //     console.log('right');
+
+        //     moveInsideNewImage('right', event.pageY - startNewImageY);
+        // }
+
+        // if (moveOutY < cardphotoForm.getBoundingClientRect().top) {
+        //     console.log('top');
+
+        //     moveInsideNewImage(event.pageX - startNewImageX, 'top');
+        // }
+
+        // if (moveOutY > (cardphotoForm.getBoundingClientRect().top + cardphotoForm.getBoundingClientRect().height)) {
+        //     console.log('buttom');
+
+        //     moveInsideNewImage(event.pageX - startNewImageX, 'buttom');
+        // }
+    }
+
     let temporaryDeltaMoveImageX;
     let temporaryDeltaMoveImageY;
     let moveX;
@@ -312,7 +330,8 @@ export function changeCardphoto(elem) {
                     newImage.style.top = parseFloat(circleStart1.style.top) + moveY + 'px'
                     break;
                 case 'right':
-                    moveX = cardphotoForm.getBoundingClientRect().width - (parseFloat(circleStart1.style.left) + newImage.getBoundingClientRect().width);
+                    newImage.style.left = cardphotoForm.getBoundingClientRect().width - newImage.getBoundingClientRect().width + 'px';
+                    newImage.style.top = parseFloat(circleStart1.style.top) + moveY + 'px'
                     break;
             }
                     
@@ -322,13 +341,14 @@ export function changeCardphoto(elem) {
                     newImage.style.top = '0px'; 
                     break;
                 case 'buttom':
-                    moveY = cardphotoForm.getBoundingClientRect().height - (parseFloat(circleStart1.style.top) + newImage.getBoundingClientRect().height);
+                    newImage.style.left = parseFloat(circleStart1.style.left) + moveX + 'px'; 
+                    newImage.top = cardphotoForm.getBoundingClientRect().height - newImage.getBoundingClientRect().height + 'px';
                     break;
             }
+        } else {   
+            newImage.style.left = parseFloat(circleStart1.style.left) + moveX + 'px'; 
+            newImage.style.top = parseFloat(circleStart1.style.top) + moveY + 'px';
         }
-
-        newImage.style.left = parseFloat(circleStart1.style.left) + moveX + 'px'; 
-        newImage.style.top = parseFloat(circleStart1.style.top) + moveY + 'px';
         
         circles.forEach(el => {
 
@@ -352,6 +372,8 @@ export function changeCardphoto(elem) {
     }
         
     function moveNewImage(event) {
+
+        console.log('newImage.event: ', event.pageX, event.pageY)
 
         moveY = event.pageY - startNewImageY;
         moveX = event.pageX - startNewImageX;
@@ -883,6 +905,8 @@ export function changeCardphoto(elem) {
             return false;
         }
 
+
+
         newImage.addEventListener('mouseenter', checkActiveMoveNewImage);
         newImage.addEventListener('mouseenter', addClassHover);
         // newImage.addEventListener('mouseenter', clearTemporaryValue);
@@ -890,14 +914,17 @@ export function changeCardphoto(elem) {
         newImage.addEventListener('pointerdown', startMoveNewImage);
         newImage.onmousedown = function() {
             newImage.addEventListener('mousemove', moveNewImage);
-            // clearTemporaryValue();
+            mainBlock.addEventListener('mousemove', moveMainBlock);
             newImage.onmouseup = function() {
                 newImage.removeEventListener('mousemove', moveNewImage);
                 reRecordCircleStart();
                 newImage.onmouseup = null;
-                // clearTemporaryValue();
+            }
+            mainBlock.onmouseup = function() {
+                mainBlock.removeEventListener('mousemove', moveMainBlock);
             }
         }
+        
 
         // mainBlock.onmouseup = function() {
         //     // mainBlock.removeEventListener('mousemove', circleMouseMove);
