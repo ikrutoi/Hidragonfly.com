@@ -265,10 +265,12 @@ export function changeCardphoto(elem) {
         elemBkgRight.style.width = cardphotoForm.getBoundingClientRect().width - parseFloat(newImage.style.left) - newImage.getBoundingClientRect().width + 'px';
         elemBkgRight.style.height = cardphotoForm.style.height;
 
-        elemBkgButtom.style.bottom = '0px';
+        elemBkgButtom.style.top = parseFloat(newImage.style.top) + newImage.getBoundingClientRect().height + 'px';
         elemBkgButtom.style.left = newImage.style.left;
         elemBkgButtom.style.width = newImage.style.width;
-        elemBkgButtom.style.height = cardphotoForm.getBoundingClientRect().height - parseFloat(newImage.style.top) - parseFloat(newImage.style.height) + 'px';
+        elemBkgButtom.style.height = cardphotoForm.getBoundingClientRect().height - parseFloat(newImage.style.top) - newImage.getBoundingClientRect().height + 'px';
+
+        // console.log('bkg-buttom: ', cardphotoForm.getBoundingClientRect().height - parseFloat(elemBkgButtom.style.top) - elemBkgButtom.getBoundingClientRect().height)
     }
 
     function checkActiveMoveNewImage() {
@@ -283,40 +285,18 @@ export function changeCardphoto(elem) {
         startNewImageX = event.pageX;
     }
 
-    let moveOutX;
-    let moveOutY;
+    let pageOutX;
+    let pageOutY;
 
     function moveMainBlock(event) {
-        moveOutX = event.pageX;
-        moveOutY = event.pageY;
-
-        // if (moveOutX < cardphotoForm.getBoundingClientRect().left) {
-        //     console.log('left');
-
-        //     moveInsideNewImage('left', event.pageY - startNewImageY);
-        // }
-
-        // if (moveOutX > (cardphotoForm.getBoundingClientRect().left + cardphotoForm.getBoundingClientRect().width)) {
-        //     console.log('right');
-
-        //     moveInsideNewImage('right', event.pageY - startNewImageY);
-        // }
-
-        // if (moveOutY < cardphotoForm.getBoundingClientRect().top) {
-        //     console.log('top');
-
-        //     moveInsideNewImage(event.pageX - startNewImageX, 'top');
-        // }
-
-        // if (moveOutY > (cardphotoForm.getBoundingClientRect().top + cardphotoForm.getBoundingClientRect().height)) {
-        //     console.log('buttom');
-
-        //     moveInsideNewImage(event.pageX - startNewImageX, 'buttom');
-        // }
+        pageOutX = event.pageX;
+        pageOutY = event.pageY;
     }
 
     let temporaryDeltaMoveImageX;
     let temporaryDeltaMoveImageY;
+    let valueCircleX;
+    let valueCircleY;
     let moveX;
     let moveY;
 
@@ -328,10 +308,14 @@ export function changeCardphoto(elem) {
                 case 'left':
                     newImage.style.left = '0px'; 
                     newImage.style.top = parseFloat(circleStart1.style.top) + moveY + 'px'
+                    
+                    moveX = -parseFloat(circleStart1.style.left);
                     break;
                 case 'right':
                     newImage.style.left = cardphotoForm.getBoundingClientRect().width - newImage.getBoundingClientRect().width + 'px';
-                    newImage.style.top = parseFloat(circleStart1.style.top) + moveY + 'px'
+                    newImage.style.top = parseFloat(circleStart1.style.top) + moveY + 'px';
+
+                    moveX = cardphotoForm.getBoundingClientRect().width - newImage.getBoundingClientRect().width - parseFloat(circleStart1.style.left);
                     break;
             }
                     
@@ -339,41 +323,45 @@ export function changeCardphoto(elem) {
                 case 'top':
                     newImage.style.left = parseFloat(circleStart1.style.left) + moveX + 'px'; 
                     newImage.style.top = '0px'; 
+
+                    moveY = -parseFloat(circleStart1.style.top);
                     break;
                 case 'buttom':
                     newImage.style.left = parseFloat(circleStart1.style.left) + moveX + 'px'; 
                     newImage.top = cardphotoForm.getBoundingClientRect().height - newImage.getBoundingClientRect().height + 'px';
+
+                    moveY = cardphotoForm.getBoundingClientRect().height - newImage.getBoundingClientRect().height - parseFloat(circleStart1.style.top);
                     break;
             }
         } else {   
             newImage.style.left = parseFloat(circleStart1.style.left) + moveX + 'px'; 
             newImage.style.top = parseFloat(circleStart1.style.top) + moveY + 'px';
         }
-        
+
         circles.forEach(el => {
 
-            const valueCircleX = 
+            valueCircleX = 
                 document.querySelector(`.${el.dataset.dnd}-start`).getBoundingClientRect().left + 
                 moveX;
 
-            const valueCircleY = 
+            valueCircleY = 
                 document.querySelector(`.${el.dataset.dnd}-start`).getBoundingClientRect().top + 
                 moveY;
 
-                el.style.top = 
-                    valueCircleY - 
-                    cardphotoForm.getBoundingClientRect().top -
-                    deltaCircle + 'px';
-                el.style.left = 
-                    valueCircleX - 
-                    cardphotoForm.getBoundingClientRect().left -
-                    deltaCircle + 'px';
-        })
+            el.style.top = 
+                valueCircleY - 
+                cardphotoForm.getBoundingClientRect().top -
+                deltaCircle + 'px';
+            el.style.left = 
+                valueCircleX - 
+                cardphotoForm.getBoundingClientRect().left -
+                deltaCircle + 'px';
+        })        
     }
         
     function moveNewImage(event) {
 
-        console.log('newImage.event: ', event.pageX, event.pageY)
+        console.log('moveNewImage');
 
         moveY = event.pageY - startNewImageY;
         moveX = event.pageX - startNewImageX;
@@ -532,15 +520,6 @@ export function changeCardphoto(elem) {
         newImage.style.left = circleStart1.style.left;
         newImage.style.width = circle2.getBoundingClientRect().left - circle1.getBoundingClientRect().left + 'px';
         newImage.style.height = circle4.getBoundingClientRect().top - circle1.getBoundingClientRect().top + 'px';
-
-        // if (conditionWidth) {
-
-        // } else {
-        //     newImage.style.top = circleStart1.style.top;
-        //     newImage.style.left = circleStart1.style.left;
-        //     newImage.style.width = circle2.getBoundingClientRect().left - circle1.getBoundingClientRect().left + 'px';
-        //     newImage.style.height = circle4.getBoundingClientRect().top - circle1.getBoundingClientRect().top + 'px';
-        // }
     }
 
     function reRecordCircleStart() {
@@ -592,7 +571,7 @@ export function changeCardphoto(elem) {
 
             function circleMouseMove(event) { 
 
-                // console.log('move event: ', event)
+                // console.log('move event: ', event.pageX, event.pageY);
 
                 movieY = 
                     event.pageY - 
@@ -671,6 +650,21 @@ export function changeCardphoto(elem) {
                             cardphoto.getBoundingClientRect().top +
                             cardphoto.getBoundingClientRect().height -
                             circleStart4.getBoundingClientRect().top + 'px';
+
+
+                        newImage.style.left = circleStart1.getBoundingClientRect().left -
+                            cardphoto.getBoundingClientRect().left + 
+                            movieY * 1.42 + 'px';
+                        newImage.style.top = circleStart1.getBoundingClientRect().top -
+                            cardphoto.getBoundingClientRect().top + 
+                            movieY + 'px';
+                        newImage.style.width = circleStart2.getBoundingClientRect().left -
+                            circleStart1.getBoundingClientRect().left -
+                            movieY * 1.42 + 'px';
+                        newImage.style.height = circleStart4.getBoundingClientRect().top -
+                            circleStart1.getBoundingClientRect().top -
+                            movieY + 'px';
+
                         break;
                     case 'circle-2':
                         const valueX2 = 
@@ -741,7 +735,19 @@ export function changeCardphoto(elem) {
                             cardphoto.getBoundingClientRect().top +
                             cardphoto.getBoundingClientRect().height -
                             circleStart3.getBoundingClientRect().top + 'px';
+
+                        newImage.style.top = circleStart1.getBoundingClientRect().top -
+                            cardphoto.getBoundingClientRect().top + 
+                            movieY + 'px';
+                        newImage.style.width = circleStart2.getBoundingClientRect().left -
+                            circleStart1.getBoundingClientRect().left -
+                            movieY * 1.42 + 'px';
+                        newImage.style.height = circleStart4.getBoundingClientRect().top -
+                            circleStart1.getBoundingClientRect().top -
+                            movieY + 'px';
+
                         break;
+
                     case 'circle-3':
                         const valueX3 =
                             document.querySelector(`.${el.dataset.dnd}-start`).getBoundingClientRect().left - 
@@ -783,11 +789,8 @@ export function changeCardphoto(elem) {
                             movieY * 1.42 + 'px';
                         elemBkgRight.style.height = cardphoto.getBoundingClientRect().height + 'px';
                         
-                        elemBkgButtom.style.bottom = 
-                            cardphotoForm.getBoundingClientRect().height +
-                            cardphotoForm.getBoundingClientRect().top -
-                            cardphoto.getBoundingClientRect().top -
-                            cardphoto.getBoundingClientRect().height + 'px';
+                        elemBkgButtom.style.top = 
+                            parseFloat(circleStart4.style.top) + movieY + 'px';
                         elemBkgButtom.style.left = 
                             circleStart4.getBoundingClientRect().left - 
                             cardphotoForm.getBoundingClientRect().left + 'px';
@@ -814,6 +817,14 @@ export function changeCardphoto(elem) {
                         elemBkgUp.style.height = 
                             circleStart1.getBoundingClientRect().top -
                             cardphoto.getBoundingClientRect().top + 'px';
+
+                        newImage.style.width = circleStart2.getBoundingClientRect().left -
+                            circleStart1.getBoundingClientRect().left +
+                            movieY * 1.42 + 'px';
+                        newImage.style.height = circleStart4.getBoundingClientRect().top -
+                            circleStart1.getBoundingClientRect().top +
+                            movieY + 'px';
+
                         break;
                     case 'circle-4':
                         const valueX4 = 
@@ -838,11 +849,8 @@ export function changeCardphoto(elem) {
                         circle3.style.top = valueY + 'px';
                         circle1.style.left = valueX4 + 'px';
 
-                        elemBkgButtom.style.bottom = 
-                            cardphotoForm.getBoundingClientRect().height +
-                            cardphotoForm.getBoundingClientRect().top -
-                            cardphoto.getBoundingClientRect().top -
-                            cardphoto.getBoundingClientRect().height + 'px';
+                        elemBkgButtom.style.top = 
+                            parseFloat(circleStart4.style.top) + movieY + 'px';
                         elemBkgButtom.style.left = 
                             circleStart4.getBoundingClientRect().left - 
                             cardphotoForm.getBoundingClientRect().left -
@@ -883,18 +891,39 @@ export function changeCardphoto(elem) {
                         elemBkgUp.style.height = 
                             circleStart1.getBoundingClientRect().top -
                             cardphoto.getBoundingClientRect().top + 'px';
+
+                        newImage.style.left = circleStart1.getBoundingClientRect().left -
+                            cardphoto.getBoundingClientRect().left - 
+                            movieY * 1.42 + 'px';
+                        newImage.style.width = circleStart2.getBoundingClientRect().left -
+                            circleStart1.getBoundingClientRect().left +
+                            movieY * 1.42 + 'px';
+                        newImage.style.height = circleStart4.getBoundingClientRect().top -
+                            circleStart1.getBoundingClientRect().top +
+                            movieY + 'px';
+
                         break;
                 }
+
+
             }
 
             el.onmousedown = function() {
+                // el.onmousemove = function() {
+                //     console.log('111');
+                //     // el.addEventListener('mousemove', reRecordCircleStart);
+                //     // el.addEventListener('mousemove', resizeNewImage);
+                // }
+                // el.addEventListener('mousemove', moveCircles);
                 newImage.removeEventListener('mouseenter', addClassHover);
                 mainBlock.addEventListener('mousemove', circleMouseMove);
+                // newImage.addEventListener('mousemove', moveNewImage);
+                // resizeNewImage();
                 mainBlock.onmouseup = function() {
                     mainBlock.removeEventListener('mousemove', circleMouseMove);
                     newImage.addEventListener('mouseenter', addClassHover);
                     // newImage.removeEventListener('mousemove', moveNewImage);
-                    reRecordCircleStart();
+                    // reRecordCircleStart();
                     mainBlock.onmouseup = null;
                     el.onmouseup = null;
                 }
@@ -905,8 +934,6 @@ export function changeCardphoto(elem) {
             return false;
         }
 
-
-
         newImage.addEventListener('mouseenter', checkActiveMoveNewImage);
         newImage.addEventListener('mouseenter', addClassHover);
         // newImage.addEventListener('mouseenter', clearTemporaryValue);
@@ -914,15 +941,15 @@ export function changeCardphoto(elem) {
         newImage.addEventListener('pointerdown', startMoveNewImage);
         newImage.onmousedown = function() {
             newImage.addEventListener('mousemove', moveNewImage);
-            mainBlock.addEventListener('mousemove', moveMainBlock);
+            // mainBlock.addEventListener('mousemove', moveMainBlock);
             newImage.onmouseup = function() {
                 newImage.removeEventListener('mousemove', moveNewImage);
-                reRecordCircleStart();
+                // reRecordCircleStart();
                 newImage.onmouseup = null;
             }
-            mainBlock.onmouseup = function() {
-                mainBlock.removeEventListener('mousemove', moveMainBlock);
-            }
+            // mainBlock.onmouseup = function() {
+                // mainBlock.removeEventListener('mousemove', moveMainBlock);
+            // }
         }
         
 
