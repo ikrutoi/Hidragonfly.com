@@ -42,22 +42,22 @@ export function changeCardphoto(elem) {
         //     }, 1000);
         }
         
-    function checkImgSelection(event) {
-        // cardphotoImageStart.classList.add('deactivation');
-        cardphotoImage.classList.add('active');
-        const newImageFile = document.querySelector('.cardphoto-input').files[0];
-        const imageURL = URL.createObjectURL(newImageFile);
-        cardphotoImage.src = imageURL;
-        cardphotoImage.onload = () => URL.revokeObjectURL(imageURL);
-        event.value = null;
+    // function checkImgSelection(event) {
+    //     // cardphotoImageStart.classList.add('deactivation');
+    //     cardphotoImage.classList.add('active');
+    //     const newImageFile = document.querySelector('.cardphoto-input').files[0];
+    //     const imageURL = URL.createObjectURL(newImageFile);
+    //     cardphotoImage.src = imageURL;
+    //     cardphotoImage.onload = () => URL.revokeObjectURL(imageURL);
+    //     event.value = null;
 
-        // fetch('/upload', {method: 'POST', body: new FormData().append('image', newImageFile)})
-        // .then(response => response.json())
-        // .then(data => console.log(data))
-        // .catch(error => console.error(error));
-        // console.log('*++*', event.target.files.length);
-        // console.log('**', event.target);
-    }
+    //     // fetch('/upload', {method: 'POST', body: new FormData().append('image', newImageFile)})
+    //     // .then(response => response.json())
+    //     // .then(data => console.log(data))
+    //     // .catch(error => console.error(error));
+    //     // console.log('*++*', event.target.files.length);
+    //     // console.log('**', event.target);
+    // }
 
     // function removeImage() {
     //     cardphotoImage.classList.remove('active');
@@ -156,9 +156,12 @@ export function changeCardphoto(elem) {
 
     let deltaCircle;
 
+    // console.log('elem: ', elem);
+
     switch(elem.dataset.menuNav) {
+
         case 'add':
-            cardphotoInput.addEventListener('change', checkImgSelection);
+            cardphotoInput.addEventListener('change', cardphotoAdd);
             break; 
         case 'change':
             elem.classList.toggle('active');
@@ -177,17 +180,18 @@ export function changeCardphoto(elem) {
             } 
             break; 
         case 'cut':
-            console.log('cut2');
+            // console.log('cut2');
             break; 
         case 'max':
-            console.log('max2');
+            // console.log('max2');
+            cardphotoMax();
             break; 
         case 'torn':
-            console.log('torn2');
+            // console.log('torn2');
             cardphotoTorn();
             break; 
         case 'del':
-            console.log('del2');
+            // console.log('del2');
             break; 
     }
     
@@ -236,7 +240,7 @@ export function changeCardphoto(elem) {
             parseFloat(circleStart2.style.left) + 'px';
         elemBkgRight.style.height = cardphotoForm.getBoundingClientRect().height + 'px';
 
-        elemBkgButtom.style.bottom = '0px';
+        elemBkgButtom.style.top = circleStart3.style.top;
         elemBkgButtom.style.left = 
             circleStart4.getBoundingClientRect().left -
             cardphotoForm.getBoundingClientRect().left + 'px';
@@ -284,9 +288,6 @@ export function changeCardphoto(elem) {
         startNewImageY = event.pageY;
         startNewImageX = event.pageX;
     }
-
-    // let pageOutX;
-    // let pageOutY;
   
     let temporaryDeltaMoveImageX;
     let temporaryDeltaMoveImageY;
@@ -309,70 +310,14 @@ export function changeCardphoto(elem) {
             event.pageY < newImage.getBoundingClientRect().top ||
             event.pageY > newImage.getBoundingClientRect().top + newImage.getBoundingClientRect().height
         ) {
-            console.log('out image');
+            // console.log('out image');
+        } else {
+            if (!newImage.classList.contains('hover')) {
+                // console.log('hover')
+                newImage.classList.add('hover');
+            }
         }
     }
-
-    // let temporaryMoveX;
-    // let temporaryMoveY;
-
-    // function moveMainBlock(event) {
-    //     // pageOutX = event.pageX;
-    //     // pageOutY = event.pageY;
-
-    //     // if (
-    //     //     event.pageX < newImage.getBoundingClientRect().left ||
-    //     //     event.pageY < newImage.getBoundingClientRect().top || 
-    //     //     event.pageX > newImage.getBoundingClientRect().left + newImage.getBoundingClientRect().width ||
-    //     //     event.pageY > newImage.getBoundingClientRect().top + cardphotoForm.getBoundingClientRect().height
-    //     // ) {
-
-    //         if (temporaryMoveX || temporaryMoveY) {
-
-    //             if (event.pageX < newImage.getBoundingClientRect().left) {
-                    
-    //                 if (event.pageX <= temporaryMoveX) {
-    //                     moveInsideNewImage('left', event.pageY - startNewImageY);
-    //                     console.log('left')
-    //                 } else {
-    //                     newImage.style.left = '0px'; 
-    //                     console.log('BACK LEFT');
-    //                     temporaryMoveX = null;
-    //                     temporaryMoveY = null;
-
-    //                 }
-    //             }
-
-    //             if (event.pageY < newImage.getBoundingClientRect().top) {
-                    
-    //                 if (event.pageY <= temporaryMoveY) {
-    //                     moveNewImage(event);
-    //                     console.log('top')
-    //                 } else {
-    //                     newImage.style.left = '0px'; 
-    //                     console.log('BACK TOP');
-    //                     temporaryMoveX = null;
-    //                     temporaryMoveY = null;
-
-    //                 }
-    //             }
-
-
-    //             // if (event.pageX < newImage.getBoundingClientRect().left && event.pageX > temporaryMoveX) {
-    //             // }
-    
-    //             if (event.pageY < newImage.getBoundingClientRect().top && event.pageY > temporaryMoveY) {
-    //                 console.log('BACK TOP');
-    //                 temporaryMoveX = null;
-    //                 temporaryMoveY = null;
-    //             }
-
-    //         }
-    
-    //         temporaryMoveX = event.pageX;
-    //         temporaryMoveY = event.pageY;
-    //     // }
-    // }
 
     function moveInsideNewImage(moveX, moveY) {
 
@@ -976,8 +921,6 @@ export function changeCardphoto(elem) {
 
                         break;
                 }
-
-
             }
 
             el.onmousedown = function() {
@@ -1006,14 +949,13 @@ export function changeCardphoto(elem) {
             return false;
         }
 
-        newImage.addEventListener('mouseenter', checkActiveMoveNewImage);
-        newImage.addEventListener('mouseenter', addClassHover);
+        // newImage.addEventListener('mouseenter', checkActiveMoveNewImage);
+        // newImage.addEventListener('mouseenter', addClassHover);
+        // newImage.addEventListener('mouseleave', delClassHover);
         // newImage.addEventListener('mouseenter', clearTemporaryValue);
-        newImage.addEventListener('mouseleave', delClassHover);
         newImage.addEventListener('pointerdown', startMoveNewImage);
         newImage.onmousedown = function() {
             newImage.addEventListener('mousemove', moveNewImage);
-            cardphotoForm.addEventListener('mousemove', moveCardphotoForm);
             // mainBlock.addEventListener('mousemove', checkDirectionMoveEvent);
             // mainBlock.addEventListener('mousemove', moveMainBlock);
             newImage.onmouseup = function() {
@@ -1023,22 +965,27 @@ export function changeCardphoto(elem) {
                 newImage.onmouseup = null;
             }
             // mainBlock.onmouseup = function() {
-            //     // mainBlock.removeEventListener('mousemove', checkDirectionMoveEvent);
-            //     mainBlock.removeEventListener('mousemove', moveMainBlock);
-            // }
-        }
-        
+                //     // mainBlock.removeEventListener('mousemove', checkDirectionMoveEvent);
+                //     mainBlock.removeEventListener('mousemove', moveMainBlock);
+                // }
+            }
+            
+            
+            // mainBlock.onmouseup = function() {
+                //     // mainBlock.removeEventListener('mousemove', circleMouseMove);
+                //     // newImage.addEventListener('mouseenter', addClassHover);
+                //     // newImage.removeEventListener('mousemove', moveNewImage);
+                //     reRecordCircleStart();
+                //     console.log('mouseUp')
+                //     // mainBlock.onmouseup = null;
+                //     // el.onmouseup = null;
+                // }
 
-        // mainBlock.onmouseup = function() {
-        //     // mainBlock.removeEventListener('mousemove', circleMouseMove);
-        //     // newImage.addEventListener('mouseenter', addClassHover);
-        //     // newImage.removeEventListener('mousemove', moveNewImage);
-        //     reRecordCircleStart();
-        //     console.log('mouseUp')
-        //     // mainBlock.onmouseup = null;
-        //     // el.onmouseup = null;
-        // }
     }
+
+    newImage.addEventListener('mouseenter', addClassHover);
+    newImage.addEventListener('mouseleave', delClassHover);
+    cardphotoForm.addEventListener('mousemove', moveCardphotoForm);
 
     mainBlock.addEventListener('pointerup', reRecordCircleStart);
 
@@ -1073,11 +1020,11 @@ export function changeCardphoto(elem) {
         const leftY = newImage.style.top;
 
         if (newImage.getBoundingClientRect().width < cardphotoForm.getBoundingClientRect().height) {
-            console.log('0');
+            // console.log('0');
             leftX = newImage.style.left;
 
         } else {
-            console.log('1');
+            // console.log('1');
             newImage.style.width = cardphotoForm.getBoundingClientRect().height + 'px';
             newImage.style.height = newImage.getBoundingClientRect().width / 1.42 + 'px';
             leftX = 0;
@@ -1114,6 +1061,71 @@ export function changeCardphoto(elem) {
         resizeNewImage();
         resizeBackground();
     }
+    
+    //** add */
+    
+    function cardphotoAdd() {
+        
+        const buttonAdd = document.querySelector('.main-nav--button-add');
+        
+        function addImage() {
+            console.log('add image')
+        }
+        
+        buttonAdd.addEventListener('pointerdown', addImage);
+
+        // function checkImgSelection(event) {
+            // cardphotoImageStart.classList.add('deactivation');
+            cardphotoImage.classList.add('active');
+            const newImageFile = document.querySelector('.cardphoto-input').files[0];
+            const imageURL = URL.createObjectURL(newImageFile);
+            cardphotoImage.src = imageURL;
+            cardphotoImage.onload = () => URL.revokeObjectURL(imageURL);
+            event.value = null;
+    
+            // fetch('/upload', {method: 'POST', body: new FormData().append('image', newImageFile)})
+            // .then(response => response.json())
+            // .then(data => console.log(data))
+            // .catch(error => console.error(error));
+            // console.log('*++*', event.target.files.length);
+            // console.log('**', event.target);
+        // }
+
+    }
+
+//** max */
+
+    function cardphotoMax() {
+        if (cardphotoForm.classList.contains('active')) {
+            // console.log('size: ', cardphotoForm.getBoundingClientRect().width, cardphotoForm.getBoundingClientRect().height);
+            
+            // moveInsideNewImage('left', 'top');
+
+            if (cardphotoForm.getBoundingClientRect().width > cardphotoForm.getBoundingClientRect().height) {
+                
+                newImage.style.width = cardphotoForm.style.width;
+                newImage.style.height = cardphotoForm.style.height;
+                newImage.style.left = '0px';
+                newImage.style.top = '0px';
+    
+                changeBackgroud();
+                setCoordinatesCircles(0, 0, newImage.getBoundingClientRect().width, newImage.getBoundingClientRect().height, circle1.offsetWidth / 2);
+            } else {
+
+                // console.log('size: ', cardphotoForm.getBoundingClientRect().width, cardphotoForm.getBoundingClientRect().height)
+                
+                newImage.style.width = cardphotoForm.style.width;
+                newImage.style.height = newImage.getBoundingClientRect().width / 1.42;
+                newImage.style.left = '0px';
+                newImage.style.top = (cardphotoForm.getBoundingClientRect().height - newImage.getBoundingClientRect().height) / 2 + 'px';
+    
+                changeBackgroud();
+                setCoordinatesCircles(0, 0, newImage.getBoundingClientRect().width, newImage.getBoundingClientRect().height, circle1.offsetWidth / 2);
+            }
+
+        }
+    }
+
 } 
 
 // export function changeSizeImageForm() {
