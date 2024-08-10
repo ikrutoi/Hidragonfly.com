@@ -1109,14 +1109,19 @@ export function changeCardphoto(elem) {
                 changeBackgroud();
                 setCoordinatesCircles(0, 0, newImage.getBoundingClientRect().width, newImage.getBoundingClientRect().height, circle1.offsetWidth / 2);
             } else {
+
+                const coefficientY = parseFloat(newImage.style.top) / (cardphotoForm.getBoundingClientRect().height - newImage.getBoundingClientRect().height);
                 
                 newImage.style.width = cardphotoForm.style.width;
-                newImage.style.height = newImage.getBoundingClientRect().width / 1.42;
+                newImage.style.height = newImage.getBoundingClientRect().width / 1.42 + 'px';
                 newImage.style.left = '0px';
-                newImage.style.top = (cardphotoForm.getBoundingClientRect().height - newImage.getBoundingClientRect().height) / 2 + 'px';
+
+                const valueTop = (cardphotoForm.getBoundingClientRect().height - newImage.getBoundingClientRect().height) * coefficientY;
+
+                newImage.style.top = valueTop + 'px';
     
                 changeBackgroud();
-                setCoordinatesCircles(0, 0, newImage.getBoundingClientRect().width, newImage.getBoundingClientRect().height, circle1.offsetWidth / 2);
+                setCoordinatesCircles(0, valueTop, newImage.getBoundingClientRect().width, newImage.getBoundingClientRect().height + valueTop, circle1.offsetWidth / 2);
             }
         }
     }
