@@ -10,6 +10,8 @@ const mainBlock = document.querySelector('.main-block');
 const cardphoto = document.querySelector('.cardphoto');
 const cardphotoForm = document.querySelector('.cardphoto-form');
 const cardphotoImage = document.querySelector('.cardphoto-image');
+const cardphotoImageStart = document.querySelector('.cardphoto-image-start');
+const cardphotoImageLoad = document.querySelector('.cardphoto-image-load');
 
 let heightCardphotoImageStart;
 let widthNewImageStart;
@@ -156,12 +158,21 @@ export function changeCardphoto(elem) {
 
     let deltaCircle;
 
-    // console.log('elem: ', elem);
+    function removeClassActiveButtonChange() {
+        const mainNavButtonChange = document.querySelector('.main-nav--button-change');
+
+        if (mainNavButtonChange.classList.contains('active')) {
+            mainNavButtonChange.classList.remove('active');
+            cardphotoForm.classList.remove('active');
+        }
+    }
 
     switch(elem.dataset.menuNav) {
 
         case 'add':
-            cardphotoInput.addEventListener('change', cardphotoAdd);
+
+            removeClassActiveButtonChange();
+            cardphotoAdd(elem);
             break; 
         case 'change':
             elem.classList.toggle('active');
@@ -1064,41 +1075,31 @@ export function changeCardphoto(elem) {
     }
     
     //** add */
+
+    function addImage(elem) {
+        const cardphotoImageStart = document.querySelector('.cardphoto-image-start');
+        const cardphotoImageAdd = document.querySelector('.cardphoto-image-add');
+
+        cardphotoImageStart.classList.add('deactivation');
+
+        const newImageFile = document.querySelector('.cardphoto-input').files[0];
+        const imageURL = URL.createObjectURL(newImageFile);
+
+        cardphotoImageAdd.src = imageURL;
+        cardphotoImageAdd.onload = () => URL.revokeObjectURL(imageURL);
+        elem.value = null;
+    }
     
     function cardphotoAdd() {
+        const buttonInput = document.querySelector('.cardphoto-input');
         
-        const buttonAdd = document.querySelector('.main-nav--button-add');
-        
-        function addImage() {
-            console.log('add image')
-        }
-        
-        buttonAdd.addEventListener('pointerdown', addImage);
-
-        // function checkImgSelection(event) {
-            // cardphotoImageStart.classList.add('deactivation');
-            cardphotoImage.classList.add('active');
-            const newImageFile = document.querySelector('.cardphoto-input').files[0];
-            const imageURL = URL.createObjectURL(newImageFile);
-            cardphotoImage.src = imageURL;
-            cardphotoImage.onload = () => URL.revokeObjectURL(imageURL);
-            event.value = null;
-    
-            // fetch('/upload', {method: 'POST', body: new FormData().append('image', newImageFile)})
-            // .then(response => response.json())
-            // .then(data => console.log(data))
-            // .catch(error => console.error(error));
-            // console.log('*++*', event.target.files.length);
-            // console.log('**', event.target);
-        // }
-
+        buttonInput.addEventListener('change', addImage);
     }
 
 //** max */
 
     function cardphotoMax() {
         if (cardphotoForm.classList.contains('active')) {
-
             if (cardphotoForm.getBoundingClientRect().width > cardphotoForm.getBoundingClientRect().height) {
                 
                 newImage.style.width = cardphotoForm.style.width;
@@ -1109,7 +1110,6 @@ export function changeCardphoto(elem) {
                 changeBackgroud();
                 setCoordinatesCircles(0, 0, newImage.getBoundingClientRect().width, newImage.getBoundingClientRect().height, circle1.offsetWidth / 2);
             } else {
-
                 const coefficientY = parseFloat(newImage.style.top) / (cardphotoForm.getBoundingClientRect().height - newImage.getBoundingClientRect().height);
                 
                 newImage.style.width = cardphotoForm.style.width;

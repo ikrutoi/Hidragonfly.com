@@ -44,6 +44,7 @@ export function createMainNavMenu(unit) {
     
     if (!headerNavItem.classList.contains('created-main-nav') && (unit == 'cardphoto' || unit == 'aroma' || unit == 'date')) {   
         for (let i = 0; i < listMenuMain.length; i++) { 
+
             createNavList(i, mainNav, 'main', listMenuMain[i].codename, listMenuMain[i].title, unit);
         }
 
