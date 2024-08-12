@@ -9,6 +9,10 @@ import { validationValueSessionStorage } from './envelope-valid-ses-stor.js';
 // console.log('***********', buttonMenuNav)
 createHeaderNav();
 
+const cardphotoImage = document.querySelector('.cardphoto-image');
+
+cardphotoImage.src = '/image/card-photo-bw.jpg';
+
 // buttonMenuNav.forEach((el) => {
 
 //     console.log('gooo')

@@ -177,6 +177,10 @@ export function changeCardphoto(elem) {
         case 'change':
             elem.classList.toggle('active');
             cardphotoForm.classList.toggle('active');
+
+            // if (!cardphotoForm.classList.contains('created')) {
+            //     createCircles();
+            // }
             
             if (elem.classList.contains('active')) {
                 deltaCircle = circle1.offsetWidth / 2;
@@ -1077,16 +1081,16 @@ export function changeCardphoto(elem) {
     //** add */
 
     function addImage(elem) {
-        const cardphotoImageStart = document.querySelector('.cardphoto-image-start');
-        const cardphotoImageAdd = document.querySelector('.cardphoto-image-add');
+        // const cardphotoImageStart = document.querySelector('.cardphoto-image-start');
+        // const cardphotoImageAdd = document.querySelector('.cardphoto-image-add');
 
-        cardphotoImageStart.classList.add('deactivation');
+        // cardphotoImageStart.classList.add('deactivation');
 
         const newImageFile = document.querySelector('.cardphoto-input').files[0];
         const imageURL = URL.createObjectURL(newImageFile);
 
-        cardphotoImageAdd.src = imageURL;
-        cardphotoImageAdd.onload = () => URL.revokeObjectURL(imageURL);
+        cardphotoImage.src = imageURL;
+        cardphotoImage.onload = () => URL.revokeObjectURL(imageURL);
         elem.value = null;
     }
     
