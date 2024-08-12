@@ -1092,6 +1092,21 @@ export function changeCardphoto(elem) {
         cardphotoImage.src = imageURL;
         cardphotoImage.onload = () => URL.revokeObjectURL(imageURL);
         elem.value = null;
+
+        deltaCircle = circle1.offsetWidth / 2;
+        const valueX1 = 0;
+        const valueY1 = 0;
+        const valueX2 = valueX1 + cardphotoImage.getBoundingClientRect().width;
+        const valueY3 = valueY1 + cardphotoImage.getBoundingClientRect().height;
+
+        setCoordinatesCircles(valueX1, valueY1, valueX2, valueY3, deltaCircle);
+        resizeNewImage();
+        resizeBackground();
+
+
+        // if (cardphotoForm.classList.contains('created')) {
+        //     cardphotoForm.classList.remove('created');
+        // }
     }
     
     function cardphotoAdd() {
