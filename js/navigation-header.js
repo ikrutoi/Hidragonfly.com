@@ -66,14 +66,12 @@ export function navigationHeaderMenu() {
 
             switch(datasetElement) {
                 case 'cardphoto':
-                    // cardphotoChange(el);
-                    // changeSizeImageForm();
-                    // formationCardphoto();
-                    // navigationMain(datasetElement);
-                    // console.log('*-*-*-*', el)
-                    // console.log('*-*-*-*', document.querySelector('.cardphoto'));
-                    // const card = document.querySelector('.cardphoto');
-                    // console.log('*-*-*-', getComputedStyle(card));
+                    const cardphotoImage = document.querySelector('.cardphoto-image');
+                    const cardphotoForm = document.querySelector('.cardphoto-image-form');
+
+                    cardphotoForm.style.width = window.getComputedStyle(cardphotoImage).width;
+                    cardphotoForm.style.height = window.getComputedStyle(cardphotoImage).height;
+
                     break; 
                 case 'cardtext':
                     formationLetterArea();

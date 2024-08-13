@@ -3,47 +3,43 @@
 }
 
 .cardphoto.active {
-    .card-size-mixin;
+    // .card-size-mixin;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    // height: 100%;
-    // background-image: url(/image/card-photo-bw.jpg);
-    // background-size: cover;
-    // transform: matrix(1, 0, 0, 1, 0, 0);
-    // border: solid 1px green;
+    // border: solid 1px orange;
 }
 
-.cardphoto-form {
-    display: none
-}
+// .cardphoto-image-form {
+//     display: none
+// }
 
-.cardphoto-form.active {
-    display: flex;
-    // justify-content: center;
-    // align-items: center;
-    // .card-size-mixin;
-    position: absolute;
-    // box-sizing: border-box;
-    // border: solid 1px fuchsia;
-}
-
-// .new-image {
-//     // background-color: blue;
-//     opacity: 0.5;
-//     // border: solid 1px blue;
+// .cardphoto-form.active {
+//     .card-size-mixin;
+//     display: flex;
+//     position: absolute;
+//     border: solid 1px fuchsia;
 // }
 
 .cardphoto-input {
     display: none;
 }
 
-// .cardphoto-image-form {
-//     .card-size-mixin;
-//     position: absolute;
-//     border: solid 1px blue;
-// }
+.cardphoto-border {
+    .card-size-mixin;
+    position: absolute;
+    // background-color: @color-basis-hover;
+    z-index: 1;
+    border: solid 1px red;
+}
+
+.cardphoto-image-form {
+    // .card-size-mixin;
+    position: absolute;
+    z-index: 1;
+    border: solid 1px blue;
+}
 
 // .cardphoto-img-nav {
 //     // display: none;
@@ -144,35 +140,11 @@
 
 .cardphoto-image {
     position: absolute;
-    // display: none;
-    // display: flex;
-    // justify-content: end;
-    // align-items: flex-end;
-    // background-image: url(/image/card-photo-bw.jpg);
-    .card-size-mixin;
+    // .card-size-mixin;
     background-size: cover;
-    // border-top: solid 1px red;
-    // transform: matrix(1, 0, 0, 1, 0, 0);
-    // border: solid 1px red;
+    z-index: 1;
+    // border: solid 1px green;
 }
-
-// .cardphoto-image-start.deactivation {
-//     display: none;
-// }
-
-// .cardphoto-image-add {
-//     .card-size-mixin;
-// }
-
-// .cardphoto-image-load {
-//     display: none;
-// }
-
-// .cardphoto-image-load.active {
-//     .card-size-mixin;
-//     display: block;
-//     border: solid 1px orange; 
-// }
 
 //** circle */
 

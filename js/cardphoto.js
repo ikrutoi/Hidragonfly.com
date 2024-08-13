@@ -8,15 +8,15 @@ import { newElemHTML } from "./new-element.js";
 const main = document.querySelector('.main');
 const mainBlock = document.querySelector('.main-block');
 const cardphoto = document.querySelector('.cardphoto');
-const cardphotoForm = document.querySelector('.cardphoto-form');
+const cardphotoForm = document.querySelector('.cardphoto-image-form');
 const cardphotoImage = document.querySelector('.cardphoto-image');
-const cardphotoImageStart = document.querySelector('.cardphoto-image-start');
-const cardphotoImageLoad = document.querySelector('.cardphoto-image-load');
+// const cardphotoImageStart = document.querySelector('.cardphoto-image-start');
+// const cardphotoImageLoad = document.querySelector('.cardphoto-image-load');
 
-let heightCardphotoImageStart;
-let widthNewImageStart;
-let heightNewImageStart;
-let positionImage;
+// let heightCardphotoImageStart;
+// let widthNewImageStart;
+// let heightNewImageStart;
+// let positionImage;
 
 function setSizeCardphotoForm() {
     
@@ -31,6 +31,8 @@ function setSizeCardphotoForm() {
 }
 
 export function changeCardphoto(elem) {  
+
+
 
     const mainNavMenuCardphoto = document.querySelector('.main-nav-menu--cardphoto');
     const mainNavCardphotoButton = document.querySelectorAll('.main-nav--cardphoto--button');
@@ -80,6 +82,8 @@ export function changeCardphoto(elem) {
     //         // cardphotoImageNavButton.forEach(el => el.classList.remove('wait-start'));
     //     }, 150);
     // }
+
+    // cardphotoForm.classList.add('active');
 
 
 
@@ -1081,13 +1085,15 @@ export function changeCardphoto(elem) {
     //** add */
 
     function addImage(elem) {
-        // const cardphotoImageStart = document.querySelector('.cardphoto-image-start');
-        // const cardphotoImageAdd = document.querySelector('.cardphoto-image-add');
-
-        // cardphotoImageStart.classList.add('deactivation');
 
         const newImageFile = document.querySelector('.cardphoto-input').files[0];
         const imageURL = URL.createObjectURL(newImageFile);
+
+        const imageAddTemporary = document.createElement('img');
+        imageAddTemporary.src = imageURL; 
+        imageAddTemporary.onload = () => {
+          console.log('image loaded', imageAddTemporary.width, imageAddTemporary.height, imageAddTemporary.width / imageAddTemporary.height);
+        }
 
         cardphotoImage.src = imageURL;
         cardphotoImage.onload = () => URL.revokeObjectURL(imageURL);
@@ -1102,11 +1108,6 @@ export function changeCardphoto(elem) {
         setCoordinatesCircles(valueX1, valueY1, valueX2, valueY3, deltaCircle);
         resizeNewImage();
         resizeBackground();
-
-
-        // if (cardphotoForm.classList.contains('created')) {
-        //     cardphotoForm.classList.remove('created');
-        // }
     }
     
     function cardphotoAdd() {
