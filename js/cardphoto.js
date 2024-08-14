@@ -101,8 +101,6 @@ export function changeCardphoto(elem) {
         const valueWidth = cardphotoImage.getBoundingClientRect().width;
         const valueHeight = cardphotoImage.getBoundingClientRect().height;
     
-
-    
         cardphotoForm.style.width = valueWidth + 'px';
         cardphotoForm.style.height = valueHeight + 'px';
     
@@ -110,7 +108,6 @@ export function changeCardphoto(elem) {
         cardphoto.style.height = valueHeight + 'px';
     }
     
-
     const circles = document.querySelectorAll('.circle');
     const circlesStart = document.querySelectorAll('.circle-start');
     const circle1 = document.querySelector('.circle-1');
@@ -1167,23 +1164,23 @@ export function changeCardphoto(elem) {
 
     function cardphotoMax() {
         if (cardphotoForm.classList.contains('active')) {
-            if (cardphotoForm.getBoundingClientRect().width > cardphotoForm.getBoundingClientRect().height) {
+            if (cardphotoBorder.getBoundingClientRect().width > cardphotoBorder.getBoundingClientRect().height) {
                 
-                newImage.style.width = cardphotoForm.style.width;
-                newImage.style.height = cardphotoForm.style.height;
+                newImage.style.width = cardphotoBorder.style.width;
+                newImage.style.height = cardphotoBorder.style.height;
                 newImage.style.left = '0px';
                 newImage.style.top = '0px';
     
                 changeBackgroud();
                 setCoordinatesCircles(0, 0, newImage.getBoundingClientRect().width, newImage.getBoundingClientRect().height, circle1.offsetWidth / 2);
             } else {
-                const coefficientY = parseFloat(newImage.style.top) / (cardphotoForm.getBoundingClientRect().height - newImage.getBoundingClientRect().height);
+                const coefficientY = parseFloat(newImage.style.top) / (cardphotoBorder.getBoundingClientRect().height - newImage.getBoundingClientRect().height);
                 
-                newImage.style.width = cardphotoForm.style.width;
+                newImage.style.width = cardphotoBorder.style.width;
                 newImage.style.height = newImage.getBoundingClientRect().width / 1.42 + 'px';
                 newImage.style.left = '0px';
 
-                const valueTop = (cardphotoForm.getBoundingClientRect().height - newImage.getBoundingClientRect().height) * coefficientY;
+                const valueTop = (cardphotoBorder.getBoundingClientRect().height - newImage.getBoundingClientRect().height) * coefficientY;
 
                 newImage.style.top = valueTop + 'px';
     
