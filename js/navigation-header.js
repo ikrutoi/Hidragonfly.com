@@ -67,8 +67,10 @@ export function navigationHeaderMenu() {
             switch(datasetElement) {
                 case 'cardphoto':
                     const cardphotoImage = document.querySelector('.cardphoto-image');
-                    const cardphotoForm = document.querySelector('.cardphoto-image-form');
+                    const cardphotoForm = document.querySelector('.cardphoto-form');
+                    // const cardphotoForm = document.querySelector('.cardphoto-image-form');
 
+                    // cardphotoForm.classList.add('active');
                     cardphotoForm.style.width = window.getComputedStyle(cardphotoImage).width;
                     cardphotoForm.style.height = window.getComputedStyle(cardphotoImage).height;
 
