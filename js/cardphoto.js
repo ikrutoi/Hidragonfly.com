@@ -1,7 +1,7 @@
 import { startPressActivation } from "./start-press-activation.js";
 import { addClassHover } from "./start-press-activation.js";
 import { delClassHover } from "./start-press-activation.js";
-import { setSizeCardphotoBorder } from "./cardphoto-add.js";
+// import { setSizeCardphotoBorder } from "./cardphoto-add.js";
 import { newElem } from "./new-element.js";
 // import { dragNDrop } from "./dnd.js";
 import { newElemHTML } from "./new-element.js";
@@ -194,10 +194,6 @@ export function changeCardphoto(elem) {
             
                 const cardHeight = document.documentElement.clientHeight * 0.50;
                 const cardWidth = cardHeight * 1.42;
-
-                // console.log('---', cardphotoImage.style)
-                // console.log('-1-', cardphotoImage.getBoundingClientRect().width, cardphotoImage.getBoundingClientRect().height)
-                // console.log('-2-', cardphotoImage.style.width, cardphotoImage.style.height)
                 
                 cardphotoForm.style.width = cardphotoImage.getBoundingClientRect().width + 'px';
                 cardphotoForm.style.height = cardphotoImage.getBoundingClientRect().height + 'px';
