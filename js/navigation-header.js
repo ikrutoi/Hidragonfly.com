@@ -71,6 +71,9 @@ export function navigationHeaderMenu() {
                     // const cardphotoForm = document.querySelector('.cardphoto-image-form');
 
                     // cardphotoForm.classList.add('active');
+
+
+                    
                     cardphotoForm.style.width = window.getComputedStyle(cardphotoImage).width;
                     cardphotoForm.style.height = window.getComputedStyle(cardphotoImage).height;
 
