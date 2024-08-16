@@ -17,13 +17,19 @@ const cardphotoBorder = document.querySelector('.cardphoto-border');
 const cardHeight = document.documentElement.clientHeight * 0.50;
 const cardWidth = cardHeight * 1.42;
 
-export function changeCardphoto(elem) {  
+// let valueX1;
+// let valueY1;
+// let valueX2;
+// let valueY3;
 
+export function changeCardphoto(elem) {  
 
 
     const mainNavMenuCardphoto = document.querySelector('.main-nav-menu--cardphoto');
     const mainNavCardphotoButton = document.querySelectorAll('.main-nav--cardphoto--button');
     const cardphotoInput = document.querySelector('.cardphoto-input');
+
+    let deltaCircle;
     
     function addActive() {
         this.classList.add('active');
@@ -159,8 +165,6 @@ export function changeCardphoto(elem) {
     //     return [newImage.style.left, newImage.style.top];
     // }
 
-    let deltaCircle;
-
     function resizeBorder() {
 
         const imageWidth = cardphotoImage.getBoundingClientRect().width;
@@ -171,9 +175,11 @@ export function changeCardphoto(elem) {
 
         if (imageWidth > imageHeight) {
 
+            // console.log('resizeBorder horizont')
             cardphotoBorder.style.width = cardWidth + 'px';
             cardphotoBorder.style.height = cardHeight + 'px';  
         } else {
+            // console.log('resizeBorder vertic')
 
             cardphotoBorder.style.width = cardphotoForm.style.width;
             cardphotoBorder.style.height = cardphotoForm.style.height;
@@ -196,6 +202,11 @@ export function changeCardphoto(elem) {
         }
     }
 
+    let valueX1;
+    let valueX2;
+    let valueY1;
+    let valueY3;
+
     switch(elem.dataset.menuNav) {
 
         case 'add':
@@ -206,44 +217,51 @@ export function changeCardphoto(elem) {
         case 'change':
             elem.classList.toggle('active');
             cardphotoForm.classList.toggle('active');
-
-            // if (!cardphotoForm.classList.contains('created')) {
-            //     createCircles();
-            // }
             
             if (elem.classList.contains('active')) {
-          
+           
                 resizeBorder();
 
+                if (!cardphotoForm.classList.contains('created')) {
+                    createCircles();
+                }
+
                 deltaCircle = circle1.offsetWidth / 2;
-                const valueX1 = 0;
-                const valueY1 = (cardphotoForm.getBoundingClientRect().height - cardphotoBorder.getBoundingClientRect().height) / 2;
-                const valueX2 = valueX1 + cardphotoBorder.getBoundingClientRect().width;
-                const valueY3 = valueY1 + cardphotoBorder.getBoundingClientRect().height;
+                valueX1 = 0;
+
+                if (cardphotoImage.getBoundingClientRect().width > cardphotoImage.getBoundingClientRect().height) {
+                    valueY1 = (cardphotoForm.getBoundingClientRect().height - cardphotoBorder.getBoundingClientRect().height) / 2;
+                    valueX2 = valueX1 + cardWidth;
+                    valueY3 = valueY1 + cardphotoBorder.getBoundingClientRect().height;
+                } else {
+                    valueY1 = (cardphotoImage.getBoundingClientRect().height - cardphotoImage.getBoundingClientRect().width / 1.42) / 2;
+                    valueX2 = valueX1 + cardphotoImage.getBoundingClientRect().width;
+                    valueY3 = valueY1 + cardphotoImage.getBoundingClientRect().width / 1.42;
+                }
+                
         
                 setCoordinatesCircles(valueX1, valueY1, valueX2, valueY3, deltaCircle);
+                resizeNewImage();
                 resizeBackground();
                 
                 formationNewImage();
             } 
             break; 
         case 'cut':
-            // console.log('cut2');
             break; 
         case 'max':
-            // console.log('max2');
             cardphotoMax();
             break; 
         case 'torn':
-            // console.log('torn2');
             cardphotoTorn();
             break; 
         case 'del':
-            // console.log('del2');
             break; 
     }
     
     function setCoordinatesCircles(x1, y1, x2, y3, deltaCircle) {
+
+        console.log('setCoordinatesCircles: ', x1, y1, x2, y3, deltaCircle);
 
         circle1.style.top = y1 - deltaCircle + 'px';
         circle1.style.left = x1 - deltaCircle + 'px';
@@ -1038,8 +1056,12 @@ export function changeCardphoto(elem) {
         }
         
         if (cardphotoForm.getBoundingClientRect().height == newImage.getBoundingClientRect().height) {
-            coefficientY = 0;
+            // console.log('cardphotoForm.height == newImage.height', cardphotoForm.getBoundingClientRect().width, newImage.getBoundingClientRect().height)
+            coefficientY = 0.5;
+            // console.log('coeffY: ', coefficientY);
         } else {
+            // if (cardphotoForm.getBoundingClientRect().height == newImage.getBoundingClientRect().height) {
+            // }
             coefficientY = parseFloat(newImage.style.top) / (cardphotoForm.getBoundingClientRect().height - newImage.getBoundingClientRect().height);
         }
 
@@ -1047,7 +1069,7 @@ export function changeCardphoto(elem) {
         const deltaY = cardphotoForm.getBoundingClientRect().width - newImage.getBoundingClientRect().height;
 
         if (unit == true) {
-            console.log('old size newImage!!')
+            // console.log('old size newImage!!')
             if (newImage.getBoundingClientRect().width == cardphotoForm.getBoundingClientRect().width) {
                 const valueLeft = (cardphotoForm.getBoundingClientRect().height - newImage.getBoundingClientRect().width) / 2;
 
@@ -1057,7 +1079,7 @@ export function changeCardphoto(elem) {
             }
 
         } else {
-            console.log('new size newImage!!')
+            // console.log('new size newImage!!')
             newImage.style.width = cardphotoForm.style.height;
             newImage.style.height = newImage.getBoundingClientRect().width / 1.42 + 'px';
 
@@ -1123,26 +1145,25 @@ export function changeCardphoto(elem) {
         imageAddTemporary.src = imageURL; 
         imageAddTemporary.onload = () => {
 
-          if (imageAddTemporary.width / imageAddTemporary.height >= 1.42) {
-              cardphotoImage.style.height = cardHeight + 'px'; 
-  
-          } else {
-              cardphotoImage.style.width = cardWidth + 'px'; 
-          } 
+            if (imageAddTemporary.width > imageAddTemporary.height) {
+                cardphotoImage.src = imageURL;
+                cardphotoImage.onload = () => URL.revokeObjectURL(imageURL);
 
+                cardphotoImage.style.width = cardWidth + 'px';
+                cardphotoImage.style.height = cardHeight + 'px';
+            } else {
+                cardphotoImage.src = imageURL;
+                cardphotoImage.onload = () => URL.revokeObjectURL(imageURL);
+
+                cardphotoImage.style.width = cardHeight + 'px';
+                cardphotoImage.style.height = cardWidth + 'px';
+            }
+            
+            setSizeCardphotoForm();
         }
 
-        cardphotoImage.src = imageURL;
-        cardphotoImage.onload = () => URL.revokeObjectURL(imageURL);
         elem.value = null;
 
-        deltaCircle = circle1.offsetWidth / 2;
-        const valueX1 = 0;
-        const valueY1 = 0;
-        const valueX2 = valueX1 + cardphotoImage.getBoundingClientRect().width;
-        const valueY3 = valueY1 + cardphotoImage.getBoundingClientRect().height;
-
-        setCoordinatesCircles(valueX1, valueY1, valueX2, valueY3, deltaCircle);
         resizeNewImage();
         resizeBackground();
     }
