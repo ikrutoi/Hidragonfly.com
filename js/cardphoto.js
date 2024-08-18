@@ -5,6 +5,7 @@ import { delClassHover } from "./start-press-activation.js";
 import { newElem } from "./new-element.js";
 // import { dragNDrop } from "./dnd.js";
 import { newElemHTML } from "./new-element.js";
+import { addStartImage } from "./cardphoto-add-start-image.js";
 
 const main = document.querySelector('.main');
 const mainBlock = document.querySelector('.main-block');
@@ -256,6 +257,7 @@ export function changeCardphoto(elem) {
             cardphotoTorn();
             break; 
         case 'del':
+            cardphotoDel();
             break; 
     }
     
@@ -1228,6 +1230,15 @@ export function changeCardphoto(elem) {
             resizeNewImage();
         }
     }
+
+//** del */
+
+    function cardphotoDel() {
+        console.log('del');
+
+        addStartImage();
+    }
+
 } 
 
 // export function changeSizeImageForm() {

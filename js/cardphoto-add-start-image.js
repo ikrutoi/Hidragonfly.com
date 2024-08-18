@@ -1,4 +1,4 @@
-export function addImage() {
+export function addStartImage() {
     const cardphotoImage = document.querySelector('.cardphoto-image');
 
     const cardHeight = document.documentElement.clientHeight * 0.50;

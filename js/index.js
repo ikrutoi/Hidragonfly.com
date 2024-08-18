@@ -1,5 +1,5 @@
 import { createHeaderNav } from './header-nav.js';
-import { addImage } from './cardphoto-add.js';
+import { addStartImage } from './cardphoto-add-start-image.js';
 // import { clickButtonActive } from './navigation.js';
 import { startPressActivation } from "./start-press-activation.js";
 import { clearSessionStarage } from './clear-session-storage.js';
@@ -10,7 +10,7 @@ import { validationValueSessionStorage } from './envelope-valid-ses-stor.js';
 // console.log('***********', buttonMenuNav)
 createHeaderNav();
 
-addImage();
+addStartImage();
 
 // buttonMenuNav.forEach((el) => {
 
