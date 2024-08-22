@@ -12,7 +12,8 @@ export function createMainNavMenu(unit) {
                 {codename: 'change', title: 'Change'},
                 {codename: 'cut', title: 'Cut'},
                 {codename: 'max', title: 'Max'},
-                {codename: 'torn', title: 'Torn'},
+                {codename: 'torn-image', title: 'Torn image'},
+                {codename: 'torn-card', title: 'Torn card'},
                 {codename: 'del', title: 'Delete'}
             ];
             break;
