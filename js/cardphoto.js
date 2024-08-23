@@ -265,12 +265,10 @@ export function changeCardphoto(elem) {
     }
 
     function checkingCoefficientWidthHeight() {
-        const cardphoImageWidth = cardphotoImage.getBoundingClientRect().width;
-        const cardphotoImageHeight =
-            cardphotoImage.getBoundingClientRect().height;
+        const newImageWidth = newImage.getBoundingClientRect().width;
+        const newImageHeight = newImage.getBoundingClientRect().height;
 
-        if (cardphoImageWidth > cardphotoImageHeight)
-            coefficientWidthHeight = 1.42;
+        if (newImageWidth > newImageHeight) coefficientWidthHeight = 1.42;
         else coefficientWidthHeight = 0.7042;
 
         console.log(coefficientWidthHeight);
@@ -287,6 +285,7 @@ export function changeCardphoto(elem) {
             cardphotoAdd(elem);
             break;
         case 'change':
+            let newCoordinatesNewImage;
             elem.classList.toggle('active');
             cardphotoForm.classList.toggle('active');
 
@@ -297,50 +296,52 @@ export function changeCardphoto(elem) {
 
                 if (!cardphotoForm.classList.contains('created')) {
                     createCircles();
-                }
-
-                deltaCircle = circle1.offsetWidth / 2;
-                valueX1 = 0;
-
-                // console.log(
-                //     'size: ',
-                //     cardphotoImage.getBoundingClientRect().width,
-                //     cardphotoImage.getBoundingClientRect().height
-                // );
-
-                if (
-                    cardphotoImage.getBoundingClientRect().width >
-                    cardphotoImage.getBoundingClientRect().height
-                ) {
-                    valueY1 =
-                        (cardphotoForm.getBoundingClientRect().height -
-                            cardphotoBorder.getBoundingClientRect().height) /
-                        2;
-                    valueX2 = valueX1 + cardWidth;
-                    valueY3 =
-                        valueY1 +
-                        cardphotoBorder.getBoundingClientRect().height;
                 } else {
-                    valueY1 =
-                        (cardphotoImage.getBoundingClientRect().height -
-                            cardphotoImage.getBoundingClientRect().width /
-                                1.42) /
-                        2;
-                    valueX2 =
-                        valueX1 + cardphotoImage.getBoundingClientRect().width;
-                    valueY3 =
-                        valueY1 +
-                        cardphotoImage.getBoundingClientRect().width / 1.42;
-                    // valueY1 =
-                    //     (cardphotoImage.getBoundingClientRect().height -
-                    //         cardphotoImage.getBoundingClientRect().width /
-                    //             1.42) /
-                    //     2;
-                    // valueX2 =
-                    //     valueX1 + cardphotoImage.getBoundingClientRect().width;
-                    // valueY3 =
-                    //     valueY1 +
-                    //     cardphotoImage.getBoundingClientRect().width / 1.42;
+                    deltaCircle = circle1.offsetWidth / 2;
+                    valueX1 = 0;
+
+                    // console.log(
+                    //     'size: ',
+                    //     cardphotoImage.getBoundingClientRect().width,
+                    //     cardphotoImage.getBoundingClientRect().height
+                    // );
+
+                    if (
+                        cardphotoImage.getBoundingClientRect().width >
+                        cardphotoImage.getBoundingClientRect().height
+                    ) {
+                        valueY1 =
+                            (cardphotoForm.getBoundingClientRect().height -
+                                cardphotoBorder.getBoundingClientRect()
+                                    .height) /
+                            2;
+                        valueX2 = valueX1 + cardWidth;
+                        valueY3 =
+                            valueY1 +
+                            cardphotoBorder.getBoundingClientRect().height;
+                    } else {
+                        valueY1 =
+                            (cardphotoImage.getBoundingClientRect().height -
+                                cardphotoImage.getBoundingClientRect().width /
+                                    1.42) /
+                            2;
+                        valueX2 =
+                            valueX1 +
+                            cardphotoImage.getBoundingClientRect().width;
+                        valueY3 =
+                            valueY1 +
+                            cardphotoImage.getBoundingClientRect().width / 1.42;
+                        // valueY1 =
+                        //     (cardphotoImage.getBoundingClientRect().height -
+                        //         cardphotoImage.getBoundingClientRect().width /
+                        //             1.42) /
+                        //     2;
+                        // valueX2 =
+                        //     valueX1 + cardphotoImage.getBoundingClientRect().width;
+                        // valueY3 =
+                        //     valueY1 +
+                        //     cardphotoImage.getBoundingClientRect().width / 1.42;
+                    }
                 }
 
                 setCoordinatesCircles(
@@ -910,6 +911,31 @@ export function changeCardphoto(elem) {
                             break;
                         }
 
+                        if (
+                            valueX1 >=
+                                parseFloat(
+                                    document.querySelector('.circle-2-start')
+                                        .style.left
+                                ) -
+                                    deltaCircle ||
+                            valueY +
+                                cardphotoForm.getBoundingClientRect().top >=
+                                parseFloat(
+                                    document.querySelector('.circle-3-start')
+                                        .style.top
+                                ) +
+                                    cardphoto.getBoundingClientRect().top -
+                                    deltaCircle
+                        ) {
+                            circle1.style.left = circle3.style.left;
+                            circle1.style.top = circle3.style.top;
+                            circle2.style.left = circle3.style.left;
+                            circle2.style.top = circle3.style.top;
+                            circle4.style.left = circle3.style.left;
+                            circle4.style.top = circle3.style.top;
+                            break;
+                        }
+
                         el.style.top = valueY + 'px';
                         el.style.left = valueX1 + 'px';
 
@@ -1018,7 +1044,30 @@ export function changeCardphoto(elem) {
                             break;
                         }
 
-                        // if (!deltaBkgY2) {deltaBkgY2 = 0};
+                        if (
+                            valueX2 <=
+                                parseFloat(
+                                    document.querySelector('.circle-1-start')
+                                        .style.left
+                                ) -
+                                    deltaCircle ||
+                            valueY +
+                                cardphotoForm.getBoundingClientRect().top >=
+                                parseFloat(
+                                    document.querySelector('.circle-4-start')
+                                        .style.top
+                                ) +
+                                    cardphoto.getBoundingClientRect().top -
+                                    deltaCircle
+                        ) {
+                            circle1.style.left = circle4.style.left;
+                            circle1.style.top = circle4.style.top;
+                            circle2.style.left = circle4.style.left;
+                            circle2.style.top = circle4.style.top;
+                            circle3.style.left = circle4.style.left;
+                            circle3.style.top = circle4.style.top;
+                            break;
+                        }
 
                         el.style.top = valueY + 'px';
                         el.style.left = valueX2 + 'px';
@@ -1125,7 +1174,30 @@ export function changeCardphoto(elem) {
                             break;
                         }
 
-                        // if (!deltaBkgY3) {deltaBkgY3 = 0};
+                        if (
+                            valueX3 <=
+                                parseFloat(
+                                    document.querySelector('.circle-4-start')
+                                        .style.left
+                                ) -
+                                    deltaCircle ||
+                            valueY +
+                                cardphotoForm.getBoundingClientRect().top <=
+                                parseFloat(
+                                    document.querySelector('.circle-2-start')
+                                        .style.top
+                                ) +
+                                    cardphoto.getBoundingClientRect().top -
+                                    deltaCircle
+                        ) {
+                            circle2.style.left = circle1.style.left;
+                            circle2.style.top = circle1.style.top;
+                            circle3.style.left = circle1.style.left;
+                            circle3.style.top = circle1.style.top;
+                            circle4.style.left = circle1.style.left;
+                            circle4.style.top = circle1.style.top;
+                            break;
+                        }
 
                         el.style.top = valueY + 'px';
                         el.style.left = valueX3 + 'px';
@@ -1221,7 +1293,30 @@ export function changeCardphoto(elem) {
                             break;
                         }
 
-                        // if (!deltaBkgY4) {deltaBkgY4 = 0};
+                        if (
+                            valueX4 >=
+                                parseFloat(
+                                    document.querySelector('.circle-3-start')
+                                        .style.left
+                                ) -
+                                    deltaCircle ||
+                            valueY +
+                                cardphotoForm.getBoundingClientRect().top <=
+                                parseFloat(
+                                    document.querySelector('.circle-1-start')
+                                        .style.top
+                                ) +
+                                    cardphoto.getBoundingClientRect().top -
+                                    deltaCircle
+                        ) {
+                            circle1.style.left = circle2.style.left;
+                            circle1.style.top = circle2.style.top;
+                            circle3.style.left = circle2.style.left;
+                            circle3.style.top = circle2.style.top;
+                            circle4.style.left = circle2.style.left;
+                            circle4.style.top = circle2.style.top;
+                            break;
+                        }
 
                         el.style.top = valueY + 'px';
                         el.style.left = valueX4 + 'px';
@@ -1372,10 +1467,15 @@ export function changeCardphoto(elem) {
 
     newImage.addEventListener('mouseenter', addClassHover);
     newImage.addEventListener('mouseleave', delClassHover);
-    // newImage.addEventListener('pointerdown', checkingCoefficientWidthHeight);
     cardphotoForm.addEventListener('mousemove', moveCardphotoForm);
 
     mainBlock.addEventListener('pointerup', reRecordCircleStart);
+    mainBlock.onmouseup = function () {
+        newImage.removeEventListener('mousemove', moveNewImage);
+        cardphotoForm.removeEventListener('mousemove', moveCardphotoForm);
+        // reRecordCircleStart();
+        newImage.onmouseup = null;
+    };
 
     // torn card
 
@@ -1389,6 +1489,11 @@ export function changeCardphoto(elem) {
         if (newImageHeight <= cardphotoImageHeight) {
             newImage.style.width = newImageHeight + 'px';
             newImage.style.height = newImageWidth + 'px';
+            newImage.style.left =
+                (cardphotoImage.getBoundingClientRect().width -
+                    newImageHeight) /
+                    2 +
+                'px';
             newImage.style.top =
                 (cardphotoImage.getBoundingClientRect().height -
                     newImageWidth) /
@@ -1400,21 +1505,6 @@ export function changeCardphoto(elem) {
 
         checkingCoefficientWidthHeight();
 
-        // console.log('setCoordinatesCircles: ', x1, y1, x2, y3, deltaCircle);
-
-        // setSizeNewImage();
-
-        // if (imageWidth > imageHeight) {
-        //     console.log('horizontal');
-        // } else {
-        //     console.log('vertical');
-
-        // setSizeCardphotoForm();
-        // setCoordinatesCircles()
-
-        // newImage.style.left = newCoordinatesNewImage[0] + 'px';
-        // newImage.style.top = newCoordinatesNewImage[1] + 'px';
-
         setCoordinatesCircles(
             parseFloat(newImage.style.left),
             parseFloat(newImage.style.top),
@@ -1424,8 +1514,6 @@ export function changeCardphoto(elem) {
         );
 
         resizeBackground();
-        // resizeBorder();
-        // }
     }
 
     //** torn image */
