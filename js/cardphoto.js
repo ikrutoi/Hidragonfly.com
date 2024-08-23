@@ -270,8 +270,6 @@ export function changeCardphoto(elem) {
 
         if (newImageWidth > newImageHeight) coefficientWidthHeight = 1.42;
         else coefficientWidthHeight = 0.7042;
-
-        console.log(coefficientWidthHeight);
     }
 
     let valueX1;
@@ -285,7 +283,7 @@ export function changeCardphoto(elem) {
             cardphotoAdd(elem);
             break;
         case 'change':
-            let newCoordinatesNewImage;
+            // let newCoordinatesNewImage;
             elem.classList.toggle('active');
             cardphotoForm.classList.toggle('active');
 
@@ -1480,13 +1478,14 @@ export function changeCardphoto(elem) {
     // torn card
 
     function cardphotoTornCard() {
-        const imageWidth = cardphotoImage.getBoundingClientRect().width;
+        const cardphotoImageWidth =
+            cardphotoImage.getBoundingClientRect().width;
         const cardphotoImageHeight =
             cardphotoImage.getBoundingClientRect().height;
         const newImageWidth = newImage.getBoundingClientRect().width;
         const newImageHeight = newImage.getBoundingClientRect().height;
 
-        if (newImageHeight <= cardphotoImageHeight) {
+        if (newImageWidth <= cardphotoImageHeight) {
             newImage.style.width = newImageHeight + 'px';
             newImage.style.height = newImageWidth + 'px';
             newImage.style.left =
@@ -1500,19 +1499,26 @@ export function changeCardphoto(elem) {
                     2 +
                 'px';
         } else {
-            console.log('height newImage > height cardphoto-image');
+            newImage.style.width = cardphotoImageHeight / 1.42 + 'px';
+            newImage.style.height = cardphotoImageHeight + 'px';
+            newImage.style.top = '0px';
+            newImage.style.left =
+                (cardphotoImage.getBoundingClientRect().width -
+                    newImage.getBoundingClientRect().width) /
+                    2 +
+                'px';
         }
 
         checkingCoefficientWidthHeight();
-
         setCoordinatesCircles(
             parseFloat(newImage.style.left),
             parseFloat(newImage.style.top),
-            parseFloat(newImage.style.left) + newImageHeight,
-            parseFloat(newImage.style.top) + newImageWidth,
+            parseFloat(newImage.style.left) +
+                newImage.getBoundingClientRect().width,
+            parseFloat(newImage.style.top) +
+                newImage.getBoundingClientRect().height,
             circle1.offsetWidth / 2
         );
-
         resizeBackground();
     }
 
