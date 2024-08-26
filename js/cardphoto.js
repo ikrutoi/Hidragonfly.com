@@ -151,6 +151,11 @@ export function changeCardphoto(elem) {
             'beforeend',
             '<div class="new-image"></div>'
         );
+        newElemHTML(
+            cardphotoForm,
+            'beforeend',
+            '<canvas class="canvas" style="width: 0px; height: 0px;"></canvas>'
+        );
 
         cardphotoForm.classList.add('created');
     }
@@ -356,6 +361,7 @@ export function changeCardphoto(elem) {
             }
             break;
         case 'cut':
+            cardphotoCut();
             break;
         case 'max':
             cardphotoMax();
@@ -1759,6 +1765,44 @@ export function changeCardphoto(elem) {
         console.log('del');
 
         addStartImage();
+    }
+
+    //** cut */
+
+    function cardphotoCut() {
+        console.log('cut');
+
+        const imageAddTemporary = document.createElement('img');
+        imageAddTemporary.src = '/image/card-photo-bw.jpg';
+
+        const scaleX =
+            imageAddTemporary.width /
+            cardphotoImage.getBoundingClientRect().width;
+        const scaleY =
+            imageAddTemporary.height /
+            cardphotoImage.getBoundingClientRect().height;
+        newImage.classList.toggle('cut');
+
+        const canvas = document.querySelector('.canvas');
+
+        canvas.style.width = newImage.getBoundingClientRect().width + 'px';
+        canvas.style.height = newImage.getBoundingClientRect().height + 'px';
+        canvas.style.left = '0px';
+        canvas.style.top = '0px';
+
+        const ctx = canvas.getContext('2d');
+
+        ctx.drawImage(
+            cardphotoImage,
+            parseFloat(newImage.style.left) * scaleX,
+            parseFloat(newImage.style.top) * scaleY,
+            newImage.getBoundingClientRect().width * scaleX,
+            newImage.getBoundingClientRect().height * scaleY,
+            0,
+            0,
+            newImage.getBoundingClientRect().width,
+            newImage.getBoundingClientRect().height
+        );
     }
 }
 
