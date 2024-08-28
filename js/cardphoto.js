@@ -1770,8 +1770,6 @@ export function changeCardphoto(elem) {
     //** cut */
 
     function cardphotoCut() {
-        console.log('cut');
-
         const imageAddTemporary = document.createElement('img');
         imageAddTemporary.src = '/image/card-photo-bw.jpg';
 
@@ -1785,12 +1783,13 @@ export function changeCardphoto(elem) {
 
         const canvas = document.querySelector('.canvas');
 
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = newImage.getBoundingClientRect().width;
+        canvas.height = newImage.getBoundingClientRect().height;
+
         canvas.style.width = newImage.getBoundingClientRect().width + 'px';
         canvas.style.height = newImage.getBoundingClientRect().height + 'px';
-        canvas.style.left = '0px';
-        canvas.style.top = '0px';
-
-        const ctx = canvas.getContext('2d');
 
         ctx.drawImage(
             cardphotoImage,
