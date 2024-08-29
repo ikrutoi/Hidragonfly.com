@@ -26,17 +26,14 @@
     display: none;
 }
 
-.cardphoto-border {
-    // .card-size-mixin;
-    position: absolute;
-    // box-sizing: border-box;
-    // background-color: @color-basis-hover;
-    // z-index: 2;
-    // border: solid 1px red;
-}
-
 .cardphoto-form {
     display: none;
+}
+
+.cardphoto-card {
+    position: absolute;
+    // border: solid 1px greenyellow;
+    // z-index: 2;
 }
 
 .cardphoto-form.active {
@@ -146,6 +143,7 @@
 // }
 
 .cardphoto-image {
+    .box-shadow-mixin();
     position: absolute;
     // .card-size-mixin;
     background-size: cover;
@@ -156,7 +154,7 @@
 //** circle */
 
 .image-outer-border {
-    .card-size-mixin;
+    // .card-size-mixin;
     position: absolute;
     // border: solid 1px yellow;
     // z-index: 1;
@@ -249,8 +247,13 @@
 
 .canvas {
     position: absolute;
-    // border: solid 1px orange;
-    z-index: 3;
+    display: block;
+    border: solid 1px orange;
+    // z-index: 3;
+}
+
+.canvas.deactivation {
+    display: none;
 }
 
 // .background-image-up {
