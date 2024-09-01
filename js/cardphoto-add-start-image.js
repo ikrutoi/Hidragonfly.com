@@ -1,6 +1,7 @@
 export function addStartImage() {
     const cardphotoCard = document.querySelector('.cardphoto-card');
     const cardphotoImage = document.querySelector('.cardphoto-image');
+    const historyCard = document.querySelector('.history-card');
 
     const cardWidth = document.documentElement.clientHeight * 0.5 * 1.42;
     const cardHeight = document.documentElement.clientHeight * 0.5;
@@ -28,6 +29,9 @@ export function addStartImage() {
 
     cardphotoCard.style.width = cardWidth + 'px';
     cardphotoCard.style.height = cardHeight + 'px';
+
+    historyCard.style.width = cardWidth + 'px';
+    historyCard.style.height = cardHeight + 'px';
 
     cardphotoImage.src = '/image/card-photo-bw.jpg';
 }

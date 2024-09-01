@@ -1,0 +1,121 @@
+.history {
+    display: none;
+}
+
+.history.active {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.history-header {
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    height: 87.56px;
+    width: 100%;
+    // border: solid 1px brown;
+}
+
+.history-header-list-scroll {
+    // border: solid 1px green;
+    // margin: 0 2rem;
+    border-radius: 0.7rem;
+    background-color: @color-basis-hover;
+    width: 3rem;
+    cursor: pointer;
+}
+
+.history-header-list-left {
+    margin: 0 1rem 0 2rem;
+}
+
+.history-header-list-right {
+    margin: 0 2rem 0 1rem;
+}
+
+.history-header-list {
+    background-color: @color-basis-hover;
+    border-radius: 0.7rem;
+    // margin: 0 2rem;
+    width: 100%;
+}
+
+.history-card {
+    .box-shadow-mixin();
+    display: flex;
+    // position: absolute;
+    // border: solid 1px red;
+}
+
+.history-card-multi-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    position: relative;
+    // border: solid 1px yellowgreen;
+    width: 100%;
+    // height: 100%;
+}
+
+.history-card-multi-left {
+    margin: 1rem 0.5rem 1rem 1rem;
+}
+
+.history-card-multi-right {
+    margin: 1rem 1rem 1rem 0.5rem;
+}
+
+.history-card-item {
+    // position: absolute;
+    border-radius: 0.7rem;
+    width: 100%;
+    color: @color-basis;
+    // height: auto;
+    margin-bottom: 1rem;
+    background-color: @color-basis-hover;
+}
+
+.history-card-image {
+    // top: 1rem;
+    // left: 1rem;
+    // border: solid 1px green;
+    height: 12rem;
+}
+
+.history-card-text {
+    // left: 1rem;
+    // top: 11rem;
+    // border: solid 1px blueviolet;
+    // width: 284px;
+    height: 12rem;
+}
+
+.history-card-adress-my {
+    // top: 1rem;
+    // right: 1rem;
+    // border: solid 1px orchid;
+    // width: 284px;
+    height: 7rem;
+}
+
+.history-card-adress-to {
+    // right: 1rem;
+    // top: 8rem;
+    // border: solid 1px chocolate;
+    // width: 284px;
+    height: 7rem;
+}
+
+.history-card-aroma {
+    // right: 1rem;
+    // top: 16rem;
+    // border: solid 1px plum;
+    // width: 284px;
+    height: 7rem;
+}

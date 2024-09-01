@@ -14,6 +14,7 @@ const cardphotoForm = document.querySelector('.cardphoto-form');
 // const cardphotoForm = document.querySelector('.cardphoto-image-form');
 const cardphotoImage = document.querySelector('.cardphoto-image');
 const cardphotoCard = document.querySelector('.cardphoto-border');
+const cardphotoList = document.querySelector('.cardphoto-list');
 
 const cardHeight = document.documentElement.clientHeight * 0.5;
 const cardWidth = cardHeight * 1.42;
@@ -1765,20 +1766,39 @@ export function changeCardphoto(elem) {
     //** cut */
 
     function cardphotoCut() {
-        const imageAddTemporary = document.createElement('img');
-        imageAddTemporary.src = '/image/card-photo-bw.jpg';
+        const imageTemporary = document.createElement('img');
+        imageTemporary.src = '/image/card-photo-bw.jpg';
+
+        console.log(imageTemporary.width, imageTemporary.height);
+
+        const realSizeNewImageWidth =
+            (imageTemporary.width * newImage.getBoundingClientRect().width) /
+            cardphotoImage.getBoundingClientRect().width;
+        const realSizeNewImageHeight =
+            (imageTemporary.height * newImage.getBoundingClientRect().height) /
+            cardphotoImage.getBoundingClientRect().height;
+
+        console.log(realSizeNewImageWidth, realSizeNewImageHeight);
 
         const scaleX =
-            imageAddTemporary.width /
-            cardphotoImage.getBoundingClientRect().width;
+            imageTemporary.width / cardphotoImage.getBoundingClientRect().width;
         const scaleY =
-            imageAddTemporary.height /
+            imageTemporary.height /
             cardphotoImage.getBoundingClientRect().height;
         newImage.classList.toggle('cut');
 
+        // console.log(arguments.callee.toString());
+
+        // const fs = require('fs');
+
+        // fs.writeFile('./image-add/first.txt', 'First file text', (err) => {
+        //     if (err) console.log(err);
+        //     else console.log('File first.txt was written');
+        // });
+
         const canvas = document.querySelector('.canvas');
         // const dataUrl = canvas.toDataURL('image/jpeg', 1.0);
-        const ctx = canvas.getContext('2d');
+        const context = canvas.getContext('2d');
 
         if (
             newImage.getBoundingClientRect().width >
@@ -1802,11 +1822,11 @@ export function changeCardphoto(elem) {
                 deltaCircle
             );
 
-            canvas.width = cardphotoCard.getBoundingClientRect().width;
-            canvas.height = cardphotoCard.getBoundingClientRect().height;
+            canvas.width = realSizeNewImageWidth;
+            canvas.height = realSizeNewImageHeight;
 
-            canvas.style.width = cardphotoCard.style.width;
-            canvas.style.height = cardphotoCard.style.height;
+            canvas.style.width = realSizeNewImageWidth + 'px';
+            canvas.style.height = realSizeNewImageHeight + 'px';
         } else {
             resizeCard();
 
@@ -1824,25 +1844,25 @@ export function changeCardphoto(elem) {
                 deltaCircle
             );
 
-            canvas.width = cardphotoCard.getBoundingClientRect().height;
-            canvas.height = cardphotoCard.getBoundingClientRect().width;
+            canvas.width = realSizeNewImageHeight;
+            canvas.height = realSizeNewImageWidth;
 
-            canvas.style.width = cardphotoCard.style.height;
-            canvas.style.height = cardphotoCard.style.width;
+            canvas.style.width = realSizeNewImageHeight + 'px';
+            canvas.style.height = realSizeNewImageWidth + 'px';
         }
 
         // ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        ctx.drawImage(
+        context.drawImage(
             cardphotoImage,
             parseFloat(newImage.style.left) * scaleX,
             parseFloat(newImage.style.top) * scaleY,
-            newImage.getBoundingClientRect().width * scaleX,
-            newImage.getBoundingClientRect().height * scaleY,
+            realSizeNewImageWidth,
+            realSizeNewImageHeight,
             0,
             0,
-            cardphotoCard.getBoundingClientRect().width,
-            cardphotoCard.getBoundingClientRect().height
+            realSizeNewImageWidth,
+            realSizeNewImageHeight
         );
 
         resizeFormAndCardphoto();
@@ -1860,6 +1880,28 @@ export function changeCardphoto(elem) {
         cardphotoImage.src = dataUrl;
 
         canvas.classList.add('deactivation');
+
+        const imageAddTemporary = document.createElement('img');
+        imageAddTemporary.src = dataUrl;
+
+        canvas.toBlob(
+            (blob) => {
+                const link = document.createElement('a');
+                link.download = 'example.jpeg';
+
+                link.href = URL.createObjectURL(blob);
+                console.log(link.href);
+                console.log(link);
+                link.click();
+
+                URL.revokeObjectURL(link.href);
+            },
+            'image/jpeg',
+            1.0
+        );
+
+        // console.log('1', imageAddTemporary.width, imageAddTemporary.height);
+        // console.log('2', imageAddTemporary.width, imageAddTemporary.height);
         // const link = document.createElement('a');
         // link.href = dataUrl;
 

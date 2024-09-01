@@ -1,7 +1,7 @@
 import { createHeaderNav } from './header-nav.js';
 import { addStartImage } from './cardphoto-add-start-image.js';
 // import { clickButtonActive } from './navigation.js';
-import { startPressActivation } from "./start-press-activation.js";
+import { startPressActivation } from './start-press-activation.js';
 import { clearSessionStarage } from './clear-session-storage.js';
 import { validationValueSessionStorage } from './envelope-valid-ses-stor.js';
 
@@ -19,7 +19,7 @@ addStartImage();
 //         if (!el.classList.contains('active')) {
 //             startPressActivation(el);
 //             clickButtonActive(el);
-//         }        
+//         }
 //     }
 
 //     validationValueSessionStorage();
@@ -27,8 +27,8 @@ addStartImage();
 //     if (el.classList.contains('header-nav--button-aroma') && sessionStorage.getItem('aroma--name')) {
 //         el.classList.add('value-in-memory');
 //     }
-    
-//     if (el.classList.contains('header-nav--button-date') && sessionStorage.getItem('date--year')) {      
+
+//     if (el.classList.contains('header-nav--button-date') && sessionStorage.getItem('date--year')) {
 //         el.classList.add('value-in-memory');
 //     }
 
