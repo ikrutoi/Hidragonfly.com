@@ -1,0 +1,186 @@
+.main-nav.border-bottom {
+    border-bottom: solid 1px @color-basis-border-main;
+}
+
+.main-nav-menu {
+    display: none;
+}
+
+.main-nav-menu.active {
+    display: flex;
+    // margin: 0;
+    padding-inline-start: 1.9rem;
+    list-style-type: none;
+}
+
+.main-nav-menu.active.selected {
+    color: @color-basis;
+}
+
+.cardphoto-add-label {
+    display: flex;
+    align-items: center;
+    // margin: 0 1rem;
+    // border-bottom-width: 2px;
+    // border-bottom-style: solid;
+    // border-bottom-color: @color-basis-transparent;
+    // transition: color 100ms ease-in;
+    // transition: border-bottom-color 100ms ease-in;
+    // line-height: 46px;
+    cursor: pointer;
+    // border: solid 1px green;  
+}
+
+.main-nav--button {
+    display: flex;
+    align-items: center;
+    margin: 0 1rem;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: @color-basis-transparent;
+    transition: color 100ms ease-in;
+    transition: border-bottom-color 100ms ease-in;
+    // line-height: 46px;
+    cursor: pointer;
+    // border: solid 1px green;
+}
+
+.header-nav--button.active, .main-nav--button.active {
+    color: @color-basis;
+    border-bottom-color: @color-basis;
+    transition: color 100ms ease-in;
+    transition: border-bottom-color 100ms ease-in;
+}
+
+.main-nav--button:hover {
+    border-bottom-color: @color-basis;
+    transition: border-bottom-color 100ms ease-in;
+}
+
+.nav--button-logo {
+    color: grey;
+    width: 14px;
+    height: 14px;
+    background-color: grey;
+}
+
+.nav--button-text {
+    line-height: 36px;
+    padding: 2px 1px 0 0;
+    // color: aqua;
+    margin-left: 10px;
+    // border: solid 1px red;
+    transform: skew(-7deg);
+}
+
+//** --------------- */
+
+.nav-additional-block {
+    display: none;
+}
+
+.nav-additional-block.active {
+    .size-nav-additional-block;
+    // display: flex;
+}
+
+.nav-additional-block p {
+    // margin: 0 0.6rem 0 0.5rem;
+    user-select: none;
+}
+
+.nav-additional-button {
+    .size-nav-additional-button;
+}
+
+.nav-additional-button:hover {
+    background-color: @color-basis-hover;
+    transition: background-color 100ms ease-in;
+}
+
+.nav-additional-button.press-active {
+    .add-press-button;
+}
+
+.nav-additional-button-multi {
+    .size-nav-additional-button-multi;
+}
+
+.nav-additional-multi-left {
+    .size-nav-additional-multi-left;
+}
+
+.nav-additional-multi-right {
+    .size-nav-additional-multi-right;
+}
+
+.nav-additional-multi-left:hover, .nav-additional-multi-right:hover {
+    background-color: @color-basis-hover;
+    transition: background-color 100ms ease-in;
+}
+
+.nav-additional-multi-left.press-active, .nav-additional-multi-right.press-active {
+    .add-press-button;
+}
+
+.nav-additional-date.active {
+    background-color: @color-basis-transparent;
+}
+
+.nav-additional-aroma {
+    display: none;
+}
+
+.nav-additional-aroma.active {
+    background-color: @color-basis-transparent;
+}
+
+.nav-additional-button-aroma {
+    background-color: @color-basis;
+    color: @color-basis-white;
+}
+
+.nav-additional-button-aroma:hover {
+    background-color: @color-basis;
+    color: @color-basis-white;
+    cursor: default;
+}
+
+.nav-additional-date-full {
+    animation-name: show-rows;
+    animation-duration: 150ms;
+}
+
+.nav-additional-date-multi {
+    display: none;
+    margin: 2px;
+    padding: 6px 1rem;
+    background-color: @color-basis;
+    color: @color-basis-white;
+}
+
+.nav-additional-date-multi:hover {
+    background-color: @color-basis;
+    color: @color-basis-white;
+    cursor: default;
+}
+
+.additional-date-multi {
+    display: flex;
+    justify-content: space-between;
+    user-select: none;
+}
+
+.additional-date-multi span:nth-child(2) {
+    width: 4.8rem;
+}
+
+.additional-date-multi span:nth-child(1) {
+    width: 2.4rem;
+    margin-right: 8px;
+}
+
+.additional-date-multi span:nth-child(3) {
+    width: 1.4rem;
+    margin-left: 8px;
+}

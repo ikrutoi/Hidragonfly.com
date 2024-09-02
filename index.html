@@ -26,29 +26,39 @@
 </head>
 <body>
     <header class="header">
-        <div class="header-menu">
-            <div class="header-menu-logoname header-menu-item">
-                <!-- <div class="logo-img"></div> -->
-                <img class="logo-img" src="/logo/logo-v3-36-38-for-header-classic.svg">          
-                <img class="logoname-img" src="/logo/logoname-v3-28-30-for-header-classic.svg">
+        <div class="header-full">
+            <div class="header-menu">
+                <div class="header-menu-logoname header-menu-item">
+                    <img class="logo-img" src="/logo/logo-v3-36-38-for-header-classic.svg">          
+                    <img class="logoname-img" src="/logo/logoname-v3-28-30-for-header-classic.svg">
+                </div>
+                <div class="header-menu-login header-menu-item">
+                    <span class="header-login-icon">Log</span>
+                </div>
             </div>
-            <div class="header-menu-login header-menu-item">
-                <span class="header-login-icon">Log</span>
-            </div>
+                <div class="header-nav"></div>
         </div>
-        <!-- <div class="nav"> -->
-            <div class="header-nav"></div>
-        <!-- </div> -->
     </header>
     <main class="main">
         <div class="main-addition">
-            <div class="main-nav">
-                <input id="cardphoto-input-add" class="cardphoto-input" type="file" accept="image/*"/>
+            <div class="main-cardlist">
+                <!-- <div class="history-header"> -->
+                    <div class="main-cardlist-scroll main-cardlist-left">
+                        <span>&lt</span>
+                    </div>
+                    <div class="main-cardlist-body"></div>
+                    <div class="main-cardlist-scroll main-cardlist-right">
+                        <span>&gt</span>
+                    </div>
+                <!-- </div> -->
             </div>
             <div class="main-block">
+                <div class="main-nav">
+                    <input id="cardphoto-input-add" class="cardphoto-input" type="file" accept="image/*"/>
+                </div>
                 <div class="block cardphoto">   
                     <div class="cardphoto-card">
-                        <div class="cardphoto-list"></div>
+                        <!-- <div class="cardphoto-list"></div> -->
                     </div>             
                     <img class="cardphoto-image" src="">
                     <div class="cardphoto-form"></div>
@@ -148,11 +158,6 @@
                 </div>
                 <div class="block history">
                     <!-- <div class="history-main"> -->
-                        <div class="history-header">
-                            <div class="history-header-list-scroll history-header-list-left">&lt</div>
-                            <div class="history-header-list"></div>
-                            <div class="history-header-list-scroll history-header-list-right">&gt</div>
-                        </div>
                         <div class="history-card">
                             <div class="history-card-multi-item history-card-multi-left">
                                 <div class="history-card-item history-card-image">image..</div>
@@ -167,6 +172,8 @@
                     <!-- </div> -->
                 </div>
             </div>
+            <!-- <div class="main-nav"> -->
+            <!-- </div> -->
         </div>
     </main>
     <footer class="footer">
