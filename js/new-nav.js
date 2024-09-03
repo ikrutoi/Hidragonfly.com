@@ -29,12 +29,6 @@ export function createNavList(i, toTag, toBlock, codeName, titleName, unit) {
             `<li class="${toBlock}-nav--button ${toBlock}-nav--${unit}--button ${toBlock}-nav--button-${codeName}" data-menu-nav="${codeName}"><label class="cardphoto-add-label" for="cardphoto-input-add"></label></li>`
         );
 
-        // newElemHTML(
-        //     cardphotoList,
-        //     'beforeend',
-        //     `<li class="${toBlock}-nav--button ${toBlock}-nav--${unit}--button ${toBlock}-nav--button-${codeName}" data-menu-nav="${codeName}"><label class="cardphoto-add-label" for="cardphoto-input-add"></label></li>`
-        // );
-
         const labelAdd = document.querySelector('.cardphoto-add-label');
 
         newElemHTML(

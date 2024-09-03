@@ -1,6 +1,7 @@
 .main {
     grid-area: main;
     position: relative;
+    margin-bottom: 4px;
 }
 
 .main-addition {
@@ -41,4 +42,35 @@
     justify-content: center;
     align-items: center;
     // border: solid 1px green;
+}
+
+// main-footer
+
+.main-footer {
+    position: absolute;
+    opacity: 0.33;
+    bottom: 0;
+    right: 0;
+    display: none;
+    // grid-area: footer;
+    grid-row: 3/4;
+    height: 36px;
+    margin: 4px;
+    // border-radius: 1.4rem;
+    // background-color: @color-basis-white;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    // border: solid 1px blue;
+}
+
+.main-footer-text {
+    font-size: 0.7rem;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-right: 1rem;
+    user-select: none;
+}
+
+.main-footer-logo-img {
+    margin-right: 4px;
 }

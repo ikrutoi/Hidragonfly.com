@@ -7,11 +7,9 @@ body {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: min-content auto min-content;
-    grid-template-areas: 
-    "header"
-    // "navigation"
-    "main"
-    "footer";
+    grid-template-areas:
+        'header'
+        'main';
 }
 
 body p {
@@ -19,7 +17,8 @@ body p {
     transform: skew(-7deg);
 }
 
-.block, .nav-menu-addit {
+.block,
+.nav-menu-addit {
     display: none;
 }
 
