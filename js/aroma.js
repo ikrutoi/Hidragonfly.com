@@ -4,9 +4,6 @@ import { postDataToBackend } from './form-data-for-backend.js';
 export function createAroma() {
     const aromaBlock = document.querySelector('.aroma-block');
 
-    let sym = 'B';
-    console.log(sym.charCodeAt(0));
-
     newElemHTML(aromaBlock, 'beforeend', '<ul class="aroma-block-list"></ul>');
 
     const aromaBlockList = document.querySelector('.aroma-block-list');

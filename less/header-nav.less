@@ -1,0 +1,109 @@
+//** header navigation */
+
+.header-nav {
+    grid-column: 1/2;
+    grid-row: 2/3;
+    // grid-area: header-nav;
+    // display: none;
+    // height: 46px;
+    margin: 4px;
+    width: min-content;
+    // margin: 4px;
+    // display: flex;
+    // justify-content: center;
+    // background-color: @color-basis-hover;
+    border-radius: 2rem;
+    position: relative;
+    display: flex;
+    // flex-direction: column;
+    // justify-content: flex-start;
+    // text-align: center;
+    // border: solid 1px blue;
+}
+
+.header-nav-menu {
+    padding-inline-start: 0;
+    margin: 0;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.header-nav--button {
+    display: flex;
+    align-items: center;
+    margin: 0 1rem;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-color: @color-basis-transparent;
+    transition: color 100ms ease-in;
+    transition: border-bottom-color 100ms ease-in;
+    user-select: none;
+    cursor: pointer;
+    // line-height: 46px;
+    // border: solid 1px green;
+}
+
+.header-nav--button.active {
+    color: @color-basis;
+    border-bottom-color: @color-basis;
+    transition: color 100ms ease-in;
+    transition: border-bottom-color 100ms ease-in;
+}
+
+.header-nav--button:hover {
+    border-bottom-color: @color-basis;
+    transition: border-bottom-color 100ms ease-in;
+}
+
+.nav--button-logo {
+    color: grey;
+    width: 14px;
+    height: 14px;
+    background-color: grey;
+}
+
+.nav--button-logo.active {
+    color: @color-basis;
+    background-color: @color-basis;
+}
+
+.nav--button-text {
+    line-height: 34px;
+    padding: 2px 1px 0 0;
+    // color: aqua;
+    margin-left: 10px;
+    // border: solid 1px red;
+    transform: skew(-7deg);
+}
+
+.nav-button {
+    .size-nav-header-button;
+    transition: background-color 100ms ease-in;
+    // border: solid 1px blue;
+}
+
+.nav-button.value-in-memory {
+    color: @color-basis;
+}
+
+.nav-button:hover {
+    border-bottom-color: @color-basis;
+    cursor: pointer;
+    // background-color: @color-basis-hover;
+    transition: border-bottom-color 100ms ease-in;
+}
+
+.nav-button.active {
+    background-color: @color-basis-hover;
+    cursor: default;
+}
+
+.nav-button.press-active {
+    .add-press-button;
+}
+
+.header-nav p {
+    margin: 0 0.6rem 0 0.5rem;
+    user-select: none;
+}

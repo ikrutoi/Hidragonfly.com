@@ -1,15 +1,16 @@
 body {
     position: relative;
     height: 100vh;
+    // width: 100vw;
     margin: 0;
     background-color: @color-basis-gradient-top;
     // background: linear-gradient(to bottom, @color-basis-gradient-top, @color-basis-gradient-bottom);
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: min-content auto min-content;
-    grid-template-areas:
-        'header'
-        'main';
+    grid-template-columns: 1fr 9fr;
+    grid-template-rows: min-content auto;
+    // grid-template-areas:
+    //     'header' 'header'
+    //     'header-nav' 'main';
 }
 
 body p {

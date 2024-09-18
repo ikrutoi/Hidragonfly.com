@@ -1,7 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
-import { userData } from './controllers/users-data.mjs';
+import { userData, writeUserData } from './controllers/users-data.mjs';
 
 const app = express();
 
@@ -21,9 +21,11 @@ app.use((req, res) => {
     let section = req.body.section;
 
     userData[section] = req.body.data;
+
+    // writeUserData();
     // userData.aroma = req.body;
     console.log(userData);
-    // return res.send('This is express server!');
+    return res.send('This is express server!');
 });
 
 app.listen(5000, () => console.log('server is listening an port 5000'));
