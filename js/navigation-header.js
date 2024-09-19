@@ -122,10 +122,41 @@ export function navigationHeaderMenu() {
             }
         }
 
+        function mouseenter() {
+            let cardUnit = el.dataset.menuNav;
+            let sampleCircle = document.querySelector(
+                `.sample-circle-${cardUnit}`
+            );
+
+            sampleCircle.classList.add('active');
+        }
+
+        function mouseleave() {
+            let cardUnit = el.dataset.menuNav;
+            let sampleCircle = document.querySelector(
+                `.sample-circle-${cardUnit}`
+            );
+
+            sampleCircle.classList.remove('active');
+        }
+
         el.addEventListener('pointerdown', removeClassActive);
         el.addEventListener('pointerdown', createMainNav);
         el.addEventListener('pointerdown', showMainNav);
         el.addEventListener('pointerdown', addBorderBottom);
         el.addEventListener('pointerdown', createMainBlock);
+
+        if (el.dataset.menuNav !== 'history') {
+            el.addEventListener('mouseenter', mouseenter);
+            el.addEventListener('mouseleave', mouseleave);
+        }
+
+        // const headerNavButtons = document.querySelectorAll(
+        //     '.header-nav--button'
+        // );
+        // headerNavButtons.forEach((el) => {
+        //     // el.addEventListener('mouseenter', mouseenter);
+        //     // el.addEventListener('mouseleave', addClassHover);
+        // });
     });
 }

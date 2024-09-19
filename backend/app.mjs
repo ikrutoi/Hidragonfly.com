@@ -16,15 +16,24 @@ app.use(cors());
 //     console.log(req.body);
 //     res.send(`${req.body.name} - ${req.body.make}`);
 // });
+// if (req.headers['content-type'] === 'image/png') {
+//     console.log('***', req.headers['content-type']);
+// }
 
 app.use((req, res) => {
+    console.log('1', userData);
     let section = req.body.section;
 
-    userData[section] = req.body.data;
+    if (req.headers['content-type'] === 'image/png') {
+        // userData['image'] = req.body.data;
+        console.log('**', req.headers);
+    } else {
+        userData[section] = req.body.data;
+    }
 
     // writeUserData();
     // userData.aroma = req.body;
-    console.log(userData);
+    console.log('2', userData);
     return res.send('This is express server!');
 });
 

@@ -22,22 +22,32 @@ export function createNavList(i, toTag, toBlock, codeName, titleName, unit) {
     //     );
     // }
 
-    if (codeName == 'add') {
+    if (codeName === 'add') {
         newElemHTML(
             newUl,
             'beforeend',
-            `<li class="${toBlock}-nav--button ${toBlock}-nav--${unit}--button ${toBlock}-nav--button-${codeName}" data-menu-nav="${codeName}"><label class="cardphoto-add-label" for="cardphoto-input-add"></label></li>`
+            `<li class="${toBlock}-nav--button ${toBlock}-nav--${unit}--button ${toBlock}-nav--button-${codeName}" data-menu-nav="${codeName}"><label class="cardphoto-${codeName}-label" for="cardphoto-input-${codeName}"></label></li>`
         );
 
-        const labelAdd = document.querySelector('.cardphoto-add-label');
+        const mainNavButton = document.querySelector(
+            `.${toBlock}-nav--button-${codeName}`
+        );
 
         newElemHTML(
-            labelAdd,
+            mainNavButton,
+            'beforeend',
+            `<input id="cardphoto-input-${codeName}" class="cardphoto-input cardphoto-input-${codeName}" type="file" accept="image/*"/>`
+        );
+
+        const label = document.querySelector(`.cardphoto-${codeName}-label`);
+
+        newElemHTML(
+            label,
             'beforeend',
             `<span class="nav--button-logo ${toBlock}-nav--${codeName}--button-logo">.</span>`
         );
         newElemHTML(
-            labelAdd,
+            label,
             'beforeend',
             `<span class="nav--button-text ${toBlock}-nav--${codeName}--button-text">${titleName}</span>`
         );

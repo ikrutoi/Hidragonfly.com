@@ -5,7 +5,11 @@ import { delClassHover } from './start-press-activation.js';
 import { newElem } from './new-element.js';
 // import { dragNDrop } from "./dnd.js";
 import { newElemHTML } from './new-element.js';
-import { addStartImage } from './cardphoto-add-start-image.js';
+import {
+    addStartImage,
+    imageStartWidth,
+    imageStartHeight,
+} from './cardphoto-add-start-image.js';
 
 const main = document.querySelector('.main');
 const mainBlock = document.querySelector('.main-block');
@@ -1766,25 +1770,26 @@ export function changeCardphoto(elem) {
     //** cut */
 
     function cardphotoCut() {
-        const imageTemporary = document.createElement('img');
-        imageTemporary.src = '/image/card-photo-bw.jpg';
+        // const imageTemporary = document.createElement('img');
+        // imageTemporary.src = '/image/card-photo-bw.jpg';
 
-        console.log(imageTemporary.width, imageTemporary.height);
+        // console.log(imageAddTemporary.src);
+
+        // console.log(imageTemporary.width, imageTemporary.height);
 
         const realSizeNewImageWidth =
-            (imageTemporary.width * newImage.getBoundingClientRect().width) /
+            (imageStartWidth * newImage.getBoundingClientRect().width) /
             cardphotoImage.getBoundingClientRect().width;
         const realSizeNewImageHeight =
-            (imageTemporary.height * newImage.getBoundingClientRect().height) /
+            (imageStartHeight * newImage.getBoundingClientRect().height) /
             cardphotoImage.getBoundingClientRect().height;
 
         console.log(realSizeNewImageWidth, realSizeNewImageHeight);
 
         const scaleX =
-            imageTemporary.width / cardphotoImage.getBoundingClientRect().width;
+            imageStartWidth / cardphotoImage.getBoundingClientRect().width;
         const scaleY =
-            imageTemporary.height /
-            cardphotoImage.getBoundingClientRect().height;
+            imageStartHeight / cardphotoImage.getBoundingClientRect().height;
         newImage.classList.toggle('cut');
 
         // console.log(arguments.callee.toString());
@@ -1881,24 +1886,60 @@ export function changeCardphoto(elem) {
 
         canvas.classList.add('deactivation');
 
-        const imageAddTemporary = document.createElement('img');
-        imageAddTemporary.src = dataUrl;
+        // async function submit() {
+        //     let blob = await new Promise((resolve) =>
+        //         canvas.toBlob(resolve, 'image/png')
+        //     );
+        //     let response = await fetch('http://127.0.0.1:5000', {
+        //         method: 'POST',
+        //         body: blob,
+        //     });
 
+        //     // сервер ответит подтверждением и размером изображения
+        //     // let result = await response.json();
+        //     // console.log(result.message);
+        // }
+
+        // submit();
+
+        // const imageAddTemporary = document.createElement('img');
+        // imageAddTemporary.src = dataUrl;
+        // function submitButtonCut() {
         canvas.toBlob(
             (blob) => {
-                const link = document.createElement('a');
-                link.download = 'example.jpeg';
-
-                link.href = URL.createObjectURL(blob);
-                console.log(link.href);
-                console.log(link);
-                link.click();
-
-                URL.revokeObjectURL(link.href);
+                fetch('http://127.0.0.1:5000', {
+                    method: 'POST',
+                    body: blob,
+                });
+                // .then((res) => res.json())
+                // .then((result) =>
+                //     console.log(JSON.stringify(result, null, 2))
+                // );
             },
-            'image/jpeg',
+            'image/png',
             1.0
         );
+        // }
+
+        // const inputCut = document.querySelector('.cardphoto-input-cut');
+
+        // inputCut.addEventListener('pointerdown', )
+
+        // canvas.toBlob(
+        //     (blob) => {
+        //         const link = document.createElement('a');
+        //         link.download = 'example.jpeg';
+
+        //         link.href = URL.createObjectURL(blob);
+        //         console.log(link.href);
+        //         console.log(link);
+        //         link.click();
+
+        //         URL.revokeObjectURL(link.href);
+        //     },
+        //     'image/jpeg',
+        //     1.0
+        // );
 
         // console.log('1', imageAddTemporary.width, imageAddTemporary.height);
         // console.log('2', imageAddTemporary.width, imageAddTemporary.height);

@@ -1,4 +1,7 @@
-export function addStartImage() {
+let imageStartWidth;
+let imageStartHeight;
+
+function addStartImage() {
     const cardphotoCard = document.querySelector('.cardphoto-card');
     const cardphotoImage = document.querySelector('.cardphoto-image');
     const historyCard = document.querySelector('.history-card');
@@ -10,6 +13,9 @@ export function addStartImage() {
     const imageAddTemporary = document.createElement('img');
     imageAddTemporary.src = '/image/card-photo-bw.jpg';
     imageAddTemporary.onload = () => {
+        imageStartWidth = imageAddTemporary.width;
+        imageStartHeight = imageAddTemporary.height;
+
         // if (imageAddTemporary.width > imageAddTemporary.height) {
         //     console.log('image horozontal');
         // } else {
@@ -38,3 +44,5 @@ export function addStartImage() {
 
     cardphotoImage.src = '/image/card-photo-bw.jpg';
 }
+
+export { addStartImage, imageStartWidth, imageStartHeight };
