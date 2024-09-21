@@ -518,10 +518,14 @@ export function createCalendar(newYear, newNumberMonth, newDay) {
         );
         mainNavMenuDateLogo.classList.add('active');
 
-        const headerNavMenuDateLogo = document.querySelector(
-            '.header-nav--date--button-logo'
-        );
-        headerNavMenuDateLogo.classList.add('active');
+        const sampleCircleDate = document.querySelector('.sample-circle-date');
+
+        sampleCircleDate.classList.add('selected');
+
+        // const headerNavMenuDateLogo = document.querySelector(
+        //     '.header-nav--date--button-logo'
+        // );
+        // headerNavMenuDateLogo.classList.add('active');
 
         const mainNavButtonDateText = document.querySelector(
             '.main-nav--date--button-text'

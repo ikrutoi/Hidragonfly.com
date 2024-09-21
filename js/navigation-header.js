@@ -14,6 +14,9 @@ import { navigationMain } from './navigation-main.js';
 
 export function navigationHeaderMenu() {
     const headerNavButton = document.querySelectorAll('.header-nav--button');
+    const sampleCircles = document.querySelectorAll('.sample-circle');
+
+    let sampleCircle;
 
     headerNavButton.forEach((el) => {
         const datasetElement = el.dataset.menuNav;
@@ -22,6 +25,7 @@ export function navigationHeaderMenu() {
         function removeClassActive() {
             headerNavButton.forEach((el) => el.classList.remove('active'));
             block.forEach((el) => el.classList.remove('active'));
+            sampleCircles.forEach((el) => el.classList.remove('active'));
 
             const mainNavMenu = document.querySelectorAll('.main-nav-menu');
             mainNavMenu.forEach((el) => el.classList.remove('active'));
@@ -30,6 +34,10 @@ export function navigationHeaderMenu() {
         function createMainNav() {
             el.classList.add('active');
             createMainNavMenu(el.dataset.menuNav);
+
+            let cardUnit = el.dataset.menuNav;
+            sampleCircle = document.querySelector(`.sample-circle-${cardUnit}`);
+            sampleCircle.classList.add('active');
         }
 
         function showMainNav() {
@@ -122,22 +130,19 @@ export function navigationHeaderMenu() {
             }
         }
 
-        function mouseenter() {
+        function takeElDataset() {
             let cardUnit = el.dataset.menuNav;
-            let sampleCircle = document.querySelector(
-                `.sample-circle-${cardUnit}`
-            );
+            sampleCircle = document.querySelector(`.sample-circle-${cardUnit}`);
+        }
 
-            sampleCircle.classList.add('active');
+        function mouseenter() {
+            takeElDataset();
+            sampleCircle.classList.add('hover');
         }
 
         function mouseleave() {
-            let cardUnit = el.dataset.menuNav;
-            let sampleCircle = document.querySelector(
-                `.sample-circle-${cardUnit}`
-            );
-
-            sampleCircle.classList.remove('active');
+            takeElDataset();
+            sampleCircle.classList.remove('hover');
         }
 
         el.addEventListener('pointerdown', removeClassActive);
@@ -150,13 +155,5 @@ export function navigationHeaderMenu() {
             el.addEventListener('mouseenter', mouseenter);
             el.addEventListener('mouseleave', mouseleave);
         }
-
-        // const headerNavButtons = document.querySelectorAll(
-        //     '.header-nav--button'
-        // );
-        // headerNavButtons.forEach((el) => {
-        //     // el.addEventListener('mouseenter', mouseenter);
-        //     // el.addEventListener('mouseleave', addClassHover);
-        // });
     });
 }

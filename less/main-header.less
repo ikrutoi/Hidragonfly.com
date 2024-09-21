@@ -64,12 +64,28 @@
     width: 10px;
     height: 10px;
     border-radius: 8px;
-    border: solid 1px grey;
-    background-color: @color-basis-hover;
+    // border: solid 1px grey;
+    background-color: @color-basis-white;
 }
 
 .sample-circle.active {
     border-color: @color-basis;
+    background-color: @color-basis-gradient-top;
+}
+
+.sample-circle.selected {
+    // border-color: @color-basis;
+    background-color: @color-basis;
+}
+
+.sample-circle.hover {
+    background-color: @color-basis-gradient-top;
+    // border-color: @color-basis;
+}
+
+.sample-circle.hover.selected {
+    background-color: @color-basis;
+    // border-color: @color-basis;
 }
 
 // main-nav

@@ -29,13 +29,11 @@ export function createNavList(i, toTag, toBlock, codeName, titleName, unit) {
             `<li class="${toBlock}-nav--button ${toBlock}-nav--${unit}--button ${toBlock}-nav--button-${codeName}" data-menu-nav="${codeName}"><label class="cardphoto-${codeName}-label" for="cardphoto-input-${codeName}"></label></li>`
         );
 
-        const mainNavButton = document.querySelector(
-            `.${toBlock}-nav--button-${codeName}`
-        );
+        const mainNavButton = document.querySelector(`.${toBlock}-nav--button`);
 
         newElemHTML(
             mainNavButton,
-            'beforeend',
+            'afterbegin',
             `<input id="cardphoto-input-${codeName}" class="cardphoto-input cardphoto-input-${codeName}" type="file" accept="image/*"/>`
         );
 

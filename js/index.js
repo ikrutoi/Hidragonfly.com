@@ -7,7 +7,7 @@ import { validationValueSessionStorage } from './envelope-valid-ses-stor.js';
 
 // const buttonMenuNav = document.querySelectorAll('.header-nav--button');
 
-// console.log('***********', buttonMenuNav)
+console.log('***********');
 createHeaderNav();
 
 addStartImage();

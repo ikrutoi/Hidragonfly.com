@@ -10,6 +10,7 @@ import {
     imageStartWidth,
     imageStartHeight,
 } from './cardphoto-add-start-image.js';
+import { resolve } from 'path';
 
 const main = document.querySelector('.main');
 const mainBlock = document.querySelector('.main-block');
@@ -1886,6 +1887,45 @@ export function changeCardphoto(elem) {
 
         canvas.classList.add('deactivation');
 
+        // canvas.toBlob(function (blob) {
+        //     let link = document.createElement('a');
+        //     link.download = 'example.png';
+
+        //     link.href = URL.createObjectURL(blob);
+
+        //     console.log(link.href);
+        //     link.click();
+
+        //     // fetch('http://127.0.0.1:5000', {
+        //     //     method: 'POST',
+        //     //     body: blob,
+        //     // });
+
+        //     URL.revokeObjectURL(link.href);
+        // }, 'image/png');
+
+        async function submit() {
+            let imageBlob = await new Promise((resolve) =>
+                canvas.toBlob(resolve, 'image/png')
+            );
+
+            let formData = new FormData();
+            formData.append('userName', 'Ihar');
+            formData.append('image', imageBlob, 'image.png');
+
+            // canvas.toBlob(function (blob) {
+            let responce = await fetch('http://127.0.0.1:5000', {
+                method: 'POST',
+                body: formData,
+            });
+
+            let result = await responce.json();
+            console.log(result.message);
+            // }, 'image/png');
+        }
+
+        submit();
+
         // async function submit() {
         //     let blob = await new Promise((resolve) =>
         //         canvas.toBlob(resolve, 'image/png')
@@ -1905,20 +1945,20 @@ export function changeCardphoto(elem) {
         // const imageAddTemporary = document.createElement('img');
         // imageAddTemporary.src = dataUrl;
         // function submitButtonCut() {
-        canvas.toBlob(
-            (blob) => {
-                fetch('http://127.0.0.1:5000', {
-                    method: 'POST',
-                    body: blob,
-                });
-                // .then((res) => res.json())
-                // .then((result) =>
-                //     console.log(JSON.stringify(result, null, 2))
-                // );
-            },
-            'image/png',
-            1.0
-        );
+        // canvas.toBlob(
+        //     (blob) => {
+        //         fetch('http://127.0.0.1:5000', {
+        //             method: 'POST',
+        //             body: blob,
+        //         });
+        //         // .then((res) => res.json())
+        //         // .then((result) =>
+        //         //     console.log(JSON.stringify(result, null, 2))
+        //         // );
+        //     },
+        //     'image/png',
+        //     1.0
+        // );
         // }
 
         // const inputCut = document.querySelector('.cardphoto-input-cut');

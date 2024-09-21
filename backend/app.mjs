@@ -21,19 +21,18 @@ app.use(cors());
 // }
 
 app.use((req, res) => {
-    console.log('1', userData);
     let section = req.body.section;
 
     if (req.headers['content-type'] === 'image/png') {
-        // userData['image'] = req.body.data;
-        console.log('**', req.headers);
+        console.log('blob-->', req.body);
     } else {
+        console.log('-->', req.body);
         userData[section] = req.body.data;
     }
 
     // writeUserData();
     // userData.aroma = req.body;
-    console.log('2', userData);
+    console.log('userData: ', userData);
     return res.send('This is express server!');
 });
 

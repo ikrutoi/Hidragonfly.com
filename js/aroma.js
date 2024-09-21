@@ -71,10 +71,16 @@ export function createAroma() {
         );
         mainNavMenuAromaLogo.classList.add('active');
 
-        const headerNavMenuAromaLogo = document.querySelector(
-            '.header-nav--aroma--button-logo'
+        // const headerNavMenuAromaLogo = document.querySelector(
+        //     '.header-nav--aroma--button-logo'
+        // );
+        // headerNavMenuAromaLogo.classList.add('active');
+
+        const sampleCircleAroma = document.querySelector(
+            '.sample-circle-aroma'
         );
-        headerNavMenuAromaLogo.classList.add('active');
+
+        sampleCircleAroma.classList.add('selected');
 
         const mainNavButtonAromaText = document.querySelector(
             '.main-nav--aroma--button-text'
