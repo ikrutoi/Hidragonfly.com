@@ -104,6 +104,9 @@ export function createAroma() {
     }
 
     aromaButton.forEach((el) => {
+        el.addEventListener('pointerdown', (ev) => {
+            ev.preventDefault();
+        });
         el.addEventListener('pointerdown', changeAroma);
     });
 }

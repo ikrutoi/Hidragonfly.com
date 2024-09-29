@@ -1,0 +1,18 @@
+{
+    "user-id-": {
+        "user-id-card-number-": {
+            "image": "",
+            "text": "",
+            "envelope": {
+                "my-adress": "",
+                "to-adress": ""
+            },
+            "aroma": "",
+            "date": {
+                "year": "",
+                "month": "",
+                "day": ""
+            }
+        }
+    }
+}

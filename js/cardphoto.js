@@ -10,7 +10,7 @@ import {
     imageStartWidth,
     imageStartHeight,
 } from './cardphoto-add-start-image.js';
-import { resolve } from 'path';
+// import { resolve } from 'path';
 
 const main = document.querySelector('.main');
 const mainBlock = document.querySelector('.main-block');
@@ -1910,16 +1910,16 @@ export function changeCardphoto(elem) {
             );
 
             let formData = new FormData();
-            formData.append('userName', 'Ihar');
+            formData.append('section', 'image');
             formData.append('image', imageBlob, 'image.png');
 
             // canvas.toBlob(function (blob) {
-            let responce = await fetch('http://127.0.0.1:5000', {
+            let response = await fetch('http://127.0.0.1:5000', {
                 method: 'POST',
                 body: formData,
             });
 
-            let result = await responce.json();
+            let result = await response.json();
             console.log(result.message);
             // }, 'image/png');
         }
